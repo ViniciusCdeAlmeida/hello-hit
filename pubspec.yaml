@@ -23,23 +23,23 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  mobx: 
-  mobx_codegen: 
-  flutter_mobx: 
+    
+  cupertino_icons: any
+  mobx: ^1.2.1+2
+  flutter_mobx: ^1.1.0+2
   path_provider: 
   path: 
   json_annotation: 
   provider: 
   intl: 
   http: 
-  cupertino_icons: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   
-  build_runner: 
+  build_runner: ^1.10.1
+  mobx_codegen: ^1.1.0+1
   mockito: 
   json_serializable: 
   dartdoc:   

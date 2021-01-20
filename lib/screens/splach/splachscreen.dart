@@ -13,7 +13,7 @@ class Splach_Screen extends StatelessWidget {
       body: PageView(
         children: [
           Container(
-            color: temaPadrao.primaryColor,
+            color: Color(0xffE0651F),
             padding: EdgeInsets.all(16),
             child: Center(
               child: SingleChildScrollView(
