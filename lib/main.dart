@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
+import 'package:hellohit/screens/intro_screen/intro_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
           toggleableActiveColor: const Color(0xFF2247C7),
           errorColor: const Color(0xFF7A1C02),
         ),
-        home: MarketPlaceScreen(),
+        home: IntroScreen(),
         routes: rotas(),
       ),
     );

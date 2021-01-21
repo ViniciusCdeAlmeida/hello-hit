@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/main.dart';
-import 'package:hellohit/screens/intro/introscreen01.dart';
-import 'package:hellohit/screens/intro/introscreen02.dart';
-import 'package:hellohit/screens/intro/introscreen03.dart';
-import 'package:hellohit/screens/intro/introscreen04.dart';
-import 'package:hellohit/screens/intro/introscreen05.dart';
 
 class Splach_Screen extends StatelessWidget {
   @override
@@ -13,7 +7,7 @@ class Splach_Screen extends StatelessWidget {
       body: PageView(
         children: [
           Container(
-            color: Color(0xffE0651F),
+            color: Color(0xffF26525),
             padding: EdgeInsets.all(16),
             child: Center(
               child: SingleChildScrollView(
@@ -23,9 +17,9 @@ class Splach_Screen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(bottom: 32),
                       child: Image.asset(
-                        "assets/logo_hello.png",
-                        width: 200,
-                        height: 150,
+                        "assets/images/logos/Logo_hellohit_white.png",
+                        width: 400,
+                        height: 350,
                       ),
                     ),
                   ],
@@ -33,11 +27,6 @@ class Splach_Screen extends StatelessWidget {
               ),
             ),
           ),
-          IntroScreen01(),
-          IntroScreen02(),
-          IntroScreen03(),
-          IntroScreen04(),
-          IntroScreen05(),
         ],
       ),
     );
