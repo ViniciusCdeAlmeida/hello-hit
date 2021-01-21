@@ -12,8 +12,12 @@ class Usuario {
   List<String> skills;
   String localizacao;
   String imagem;
+  String categoria;
+  String mensagem;
   List<Post> posts;
   List<Usuario> idUsuario;
+  bool premium;
+  bool time;
 
   Usuario({
     this.id,
@@ -25,6 +29,10 @@ class Usuario {
     this.localizacao,
     this.posts,
     this.idUsuario,
+    this.premium,
+    this.time,
+    this.categoria,
+    this.mensagem,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

@@ -23,6 +23,10 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    premium: json['premium'] as bool,
+    time: json['time'] as bool,
+    categoria: json['categoria'] as String,
+    mensagem: json['mensagem'] as String,
   );
 }
 
@@ -34,6 +38,10 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'skills': instance.skills,
       'localizacao': instance.localizacao,
       'imagem': instance.imagem,
+      'categoria': instance.categoria,
+      'mensagem': instance.mensagem,
       'posts': instance.posts,
       'idUsuario': instance.idUsuario,
+      'premium': instance.premium,
+      'time': instance.time,
     };
