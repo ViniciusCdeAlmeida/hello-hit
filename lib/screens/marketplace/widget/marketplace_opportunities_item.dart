@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
 
 class MarketplaceOpportunitiesItem extends StatelessWidget {
-  final Carreira carreira;
+  final Oportunidade carreira;
   MarketplaceOpportunitiesItem(this.carreira);
 
   @override

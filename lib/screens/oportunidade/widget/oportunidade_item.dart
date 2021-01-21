@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_middle_section.dart';
 
 class OportunidadeItem extends StatelessWidget {
-  final Carreira carreira;
+  final Oportunidade carreira;
 
   OportunidadeItem(this.carreira);
   @override

@@ -1,4 +1,4 @@
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -24,29 +24,30 @@ abstract class _MarketplaceStore with Store {
   final int perPage = 4;
 
   @observable
-  ObservableList<Carreira> _carreiraObservable = ObservableList<Carreira>();
+  ObservableList<Oportunidade> _carreiraObservable =
+      ObservableList<Oportunidade>();
 
   @observable
-  ObservableList<Carreira> _carreiraItens = ObservableList<Carreira>();
+  ObservableList<Oportunidade> _carreiraItens = ObservableList<Oportunidade>();
 
   @observable
-  ObservableFuture<List<Carreira>> _carreiraFuture;
+  ObservableFuture<List<Oportunidade>> _carreiraFuture;
 
   @observable
-  Carreira _carreiraOportunidade;
+  Oportunidade _carreiraOportunidade;
 
   @computed
-  List<Carreira> get carreiras {
+  List<Oportunidade> get carreiras {
     return [..._carreiraItens];
   }
 
   @computed
-  List<Carreira> get carreirasOriginal {
+  List<Oportunidade> get carreirasOriginal {
     return [..._carreiraObservable];
   }
 
   @computed
-  Carreira get carreira {
+  Oportunidade get carreira {
     return _carreiraOportunidade;
   }
 

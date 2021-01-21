@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 
 class MarketplaceViewallItem extends StatelessWidget {
-  final Carreira carreira;
+  final Oportunidade carreira;
   MarketplaceViewallItem(this.carreira);
 
   @override

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'carreira_model.dart';
+part of 'oportunidade_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Carreira _$CarreiraFromJson(Map<String, dynamic> json) {
-  return Carreira(
+Oportunidade _$OportunidadeFromJson(Map<String, dynamic> json) {
+  return Oportunidade(
     id: json['id'] as int,
     nomeOrganizacao: json['nomeOrganizacao'] as String,
     imagem: json['imagem'] as String,
@@ -21,7 +21,8 @@ Carreira _$CarreiraFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$CarreiraToJson(Carreira instance) => <String, dynamic>{
+Map<String, dynamic> _$OportunidadeToJson(Oportunidade instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'nomeOrganizacao': instance.nomeOrganizacao,
       'imagem': instance.imagem,

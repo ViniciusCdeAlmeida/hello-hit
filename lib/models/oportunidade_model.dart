@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'carreira_model.g.dart';
+part 'oportunidade_model.g.dart';
 
 @JsonSerializable()
-class Carreira {
+class Oportunidade {
   final int id;
   final String nomeOrganizacao;
   final String imagem;
@@ -13,7 +13,7 @@ class Carreira {
   final DateTime duracaoOportunidade;
   final String video;
 
-  Carreira({
+  Oportunidade({
     this.id,
     this.nomeOrganizacao,
     this.imagem,
@@ -24,8 +24,8 @@ class Carreira {
     this.banner,
   });
 
-  factory Carreira.fromJson(Map<String, dynamic> json) =>
-      _$CarreiraFromJson(json);
+  factory Oportunidade.fromJson(Map<String, dynamic> json) =>
+      _$OportunidadeFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CarreiraToJson(this);
+  Map<String, dynamic> toJson() => _$OportunidadeToJson(this);
 }
