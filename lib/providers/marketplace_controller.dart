@@ -8,7 +8,7 @@ class MarketPlaceController {
 
   Future<List<Oportunidade>> seed() async {
     ByteData data =
-        await rootBundle.load('assets/resources/marketplace_seed.json');
+        await rootBundle.load('assets/resources/oportunidade_seed.json');
     var json = jsonDecode(utf8.decode(data.buffer.asUint8List()));
     carreira = List<Oportunidade>.from(
       (json['objects'] as List).map(
