@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/cadastro/cadastroscreen01.dart';
+import 'package:hellohit/screens/esqueci_senha/esqueci_senhascreen.dart';
 import 'package:hellohit/screens/login/loginscreen.dart';
 import 'package:hellohit/screens/splach/splachscreen.dart';
 
@@ -10,7 +12,7 @@ void main() {
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: Colors.white,
     ),
-    home: LoginScreen(),
+    home: EsqueciSenhaScreen(),
     debugShowCheckedModeBanner: false,
   ));
 }
