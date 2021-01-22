@@ -9,13 +9,14 @@ class Usuario {
   String nome;
   int hits;
   int fans;
-  List<String> skills;
+  List skills;
   String localizacao;
   String imagem;
   String categoria;
   String mensagem;
   List<Post> posts;
-  List<Usuario> idUsuario;
+  List idUsuarios;
+  List<Usuario> usuarios;
   bool premium;
   bool time;
 
@@ -28,7 +29,8 @@ class Usuario {
     this.imagem,
     this.localizacao,
     this.posts,
-    this.idUsuario,
+    this.usuarios,
+    this.idUsuarios,
     this.premium,
     this.time,
     this.categoria,

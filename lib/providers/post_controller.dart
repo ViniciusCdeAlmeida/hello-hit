@@ -7,7 +7,7 @@ class PostController {
   List<Post> posts;
 
   Future<List<Post>> seed() async {
-    ByteData data = await rootBundle.load('assets/resources/usuario_seed.json');
+    ByteData data = await rootBundle.load('assets/resources/post_seed.json');
     var json = jsonDecode(utf8.decode(data.buffer.asUint8List()));
     posts = List<Post>.from(
       (json['objects'] as List).map(
@@ -17,6 +17,7 @@ class PostController {
           hits: item['hits'],
           idsComentario: item['idsComentario'],
           imagem: item['imagem'],
+          idUsuario: item['idUsuario'],
         ),
       ),
     );

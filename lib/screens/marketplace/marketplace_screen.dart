@@ -2,14 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
-import 'package:hellohit/screens/marketplace/widget/marketplace_recommended_item.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/marketplace_store.dart';
+import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_banner.dart';
-import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_middle_section.dart';
+import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
+import 'package:hellohit/screens/marketplace/widget/marketplace_recommended_item.dart';
 
 class MarketPlaceScreen extends StatefulWidget {
   @override

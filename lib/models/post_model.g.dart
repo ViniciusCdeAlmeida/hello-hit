@@ -14,9 +14,9 @@ Post _$PostFromJson(Map<String, dynamic> json) {
             e == null ? null : Comentario.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     hits: json['hits'] as int,
-    idsComentario:
-        (json['idsComentario'] as List)?.map((e) => e as int)?.toList(),
+    idsComentario: json['idsComentario'] as List,
     imagem: json['imagem'] as String,
+    idUsuario: json['idUsuario'] as int,
   );
 }
 
@@ -26,4 +26,5 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'hits': instance.hits,
       'idsComentario': instance.idsComentario,
       'imagem': instance.imagem,
+      'idUsuario': instance.idUsuario,
     };

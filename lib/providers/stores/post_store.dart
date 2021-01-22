@@ -54,4 +54,10 @@ abstract class _PostStore with Store {
       throw e;
     }
   }
+
+  List<Post> loadUserPosts(int id) {
+    return [
+      ..._postsObservable.where((element) => element.idUsuario == id).toList()
+    ];
+  }
 }
