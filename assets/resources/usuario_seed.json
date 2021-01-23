@@ -10,10 +10,9 @@
     "categoria": "Futebol",
     "descricao": "Dictumst vulputate porttitor orci iaculis vitae vehicula lectus placerat dolor congue, dolor dapibus platea dictumst velit platea lectus tortor quis taciti vulputate, dolor mollis torquent elementum dictum aliquam dictumst ad vitae. fames integer sem ipsum semper aliquet proin imperdiet semper tellus elementum odio, viverra suscipit tellus arcu vulputate potenti ullamcorper mattis sed porttitor luctus, ad id accumsan velit quam vestibulum per quisque placerat mollis. sagittis vulputate dictum sapien iaculis urna a hac porttitor, augue leo sem lorem enim lectus congue, justo inceptos est arcu sagittis mi risus. etiam fames aliquet enim fusce rhoncus vehicula metus, dui imperdiet consectetur augue rhoncus. ",
     "skills": ["Basquete", "Futebol", "Soccer", "Basquete", "Futebol", "Soccer"],
-    "premium": true,
-    "time": false,
-    "idUsuarios": [2, 3, 4, 5, 6],
-    "usuarios": null
+    "idUsuarios": [2,3,4,5,6],
+    "usuarios": null,
+    "tipoUsuario": "PRO"
   }, {
     "id": 2,
     "nome": "Nome 2",
@@ -24,9 +23,12 @@
     "banner": "https://vectorlogoseek.com/wp-content/uploads/2018/09/san-diego-padres-baseball-club-vector-logo.png",
     "categoria": "Baseball",
     "descricao": "Id porta faucibus etiam diam varius nec massa fermentum inceptos nunc urna interdum adipiscing nibh elit, vestibulum a viverra donec ipsum interdum taciti venenatis nec iaculis praesent sodales suspendisse donec. adipiscing enim eu etiam arcu interdum aliquam pharetra, torquent mauris gravida luctus tellus turpis mauris, posuere vitae semper scelerisque etiam semper. augue bibendum iaculis tortor gravida auctor blandit feugiat, pellentesque nam auctor nunc vulputate platea lobortis, quisque cras ut rutrum accumsan et. suscipit dictumst sagittis non curae sit sed quisque taciti augue, leo vehicula leo sodales congue rhoncus consequat dictumst velit mauris, non nec convallis donec condimentum nibh nostra est.",
-    "skills": ["Basquete", "Futebol", "Soccer"],
-    "premium": true,
-    "time": true
+    "skills": ["Basquete", "Futebol", "Soccer", "Basquete", "Futebol", "Soccer"],
+    "idUsuarios": [1, 3, 4],
+    "idOportunidades": [1, 3, 4],
+    "usuarios": null,
+    "oportunidades": null,
+    "tipoUsuario": "TEAM"
 
   }, {
     "id": 3,

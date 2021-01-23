@@ -24,10 +24,14 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
             e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     idUsuarios: json['idUsuarios'] as List,
-    premium: json['premium'] as bool,
-    time: json['time'] as bool,
+    idOportunidades: json['idOportunidades'] as List,
+    oportunidades: (json['oportunidades'] as List)
+        ?.map((e) =>
+            e == null ? null : Oportunidade.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     categoria: json['categoria'] as String,
     mensagem: json['mensagem'] as String,
+    tipoUsuario: json['tipoUsuario'] as String,
   );
 }
 
@@ -44,6 +48,7 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'posts': instance.posts,
       'idUsuarios': instance.idUsuarios,
       'usuarios': instance.usuarios,
-      'premium': instance.premium,
-      'time': instance.time,
+      'idOportunidades': instance.idOportunidades,
+      'oportunidades': instance.oportunidades,
+      'tipoUsuario': instance.tipoUsuario,
     };

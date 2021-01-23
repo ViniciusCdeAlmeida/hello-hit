@@ -23,9 +23,9 @@ class ProfileController {
           mensagem: item['mensagem'],
           nome: item['nome'],
           posts: item['posts'],
-          premium: item['premium'],
           skills: item['skills'],
-          time: item['time'],
+          idOportunidades: item['idOportunidades'],
+          oportunidades: item['oportunidades'],
         ),
       ),
     );

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:hellohit/providers/stores/profile_store.dart';
-import 'package:hellohit/screens/usuario/widget/usuario_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_time_item.dart';
 import 'package:provider/provider.dart';
 
-class UsuarioScreen extends StatefulWidget {
-  static const routeName = '/profileScreen';
+class ProfileTimeScreen extends StatefulWidget {
+  static const routeName = '/profileTimeScreen';
   @override
-  _UsuarioScreenState createState() => _UsuarioScreenState();
+  _ProfileTimeScreenState createState() => _ProfileTimeScreenState();
 }
 
-class _UsuarioScreenState extends State<UsuarioScreen> {
+class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
   ProfileStore _profileStore;
   int id;
   @override
   void didChangeDependencies() {
     _profileStore = Provider.of<ProfileStore>(context);
-    _profileStore.seed().whenComplete(() => _profileStore.loadProfile(1));
+    _profileStore.seed().whenComplete(() => _profileStore.loadProfile(2));
 
     super.didChangeDependencies();
   }
@@ -37,7 +38,7 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
               slivers: <Widget>[
                 SliverList(
                   delegate: SliverChildListDelegate([
-                    UsuarioItem(_profileStore.usuario),
+                    ProfileTimeItem(_profileStore.usuario),
                   ]),
                 ),
               ],

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/widgets/lista_icones.dart';
+import 'package:hellohit/widgets/post_card_item.dart';
 
-class UsuarioItem extends StatelessWidget {
+class ProfileUsuarioItem extends StatelessWidget {
   final Usuario usuario;
 
-  UsuarioItem(this.usuario);
+  ProfileUsuarioItem(this.usuario);
   @override
   Widget build(BuildContext context) {
-    Size deviceSize = MediaQuery.of(context).size;
+    MediaQueryData deviceSize = MediaQuery.of(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -26,7 +30,9 @@ class UsuarioItem extends StatelessWidget {
                 ),
               ),
               Positioned.fill(
-                right: deviceSize.width / 3.2,
+                right: deviceSize.orientation == Orientation.portrait
+                    ? deviceSize.size.width / 3.2
+                    : deviceSize.size.width / 2.6,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Container(
@@ -181,215 +187,6 @@ class UsuarioItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class UsuarioSkills extends StatelessWidget {
-  final String skill;
-
-  UsuarioSkills({
-    this.skill,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          border: Border.all(
-            width: 1,
-            color: Colors.grey[500],
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: Text(skill),
-        ),
-      ),
-    );
-  }
-}
-
-class UsuarioParente extends StatelessWidget {
-  final String imagem;
-
-  UsuarioParente({
-    this.imagem,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // decoration: BoxDecoration(
-      //   shape: BoxShape.rectangle,
-      //   border: Border.all(
-      //     width: 1,
-      //     color: Colors.grey[500],
-      //   ),
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(
-          const Radius.circular(3),
-        ),
-        child: Image.network(
-          imagem,
-          height: 10,
-          fit: BoxFit.fill,
-        ),
-      ),
-    );
-  }
-}
-
-class PostCard extends StatelessWidget {
-  const PostCard({
-    Key key,
-    @required this.post,
-  }) : super(key: key);
-
-  final Post post;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(10),
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 20.0,
-                      backgroundImage: NetworkImage(post.imagem),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Teste',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '10h atrás',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 10,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: Icon(Icons.more_horiz),
-                    onPressed: () {},
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: ClipRRect(
-              child: Image.network(
-                post.imagem,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: Colors.orange,
-                ),
-                Text('${post.hits} Hits'),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Icon(
-                    Icons.chat_bubble,
-                    color: Colors.orange,
-                  ),
-                ),
-                Text('${post.idsComentario.length} Comentários')
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class IconRow extends StatelessWidget {
-  const IconRow({
-    Key key,
-    this.texto,
-    this.icon,
-    this.height,
-    this.width,
-    this.titulo,
-  }) : super(key: key);
-
-  final String texto;
-  final String titulo;
-  final IconData icon;
-  final double height;
-  final double width;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(20),
-          width: width,
-          height: 50,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (texto != null) Text(texto),
-              Icon(
-                icon,
-                color: Colors.orange[900],
-              ),
-            ],
-          ),
-        ),
-        Text(titulo),
-      ],
     );
   }
 }

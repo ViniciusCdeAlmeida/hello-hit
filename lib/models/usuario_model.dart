@@ -1,3 +1,4 @@
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -17,8 +18,9 @@ class Usuario {
   List<Post> posts;
   List idUsuarios;
   List<Usuario> usuarios;
-  bool premium;
-  bool time;
+  List idOportunidades;
+  List<Oportunidade> oportunidades;
+  String tipoUsuario;
 
   Usuario({
     this.id,
@@ -31,10 +33,11 @@ class Usuario {
     this.posts,
     this.usuarios,
     this.idUsuarios,
-    this.premium,
-    this.time,
+    this.idOportunidades,
+    this.oportunidades,
     this.categoria,
     this.mensagem,
+    this.tipoUsuario,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

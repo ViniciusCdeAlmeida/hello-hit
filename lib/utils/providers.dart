@@ -29,6 +29,9 @@ List<SingleChildWidget> providers() => [
           PostStore(
             PostController(),
           ),
+          MarketplaceStore(
+            MarketPlaceController(),
+          ),
         ),
       ),
       Provider(

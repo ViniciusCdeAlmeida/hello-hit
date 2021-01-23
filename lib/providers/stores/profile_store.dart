@@ -1,11 +1,12 @@
 import 'package:hellohit/models/oportunidade_model.dart';
+import 'package:hellohit/providers/stores/marketplace_store.dart';
+import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
+import 'package:mobx/mobx.dart';
+
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/marketplace_controller.dart';
-import 'package:hellohit/providers/post_controller.dart';
 import 'package:hellohit/providers/profile_controller.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
-import 'package:mobx/mobx.dart';
 
 part 'profile_store.g.dart';
 
@@ -20,9 +21,11 @@ enum ProfileState {
 abstract class _ProfileStore with Store {
   final ProfileController _profileController;
   final PostStore _postStore;
+  final MarketplaceStore _marketplaceStore;
   _ProfileStore(
     this._profileController,
     this._postStore,
+    this._marketplaceStore,
   );
 
   @observable
@@ -112,6 +115,20 @@ abstract class _ProfileStore with Store {
             _profilesObservable.firstWhere((element) => element.id == id);
         _profileObservable.posts = postTemp;
         _profileObservable.usuarios = loadUsers(_profileObservable.idUsuarios);
+        _marketplaceStore.carreirasOriginal;
+        _profileObservable.oportunidades = [];
+        _marketplaceStore.seed().whenComplete(
+              () => _profileObservable.idOportunidades.forEach((id) {
+                List<Oportunidade> oportunidadeTemp = [];
+
+                oportunidadeTemp = _marketplaceStore.loadUserCarreiras();
+                _profileObservable.oportunidades.addAll(
+                  oportunidadeTemp
+                      .where((carreira) => carreira.id == id)
+                      .toList(),
+                );
+              }),
+            );
       });
     } catch (e) {
       throw e;

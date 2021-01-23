@@ -101,6 +101,10 @@ abstract class _MarketplaceStore with Store {
         _carreiraObservable.firstWhere((element) => element.id == id);
   }
 
+  List<Oportunidade> loadUserCarreiras() {
+    return [..._carreiraObservable];
+  }
+
   // @action
   // Future login(String usuario, String senha) async {
   //   logando = true;
