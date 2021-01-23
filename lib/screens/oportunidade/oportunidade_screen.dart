@@ -34,7 +34,7 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
               banner: _maketplaceStore.carreira.banner,
             ),
             SliverList(
-              delegate: new SliverChildListDelegate([
+              delegate: SliverChildListDelegate([
                 OportunidadeItem(_maketplaceStore.carreira),
               ]),
             ),

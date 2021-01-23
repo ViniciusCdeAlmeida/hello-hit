@@ -8,8 +8,9 @@ class Post {
   final int id;
   final List<Comentario> comentario;
   final int hits;
-  final List<int> idsComentario;
+  final List idsComentario;
   final String imagem;
+  final int idUsuario;
 
   Post({
     this.id,
@@ -17,6 +18,7 @@ class Post {
     this.hits,
     this.idsComentario,
     this.imagem,
+    this.idUsuario,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
