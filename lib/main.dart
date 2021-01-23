@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/profile/profile_time_screen.dart';
-import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
-import 'package:hellohit/screens/profile/widget/profile_time_item.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:provider/provider.dart';
 
+import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
 
@@ -23,8 +22,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.orange[700],
           toggleableActiveColor: const Color(0xFF2247C7),
           errorColor: const Color(0xFF7A1C02),
+          fontFamily: 'Lato',
         ),
-        home: ProfileTimeScreen(),
+        home: TelaExplicacaoProItem(),
         // home: ProfileUsuarioScreen(),
         routes: rotas(),
       ),
