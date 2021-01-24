@@ -247,7 +247,10 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                               4,
                             ),
                           ),
-                          side: BorderSide(width: 1, color: Colors.grey[300]),
+                          side: BorderSide(
+                            width: 1,
+                            color: Colors.grey[300],
+                          ),
                         ),
                         elevation: anual ? 0 : 3,
                         child: SizedBox(
@@ -571,7 +574,10 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                           child: Ink(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
-                                colors: [Color(0xff374ABE), Color(0xff64B6FF)],
+                                colors: [
+                                  Color(0xff374ABE),
+                                  Color(0xff64B6FF),
+                                ],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),

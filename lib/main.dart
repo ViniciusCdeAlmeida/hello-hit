@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_pro_item.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_time_item.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: TelaPagamentoProItem(),
+        home: TelaPagamentoTimeItem(),
         // home: ProfileUsuarioScreen(),
         routes: rotas(),
       ),
