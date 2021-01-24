@@ -517,20 +517,21 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                 child: RaisedButton(
                                   onPressed: () {},
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
                                   padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Color(0xff374ABE),
-                                            Color(0xff64B6FF)
-                                          ],
-                                          begin: Alignment.centerLeft,
-                                          end: Alignment.centerRight,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xff374ABE),
+                                          Color(0xff64B6FF)
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
                                     child: Container(
                                       constraints: BoxConstraints(
                                         maxWidth: 300.0,
