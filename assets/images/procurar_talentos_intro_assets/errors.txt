@@ -1,0 +1,2 @@
+[2018-09-21 10:59:57] layer "Deixe a fonte, a verificação, a correspondência, a divulgação, ": Expected end of input but "," found.
+[2018-09-21 10:59:57] layer "comprar_agora.ong": Unsupported extension: ong

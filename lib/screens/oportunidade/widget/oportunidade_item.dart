@@ -59,35 +59,39 @@ class OportunidadeItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        carreira.categoria,
-                        textAlign: TextAlign.justify,
+                      Column(
+                        children: [
+                          Text(
+                            carreira.categoria,
+                            textAlign: TextAlign.left,
+                          ),
+                          IconButton(
+                            iconSize: 80.0,
+                            icon: ImageIcon(
+                              AssetImage(
+                                  'assets/images/oportunidades_full_assets/icone_favoritar_desabilitade.png'),
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
-                      Text(
-                        carreira.categoria,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        iconSize: 80.0,
-                        icon: Icon(
-                          Icons.favorite,
-                          // size: 80.0,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        iconSize: 80.0,
-                        icon: Icon(
-                          Icons.star,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () {},
+                      Column(
+                        children: [
+                          Text(
+                            carreira.categoria,
+                            textAlign: TextAlign.left,
+                          ),
+                          IconButton(
+                            iconSize: 80.0,
+                            icon: ImageIcon(
+                              AssetImage(
+                                  'assets/images/oportunidades_full_assets/Hit_desabilitado.png'),
+                              color: Colors.grey,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -138,7 +142,7 @@ class OportunidadeItem extends StatelessWidget {
             height: 1.0,
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -146,13 +150,13 @@ class OportunidadeItem extends StatelessWidget {
                   onTap: () {},
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text('Condemend'),
-                      Icon(
-                        Icons.check,
-                        color: Colors.blue[300],
-                        size: 100,
+                      ImageIcon(
+                        AssetImage(
+                            'assets/images/oportunidades_full_assets/candidatar_se.png'),
+                        color: Colors.blue,
+                        size: 90,
                       ),
                     ],
                   ),
@@ -164,10 +168,11 @@ class OportunidadeItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text('I\'m not interesed'),
-                      Icon(
-                        Icons.cancel_outlined,
+                      ImageIcon(
+                        AssetImage(
+                            'assets/images/oportunidades_full_assets/nao_tenho_interese.png'),
                         color: Colors.red,
-                        size: 100,
+                        size: 90,
                       ),
                     ],
                   ),

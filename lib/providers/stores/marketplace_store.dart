@@ -104,21 +104,4 @@ abstract class _MarketplaceStore with Store {
   List<Oportunidade> loadUserCarreiras() {
     return [..._carreiraObservable];
   }
-
-  // @action
-  // Future login(String usuario, String senha) async {
-  //   logando = true;
-  //   try {
-  //     _loginFuture = ObservableFuture(
-  //       _autenticacao.login(
-  //         userName: usuario,
-  //         password: senha,
-  //         offline: _loginOffline,
-  //       ),
-  //     );
-  //     _usuarioLogado = await _loginFuture.whenComplete(() => logando = false);
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
 }

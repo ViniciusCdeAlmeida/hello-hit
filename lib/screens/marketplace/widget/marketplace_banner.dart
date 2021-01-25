@@ -12,8 +12,14 @@ class MarketplaceBanner extends StatelessWidget {
           top: 10.0,
           bottom: 10.0,
         ),
-        color: Colors.blue[800],
-        height: 150,
+        height: 200,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(
+                'assets/images/oportunidades_assets/box_encontrar_oportunidades.png'),
+          ),
+        ),
         width: deviceSize.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

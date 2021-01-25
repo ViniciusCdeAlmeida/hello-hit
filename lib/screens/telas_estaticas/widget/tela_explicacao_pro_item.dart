@@ -22,12 +22,18 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
               child: Container(
                 height: MediaQuery.of(context).size.height / 1.5,
                 width: MediaQuery.of(context).size.width / 1.1,
-                decoration: BoxDecoration(
+                foregroundDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/tela_pro_1.jpg'),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
+                // decoration: BoxDecoration(
+                //   image: DecorationImage(
+                //     image: AssetImage('assets/images/tela_pro_1.jpg'),
+                //     // fit: BoxFit.fitWidth,
+                //   ),
+                // ),
                 child: Column(
                   children: [
                     Column(
