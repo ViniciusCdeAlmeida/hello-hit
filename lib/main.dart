@@ -12,6 +12,8 @@ import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
 
+import 'escolha_categoria/escolha_categoria_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: OportunidadeCriacaoScreen(),
+        home: EsolhaCategoriaScreen(),
         // home: ProfileUsuarioScreen(),
         routes: rotas(),
       ),
