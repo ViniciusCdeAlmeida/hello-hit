@@ -22,7 +22,7 @@ class IconRow extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.all(20),
-          width: width,
+          width: width / 1.2,
           height: 50,
           decoration: BoxDecoration(
             boxShadow: [

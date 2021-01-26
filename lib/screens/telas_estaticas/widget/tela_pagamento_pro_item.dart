@@ -37,7 +37,6 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
       appBar: AppBar(
         title: Text('data'),
       ),
-      backgroundColor: Colors.grey,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -46,7 +45,6 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                 Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height / 8,
-                    width: MediaQuery.of(context).size.width / 1.1,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: <Color>[
@@ -60,8 +58,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                 ),
                 Center(
                   child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width / 1.1,
+                    height: MediaQuery.of(context).size.height * 1.4,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                     ),
@@ -504,9 +501,6 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                     onChanged: (value) {
                                       print(value);
                                     },
-                                    // decoration: const InputDecoration(
-                                    //   border: const OutlineInputBorder(),
-                                    // ),
                                   ),
                                 ),
                               ),

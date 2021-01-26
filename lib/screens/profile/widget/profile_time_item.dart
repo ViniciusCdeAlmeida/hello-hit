@@ -37,9 +37,10 @@ class ProfileTimeItem extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: EdgeInsets.only(
-                        top: deviceSize.orientation == Orientation.portrait
-                            ? deviceSize.size.height / 4.6
-                            : deviceSize.size.height / 1.2),
+                      top: deviceSize.orientation == Orientation.portrait
+                          ? deviceSize.size.height / 4.6
+                          : deviceSize.size.height / 1.2,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.orange[900],
@@ -91,6 +92,8 @@ class ProfileTimeItem extends StatelessWidget {
                             'TEAM',
                             style: TextStyle(
                               color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -169,7 +172,7 @@ class ProfileTimeItem extends StatelessWidget {
                         usuario.imagem,
                         height: deviceSize.orientation == Orientation.portrait
                             ? deviceSize.size.height / 10
-                            : deviceSize.size.height,
+                            : deviceSize.size.height / 3.5,
                         width: deviceSize.size.width / 5,
                         fit: BoxFit.fill,
                       ),

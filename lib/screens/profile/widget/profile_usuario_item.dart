@@ -37,7 +37,7 @@ class ProfileUsuarioItem extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Container(
                     height: 18,
-                    width: 41,
+                    width: 37,
                     decoration: BoxDecoration(
                       color: Colors.orange[900],
                       borderRadius: const BorderRadius.all(
@@ -56,6 +56,8 @@ class ProfileUsuarioItem extends StatelessWidget {
                           'PRO',
                           style: TextStyle(
                             color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],

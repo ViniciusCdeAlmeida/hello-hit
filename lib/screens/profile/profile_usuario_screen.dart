@@ -24,26 +24,35 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       // ignore: missing_return
-      body: Observer(builder: (_) {
-        switch (_profileStore.profilesState) {
-          case ProfileState.inicial:
-          case ProfileState.carregando:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          case ProfileState.carregado:
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    ProfileUsuarioItem(_profileStore.usuario),
-                  ]),
+      body: Observer(
+        // ignore: missing_return
+        builder: (_) {
+          switch (_profileStore.profilesState) {
+            case ProfileState.inicial:
+            case ProfileState.carregando:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case ProfileState.carregado:
+              return Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 1.03,
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          ProfileUsuarioItem(_profileStore.usuario),
+                        ]),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            );
-        }
-      }),
+              );
+          }
+        },
+      ),
     );
   }
 }

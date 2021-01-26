@@ -25,6 +25,7 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       // ignore: missing_return
       body: Observer(builder: (_) {
         switch (_profileStore.profilesState) {
@@ -34,14 +35,19 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
               child: CircularProgressIndicator(),
             );
           case ProfileState.carregado:
-            return CustomScrollView(
-              slivers: <Widget>[
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    ProfileTimeItem(_profileStore.usuario),
-                  ]),
+            return Center(
+              child: Container(
+                // width: MediaQuery.of(context).size.width / 1.07,
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        ProfileTimeItem(_profileStore.usuario),
+                      ]),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             );
         }
       }),

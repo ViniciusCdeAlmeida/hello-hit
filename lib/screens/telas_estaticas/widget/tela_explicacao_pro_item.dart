@@ -21,7 +21,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height / 1.5,
-                width: MediaQuery.of(context).size.width / 1.1,
+                // width: MediaQuery.of(context).size.width / 1.1,
                 foregroundDecoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/tela_pro_1.jpg'),

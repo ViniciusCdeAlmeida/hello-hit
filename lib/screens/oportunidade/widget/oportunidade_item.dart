@@ -151,12 +151,15 @@ class OportunidadeItem extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Condemend'),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text('Condemend'),
+                      ),
                       ImageIcon(
                         AssetImage(
                             'assets/images/oportunidades_full_assets/candidatar_se.png'),
                         color: Colors.blue,
-                        size: 90,
+                        size: 70,
                       ),
                     ],
                   ),
@@ -167,12 +170,15 @@ class OportunidadeItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('I\'m not interesed'),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Text('I\'m not interesed'),
+                      ),
                       ImageIcon(
                         AssetImage(
                             'assets/images/oportunidades_full_assets/nao_tenho_interese.png'),
                         color: Colors.red,
-                        size: 90,
+                        size: 70,
                       ),
                     ],
                   ),
