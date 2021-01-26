@@ -27,6 +27,7 @@ dependencies:
   cupertino_icons: any
   mobx: ^1.2.1+2
   flutter_mobx: ^1.1.0+2
+  flutter_spinkit: "^4.1.2"
   path_provider: 
   path: 
   json_annotation: 
