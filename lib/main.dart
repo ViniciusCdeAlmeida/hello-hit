@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,6 @@ import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_time_item
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
-
-import 'escolha_categoria/escolha_categoria_screen.dart';
 
 void main() {
   runApp(MyApp());
