@@ -15,13 +15,13 @@ mixin _$PostStore on _PostStore, Store {
   List<Post> get posts => (_$postsComputed ??=
           Computed<List<Post>>(() => super.posts, name: '_PostStore.posts'))
       .value;
-  Computed<PostState> _$marketplaceStateComputed;
+  Computed<PostState> _$postStateComputed;
 
   @override
-  PostState get marketplaceState => (_$marketplaceStateComputed ??=
-          Computed<PostState>(() => super.marketplaceState,
-              name: '_PostStore.marketplaceState'))
-      .value;
+  PostState get postState =>
+      (_$postStateComputed ??= Computed<PostState>(() => super.postState,
+              name: '_PostStore.postState'))
+          .value;
 
   final _$_postsObservableAtom = Atom(name: '_PostStore._postsObservable');
 
@@ -64,7 +64,7 @@ mixin _$PostStore on _PostStore, Store {
   String toString() {
     return '''
 posts: ${posts},
-marketplaceState: ${marketplaceState}
+postState: ${postState}
     ''';
   }
 }

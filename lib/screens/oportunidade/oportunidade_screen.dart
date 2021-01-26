@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/screens/oportunidade/widget/oportunidade_item.dart';
-import 'package:hellohit/widgets/customSliverAppBar.dart';
+import 'package:hellohit/widgets/custom_sliverAppBar.dart';
 import 'package:provider/provider.dart';
 
 class OportunidadeScreen extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
-import 'package:hellohit/widgets/post_card_item.dart';
+import 'package:hellohit/widgets/post_card.dart';
 
 class ProfileUsuarioItem extends StatelessWidget {
   final Usuario usuario;

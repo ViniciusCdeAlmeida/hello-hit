@@ -172,7 +172,10 @@ class PostCard extends StatelessWidget {
             padding: const EdgeInsets.only(left: 17.0, top: 8.0, bottom: 18.0),
             child: Row(
               children: [
-                Text('View all ${post.idsComentario.length} comments'),
+                InkWell(
+                  onTap: () {},
+                  child: Text('View all ${post.idsComentario.length} comments'),
+                ),
               ],
             ),
           ),

@@ -1,5 +1,4 @@
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/providers/marketplace_controller.dart';
 import 'package:hellohit/providers/post_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -30,7 +29,7 @@ abstract class _PostStore with Store {
 
   @computed
   // ignore: missing_return
-  PostState get marketplaceState {
+  PostState get postState {
     if ((_postFuture == null || _postFuture.status == FutureStatus.rejected)) {
       return PostState.inicial;
     }
