@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class EsolhaCategoriaScreen extends StatefulWidget {
+class EscolhaCategoriaScreen extends StatefulWidget {
   @override
-  _EsolhaCategoriaScreenState createState() => _EsolhaCategoriaScreenState();
+  _EscolhaCategoriaScreenState createState() => _EscolhaCategoriaScreenState();
 }
 
-class _EsolhaCategoriaScreenState extends State<EsolhaCategoriaScreen> {
+class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +23,12 @@ class _EsolhaCategoriaScreenState extends State<EsolhaCategoriaScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
+      body: Container(
+        padding: EdgeInsets.only(top: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text(
-              "Select below the categories you like best",
-            ),
+            const Text('Search and select the Skills you love'),
           ],
         ),
       ),

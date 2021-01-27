@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: EsolhaCategoriaScreen(),
+        home: EscolhaCategoriaScreen(),
         // home: ProfileUsuarioScreen(),
         routes: rotas(),
       ),

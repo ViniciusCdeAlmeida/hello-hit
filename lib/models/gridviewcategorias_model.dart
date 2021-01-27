@@ -4,74 +4,74 @@ class CategoriasList {
   final String imageUrl;
   final String nomeCategoria;
 
-  CategoriasList({
+  const CategoriasList({
     @required this.imageUrl,
     @required this.nomeCategoria,
   });
 }
 
-final categoriasList = [
-  CategoriasList(
+List<CategoriasList> categoriasList = const <CategoriasList>[
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Basketball',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Soccer',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Surf',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Rugby',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Plastic Arts',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Theater',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'American Football',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Bung Jumping',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Pop Music',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Orchestra',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Trail and Field',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'MMA',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'E-Sports',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Dance',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Samba',
   ),
-  CategoriasList(
+  const CategoriasList(
     imageUrl: '',
     nomeCategoria: 'Rock n` Roll',
   ),
