@@ -25,7 +25,6 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      // ignore: missing_return
       body: Observer(
         // ignore: missing_return
         builder: (_) {
