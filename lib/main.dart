@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hellohit/screens/camera_post/camera_post.dart';
 import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
+import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
+import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:provider/provider.dart';
 
