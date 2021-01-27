@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:async';
 
-import 'package:hellohit/screens/intro_screen/intro_screen.dart';
+import 'package:hellohit/screens/intro/intro_screen.dart';
 
 class Splach_Screen extends StatefulWidget {
   @override

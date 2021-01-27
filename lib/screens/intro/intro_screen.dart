@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/slide_model.dart';
-import 'package:hellohit/screens/intro_screen/widgets/slide_dots.dart';
-import 'package:hellohit/screens/intro_screen/widgets/slide_item.dart';
+import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
+import 'package:hellohit/screens/intro/widgets/slide_item.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
