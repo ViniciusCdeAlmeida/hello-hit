@@ -476,31 +476,87 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: 60,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: DropdownButtonFormField(
-                                    hint: Text('Year'),
-                                    items: t,
-                                    onChanged: (value) {
-                                      print(value);
-                                    },
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  padding: const EdgeInsets.only(left: 5.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.grey[500],
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                  ),
+                                  child: TextField(
+                                    maxLengthEnforced: true,
+                                    maxLength: 2,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      counterText: '',
+                                      hintText: 'Month',
+                                      contentPadding: const EdgeInsets.only(
+                                        top: 5,
+                                        left: 5,
+                                        bottom: 12,
+                                      ),
+                                      enabledBorder: InputBorder.none,
+                                      border: InputBorder.none,
+                                      focusedErrorBorder: InputBorder.none,
+                                    ),
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                      signed: false,
+                                      decimal: false,
+                                    ),
+                                    controller: null,
+                                    onEditingComplete: null,
+                                    onChanged: null,
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 4,
-                                height: 60,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: DropdownButtonFormField(
-                                    hint: Text('Month'),
-                                    items: t,
-                                    onChanged: (value) {
-                                      print(value);
-                                    },
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Container(
+                                  height: 40,
+                                  width: MediaQuery.of(context).size.width / 5,
+                                  padding: const EdgeInsets.only(left: 5.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: Colors.grey[500],
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(6),
+                                    ),
+                                  ),
+                                  child: TextField(
+                                    maxLengthEnforced: true,
+                                    maxLength: 4,
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      counterText: '',
+                                      hintText: 'Year',
+                                      contentPadding: const EdgeInsets.only(
+                                        top: 5,
+                                        left: 5,
+                                        bottom: 12,
+                                      ),
+                                      enabledBorder: InputBorder.none,
+                                      border: InputBorder.none,
+                                      focusedErrorBorder: InputBorder.none,
+                                    ),
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                      signed: false,
+                                      decimal: false,
+                                    ),
+                                    controller: null,
+                                    onEditingComplete: null,
+                                    onChanged: null,
                                   ),
                                 ),
                               ),

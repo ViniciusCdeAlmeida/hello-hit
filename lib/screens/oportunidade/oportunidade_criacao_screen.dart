@@ -147,7 +147,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                 ),
                 child: QuillEditor.basic(
                   controller: _controller,
-                  readOnly: false, // change to true to be view only mode
+                  readOnly: false,
                 ),
               ),
               Padding(
