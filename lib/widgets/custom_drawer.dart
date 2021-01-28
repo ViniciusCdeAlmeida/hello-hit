@@ -66,6 +66,20 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
+                Icons.chat,
+                color: Colors.blue[700],
+              ),
+              title: const Text(
+                'Chat',
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacementNamed('/');
+              },
+              // key: Key(Keys.homeDrawer),
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.bookmark_sharp,
                 color: Colors.blue[700],
               ),

@@ -155,15 +155,16 @@ class _ChatScreen extends State<ChatScreen> {
               image: AssetImage("assets/images/social.png"), fit: BoxFit.cover),
         ),*/
         child: SafeArea(
-            child: Container(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: <Widget>[
-              listView,
-              caixaMensagem,
-            ],
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: <Widget>[
+                listView,
+                caixaMensagem,
+              ],
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
