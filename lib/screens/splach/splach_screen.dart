@@ -13,7 +13,7 @@ class _Splach_ScreenState extends State<Splach_Screen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 15), () {
+    Timer(const Duration(seconds: 10), () {
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
 
-import 'package:hellohit/screens/postagem/postagem_screen.dart';
+import 'package:hellohit/screens/cards/cards_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
         ),
         // home: OportunidadeCriacaoScreen(),
-        home: PostagemScreen(),
+        home: CardsScreen(),
         routes: rotas(),
       ),
     );

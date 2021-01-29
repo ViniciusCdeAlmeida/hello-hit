@@ -103,7 +103,14 @@ class _IntroScreenState extends State<IntroScreen> {
                     padding: const EdgeInsets.all(15),
                     color: Color(0xffF26525),
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => IntroScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               )

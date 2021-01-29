@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/conversas/conversas_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   @visibleForTesting
@@ -73,8 +74,12 @@ class CustomDrawer extends StatelessWidget {
                 'Chat',
               ),
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed('/');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ConversasScreen(),
+                  ),
+                );
               },
               // key: Key(Keys.homeDrawer),
             ),
