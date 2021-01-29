@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_time_screen.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
+import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
@@ -11,7 +13,9 @@ import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
-import 'package:hellohit/screens/telas_estaticas/tela_explicacao_time_screen.dart';
+import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
+import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
+import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
 Map<String, Widget Function(BuildContext)> rotas() {
@@ -31,5 +35,9 @@ Map<String, Widget Function(BuildContext)> rotas() {
     OportunidadeCriacaoScreen.routeName: (ctx) => OportunidadeCriacaoScreen(),
     OportunidadePagamentoScreen.routeName: (ctx) =>
         OportunidadePagamentoScreen(),
+    EsqueciSenhaScreen.routeName: (ctx) => EsqueciSenhaScreen(),
+    CadastroScreen.routeName: (ctx) => CadastroScreen(),
+    TimeScreen.routeName: (ctx) => TimeScreen(),
+    TelaPagamentoTimeScreen.routeName: (ctx) => TelaPagamentoTimeScreen(),
   };
 }

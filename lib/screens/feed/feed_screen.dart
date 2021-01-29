@@ -6,6 +6,7 @@ import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
+import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/post_store.dart';
@@ -107,7 +108,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 Navigator.of(context).pushNamed(FeedScreen.routeName);
                 break;
               case 1:
-                // Navigator.of(context).pushNamed(FeedScreen.routeName);
+                Navigator.of(context).pushNamed(TimeScreen.routeName);
                 break;
               case 2:
                 // Navigator.of(context).pushNamed(FeedScreen.routeName);
@@ -121,10 +122,17 @@ class _FeedScreenState extends State<FeedScreen> {
             }
           },
         ),
-        backgroundColor: Colors.blue[100],
+        backgroundColor: Colors.grey[100],
         drawer: CustomDrawer(),
         appBar: AppBar(
-          title: Text('STORIES'),
+          // TODO COLOCAR O ICONE
+          title: Text(
+            'Hello Hit',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
           // leadingWidth: 70,
           automaticallyImplyLeading: false,
           leading: Builder(
@@ -142,13 +150,15 @@ class _FeedScreenState extends State<FeedScreen> {
             },
           ),
           elevation: 0,
-          backgroundColor: Colors.blue[100],
+          backgroundColor: Color(0xffF26525),
           bottom: TabBar(
             labelPadding: EdgeInsets.symmetric(horizontal: 13),
             isScrollable: true,
             indicator: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.orange,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              color: Colors.orange[700],
             ),
             tabs: [
               Tab(
@@ -157,6 +167,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -166,6 +177,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -175,6 +187,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -184,6 +197,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -193,6 +207,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
+                    color: Colors.white,
                   ),
                 ),
               ),

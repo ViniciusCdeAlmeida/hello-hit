@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
-class EsqueciSenhaScreen extends StatelessWidget {
+class EsqueciSenhaScreen extends StatefulWidget {
+  static const routeName = '/esqueciSenhaScreen';
+  @override
+  _EsqueciSenhaScreenState createState() => _EsqueciSenhaScreenState();
+}
+
+class _EsqueciSenhaScreenState extends State<EsqueciSenhaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +78,7 @@ class EsqueciSenhaScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32),
                         ),
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
                     ),
                   ],

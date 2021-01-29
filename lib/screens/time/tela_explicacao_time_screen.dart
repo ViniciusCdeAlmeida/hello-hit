@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 
 class TelaExplicacaoTimeScreen extends StatefulWidget {
   static const routeName = '/telaExplicacaoTimeScreen';
@@ -108,7 +109,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                   ListaRowTimePagamento(
                     height: 50,
                     width: 80,
-                    icon: Icons.storefront,
+                    icon: Icons.verified,
                     texto: 'Advanced Team Stats',
                   ),
                 ],
@@ -164,7 +165,10 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 30.0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -178,7 +182,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                       child: Text(
                         'Your team avatar appears next to the job listing',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -186,7 +190,10 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 30.0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -200,7 +207,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                       child: Text(
                         'Talents seeking jobs or Sponsorship can search for both jobs posted by teams and teams hiring.',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -208,7 +215,10 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 30.0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -222,7 +232,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                       child: Text(
                         'Job listings appear on your tema profile.',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -230,7 +240,10 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 30.0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -244,7 +257,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                       child: Text(
                         'Learn more abaout Hello Hit Jobs',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -252,7 +265,10 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                  left: 30.0,
+                ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -266,7 +282,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                       child: Text(
                         'Interested in hand picking talent for your sports, arts or brand team? Learn more about our hiring tools.',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -399,7 +415,8 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                         padding: const EdgeInsets.all(8.0),
                         width: 300.0,
                         child: RaisedButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(TelaPagamentoTimeScreen.routeName),
                           color: Colors.blue[400],
                           child: Text(
                             'Create a Team',
@@ -451,11 +468,11 @@ class ListaRowTimePagamento extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      height: 170,
+      height: 130,
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(10),
+            // margin: EdgeInsets.all(10),
             width: width / 1.2,
             height: height,
             decoration: BoxDecoration(
@@ -467,7 +484,7 @@ class ListaRowTimePagamento extends StatelessWidget {
                   offset: Offset(0, 3),
                 ),
               ],
-              color: Colors.white,
+              color: Colors.grey[200],
               shape: BoxShape.circle,
             ),
             child: Column(

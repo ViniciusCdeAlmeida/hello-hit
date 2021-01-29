@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
+import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 
 class AutenticacaoUsuarioScreen extends StatefulWidget {
@@ -135,7 +137,8 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(EsqueciSenhaScreen.routeName),
                   child: Text(
                     'Forgot my password?',
                     textAlign: TextAlign.center,
@@ -184,7 +187,8 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                               padding: const EdgeInsets.all(15),
                               color: Color(0xffF26525),
                               textColor: Colors.white,
-                              onPressed: () {},
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamed(CadastroScreen.routeName),
                             ),
                           ),
                         ],
