@@ -25,7 +25,6 @@ class _CadastroScreen01State extends State<CadastroScreen01> {
                   ),
                 ),
                 TextField(
-                  autofocus: true,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontSize: 20),
                   decoration: InputDecoration(

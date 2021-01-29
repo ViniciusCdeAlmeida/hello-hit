@@ -2,13 +2,38 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class TelaPagamentoTimeItem extends StatelessWidget {
+class TelaPagamentoTimeScreen extends StatefulWidget {
+  static const routeName = '/telaPagamentoTimeScreen';
+  @override
+  _TelaPagamentoTimeScreenState createState() =>
+      _TelaPagamentoTimeScreenState();
+}
+
+class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('data'),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                Color(0xFFF2A65A),
+                // Color(0xFF1976D2),
+                Color(0xFF772F1A),
+              ],
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -17,8 +42,7 @@ class TelaPagamentoTimeItem extends StatelessWidget {
               children: [
                 Center(
                   child: Container(
-                    height: deviceSize.height / 8,
-                    width: deviceSize.width / 1.3,
+                    height: deviceSize.height / 13,
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: <Color>[
@@ -32,8 +56,7 @@ class TelaPagamentoTimeItem extends StatelessWidget {
                 ),
                 Center(
                   child: Container(
-                    height: deviceSize.height / 1.4,
-                    width: deviceSize.width / 1.3,
+                    height: deviceSize.height / 1.25,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                     ),
@@ -45,7 +68,7 @@ class TelaPagamentoTimeItem extends StatelessWidget {
               padding: EdgeInsets.only(
                 left: deviceSize.width / 7,
                 right: deviceSize.width / 7,
-                top: 80.0,
+                top: 10.0,
               ),
               child: Center(
                 child: Card(

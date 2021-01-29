@@ -4,23 +4,26 @@ import 'dart:async';
 
 import 'package:hellohit/screens/intro/intro_screen.dart';
 
-class Splach_Screen extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
-  _Splach_ScreenState createState() => _Splach_ScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _Splach_ScreenState extends State<Splach_Screen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 10), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => IntroScreen(),
-        ),
-      );
-    });
+    Timer(
+      const Duration(seconds: 5),
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => IntroScreen(),
+          ),
+        );
+      },
+    );
   }
 
   @override

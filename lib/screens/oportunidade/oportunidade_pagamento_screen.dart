@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OportunidadePagamentoScreen extends StatefulWidget {
+  static const routeName = '/oportunidadePagamentoScreen';
   @override
   _OportunidadePagamentoScreenState createState() =>
       _OportunidadePagamentoScreenState();

@@ -24,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
     
-  cupertino_icons: any
   mobx: ^1.2.1+2
   flutter_mobx: ^1.1.0+2
   flutter_spinkit: "^4.1.2"
@@ -35,11 +34,15 @@ dependencies:
   intl: 
   http: 
   flutter_quill:
+<<<<<<< HEAD
   image_picker:
   flip_card: ^0.4.4
   brasil_fields: ^0.6.1 
   mask_text_input_formatter: ^1.2.1
   credit_card_type_detector: ^1.1.0
+=======
+  cupertino_icons: any
+>>>>>>> a29e141a0e92199de46d30aad5a701fdbe0676e4
 
 dev_dependencies:
   flutter_test:

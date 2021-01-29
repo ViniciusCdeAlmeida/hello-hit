@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
+import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class OportunidadeCriacaoScreen extends StatefulWidget {
+  static const routeName = '/oportunidadeCriacaoScreen';
   @override
   _OportunidadeCriacaoScreenState createState() =>
       _OportunidadeCriacaoScreenState();
@@ -685,7 +687,8 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                 child: Row(
                   children: [
                     RaisedButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(OportunidadePagamentoScreen.routeName),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),

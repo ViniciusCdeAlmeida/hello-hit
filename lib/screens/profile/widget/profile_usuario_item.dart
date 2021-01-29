@@ -80,20 +80,20 @@ class ProfileUsuarioItem extends StatelessWidget {
               ),
               IconRow(
                 icon: Icons.question_answer,
-                width: 30,
-                height: 30,
+                width: 38,
+                height: 38,
                 titulo: 'Inbox',
               ),
               IconRow(
                 icon: Icons.emoji_events,
-                width: 30,
-                height: 30,
+                width: 38,
+                height: 38,
                 titulo: 'Ranking',
               ),
               IconRow(
                 icon: Icons.person_add_alt_1,
-                width: 30,
-                height: 30,
+                width: 38,
+                height: 38,
                 titulo: 'Be Fan',
               ),
               IconRow(
