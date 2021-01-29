@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
+import 'package:hellohit/screens/telas_estaticas/tela_explicacao_time_screen.dart';
 
 class MarketplaceBanner extends StatelessWidget {
   final Size deviceSize;
@@ -47,7 +49,8 @@ class MarketplaceBanner extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               color: Theme.of(context).primaryColor,
-              onPressed: () {},
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(OportunidadeCriacaoScreen.routeName),
               // icon: Icon(Icons.),
               child: Text(
                 'POST A JOB - AS LOW AS 199/MO',

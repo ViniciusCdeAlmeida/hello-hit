@@ -12,6 +12,7 @@ import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_it
 import 'package:hellohit/screens/marketplace/widget/marketplace_recommended_item.dart';
 
 class MarketPlaceScreen extends StatefulWidget {
+  static const routeName = '/marketPlaceScreen';
   @override
   _MarketPlaceScreenState createState() => _MarketPlaceScreenState();
 }

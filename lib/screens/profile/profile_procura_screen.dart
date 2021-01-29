@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ProfileProcuraScreen extends StatefulWidget {
+  static const routeName = '/profileProcuraScreen';
   @override
   _ProfileProcuraScreenState createState() => _ProfileProcuraScreenState();
 }

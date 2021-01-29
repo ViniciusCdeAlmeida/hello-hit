@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/slide_model.dart';
+import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
 import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
 import 'package:hellohit/screens/intro/widgets/slide_item.dart';
 
@@ -103,7 +104,10 @@ class _IntroScreenState extends State<IntroScreen> {
                     padding: const EdgeInsets.all(15),
                     color: Color(0xffF26525),
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(EscolhaUsuarioScreen.routeName);
+                    },
                   ),
                 ],
               )

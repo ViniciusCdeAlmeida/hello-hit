@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
   @visibleForTesting
@@ -80,6 +82,17 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
+                Icons.work,
+                color: Colors.blue[700],
+              ),
+              title: const Text('My jobs & Teams'),
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(TimesOportunidadesScreen.routeName);
+              },
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.bookmark_sharp,
                 color: Colors.blue[700],
               ),
@@ -117,7 +130,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Your Cards'),
-              onTap: null,
+              onTap: () {},
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
@@ -126,7 +139,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Add Bank'),
-              onTap: null,
+              onTap: () {},
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
@@ -135,7 +148,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Help and support'),
-              onTap: null,
+              onTap: () {},
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
@@ -148,7 +161,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
               ),
               title: const Text('Turn Pro'),
-              onTap: null,
+              onTap: () {},
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
@@ -157,7 +170,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Battle Rounds'),
-              onTap: null,
+              onTap: () {},
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
@@ -166,7 +179,11 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Logout'),
-              onTap: null,
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushReplacementNamed(EscolhaUsuarioScreen.routeName);
+              },
             ),
           ],
         ),

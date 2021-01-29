@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TimesOportunidadesScreen extends StatefulWidget {
+  static const routeName = '/timesOportunidadesScreen';
   @override
   _TimesOportunidadesScreenState createState() =>
       _TimesOportunidadesScreenState();

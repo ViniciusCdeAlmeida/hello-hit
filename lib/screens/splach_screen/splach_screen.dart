@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Splach_Screen extends StatelessWidget {
+class SplachScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class TelaExplicacaoTimeItem extends StatefulWidget {
+class TelaExplicacaoTimeScreen extends StatefulWidget {
+  static const routeName = '/telaExplicacaoTimeScreen';
   @override
-  _TelaExplicacaoTimeItemState createState() => _TelaExplicacaoTimeItemState();
+  _TelaExplicacaoTimeScreenState createState() =>
+      _TelaExplicacaoTimeScreenState();
 }
 
-class _TelaExplicacaoTimeItemState extends State<TelaExplicacaoTimeItem> {
+class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
   List _valorTeams = [
     {"preco": "12", "quantidade": "3"},
     {"preco": "30", "quantidade": "10"},
