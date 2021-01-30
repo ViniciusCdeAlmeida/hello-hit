@@ -55,7 +55,7 @@ class _IntroScreenState extends State<IntroScreen> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(0),
           child: Column(
             children: [
               Expanded(
@@ -111,8 +111,9 @@ class _IntroScreenState extends State<IntroScreen> {
                           builder: (_) => IntroScreen(),
                         ),
                       );
-                      Navigator.of(context)
-                          .pushNamed(EscolhaUsuarioScreen.routeName);
+                      Navigator.of(context).pushNamed(
+                        EscolhaUsuarioScreen.routeName,
+                      );
                     },
                   ),
                 ],
