@@ -25,7 +25,17 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      //   leading: IconButton(
+      //     icon: Icon(
+      //       Icons.arrow_back,
+      //     ),
+      //     onPressed: () => Navigator.pop(context),
+      //   ),
+      // ),
+      // backgroundColor: Colors.grey[100],
       // ignore: missing_return
       body: Observer(builder: (_) {
         switch (_profileStore.profilesState) {
@@ -40,6 +50,20 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
                 // width: MediaQuery.of(context).size.width / 1.07,
                 child: CustomScrollView(
                   slivers: <Widget>[
+                    SliverAppBar(
+                      automaticallyImplyLeading: false,
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                      leading: IconButton(
+                        icon: Icon(
+                          Icons.arrow_back,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      floating: false,
+                      centerTitle: true,
+                      title: Text(_profileStore.usuario.nome),
+                    ),
                     SliverList(
                       delegate: SliverChildListDelegate([
                         ProfileTimeItem(_profileStore.usuario),

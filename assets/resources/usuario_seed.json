@@ -24,7 +24,7 @@
     "categoria": "Baseball",
     "descricao": "Id porta faucibus etiam diam varius nec massa fermentum inceptos nunc urna interdum adipiscing nibh elit, vestibulum a viverra donec ipsum interdum taciti venenatis nec iaculis praesent sodales suspendisse donec. adipiscing enim eu etiam arcu interdum aliquam pharetra, torquent mauris gravida luctus tellus turpis mauris, posuere vitae semper scelerisque etiam semper. augue bibendum iaculis tortor gravida auctor blandit feugiat, pellentesque nam auctor nunc vulputate platea lobortis, quisque cras ut rutrum accumsan et. suscipit dictumst sagittis non curae sit sed quisque taciti augue, leo vehicula leo sodales congue rhoncus consequat dictumst velit mauris, non nec convallis donec condimentum nibh nostra est.",
     "skills": ["Basquete", "Futebol", "Soccer", "Basquete", "Futebol", "Soccer"],
-    "idUsuarios": [1, 3, 4],
+    "idUsuarios": [1, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4, 1, 3, 4],
     "idOportunidades": [1, 3, 4],
     "usuarios": null,
     "oportunidades": null,

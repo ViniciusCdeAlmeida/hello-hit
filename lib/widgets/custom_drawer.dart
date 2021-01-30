@@ -15,6 +15,7 @@ class CustomDrawer extends StatelessWidget {
               height: 180,
               child: DrawerHeader(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [

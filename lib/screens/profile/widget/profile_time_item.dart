@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/screens/profile/widget/profile_custom_grid.dart';
+import 'package:hellohit/screens/profile/profile_membro_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
-import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:hellohit/widgets/post_card.dart';
 
 class ProfileTimeItem extends StatelessWidget {
   final Usuario usuario;
-
   ProfileTimeItem(this.usuario);
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
@@ -43,15 +42,23 @@ class ProfileTimeItem extends StatelessWidget {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.orange[900],
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
                         borderRadius: const BorderRadius.all(
                           Radius.circular(4),
                         ),
+                        border: Border.all(
+                          width: 3.0,
+                          color: Colors.grey[100],
+                        ),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(3),
-                        ),
                         child: Image.network(
                           usuario.imagem,
                           height: 120,
@@ -231,27 +238,42 @@ class ProfileTimeItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('TEAM MEMBERS'),
+                InkWell(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(ProfileMembroScreen.routeName),
+                  child: Text('See all ${usuario.usuarios.length} members'),
+                ),
               ],
             ),
           ),
-          GridView.custom(
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15,
-              childAspectRatio: (3.3 / 2),
+          if (usuario.usuarios.length > 0)
+            GridView.extent(
+              maxCrossAxisExtent: 50,
               mainAxisSpacing: 10,
-            ),
-            childrenDelegate: SliverChildListDelegate(
-              usuario.usuarios
-                  .map((usuario) => UsuarioParente(imagem: usuario.imagem))
+              crossAxisSpacing: 10,
+              // itemCount:
+              //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+              padding: const EdgeInsets.all(10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: usuario.usuarios
+                  .getRange(
+                      0,
+                      usuario.usuarios.length >= 1 &&
+                              usuario.usuarios.length <= 8
+                          ? usuario.usuarios.length
+                          : 14)
+                  .map(
+                    ((usuario) => CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(usuario.imagem),
+                        )),
+                  )
                   .toList(),
             ),
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -299,5 +321,12 @@ class ProfileTimeItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // ignore: missing_return
+  NetworkImage listaImagem(int count, List<Usuario> usuarios) {
+    for (var i = 0; i < count; i++) {
+      return NetworkImage(usuarios[count].imagem);
+    }
   }
 }
