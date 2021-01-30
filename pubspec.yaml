@@ -34,15 +34,12 @@ dependencies:
   intl: 
   http: 
   flutter_quill:
-<<<<<<< HEAD
   image_picker:
+  cupertino_icons: any
   flip_card: ^0.4.4
   brasil_fields: ^0.6.1 
   mask_text_input_formatter: ^1.2.1
   credit_card_type_detector: ^1.1.0
-=======
-  cupertino_icons: any
->>>>>>> a29e141a0e92199de46d30aad5a701fdbe0676e4
 
 dev_dependencies:
   flutter_test:

@@ -12,7 +12,9 @@ class _EsqueciSenhaScreenState extends State<EsqueciSenhaScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(color: Color(0xffE0651F)),
+        decoration: BoxDecoration(
+          color: Color(0xffE0651F),
+        ),
         child: Center(
           child: SingleChildScrollView(
             child: Column(

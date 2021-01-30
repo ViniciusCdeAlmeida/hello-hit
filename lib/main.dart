@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen01.dart';
+import 'package:hellohit/screens/cards/cards_screen.dart';
 import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
         ),
         // home: OportunidadePagamentoScreen(),
-        home: ProfileTimeScreen(),
+        home: ProfileUsuarioEdicaoScreen(),
         routes: rotas(),
       ),
     );

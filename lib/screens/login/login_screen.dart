@@ -8,7 +8,9 @@ class LoginScreen extends StatelessWidget {
         children: [
           Container(
             width: 650,
-            decoration: BoxDecoration(color: Color(0xffE0651F)),
+            decoration: BoxDecoration(
+              color: Color(0xffE0651F),
+            ),
             padding: EdgeInsets.all(16),
             child: Center(
               child: SingleChildScrollView(
