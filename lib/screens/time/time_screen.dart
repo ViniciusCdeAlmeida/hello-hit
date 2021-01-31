@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
-import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
+import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 
 class TimeScreen extends StatefulWidget {
   static const routeName = '/timeScreen';

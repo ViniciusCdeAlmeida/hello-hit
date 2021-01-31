@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/conversas/conversas_screen.dart';
 import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -64,7 +65,8 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed('/');
+                Navigator.of(context)
+                    .pushNamed(ProfileUsuarioEdicaoScreen.routeName);
               },
               // key: Key(Keys.homeDrawer),
             ),

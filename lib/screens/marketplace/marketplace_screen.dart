@@ -36,8 +36,10 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
           'Talents Opportunites',
           style: const TextStyle(
             fontSize: 15,
+            color: Colors.white,
           ),
         ),
+        centerTitle: true,
       ),
       body: ListView(
         shrinkWrap: true,

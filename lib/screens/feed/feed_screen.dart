@@ -76,12 +76,6 @@ class _FeedScreenState extends State<FeedScreen> {
                         'assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
                   ),
                 ),
-                // child: ImageIcon(
-                //   AssetImage(
-                //       'assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
-                // color: Color(0xffF26525),
-                //   size: 50,
-                // ),
               ),
               label: '',
             ),

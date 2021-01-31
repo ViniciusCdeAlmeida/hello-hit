@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_talento_screen.dart';
 
 class ProfileProcuraScreen extends StatefulWidget {
   static const routeName = '/profileProcuraScreen';
@@ -712,7 +713,9 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 15.0),
                                     child: RaisedButton(
-                                      onPressed: () {},
+                                      onPressed: () => Navigator.of(context)
+                                          .pushNamed(TelaExplicacaoTalentoScreen
+                                              .routeName),
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(15.0),
