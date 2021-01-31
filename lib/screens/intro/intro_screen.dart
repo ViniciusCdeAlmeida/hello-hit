@@ -5,6 +5,7 @@ import 'package:hellohit/models/slide_model.dart';
 import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
 import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
 import 'package:hellohit/screens/intro/widgets/slide_item.dart';
+import 'package:hellohit/screens/login/login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -51,11 +52,12 @@ class _IntroScreenState extends State<IntroScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
+            fit: BoxFit.cover,
             image: AssetImage('assets/images/introscreens/Background.jpg'),
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.only(bottom: 70),
           child: Column(
             children: [
               Expanded(
@@ -72,7 +74,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     Stack(
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(bottom: 35),
+                          margin: const EdgeInsets.only(bottom: 5),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -91,33 +93,28 @@ class _IntroScreenState extends State<IntroScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  FlatButton(
-                    child: const Text('Skip intro'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32),
-                    ),
-                    padding: const EdgeInsets.all(15),
-                    color: Color(0xffF26525),
-                    textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => IntroScreen(),
-                        ),
-                      );
-                      Navigator.of(context).pushNamed(
-                        EscolhaUsuarioScreen.routeName,
-                      );
-                    },
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: RaisedButton(
+                  child: const Text('Skip intro'),
+                  textColor: Colors.white,
+                  padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EscolhaUsuarioScreen(),
+                      ),
+                    );
+                  },
+                  color: Color(0xffE0651F),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32),
                   ),
-                ],
-              )
+                ),
+              ),
             ],
           ),
         ),
