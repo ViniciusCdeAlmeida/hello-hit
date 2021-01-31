@@ -15,15 +15,15 @@ class Slide {
 final slideList = [
   Slide(
     imageUrl: 'assets/images/introscreens/Fig_Medalha.png',
-    title: 'Know the best talents of the World.',
+    title: 'Know the best \n talents of the World.',
     description:
-        'Create your profile and generate trends to rank with the best in the world.',
+        'Create your profile and generate trends \n to rank with the best in the world.',
   ),
   Slide(
     imageUrl: 'assets/images/introscreens/fig_cloud.png',
     title: 'Create Funded Projects.',
     description:
-        'Create projects using crowdfunding and make a big impact on your career or get your dream off the ground.',
+        'Create projects using crowdfunding and \n make a big impact on your career or get \n your dream off the ground.',
   ),
   Slide(
     imageUrl: 'assets/images/introscreens/Fig_Mundo.png',
@@ -35,7 +35,7 @@ final slideList = [
     imageUrl: 'assets/images/introscreens/Fig_World-live.png',
     title: 'Be sponsored by the big brands & companies all over the globe.',
     description:
-        'HelloHit has open to many brands the oportunity to invest in talents such as: Soccer players. Singers. Track&Field athletes. Dancers and many more.',
+        'HelloHit has open to many brands \n the oportunity to invest in talents such as: Soccer players. Singers. Track&Field athletes. Dancers and many more.',
   ),
   Slide(
     imageUrl: 'assets/images/introscreens/Fig_news.png',

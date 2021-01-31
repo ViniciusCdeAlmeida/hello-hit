@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/loginScreen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +12,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 1.5,
+                  height: MediaQuery.of(context).size.height / 1.2,
                   decoration: BoxDecoration(
                     color: Colors.orange[700],
                   ),
@@ -74,6 +75,19 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
+                                height: 15,
+                              ),
+                              RaisedButton(
+                                child: const Text('LOGIN'),
+                                padding: EdgeInsets.fromLTRB(75, 10, 75, 10),
+                                textColor: Colors.orange[700],
+                                onPressed: () {},
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                              ),
+                              SizedBox(
                                 height: 20,
                               ),
                               Text(
@@ -88,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 35,
+                  height: 13,
                 ),
                 Text(
                   'NOT A MEMBER YET?',
@@ -97,7 +111,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Container(
                   width: 200,
@@ -105,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                     child: const Text('REGISTER'),
                     textColor: Colors.white,
                     onPressed: () {},
-                    color: Color(0xffE0651F),
+                    color: Colors.orange[700],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),
                     ),

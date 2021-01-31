@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_time_screen.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
+import 'package:hellohit/screens/login/login_screen.dart';
 
 class EscolhaUsuarioScreen extends StatefulWidget {
   static const routeName = '/escolhaUsuarioScreen';
@@ -85,8 +86,8 @@ class _EscolhaUsuarioScreenState extends State<EscolhaUsuarioScreen> {
                     padding: const EdgeInsets.all(15),
                     color: Color(0xffF26525),
                     textColor: Colors.white,
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(AutenticacaoUsuarioScreen.routeName),
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(LoginScreen.routeName),
                   ),
                 ),
               ],
