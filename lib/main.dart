@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
 
-import 'package:hellohit/screens/postagem/postagem_screen.dart';
+import 'package:hellohit/screens/camera_post/camera_post.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: PostagemScreen(),
+        home: CameraPostScreen(),
         routes: rotas(),
       ),
     );
