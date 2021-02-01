@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/convesa_model.dart';
+import 'package:hellohit/screens/conversas/widgets/contatos_favoritos.dart';
+import 'package:hellohit/screens/conversas/widgets/conversas_recentes.dart';
 
 class ConversasScreen extends StatefulWidget {
   @override
@@ -7,41 +8,59 @@ class ConversasScreen extends StatefulWidget {
 }
 
 class _ConversasScreenState extends State<ConversasScreen> {
-  List<Conversa> listaConversas = [
-    Conversa("Ana Clara", "Olá tudo bem?",
-        "https://firebasestorage.googleapis.com/v0/b/whatsapp-36cd8.appspot.com/o/perfil%2Fperfil1.jpg?alt=media&token=97a6dbed-2ede-4d14-909f-9fe95df60e30"),
-    Conversa("Pedro Silva", "Me manda o nome daquela série que falamos!",
-        "https://firebasestorage.googleapis.com/v0/b/whatsapp-36cd8.appspot.com/o/perfil%2Fperfil2.jpg?alt=media&token=659622c6-4a5d-451a-89b9-05712c64b526"),
-    Conversa("Marcela Almeida", "Vamos sair hoje?",
-        "https://firebasestorage.googleapis.com/v0/b/whatsapp-36cd8.appspot.com/o/perfil%2Fperfil3.jpg?alt=media&token=99ad2441-7b1a-4940-879c-c62ae4535a01"),
-    Conversa("José Renato", "Não vai acreditar no que tenho para te contar...",
-        "https://firebasestorage.googleapis.com/v0/b/whatsapp-36cd8.appspot.com/o/perfil%2Fperfil4.jpg?alt=media&token=ff26db77-6554-4072-a238-f06ba1af4e3d"),
-    Conversa("Jamilton Damasceno", "Curso novo!! depois dá uma olhada!!",
-        "https://firebasestorage.googleapis.com/v0/b/whatsapp-36cd8.appspot.com/o/perfil%2Fperfil5.jpg?alt=media&token=f6fd2892-f8bd-47bc-b3fc-f0ba0a48fac5"),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: listaConversas.length,
-      itemBuilder: (context, indice) {
-        Conversa conversa = listaConversas[indice];
-
-        return ListTile(
-          contentPadding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-          leading: CircleAvatar(
-            maxRadius: 30,
-            backgroundColor: Colors.grey,
-            backgroundImage: NetworkImage(conversa.caminhoFoto),
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            iconSize: 20,
+            color: Colors.white,
+            onPressed: () {},
           ),
-          title: Text(
-            conversa.nome,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          title: const Text(
+            'Chat',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          subtitle: Text(conversa.mensagem,
-              style: TextStyle(color: Colors.grey, fontSize: 14)),
-        );
-      },
+          flexibleSpace: Image(
+            image: AssetImage('assets/images/1.jpg'),
+            fit: BoxFit.cover,
+          ),
+          backgroundColor: Colors.transparent,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.add),
+              iconSize: 20,
+              color: Colors.white,
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  ContatosFavoritos(),
+                  ConversasRecentes(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
