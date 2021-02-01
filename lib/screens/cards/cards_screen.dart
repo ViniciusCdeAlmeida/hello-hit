@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/cards/widgets/credit_card.dart';
-import 'package:hellohit/screens/login/login_screen.dart';
+import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 
 class CardsScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -41,7 +41,7 @@ class CardsScreen extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  LoginScreen(),
+                                                  AutenticacaoUsuarioScreen(),
                                             ),
                                           );
                                         },

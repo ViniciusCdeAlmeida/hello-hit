@@ -5,7 +5,6 @@ import 'package:hellohit/models/slide_model.dart';
 import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
 import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
 import 'package:hellohit/screens/intro/widgets/slide_item.dart';
-import 'package:hellohit/screens/login/login_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
