@@ -37,6 +37,7 @@ class CardBack extends StatelessWidget {
                         WhitelistingTextInputFormatter.digitsOnly,
                       ],
                       textAlign: TextAlign.end,
+                      textInputType: TextInputType.number,
                     ),
                   ),
                 ),
