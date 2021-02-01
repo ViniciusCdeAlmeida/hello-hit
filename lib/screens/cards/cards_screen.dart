@@ -98,19 +98,6 @@ class CardsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 379),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Meus Cartões',
-                              style: TextStyle(
-                                color: Colors.orange[700],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ],
