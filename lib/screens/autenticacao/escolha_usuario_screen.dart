@@ -86,8 +86,8 @@ class _EscolhaUsuarioScreenState extends State<EscolhaUsuarioScreen> {
                     padding: const EdgeInsets.all(15),
                     color: Color(0xffF26525),
                     textColor: Colors.white,
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(LoginScreen.routeName),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AutenticacaoUsuarioScreen.routeName),
                   ),
                 ),
               ],
