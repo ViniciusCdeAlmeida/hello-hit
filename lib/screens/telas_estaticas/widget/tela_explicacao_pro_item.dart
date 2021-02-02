@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_pro_item.dart';
 
 class TelaExplicacaoProItem extends StatefulWidget {
+  static const routeName = '/telaExplicacaoProItem';
   @override
   _TelaExplicacaoProItemState createState() => _TelaExplicacaoProItemState();
 }
@@ -12,9 +14,9 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('data'),
-      ),
+      // appBar: AppBar(
+      //   title: Text('data'),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -22,18 +24,18 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
               child: Container(
                 height: MediaQuery.of(context).size.height / 1.5,
                 // width: MediaQuery.of(context).size.width / 1.1,
-                foregroundDecoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/tela_pro_1.jpg'),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                // decoration: BoxDecoration(
+                // foregroundDecoration: BoxDecoration(
                 //   image: DecorationImage(
                 //     image: AssetImage('assets/images/tela_pro_1.jpg'),
-                //     // fit: BoxFit.fitWidth,
+                //     fit: BoxFit.fitWidth,
                 //   ),
                 // ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/tela_pro_1.jpg'),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
                 child: Column(
                   children: [
                     Column(
@@ -92,7 +94,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
             ),
             Center(
               child: Container(
-                width: MediaQuery.of(context).size.width / 1.1,
+                // width: MediaQuery.of(context).size.width / 1.1,
                 decoration: BoxDecoration(
                   color: Colors.black87,
                 ),
@@ -521,7 +523,9 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 15.0),
                                 child: RaisedButton(
-                                  onPressed: () {},
+                                  onPressed: () => Navigator.of(context)
+                                      .pushNamed(
+                                          TelaPagamentoProItem.routeName),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),

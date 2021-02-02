@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/cadastro_model.dart';
+import 'package:hellohit/providers/stores/cadastro_store.dart';
 import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:provider/provider.dart';
 
 class CadastroScreen extends StatefulWidget {
   static const routeName = '/cadastroScreen';
@@ -8,8 +11,68 @@ class CadastroScreen extends StatefulWidget {
 }
 
 class _CadastroScreenState extends State<CadastroScreen> {
+  final _form = GlobalKey<FormState>();
+  final _fullNameFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _userNameFocusNode = FocusNode();
+  final _genderFocusNode = FocusNode();
+  final _userTypeFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  final _passwordConfirmedFocusNode = FocusNode();
+  CadastroStore _cadastroStore;
+
+  var _cadastroUsuario = Cadastro(
+    email: '',
+    fullName: '',
+    gender: '',
+    password: '',
+    userName: '',
+    userType: '',
+    confirmPassword: '',
+  );
+
+  @override
+  void dispose() {
+    _fullNameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _userNameFocusNode.dispose();
+    _genderFocusNode.dispose();
+    _userTypeFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _passwordConfirmedFocusNode.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveForm() async {
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
+    _form.currentState.save();
+    _cadastroStore.cadastroUsuario(_cadastroUsuario).catchError(
+      (onError) {
+        showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Error'),
+            content: Text(onError),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('OK'),
+              )
+            ],
+          ),
+        );
+      },
+    ).then((_) => Navigator.of(context).pop());
+  }
+
   @override
   Widget build(BuildContext context) {
+    _cadastroStore = Provider.of<CadastroStore>(context);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
@@ -23,6 +86,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   width: 250,
                 ),
                 Form(
+                  key: _form,
                   child: Column(
                     children: [
                       Padding(
@@ -63,8 +127,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_fullNameFocusNode);
+                            },
+                            onSaved: (value) =>
+                                _cadastroUsuario.fullName = value,
                           ),
                         ),
                       ),
@@ -106,8 +174,11 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_emailFocusNode);
+                            },
+                            onSaved: (value) => _cadastroUsuario.email = value,
                           ),
                         ),
                       ),
@@ -149,8 +220,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_userNameFocusNode);
+                            },
+                            onSaved: (value) =>
+                                _cadastroUsuario.userName = value,
                           ),
                         ),
                       ),
@@ -192,8 +267,11 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_genderFocusNode);
+                            },
+                            onSaved: (value) => _cadastroUsuario.gender = value,
                           ),
                         ),
                       ),
@@ -235,8 +313,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_userTypeFocusNode);
+                            },
+                            onSaved: (value) =>
+                                _cadastroUsuario.userType = value,
                           ),
                         ),
                       ),
@@ -279,8 +361,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_passwordFocusNode);
+                            },
+                            onSaved: (value) =>
+                                _cadastroUsuario.password = value,
                           ),
                         ),
                       ),
@@ -323,8 +409,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               hoverColor: Colors.deepOrange,
                             ),
                             textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                            onSaved: (value) {},
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context)
+                                  .requestFocus(_passwordConfirmedFocusNode);
+                            },
+                            onSaved: (value) =>
+                                _cadastroUsuario.confirmPassword = value,
                           ),
                         ),
                       ),
@@ -347,7 +437,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32),
                   ),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: _saveForm,
                 )
               ],
             ),

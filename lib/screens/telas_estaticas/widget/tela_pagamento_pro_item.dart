@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TelaPagamentoProItem extends StatefulWidget {
+  static const routeName = '/telaPagamentoProItem';
   @override
   _TelaPagamentoProItemState createState() => _TelaPagamentoProItemState();
 }

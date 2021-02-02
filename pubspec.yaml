@@ -33,7 +33,12 @@ dependencies:
   provider: 
   intl: 
   http: 
+  dio:
+  google_place: 
   image_picker:
+  flutter_dotenv:
+  flutter_google_places:  
+  flutter_google_places_web: 
   cupertino_icons: any
   flip_card: ^0.4.4
   brasil_fields: ^0.6.1 
@@ -79,6 +84,7 @@ flutter:
     - assets/images/postagem_assets/
     - assets/images/procurar_talentos_intro_assets/
     - assets/images/procurar_talentos_assets/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
