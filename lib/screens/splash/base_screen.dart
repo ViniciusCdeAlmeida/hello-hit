@@ -14,7 +14,7 @@ class _BaseScreenState extends State<BaseScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 15),
+      const Duration(seconds: 5),
       () {
         Navigator.push(
           context,

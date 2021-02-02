@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/autenticacao_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
@@ -10,6 +12,50 @@ class AutenticacaoTimeScreen extends StatefulWidget {
 }
 
 class _AutenticacaoTimeScreenState extends State<AutenticacaoTimeScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final _passwordController = TextEditingController();
+  AutenticacaoStore _autenticacaoStore;
+
+  var _loginData = Autenticacao(
+    email: '',
+    password: '',
+  );
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+
+    try {
+      _autenticacaoStore
+          .autenticacaoUsuario(_loginData)
+          .then(
+            (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
+          )
+          .catchError((onError) {
+        print('object1');
+      });
+    } catch (error) {
+      print('object');
+      showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('teste'),
+          content: Text('mensagem'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('OK'),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +91,8 @@ class _AutenticacaoTimeScreenState extends State<AutenticacaoTimeScreen> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 16.0),
-                                child: TextField(
+                                child: TextFormField(
+                                  onSaved: (value) => _loginData.email = value,
                                   textAlignVertical: TextAlignVertical.center,
                                   cursorColor: Colors.white,
                                   decoration: InputDecoration(
@@ -73,7 +120,9 @@ class _AutenticacaoTimeScreenState extends State<AutenticacaoTimeScreen> {
                                   ),
                                 ),
                               ),
-                              TextField(
+                              TextFormField(
+                                obscureText: true,
+                                onSaved: (value) => _loginData.password = value,
                                 autofocus: false,
                                 textAlignVertical: TextAlignVertical.center,
                                 cursorColor: Colors.white,

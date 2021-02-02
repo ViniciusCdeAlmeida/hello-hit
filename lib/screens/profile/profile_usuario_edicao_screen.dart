@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
+import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileUsuarioEdicaoScreen extends StatefulWidget {
@@ -63,50 +65,54 @@ class _ProfileUsuarioEdicaoScreenState
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 30.0),
                           child: Center(
-                            child: Container(
-                              width: 300,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(1),
-                                ),
-                                border: Border.all(
-                                  width: 0.2,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: 'Go ',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: 'Pro',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFFE0651F),
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                            child: InkWell(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(TelaExplicacaoProItem.routeName),
+                              child: Container(
+                                width: 300,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(1),
                                   ),
-                                  Text(
-                                    'Add power features for just \$5/month',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      fontSize: 15,
+                                  border: Border.all(
+                                    width: 0.2,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'Go ',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: 'Pro',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFFE0651F),
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  )
-                                ],
+                                    Text(
+                                      'Add power features for just \$5/month',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey,
+                                        fontSize: 15,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

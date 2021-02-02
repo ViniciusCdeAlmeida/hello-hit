@@ -3,11 +3,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_google_places_web/flutter_google_places_web.dart';
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
+import 'package:google_place/google_place.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 class OportunidadeCriacaoScreen extends StatefulWidget {
   static const routeName = '/oportunidadeCriacaoScreen';
@@ -20,6 +23,10 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
   QuillController _controller = QuillController.basic();
   int _radioValue = 0;
   int _cor = 0;
+  String apiKey;
+
+  GooglePlace googlePlace;
+  List<AutocompletePrediction> predictions = [];
   List<DropdownMenuItem<int>> t = [
     DropdownMenuItem<int>(
       value: 1,
@@ -42,6 +49,22 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
       onTap: () {},
     ),
   ];
+
+  void autoCompleteSearch(String value) async {
+    var result = await googlePlace.autocomplete.get(value);
+    if (result != null && result.predictions != null && mounted) {
+      setState(() {
+        predictions = result.predictions;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    apiKey = DotEnv.env['API_KEY'];
+    googlePlace = GooglePlace(apiKey);
+    super.initState();
+  }
 
   File _image;
   final picker = ImagePicker();
@@ -152,6 +175,9 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                   readOnly: false,
                 ),
               ),
+              FlutterGooglePlacesWeb(
+                apiKey: apiKey,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 15.0,
@@ -249,7 +275,18 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                                             ),
                                             controller: null,
                                             onEditingComplete: () {},
-                                            onChanged: null,
+                                            onChanged: (value) {
+                                              if (value.isNotEmpty) {
+                                                autoCompleteSearch(value);
+                                              } else {
+                                                if (predictions.length > 0 &&
+                                                    mounted) {
+                                                  setState(() {
+                                                    predictions = [];
+                                                  });
+                                                }
+                                              }
+                                            },
                                           ),
                                         ),
                                       ),
