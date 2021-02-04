@@ -43,11 +43,9 @@ abstract class _FeedStore with Store {
   }
 
   @action
-  Future<void> seed() async {
+  Future<Feed> feedList(Feed dados) async {
     try {
-      _feedFuture = ObservableFuture(
-        _feedController.seed(),
-      );
+      _feedFuture = ObservableFuture(_feedController.feedList(dados));
       _feed = await _feedFuture;
     } catch (e) {
       throw e;

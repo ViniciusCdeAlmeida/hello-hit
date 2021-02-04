@@ -22,6 +22,7 @@ import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
+import 'package:hellohit/teste.dart';
 
 Map<String, Widget Function(BuildContext)> rotas() {
   return {
@@ -50,5 +51,6 @@ Map<String, Widget Function(BuildContext)> rotas() {
     ProfileUsuarioEdicaoScreen.routeName: (ctx) => ProfileUsuarioEdicaoScreen(),
     TelaPagamentoProItem.routeName: (ctx) => TelaPagamentoProItem(),
     TelaExplicacaoProItem.routeName: (ctx) => TelaExplicacaoProItem(),
+    Teste.routeName: (ctx) => Teste(),
   };
 }

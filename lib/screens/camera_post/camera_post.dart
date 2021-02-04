@@ -72,6 +72,13 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.close),
+            color: Colors.black,
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Container(
         color: Colors.white,

@@ -7,7 +7,7 @@ class AutenticacaoController {
   // ignore: missing_return
   Future<Autenticacao> autenticacaoUsuario(Autenticacao usuario) async {
     try {
-      Dio dio = Dio()..options.baseUrl = "http://192.168.15.7:3000/";
+      Dio dio = Dio()..options.baseUrl = "http://192.168.60.2:3000/";
 
       await dio.post('login', data: usuario);
     } on DioError catch (e) {

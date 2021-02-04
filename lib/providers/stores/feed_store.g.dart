@@ -53,11 +53,13 @@ mixin _$FeedStore on _FeedStore, Store {
     });
   }
 
-  final _$seedAsyncAction = AsyncAction('_FeedStore.seed');
+  final _$feedAsyncAction = AsyncAction('_FeedStore.seed');
 
   @override
-  Future<void> seed() {
-    return _$seedAsyncAction.run(() => super.seed());
+  Future<void> feedL(Feed dados) {
+    return _$feedAsyncAction.run(
+      () => super.feedList(dados),
+    );
   }
 
   @override

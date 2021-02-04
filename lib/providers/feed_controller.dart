@@ -1,15 +1,19 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
 import 'package:hellohit/models/feed_model.dart';
 
 class FeedController {
   Feed feed;
 
-  Future<Feed> seed() async {
-    ByteData data = await rootBundle.load('assets/resources/feed_seed.json');
-    var json = jsonDecode(utf8.decode(data.buffer.asUint8List()));
-    print(json);
-    return feed;
+  Future<Feed> feedList(Feed feed) async {
+    try {
+      Dio dio = Dio()..options.baseUrl = "http://192.168.60.2:3000/";
+
+      await dio.get('feed');
+    } on DioError catch (e) {
+      if (e.response != null)
+        throw e.response.data['message'];
+      else
+        throw 'Check your connection.';
+    }
   }
 }

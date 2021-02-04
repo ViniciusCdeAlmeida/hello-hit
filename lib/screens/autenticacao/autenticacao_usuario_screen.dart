@@ -7,6 +7,7 @@ import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
+import 'package:hellohit/teste.dart';
 import 'package:provider/provider.dart';
 
 class AutenticacaoUsuarioScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
 
     _autenticacaoStore
         .autenticacaoUsuario(_loginData)
-        .then((_) => Navigator.of(context).pushNamed(FeedScreen.routeName))
+        .then((_) => Navigator.of(context).pushNamed(Teste.routeName))
         .catchError(
       (onError) {
         showDialog<Null>(
@@ -160,7 +161,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                               textColor: Colors.orange[700],
                               // onPressed: _submit,
                               onPressed: () => Navigator.of(context)
-                                  .pushNamed(FeedScreen.routeName),
+                                  .pushNamed(Teste.routeName),
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(32),
