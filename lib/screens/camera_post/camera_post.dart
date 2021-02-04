@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/postagem/postagem_screen.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -74,9 +75,10 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.navigate_next_outlined),
             color: Colors.black,
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.of(context).pushNamed(PostagemScreen.routeName),
           ),
         ],
       ),

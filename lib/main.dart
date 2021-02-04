@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
+import 'package:hellohit/screens/camera_post/camera_post.dart';
+import 'package:hellohit/screens/tag_post/tag_post_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: AutenticacaoUsuarioScreen(),
+        home: TagPostScreen(),
         routes: rotas(),
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/tag_post/widgets/radiobutton.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:hellohit/screens/tag_post/widgets/tag_post_text_field.dart';
+import 'package:hellohit/screens/tag_post/widgets/checkbox.dart';
 
 class TagPostScreen extends StatefulWidget {
   @override
@@ -11,6 +13,8 @@ class TagPostScreen extends StatefulWidget {
 
 class _TagPostScreenState extends State<TagPostScreen> {
   File _imagem;
+
+  int _escolhaUsuario;
 
   bool state = true;
 
@@ -167,24 +171,55 @@ class _TagPostScreenState extends State<TagPostScreen> {
                         ),
                       ],
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    Row(
                       children: [
-                        RaisedButton(
-                          child: const Text(
-                            'Post',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          textColor: Colors.black,
-                          onPressed: () {},
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                        Text(
+                          'WHO CAN SEE THE POST?',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    RadioButton(),
+                    Row(
+                      children: [
+                        Text(
+                          'Select wich tiers have access',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
+                    ),
+                    CheckBox(),
+                    Text(
+                      '(10% Tax will be applied in each transfer to your paypal or banck account)',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          RaisedButton(
+                            child: const Text(
+                              'Post',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            textColor: Colors.black,
+                            onPressed: () {},
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
