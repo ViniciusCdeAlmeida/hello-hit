@@ -8,7 +8,7 @@ part of 'oportunidade_model.dart';
 
 Oportunidade _$OportunidadeFromJson(Map<String, dynamic> json) {
   return Oportunidade(
-    id: json['id'] as int,
+    id: json['id'] as String,
     nomeOrganizacao: json['nomeOrganizacao'] as String,
     imagem: json['imagem'] as String,
     categoria: json['categoria'] as String,

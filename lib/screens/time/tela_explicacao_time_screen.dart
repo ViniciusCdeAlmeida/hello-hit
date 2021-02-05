@@ -13,10 +13,12 @@ class TelaExplicacaoTimeScreen extends StatefulWidget {
 class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
   List _valorTeams = [
     {"preco": "12", "quantidade": "3"},
-    {"preco": "30", "quantidade": "10"},
-    {"preco": "100", "quantidade": "20"},
-    {"preco": "200", "quantidade": "30"},
-    {"preco": "1000", "quantidade": "50"},
+    {"preco": "22.90", "quantidade": "10"},
+    {"preco": "41.50", "quantidade": "25"},
+    {"preco": "67.80", "quantidade": "50"},
+    {"preco": "133.80", "quantidade": "100"},
+    {"preco": "357", "quantidade": "200"},
+    {"preco": "1099", "quantidade": "+400"},
   ];
   int idx = 0;
 

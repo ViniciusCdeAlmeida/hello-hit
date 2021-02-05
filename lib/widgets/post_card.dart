@@ -3,16 +3,24 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 
-class PostCard extends StatelessWidget {
+class PostCard extends StatefulWidget {
   const PostCard({
-    Key key,
     @required this.post,
-  }) : super(key: key);
+  });
 
   final Post post;
 
   @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  @override
   Widget build(BuildContext context) {
+    var t = widget.post.file['url']
+        .toString()
+        .replaceAll(RegExp(r'localhost'), '192.168.15.7');
+    print(t);
     return Card(
       margin: const EdgeInsets.all(10),
       elevation: 3,
@@ -30,7 +38,10 @@ class PostCard extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
-                      backgroundImage: NetworkImage(post.imagem),
+                      backgroundImage: NetworkImage(widget.post.file['url']
+                          .toString()
+                          .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                          .toString()),
                     ),
                   ),
                   Column(
@@ -83,7 +94,7 @@ class PostCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Lorem ipsum elementum urna vel ornare platea vivamus, mi fermentum curae tristique nisl sed, nostra sociosqu imperdiet consequat dictumst vehicula. Lorem ipsum elementum urna vel ornare platea vivamus, mi fermentum curae tristique nisl sed, nostra sociosqu imperdiet consequat dictumst vehicula. ',
+              widget.post.text,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 13,
@@ -91,10 +102,18 @@ class PostCard extends StatelessWidget {
               ),
             ),
           ),
-          ClipRRect(
-            child: Image.network(
-              post.imagem,
-              fit: BoxFit.cover,
+          Container(
+            height: 300,
+            color: Colors.grey[300],
+            width: MediaQuery.of(context).size.width,
+            child: ClipRRect(
+              child: Image.network(
+                widget.post.file['url']
+                    .toString()
+                    .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                    .toString(),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Padding(
@@ -106,10 +125,13 @@ class PostCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: Icon(
-                        Icons.star,
-                        color: Colors.orange,
-                        size: 30,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.star,
+                          color: Colors.orange,
+                          size: 30,
+                        ),
                       ),
                     ),
                     Padding(
@@ -131,7 +153,9 @@ class PostCard extends StatelessWidget {
                     Text(
                       'SEND TIP',
                       style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.bold),
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -151,7 +175,7 @@ class PostCard extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${post.hits} Hits',
+                  '${widget.post.hits} Hits',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -159,7 +183,7 @@ class PostCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Text(
-                    '\$${post.hits} Tips',
+                    '\$${widget.post.hits} Tips',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -174,7 +198,8 @@ class PostCard extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {},
-                  child: Text('View all ${post.idsComentario.length} comments'),
+                  child:
+                      Text('View all ${widget.post.comments.length} comments'),
                 ),
               ],
             ),

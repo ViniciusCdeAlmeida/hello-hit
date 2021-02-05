@@ -12,6 +12,7 @@ class TelaExplicacaoTalentoScreen extends StatefulWidget {
 class _TelaExplicacaoTalentoScreenState
     extends State<TelaExplicacaoTalentoScreen> {
   int _radioValue = 0;
+  String _valorPacote = '29.90';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -245,6 +246,51 @@ class _TelaExplicacaoTalentoScreenState
                             ),
                           ),
                         ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     Row(
+                        //       children: [
+                        //         Radio(
+                        //             value: 0,
+                        //             groupValue: _radioValue,
+                        //             onChanged: (value) {
+                        //               setState(() {
+                        //                 _radioValue = value;
+                        //               });
+                        //             }),
+                        //         Text('Basic Search'),
+                        //       ],
+                        //     ),
+                        //     Padding(
+                        //       padding: const EdgeInsets.only(right: 8.0),
+                        //       child: Container(
+                        //         decoration: BoxDecoration(
+                        //           color: Color(0xFFE0651F),
+                        //           borderRadius: const BorderRadius.all(
+                        //             Radius.circular(4),
+                        //           ),
+                        //           border: Border.all(
+                        //             color: Colors.transparent,
+                        //             width: 0,
+                        //           ),
+                        //         ),
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.symmetric(
+                        //               horizontal: 15.0),
+                        //           child: Text(
+                        //             '\$19 / month',
+                        //             style: TextStyle(
+                        //               fontWeight: FontWeight.bold,
+                        //               color: Colors.white,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Divider(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -255,10 +301,11 @@ class _TelaExplicacaoTalentoScreenState
                                     groupValue: _radioValue,
                                     onChanged: (value) {
                                       setState(() {
+                                        _valorPacote = '29.90';
                                         _radioValue = value;
                                       });
                                     }),
-                                Text('Basic Search'),
+                                Text('Advanced Search'),
                               ],
                             ),
                             Padding(
@@ -278,7 +325,7 @@ class _TelaExplicacaoTalentoScreenState
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15.0),
                                   child: Text(
-                                    '\$19 / month',
+                                    '\$29.90 / month',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
@@ -296,59 +343,26 @@ class _TelaExplicacaoTalentoScreenState
                             Row(
                               children: [
                                 Radio(
-                                    value: 0,
+                                    value: 1,
                                     groupValue: _radioValue,
                                     onChanged: (value) {
                                       setState(() {
+                                        _valorPacote = '100';
                                         _radioValue = value;
                                       });
                                     }),
-                                Text('Basic Search'),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFE0651F),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(4),
-                                  ),
-                                  border: Border.all(
-                                    color: Colors.transparent,
-                                    width: 0,
+                                RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Post Vacancy',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15.0),
-                                  child: Text(
-                                    '\$49 / month',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Divider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Radio(
-                                    value: 0,
-                                    groupValue: _radioValue,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _radioValue = value;
-                                      });
-                                    }),
-                                Text('Basic Search'),
                               ],
                             ),
                             Padding(
@@ -380,33 +394,32 @@ class _TelaExplicacaoTalentoScreenState
                           ],
                         ),
                         Divider(),
-                        Container(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 10.0,
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                'DISCOUNT PACKAGE',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                child: Container(
-                                  height: 2.0,
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.4,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(
+                        //     horizontal: 10.0,
+                        //     vertical: 10.0,
+                        //   ),
+                        //   child: Row(
+                        //     children: [
+                        //       Text(
+                        //         'DISCOUNT PACKAGE',
+                        //         style: TextStyle(
+                        //           fontWeight: FontWeight.bold,
+                        //           fontSize: 16,
+                        //         ),
+                        //       ),
+                        //       Padding(
+                        //         padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        //         child: Container(
+                        //           height: 2.0,
+                        //           width:
+                        //               MediaQuery.of(context).size.width / 2.4,
+                        //           color: Colors.black,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 50.0,
@@ -427,7 +440,7 @@ class _TelaExplicacaoTalentoScreenState
                           color: Color(0xFFE0651F),
                           onPressed: () {},
                           child: Text(
-                            'BUY NOW FOR \$ 159 / MONTH',
+                            'BUY NOW FOR \$ $_valorPacote / MONTH',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

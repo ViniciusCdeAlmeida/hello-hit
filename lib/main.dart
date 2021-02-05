@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/full_post/full_post_screen.dart';
+import 'package:hellohit/screens/splash/base_screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: FullPostScreen(),
+        home: BaseScreen(),
         routes: rotas(),
       ),
     );

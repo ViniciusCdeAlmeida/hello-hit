@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/slide_model.dart';
-import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
 import 'package:hellohit/screens/intro/widgets/slide_item.dart';
 
@@ -104,7 +104,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EscolhaUsuarioScreen(),
+                        builder: (context) => AutenticacaoUsuarioScreen(),
                       ),
                     );
                   },

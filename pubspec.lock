@@ -272,13 +272,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.6"
-  flutter_google_places_web:
+  flutter_inappwebview:
     dependency: "direct main"
     description:
-      name: flutter_google_places_web
+      name: flutter_inappwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.1"
+    version: "4.0.0+4"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -667,20 +667,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
-  rainbow_color:
-    dependency: transitive
-    description:
-      name: rainbow_color
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
-  rainbow_vis:
-    dependency: transitive
-    description:
-      name: rainbow_vis
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   rxdart:
     dependency: transitive
     description:
@@ -924,6 +910,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  youtube_player_iframe:
+    dependency: "direct main"
+    description:
+      name: youtube_player_iframe
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0+2"
 sdks:
   dart: ">=2.10.0 <2.11.0"
   flutter: ">=1.22.0 <2.0.0"

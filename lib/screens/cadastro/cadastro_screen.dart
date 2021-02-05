@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/cadastro_model.dart';
 import 'package:hellohit/providers/stores/cadastro_store.dart';
-import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
 import 'package:provider/provider.dart';
 
 class CadastroScreen extends StatefulWidget {
@@ -20,6 +19,19 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final _passwordFocusNode = FocusNode();
   final _passwordConfirmedFocusNode = FocusNode();
   CadastroStore _cadastroStore;
+  String _currentSelectedGender;
+  String _currentSelectedUserType;
+
+  var _userType = [
+    'Talent or Fan',
+    'Team',
+  ];
+
+  var _gender = [
+    'Male',
+    'Female',
+    'Other',
+  ];
 
   var _cadastroUsuario = Cadastro(
     email: '',
@@ -49,6 +61,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
       return;
     }
     _form.currentState.save();
+    print(_cadastroUsuario);
     _cadastroStore.cadastroUsuario(_cadastroUsuario).catchError(
       (onError) {
         showDialog<Null>(
@@ -234,45 +247,54 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           horizontal: 50.0,
                           vertical: 10.0,
                         ),
-                        child: Container(
-                          height: 40,
-                          child: TextFormField(
-                            style: TextStyle(
-                              color: Colors.deepOrange,
-                            ),
-                            cursorColor: Colors.deepOrange,
-                            textAlignVertical: TextAlignVertical.center,
-                            initialValue: null,
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.deepOrange,
-                                  width: 2.0,
+                        child: FormField(
+                          onSaved: (value) => _cadastroUsuario.gender = value,
+                          builder: (FormFieldState state) {
+                            return InputDecorator(
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.deepOrange,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.deepOrange,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                labelStyle: TextStyle(color: Colors.deepOrange),
+                                labelText: 'Gender',
+                                fillColor: Colors.deepOrange,
+                                focusColor: Colors.deepOrange,
+                                hoverColor: Colors.deepOrange,
+                              ),
+                              isEmpty: _currentSelectedGender == '',
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _currentSelectedGender,
+                                  isDense: true,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _currentSelectedGender = newValue;
+                                      state.didChange(newValue);
+                                    });
+                                  },
+                                  items: _gender.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.deepOrange,
-                                  width: 2.0,
-                                ),
-                              ),
-                              labelStyle: TextStyle(color: Colors.deepOrange),
-                              labelText: 'Gender',
-                              fillColor: Colors.deepOrange,
-                              focusColor: Colors.deepOrange,
-                              hoverColor: Colors.deepOrange,
-                            ),
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_genderFocusNode);
-                            },
-                            onSaved: (value) => _cadastroUsuario.gender = value,
-                          ),
+                            );
+                          },
                         ),
                       ),
                       Padding(
@@ -280,46 +302,54 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           horizontal: 50.0,
                           vertical: 10.0,
                         ),
-                        child: Container(
-                          height: 40,
-                          child: TextFormField(
-                            style: TextStyle(
-                              color: Colors.deepOrange,
-                            ),
-                            cursorColor: Colors.deepOrange,
-                            textAlignVertical: TextAlignVertical.center,
-                            initialValue: null,
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.deepOrange,
-                                  width: 2.0,
+                        child: FormField(
+                          onSaved: (value) => _cadastroUsuario.userType = value,
+                          builder: (FormFieldState state) {
+                            return InputDecorator(
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.deepOrange,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                  borderSide: BorderSide(
+                                    color: Colors.deepOrange,
+                                    width: 2.0,
+                                  ),
+                                ),
+                                labelStyle: TextStyle(color: Colors.deepOrange),
+                                labelText: 'User Type',
+                                fillColor: Colors.deepOrange,
+                                focusColor: Colors.deepOrange,
+                                hoverColor: Colors.deepOrange,
+                              ),
+                              isEmpty: _currentSelectedUserType == '',
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _currentSelectedUserType,
+                                  isDense: true,
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      _currentSelectedUserType = newValue;
+                                      state.didChange(newValue);
+                                    });
+                                  },
+                                  items: _userType.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.deepOrange,
-                                  width: 2.0,
-                                ),
-                              ),
-                              labelStyle: TextStyle(color: Colors.deepOrange),
-                              labelText: 'User Type',
-                              fillColor: Colors.deepOrange,
-                              focusColor: Colors.deepOrange,
-                              hoverColor: Colors.deepOrange,
-                            ),
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_userTypeFocusNode);
-                            },
-                            onSaved: (value) =>
-                                _cadastroUsuario.userType = value,
-                          ),
+                            );
+                          },
                         ),
                       ),
                       Padding(

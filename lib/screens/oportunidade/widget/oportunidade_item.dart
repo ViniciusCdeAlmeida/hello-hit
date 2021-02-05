@@ -1,13 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_middle_section.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class OportunidadeItem extends StatelessWidget {
+class OportunidadeItem extends StatefulWidget {
   final Oportunidade carreira;
 
   OportunidadeItem(this.carreira);
+
+  @override
+  _OportunidadeItemState createState() => _OportunidadeItemState();
+}
+
+class _OportunidadeItemState extends State<OportunidadeItem> {
+  // ignore: close_sinks
+  YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    _controller = YoutubePlayerController(
+      initialVideoId: '',
+      params: const YoutubePlayerParams(
+        autoPlay: false,
+        showControls: true,
+        showFullscreenButton: true,
+        desktopMode: true,
+        privacyEnhanced: true,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    const player = YoutubePlayerIFrame();
     Size deviceSize = MediaQuery.of(context).size;
     return Container(
       child: Column(
@@ -24,7 +50,7 @@ class OportunidadeItem extends StatelessWidget {
                     topRight: const Radius.circular(15.0),
                   ),
                   child: Image.network(
-                    carreira.imagem,
+                    widget.carreira.imagem,
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.fitWidth,
@@ -38,7 +64,7 @@ class OportunidadeItem extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                     maxRadius: 40.0,
                     minRadius: 10.0,
-                    backgroundImage: NetworkImage(carreira.banner),
+                    backgroundImage: NetworkImage(widget.carreira.banner),
                   ),
                 ),
               ),
@@ -53,7 +79,7 @@ class OportunidadeItem extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    carreira.nomeOrganizacao,
+                    widget.carreira.nomeOrganizacao,
                     textAlign: TextAlign.justify,
                   ),
                   Row(
@@ -62,7 +88,7 @@ class OportunidadeItem extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            carreira.categoria,
+                            widget.carreira.categoria,
                             textAlign: TextAlign.left,
                           ),
                           IconButton(
@@ -79,7 +105,7 @@ class OportunidadeItem extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            carreira.categoria,
+                            widget.carreira.categoria,
                             textAlign: TextAlign.left,
                           ),
                           IconButton(
@@ -112,12 +138,12 @@ class OportunidadeItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 18.0, right: 290.0),
-            child: Text(carreira.nomeOrganizacao),
+            child: Text(widget.carreira.nomeOrganizacao),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              carreira.descricao,
+              widget.carreira.descricao,
               textAlign: TextAlign.justify,
               textWidthBasis: TextWidthBasis.longestLine,
             ),
@@ -125,7 +151,13 @@ class OportunidadeItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
-              child: Text('VIDEO'),
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              child: YoutubePlayerControllerProvider(
+                child: player,
+                // Passing controller to widgets below.
+                controller: _controller,
+              ),
             ),
           ),
           Divider(

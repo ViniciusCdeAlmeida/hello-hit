@@ -5,14 +5,10 @@ part 'feed_model.g.dart';
 
 @JsonSerializable()
 class Feed {
-  final int id;
   final List<Post> posts;
-  final List<int> idPosts;
 
   Feed({
-    this.id,
     this.posts,
-    this.idPosts,
   });
 
   factory Feed.fromJson(Map<String, dynamic> json) => _$FeedFromJson(json);

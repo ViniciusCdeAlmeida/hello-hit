@@ -44,19 +44,17 @@ abstract class _PostStore with Store {
 
   @action
   Future<void> seed() async {
-    try {
-      _postFuture = ObservableFuture(
-        _postController.seed(),
-      );
-      _postsObservable = (await _postFuture).asObservable();
-    } catch (e) {
-      throw e;
-    }
+    // try {
+    //   _postFuture = ObservableFuture(null);
+    //   _postsObservable = (await _postFuture).asObservable();
+    // } catch (e) {
+    //   throw e;
+    // }
   }
 
   List<Post> loadUserPosts(int id) {
-    return [
-      ..._postsObservable.where((element) => element.idUsuario == id).toList()
-    ];
+    // return [
+    //   ..._postsObservable.where((element) => element.idUsuario == id).toList()
+    // ];
   }
 }

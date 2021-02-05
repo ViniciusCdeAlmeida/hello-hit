@@ -1,4 +1,5 @@
 import 'package:hellohit/models/autenticacao_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/autenticacao_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,13 +18,13 @@ abstract class _AutenticacaoStore with Store {
   _AutenticacaoStore(this._autenticacaoController);
 
   @observable
-  ObservableFuture<Autenticacao> _autenticacaoFuture;
+  ObservableFuture<Usuario> _autenticacaoFuture;
 
   @observable
-  Autenticacao _autenticacao;
+  Usuario _autenticacao;
 
   @computed
-  Autenticacao get autenticacao {
+  Usuario get autenticacao {
     return _autenticacao;
   }
 

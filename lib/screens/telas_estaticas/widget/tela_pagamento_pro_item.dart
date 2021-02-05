@@ -35,9 +35,6 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('data'),
-      ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -59,7 +56,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                 ),
                 Center(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 1.4,
+                    height: MediaQuery.of(context).size.height * 1.1,
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                     ),
@@ -71,38 +68,45 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
               padding: const EdgeInsets.only(
                 left: 8.0,
                 right: 8.0,
-                top: 20.0,
+                top: 40.0,
               ),
               child: Center(
                 child: Card(
                   child: Column(
-                    textBaseline: TextBaseline.alphabetic,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    // textBaseline: TextBaseline.alphabetic,
+                    // crossAxisAlignment: CrossAxisAlignment.baseline,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Go Pro',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Go Pro',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Go Pro'),
+                        child: Text(
+                            'Take your game to the next level with awesome features and exclusive deals!'),
                       ),
                       DividerLine(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Select a payment frequency:',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Select a payment frequency:',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -148,7 +152,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: '5',
+                                          text: '4.75',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -173,7 +177,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                 child: Row(
                                   children: [
                                     Text(
-                                      'Billed once annualy at \$60.',
+                                      'Billed once annualy at \$57.',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.grey[700],
@@ -208,7 +212,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                           color: Colors.green[300],
                                         ),
                                         onPressed: () {
-                                          mudaPlano(true);
+                                          mudaPlano(false);
                                         },
                                         child: Text(
                                           'Select',
@@ -283,7 +287,7 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: '12',
+                                          text: '4.90',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black,
@@ -361,7 +365,12 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                                           mudaPlano(false);
                                         },
                                         color: Colors.green,
-                                        child: Text('Select'),
+                                        child: Text(
+                                          'Select',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                     ),
                             ],
@@ -369,104 +378,104 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
                         ),
                       ),
                       DividerLine(),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18.0,
-                              vertical: 8.0,
-                            ),
-                            child: RichText(
-                              text: TextSpan(
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Your total for today: ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: '\$144.60',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey[600],
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' \$60',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' ( -59% )',
-                                    style: TextStyle(
-                                      color: Colors.blue[700],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 18.0,
-                              vertical: 8.0,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  'Your next bill will be on January 3, 2021',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      DividerLine(),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Form(
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.2,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: TextFormField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  initialValue: null,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Card Number',
-                                    hintText: 'xxxx-xxxx-xxxx-xxxx',
-                                  ),
-                                  textInputAction: TextInputAction.next,
-                                  onFieldSubmitted: (_) {},
-                                  onSaved: (value) {},
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.symmetric(
+                      //         horizontal: 18.0,
+                      //         vertical: 8.0,
+                      //       ),
+                      //       child: RichText(
+                      //         text: TextSpan(
+                      //           style: TextStyle(
+                      //             fontSize: 15,
+                      //           ),
+                      //           children: [
+                      //             TextSpan(
+                      //               text: 'Your total for today: ',
+                      //               style: TextStyle(
+                      //                 fontWeight: FontWeight.bold,
+                      //                 color: Colors.black,
+                      //               ),
+                      //             ),
+                      //             TextSpan(
+                      //               text: '\$144.60',
+                      //               style: TextStyle(
+                      //                 decoration: TextDecoration.lineThrough,
+                      //                 fontWeight: FontWeight.bold,
+                      //                 color: Colors.grey[600],
+                      //               ),
+                      //             ),
+                      //             TextSpan(
+                      //               text: ' \$57.00',
+                      //               style: TextStyle(
+                      //                 fontWeight: FontWeight.bold,
+                      //                 color: Colors.black,
+                      //               ),
+                      //             ),
+                      //             TextSpan(
+                      //               text: ' ( -59% )',
+                      //               style: TextStyle(
+                      //                 color: Colors.blue[700],
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // Row(
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   children: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.symmetric(
+                      //         horizontal: 18.0,
+                      //         vertical: 8.0,
+                      //       ),
+                      //       child: Row(
+                      //         children: [
+                      //           Text(
+                      //             'Your next bill will be on January 3, 2021',
+                      //             style: TextStyle(
+                      //               fontSize: 13,
+                      //               color: Colors.grey[600],
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // DividerLine(),
+                      // Row(
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   children: [
+                      //     Form(
+                      //       child: SizedBox(
+                      //         width: MediaQuery.of(context).size.width / 1.2,
+                      //         height: 60,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(10.0),
+                      //           child: TextFormField(
+                      //             textAlignVertical: TextAlignVertical.bottom,
+                      //             initialValue: null,
+                      //             decoration: InputDecoration(
+                      //               border: OutlineInputBorder(),
+                      //               labelText: 'Card Number',
+                      //               hintText: 'xxxx-xxxx-xxxx-xxxx',
+                      //             ),
+                      //             textInputAction: TextInputAction.next,
+                      //             onFieldSubmitted: (_) {},
+                      //             onSaved: (value) {},
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -665,7 +674,9 @@ class _TelaPagamentoProItemState extends State<TelaPagamentoProItem> {
   }
 
   void mudaPlano(bool value) {
-    anual = value;
+    setState(() {
+      anual = value;
+    });
   }
 }
 

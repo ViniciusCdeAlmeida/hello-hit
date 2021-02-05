@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/conversas/conversas_screen.dart';
-import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
@@ -173,11 +175,33 @@ class CustomDrawer extends StatelessWidget {
             ),
             ListTile(
               // key: Key(Keys.rfidDrawer),
-              leading: Icon(
-                Icons.credit_card,
-                color: Colors.blue[700],
+              leading: ClipRRect(
+                child: Image.asset(
+                  'assets/images/versus.png',
+                  width: 30,
+                  height: 50,
+                ),
               ),
-              title: const Text('Battle Rounds'),
+              title: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      text: 'Battle Rounds',
+                    ),
+                    // TextSpan(
+                    //   style: TextStyle(
+                    //     color: Colors.grey,
+                    //     fontSize: 12,
+                    //   ),
+                    //   text: ' Soon',
+                    // ),
+                  ],
+                ),
+              ),
+              // const Text('Battle Rounds'),
               onTap: () {},
             ),
             ListTile(
@@ -190,7 +214,7 @@ class CustomDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context)
-                    .pushReplacementNamed(EscolhaUsuarioScreen.routeName);
+                    .pushReplacementNamed(AutenticacaoUsuarioScreen.routeName);
               },
             ),
           ],

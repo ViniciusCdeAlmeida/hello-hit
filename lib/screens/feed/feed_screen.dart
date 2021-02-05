@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/providers/stores/feed_store.dart';
+import 'package:hellohit/screens/camera_post/camera_post.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
@@ -9,7 +11,6 @@ import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/post_store.dart';
 import 'package:hellohit/widgets/post_card.dart';
 import 'package:hellohit/widgets/custom_drawer.dart';
 
@@ -20,12 +21,13 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  PostStore _postStore;
+  FeedStore _feedStore;
   int id;
+
   @override
   void didChangeDependencies() {
-    _postStore = Provider.of<PostStore>(context);
-    _postStore.seed();
+    _feedStore = Provider.of<FeedStore>(context);
+    _feedStore.feedList();
 
     super.didChangeDependencies();
   }
@@ -105,7 +107,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 Navigator.of(context).pushNamed(TimeScreen.routeName);
                 break;
               case 2:
-                // Navigator.of(context).pushNamed(FeedScreen.routeName);
+                Navigator.of(context).pushNamed(CameraPostScreen.routeName);
                 break;
               case 3:
                 Navigator.of(context).pushNamed(MarketPlaceScreen.routeName);
@@ -119,15 +121,19 @@ class _FeedScreenState extends State<FeedScreen> {
         backgroundColor: Colors.grey[100],
         drawer: CustomDrawer(),
         appBar: AppBar(
-          // TODO COLOCAR O ICONE
-          title: Text(
-            'Hello Hit',
-            style: TextStyle(
-              color: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(right: 45.0),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
+                ),
+              ),
             ),
           ),
           centerTitle: true,
-          // leadingWidth: 70,
           automaticallyImplyLeading: false,
           leading: Builder(
             builder: (BuildContext context) {
@@ -220,26 +226,27 @@ class _FeedScreenState extends State<FeedScreen> {
             Observer(
               // ignore: missing_return
               builder: (_) {
-                switch (_postStore.postState) {
-                  case PostState.inicial:
-                  case PostState.carregando:
+                switch (_feedStore.feedState) {
+                  case FeedState.inicial:
+                  case FeedState.carregando:
                     return Center(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
                       ),
                     );
-                  case PostState.carregado:
-                    // return Center(
-                    //   child: CircularProgressIndicator(),
-                    // );
+                  case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
-                        itemCount: _postStore.posts.length,
+                        itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
-                            PostCard(
-                              post: _postStore.posts[idx],
+                            Observer(
+                              builder: (_) {
+                                return PostCard(
+                                  post: _feedStore.feed[idx],
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -251,23 +258,23 @@ class _FeedScreenState extends State<FeedScreen> {
             Observer(
               // ignore: missing_return
               builder: (_) {
-                switch (_postStore.postState) {
-                  case PostState.inicial:
-                  case PostState.carregando:
+                switch (_feedStore.feedState) {
+                  case FeedState.inicial:
+                  case FeedState.carregando:
                     return Center(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
                       ),
                     );
-                  case PostState.carregado:
+                  case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
-                        itemCount: _postStore.posts.length,
+                        itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
                             PostCard(
-                              post: _postStore.posts[idx],
+                              post: _feedStore.feed[idx],
                             ),
                           ],
                         ),
@@ -279,23 +286,23 @@ class _FeedScreenState extends State<FeedScreen> {
             Observer(
               // ignore: missing_return
               builder: (_) {
-                switch (_postStore.postState) {
-                  case PostState.inicial:
-                  case PostState.carregando:
+                switch (_feedStore.feedState) {
+                  case FeedState.inicial:
+                  case FeedState.carregando:
                     return Center(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
                       ),
                     );
-                  case PostState.carregado:
+                  case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
-                        itemCount: _postStore.posts.length,
+                        itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
                             PostCard(
-                              post: _postStore.posts[idx],
+                              post: _feedStore.feed[idx],
                             ),
                           ],
                         ),
@@ -307,23 +314,23 @@ class _FeedScreenState extends State<FeedScreen> {
             Observer(
               // ignore: missing_return
               builder: (_) {
-                switch (_postStore.postState) {
-                  case PostState.inicial:
-                  case PostState.carregando:
+                switch (_feedStore.feedState) {
+                  case FeedState.inicial:
+                  case FeedState.carregando:
                     return Center(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
                       ),
                     );
-                  case PostState.carregado:
+                  case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
-                        itemCount: _postStore.posts.length,
+                        itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
                             PostCard(
-                              post: _postStore.posts[idx],
+                              post: _feedStore.feed[idx],
                             ),
                           ],
                         ),
@@ -335,23 +342,23 @@ class _FeedScreenState extends State<FeedScreen> {
             Observer(
               // ignore: missing_return
               builder: (_) {
-                switch (_postStore.postState) {
-                  case PostState.inicial:
-                  case PostState.carregando:
+                switch (_feedStore.feedState) {
+                  case FeedState.inicial:
+                  case FeedState.carregando:
                     return Center(
                       child: CircularProgressIndicator(
                         backgroundColor: Colors.white,
                       ),
                     );
-                  case PostState.carregado:
+                  case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
-                        itemCount: _postStore.posts.length,
+                        itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
                             PostCard(
-                              post: _postStore.posts[idx],
+                              post: _feedStore.feed[idx],
                             ),
                           ],
                         ),

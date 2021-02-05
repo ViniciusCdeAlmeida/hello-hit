@@ -39,6 +39,7 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
                 child: Container(
                   width: MediaQuery.of(context).size.width / 1.03,
                   child: CustomScrollView(
+                    shrinkWrap: true,
                     slivers: <Widget>[
                       SliverList(
                         delegate: SliverChildListDelegate([

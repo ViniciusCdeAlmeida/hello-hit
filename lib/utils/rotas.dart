@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/autenticacao/autenticacao_time_screen.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
-import 'package:hellohit/screens/autenticacao/escolha_usuario_screen.dart';
+import 'package:hellohit/screens/autenticacao/email_confirmacao_screen.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
+import 'package:hellohit/screens/camera_post/camera_post.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
@@ -30,9 +30,7 @@ Map<String, Widget Function(BuildContext)> rotas() {
     OportunidadeScreen.routeName: (ctx) => OportunidadeScreen(),
     ProfileUsuarioScreen.routeName: (ctx) => ProfileUsuarioScreen(),
     ProfileTimeScreen.routeName: (ctx) => ProfileTimeScreen(),
-    AutenticacaoTimeScreen.routeName: (ctx) => AutenticacaoTimeScreen(),
     AutenticacaoUsuarioScreen.routeName: (ctx) => AutenticacaoUsuarioScreen(),
-    EscolhaUsuarioScreen.routeName: (ctx) => EscolhaUsuarioScreen(),
     FeedScreen.routeName: (ctx) => FeedScreen(),
     ProfileProcuraScreen.routeName: (ctx) => ProfileProcuraScreen(),
     MarketPlaceScreen.routeName: (ctx) => MarketPlaceScreen(),
@@ -51,6 +49,8 @@ Map<String, Widget Function(BuildContext)> rotas() {
     ProfileUsuarioEdicaoScreen.routeName: (ctx) => ProfileUsuarioEdicaoScreen(),
     TelaPagamentoProItem.routeName: (ctx) => TelaPagamentoProItem(),
     TelaExplicacaoProItem.routeName: (ctx) => TelaExplicacaoProItem(),
+    CameraPostScreen.routeName: (ctx) => CameraPostScreen(),
+    EmailConfirmacaoScreen.routeName: (ctx) => EmailConfirmacaoScreen(),
     PostagemScreen.routeName: (ctx) => PostagemScreen(),
   };
 }

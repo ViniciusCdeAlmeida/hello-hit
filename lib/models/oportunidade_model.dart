@@ -4,7 +4,7 @@ part 'oportunidade_model.g.dart';
 
 @JsonSerializable()
 class Oportunidade {
-  final int id;
+  String id;
   final String nomeOrganizacao;
   final String imagem;
   final String banner;

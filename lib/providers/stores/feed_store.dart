@@ -1,4 +1,5 @@
 import 'package:hellohit/models/feed_model.dart';
+import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/feed_controller.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,19 +18,22 @@ abstract class _FeedStore with Store {
   _FeedStore(this._feedController);
 
   @observable
-  ObservableFuture<Feed> _feedFuture;
+  ObservableFuture<List<Post>> _feedFuture;
 
   @observable
-  Feed _feed;
+  ObservableList<Post> _feedObservable = ObservableList<Post>();
+
+  @observable
+  List<Post> _feed;
 
   @computed
-  Feed get feed {
-    return _feed;
+  List<Post> get feed {
+    return _feedObservable;
   }
 
   @computed
   // ignore: missing_return
-  FeedState get marketplaceState {
+  FeedState get feedState {
     if ((_feedFuture == null || _feedFuture.status == FutureStatus.rejected)) {
       return FeedState.inicial;
     }
@@ -43,10 +47,10 @@ abstract class _FeedStore with Store {
   }
 
   @action
-  Future<Feed> feedList(Feed dados) async {
+  Future feedList() async {
     try {
-      _feedFuture = ObservableFuture(_feedController.feedList(dados));
-      _feed = await _feedFuture;
+      _feedFuture = ObservableFuture(_feedController.getFeed());
+      _feedObservable = (await _feedFuture).asObservable();
     } catch (e) {
       throw e;
     }

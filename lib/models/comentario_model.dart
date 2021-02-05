@@ -5,18 +5,12 @@ part 'comentario_model.g.dart';
 
 @JsonSerializable()
 class Comentario {
-  final int id;
-  final String comentario;
-  final int idPost;
-  final int idUsuario;
-  final Usuario usuario;
+  String id;
+  final String body;
 
   Comentario({
     this.id,
-    this.comentario,
-    this.idPost,
-    this.idUsuario,
-    this.usuario,
+    this.body,
   });
 
   factory Comentario.fromJson(Map<String, dynamic> json) =>

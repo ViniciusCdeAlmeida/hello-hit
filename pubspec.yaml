@@ -38,14 +38,15 @@ dependencies:
   image_picker:
   flutter_dotenv:
   flutter_google_places:  
-  flutter_google_places_web: 
+  youtube_player_iframe:
+  flutter_inappwebview: 
+  shared_preferences:
   cupertino_icons: any
   flip_card: ^0.4.4
   brasil_fields: ^0.6.1 
   mask_text_input_formatter: ^1.2.1
   credit_card_type_detector: ^1.1.0
   flutter_quill: ^0.2.2
-  shared_preferences: ^0.5.6+2
 
 dev_dependencies:
   flutter_test:

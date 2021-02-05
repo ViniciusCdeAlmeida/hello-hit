@@ -1,19 +1,25 @@
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/feed_model.dart';
+import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/utils/endpoint.dart';
 
 class FeedController {
-  Feed feed;
-
-  Future<Feed> feedList(Feed feed) async {
+  Future<List<Post>> getFeed() async {
     try {
-      Dio dio = Dio()..options.baseUrl = "http://192.168.60.2:3000/";
-
-      await dio.get('feed');
-    } on DioError catch (e) {
-      if (e.response != null)
-        throw e.response.data['message'];
-      else
-        throw 'Check your connection.';
+      Response res = await Endpoint.getPosts();
+      var post = res.data.map<Post>((content) {
+        var post = Post.fromJson(content);
+        post.id = content['_id'];
+        return post;
+      }).toList() as List<Post>;
+      Future.forEach(post, (element) async {
+        if (element.user != null) {
+          Response res = await Endpoint.getUserById(element.user['_id']);
+          element.user = Post.fromJson(res.data);
+        }
+      });
+      return post;
+    } catch (e) {
+      throw e;
     }
   }
 }

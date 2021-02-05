@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
-import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
+import 'package:hellohit/models/profile_model.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 
 class ProfileUsuarioEdicaoScreen extends StatefulWidget {
   static const routeName = '/profileUsuarioEdicaoScreen';
@@ -14,6 +15,11 @@ class ProfileUsuarioEdicaoScreen extends StatefulWidget {
 
 class _ProfileUsuarioEdicaoScreenState
     extends State<ProfileUsuarioEdicaoScreen> {
+  final _formProfileUsuario = GlobalKey<FormState>();
+  final _nameFocusNode = FocusNode();
+  final _locationFocusNode = FocusNode();
+  final _siteFocusNode = FocusNode();
+  final _bioFocusNode = FocusNode();
   bool checkboxValue = false;
   File _image;
   final picker = ImagePicker();
@@ -36,6 +42,45 @@ class _ProfileUsuarioEdicaoScreenState
     });
   }
 
+  var _perfilUsuario = Profile(
+    bio: '',
+    jobHistory: [],
+    location: '',
+    personalWebsite: '',
+    skills: [],
+    workAvailability: '',
+    banner: '',
+    avatar: '',
+  );
+
+  Future<void> _saveForm() async {
+    final isValid = _formProfileUsuario.currentState.validate();
+    if (!isValid) {
+      return;
+    }
+    _formProfileUsuario.currentState.save();
+    // print(_cadastroUsuario);
+    // _cadastroStore.cadastroUsuario(_cadastroUsuario).catchError(
+    //   (onError) {
+    //     showDialog<Null>(
+    //       context: context,
+    //       builder: (ctx) => AlertDialog(
+    //         title: Text('Error'),
+    //         content: Text(onError),
+    //         actions: <Widget>[
+    //           FlatButton(
+    //             onPressed: () {
+    //               Navigator.of(ctx).pop();
+    //             },
+    //             child: Text('OK'),
+    //           )
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // ).then((_) => Navigator.of(context).pop());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,172 +101,117 @@ class _ProfileUsuarioEdicaoScreenState
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0),
-                          child: Center(
-                            child: InkWell(
-                              onTap: () => Navigator.of(context)
-                                  .pushNamed(TelaExplicacaoProItem.routeName),
-                              child: Container(
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(1),
-                                  ),
-                                  border: Border.all(
-                                    width: 0.2,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: 'Go ',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: 'Pro',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFFE0651F),
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                Form(
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 1.1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 30.0),
+                            child: Center(
+                              child: InkWell(
+                                onTap: () => Navigator.of(context)
+                                    .pushNamed(TelaExplicacaoProItem.routeName),
+                                child: Container(
+                                  width: 300,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(1),
                                     ),
-                                    Text(
-                                      'Add power features for just \$5/month',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                        fontSize: 15,
+                                    border: Border.all(
+                                      width: 0.2,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'Go ',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Pro',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFFE0651F),
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    )
-                                  ],
+                                      Text(
+                                        'Add power features for just \$5/month',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 20.0,
-                                  child: Image.asset(
-                                    // 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
-                                    'assets/images/perfil_assets/Perfil_page_icon.png',
-                                  ),
-                                ),
-                                Container(
-                                  width: 200,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Column(
-                                      children: [
-                                        RichText(
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: 'Nome usuario / ',
-                                                style: TextStyle(
-                                                  color: Colors.blue[600],
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: 'Edit Profile',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 4.0),
-                                          child: Text(
-                                            'Set up your Dribble presence and hiring needs',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
-                                              fontSize: 15,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Column(
+                          Column(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CircleAvatar(
-                                    radius: 45.0,
-                                    backgroundColor: Colors.white,
-                                    backgroundImage: _image == null
-                                        ? null
-                                        : FileImage(_image),
+                                    radius: 20.0,
+                                    child: Image.asset(
+                                      // 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
+                                      'assets/images/perfil_assets/Perfil_page_icon.png',
+                                    ),
                                   ),
                                   Container(
                                     width: 200,
                                     child: Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
-                                          FlatButton(
-                                            color: Color(0xFFE0651F),
-                                            onPressed: getImage,
-                                            child: Text(
-                                              'Upload new picture',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
+                                          RichText(
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'Nome usuario / ',
+                                                  style: TextStyle(
+                                                    color: Colors.blue[600],
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: 'Edit Profile',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 0.0),
-                                            child: FlatButton(
-                                              color: Colors.grey,
-                                              onPressed: deleteImage,
-                                              child: Text(
-                                                'Delete',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
+                                                left: 4.0),
+                                            child: Text(
+                                              'Set up your Dribble presence and hiring needs',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey,
+                                                fontSize: 15,
                                               ),
                                             ),
                                           )
@@ -233,14 +223,70 @@ class _ProfileUsuarioEdicaoScreenState
                               ),
                             ],
                           ),
-                        ),
-                        Form(
-                          child: Column(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 45.0,
+                                      backgroundColor: Colors.white,
+                                      backgroundImage: _image == null
+                                          ? null
+                                          : FileImage(_image),
+                                    ),
+                                    Container(
+                                      width: 200,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            FlatButton(
+                                              color: Color(0xFFE0651F),
+                                              onPressed: getImage,
+                                              child: Text(
+                                                'Upload new picture',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 0.0),
+                                              child: FlatButton(
+                                                color: Colors.grey,
+                                                onPressed: deleteImage,
+                                                child: Text(
+                                                  'Delete',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
-                                child: TextField(
+                                child: TextFormField(
                                   cursorColor: Color(0xFFE0651F),
                                   style: TextStyle(
                                     fontSize: 15,
@@ -389,226 +435,224 @@ class _ProfileUsuarioEdicaoScreenState
                               ),
                             ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20.0,
-                            bottom: 10.0,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20.0,
+                              bottom: 10.0,
+                            ),
+                            child: Text(
+                              'Experience',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 22,
+                              ),
+                            ),
                           ),
-                          child: Text(
-                            'Experience',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 22,
-                            ),
+                          Divider(
+                            color: Colors.grey,
                           ),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20.0,
-                                bottom: 10.0,
-                              ),
-                              child: Text(
-                                'Select your top 3 specialities and add years of experience',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 16,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 20.0,
+                                  bottom: 10.0,
                                 ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10.0,
-                                bottom: 10.0,
-                              ),
-                              child: Text(
-                                'Choose specialities',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Container(
-                                    height: 30,
-                                    padding: const EdgeInsets.only(left: 5.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Checkbox(
-                                          value: checkboxValue,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              checkboxValue = newValue;
-                                            });
-                                          },
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                          child: TextField(
-                                            maxLength: 2,
-                                            maxLengthEnforced: true,
-                                            decoration: InputDecoration(
-                                              hintText: 'Years',
-                                              counterText: '',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                top: 10,
-                                                left: 5,
-                                                bottom: 10,
-                                              ),
-                                              enabledBorder: InputBorder.none,
-                                              border: InputBorder.none,
-                                              focusedErrorBorder:
-                                                  InputBorder.none,
-                                            ),
-                                            controller: null,
-                                            onEditingComplete: () {},
-                                            onChanged: null,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                child: Text(
+                                  'Select your top 3 specialities and add years of experience',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                    fontSize: 16,
                                   ),
                                 ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Container(
-                                    height: 30,
-                                    padding: const EdgeInsets.only(left: 5.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Checkbox(
-                                          value: checkboxValue,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              checkboxValue = newValue;
-                                            });
-                                          },
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                          child: TextField(
-                                            maxLength: 2,
-                                            maxLengthEnforced: true,
-                                            decoration: InputDecoration(
-                                              hintText: 'Years',
-                                              counterText: '',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                top: 10,
-                                                left: 5,
-                                                bottom: 10,
-                                              ),
-                                              enabledBorder: InputBorder.none,
-                                              border: InputBorder.none,
-                                              focusedErrorBorder:
-                                                  InputBorder.none,
-                                            ),
-                                            controller: null,
-                                            onEditingComplete: () {},
-                                            onChanged: null,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 10.0,
+                                  bottom: 10.0,
+                                ),
+                                child: Text(
+                                  'Choose specialities',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
                                   ),
                                 ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Container(
-                                    height: 30,
-                                    padding: const EdgeInsets.only(left: 5.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(4),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Container(
+                                      height: 30,
+                                      padding: const EdgeInsets.only(left: 5.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(4),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Checkbox(
+                                            value: checkboxValue,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                checkboxValue = newValue;
+                                              });
+                                            },
+                                          ),
+                                          SizedBox(
+                                            width: 50,
+                                            child: TextField(
+                                              maxLength: 2,
+                                              maxLengthEnforced: true,
+                                              decoration: InputDecoration(
+                                                hintText: 'Years',
+                                                counterText: '',
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                  top: 10,
+                                                  left: 5,
+                                                  bottom: 10,
+                                                ),
+                                                enabledBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                                focusedErrorBorder:
+                                                    InputBorder.none,
+                                              ),
+                                              controller: null,
+                                              onEditingComplete: () {},
+                                              onChanged: null,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Checkbox(
-                                          value: checkboxValue,
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              checkboxValue = newValue;
-                                            });
-                                          },
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Container(
+                                      height: 30,
+                                      padding: const EdgeInsets.only(left: 5.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(4),
                                         ),
-                                        SizedBox(
-                                          width: 50,
-                                          child: TextField(
-                                            maxLength: 2,
-                                            maxLengthEnforced: true,
-                                            decoration: InputDecoration(
-                                              hintText: 'Years',
-                                              counterText: '',
-                                              contentPadding:
-                                                  const EdgeInsets.only(
-                                                top: 10,
-                                                left: 5,
-                                                bottom: 10,
-                                              ),
-                                              enabledBorder: InputBorder.none,
-                                              border: InputBorder.none,
-                                              focusedErrorBorder:
-                                                  InputBorder.none,
-                                            ),
-                                            controller: null,
-                                            onEditingComplete: () {},
-                                            onChanged: null,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Checkbox(
+                                            value: checkboxValue,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                checkboxValue = newValue;
+                                              });
+                                            },
                                           ),
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            width: 50,
+                                            child: TextField(
+                                              maxLength: 2,
+                                              maxLengthEnforced: true,
+                                              decoration: InputDecoration(
+                                                hintText: 'Years',
+                                                counterText: '',
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                  top: 10,
+                                                  left: 5,
+                                                  bottom: 10,
+                                                ),
+                                                enabledBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                                focusedErrorBorder:
+                                                    InputBorder.none,
+                                              ),
+                                              controller: null,
+                                              onEditingComplete: () {},
+                                              onChanged: null,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        Form(
-                          child: Column(
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Container(
+                                      height: 30,
+                                      padding: const EdgeInsets.only(left: 5.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: const BorderRadius.all(
+                                          Radius.circular(4),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Checkbox(
+                                            value: checkboxValue,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                checkboxValue = newValue;
+                                              });
+                                            },
+                                          ),
+                                          SizedBox(
+                                            width: 50,
+                                            child: TextField(
+                                              maxLength: 2,
+                                              maxLengthEnforced: true,
+                                              decoration: InputDecoration(
+                                                hintText: 'Years',
+                                                counterText: '',
+                                                contentPadding:
+                                                    const EdgeInsets.only(
+                                                  top: 10,
+                                                  left: 5,
+                                                  bottom: 10,
+                                                ),
+                                                enabledBorder: InputBorder.none,
+                                                border: InputBorder.none,
+                                                focusedErrorBorder:
+                                                    InputBorder.none,
+                                              ),
+                                              controller: null,
+                                              onEditingComplete: () {},
+                                              onChanged: null,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          Column(
                             children: [
                               Padding(
                                 padding:
@@ -651,40 +695,38 @@ class _ProfileUsuarioEdicaoScreenState
                               ),
                             ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20.0,
-                            bottom: 10.0,
-                          ),
-                          child: Text(
-                            'Background',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 22,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20.0,
+                              bottom: 10.0,
+                            ),
+                            child: Text(
+                              'Background',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 22,
+                              ),
                             ),
                           ),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                            bottom: 10.0,
+                          Divider(
+                            color: Colors.grey,
                           ),
-                          child: Text(
-                            'Job History',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10.0,
+                              bottom: 10.0,
+                            ),
+                            child: Text(
+                              'Job History',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
-                        ),
-                        Form(
-                          child: Column(
+                          Column(
                             children: [
                               Padding(
                                 padding:
@@ -867,23 +909,21 @@ class _ProfileUsuarioEdicaoScreenState
                               )
                             ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10.0,
-                            bottom: 10.0,
-                          ),
-                          child: Text(
-                            'Educational (optional)',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10.0,
+                              bottom: 10.0,
+                            ),
+                            child: Text(
+                              'Educational (optional)',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
-                        ),
-                        Form(
-                          child: Column(
+                          Column(
                             children: [
                               Padding(
                                 padding:
@@ -1024,149 +1064,147 @@ class _ProfileUsuarioEdicaoScreenState
                               )
                             ],
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20.0,
-                            bottom: 10.0,
-                          ),
-                          child: Text(
-                            'Work Availability',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontSize: 22,
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20.0,
+                              bottom: 10.0,
                             ),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                        ),
-                        Center(
-                          child: Container(
-                            // width: 100,
-                            // height: 100,
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(4),
+                            child: Text(
+                              'Work Availability',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontSize: 22,
                               ),
                             ),
-                            child: RichText(
-                              text: TextSpan(
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Center(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(4),
+                                ),
+                              ),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          'Get your profle ready by setting your work preferences.',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          'When you become a player (either by receiving an invitation or by ',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'going Pro',
+                                      style: TextStyle(
+                                        // fontWeight: FontWeight.bold,
+                                        color: Colors.blue[600],
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:
+                                          ') any one will be able to message you about work opportunities.',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 10.0,
+                                  bottom: 10.0,
+                                  left: 15.0,
+                                ),
+                                child: Text(
+                                  'Are you available for work?',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Row(
                                 children: [
-                                  TextSpan(
-                                    text:
-                                        'Get your profle ready by setting your work preferences.',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
+                                  Checkbox(
+                                    value: checkboxValue,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        checkboxValue = newValue;
+                                      });
+                                    },
                                   ),
-                                  TextSpan(
-                                    text:
-                                        'When you become a player (either by receiving an invitation or by ',
+                                  Text(
+                                    'Full time',
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'going Pro',
-                                    style: TextStyle(
-                                      // fontWeight: FontWeight.bold,
-                                      color: Colors.blue[600],
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        ') any one will be able to message you about work opportunities.',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
+                                      fontSize: 15,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                    value: checkboxValue,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        checkboxValue = newValue;
+                                      });
+                                    },
+                                  ),
+                                  Text(
+                                    'Freelance / Contract',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10.0,
-                                bottom: 10.0,
-                                left: 15.0,
-                              ),
-                              child: Text(
-                                'Are you available for work?',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: checkboxValue,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      checkboxValue = newValue;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  'Full time',
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Center(
+                              child: FlatButton(
+                                minWidth: 250,
+                                color: Color(0xFFE0651F),
+                                onPressed: () {},
+                                child: Text(
+                                  'Save Profile',
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: checkboxValue,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      checkboxValue = newValue;
-                                    });
-                                  },
-                                ),
-                                Text(
-                                  'Freelance / Contract',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: Center(
-                            child: FlatButton(
-                              minWidth: 250,
-                              color: Color(0xFFE0651F),
-                              onPressed: () {},
-                              child: Text(
-                                'Save Profile',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

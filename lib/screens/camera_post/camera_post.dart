@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
 class CameraPostScreen extends StatefulWidget {
+  static const routeName = '/cameraPostScreen';
   @override
   _CameraPostScreenState createState() => _CameraPostScreenState();
 }
@@ -13,15 +14,17 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
   File _imagem;
 
   Future _recuperarImagem(bool daCamera) async {
+    final picker = ImagePicker();
     File imagemSelecionada;
+
     if (daCamera) {
+      var _camera = await picker.getImage(source: ImageSource.camera);
       //camera
-      imagemSelecionada =
-          await ImagePicker.pickImage(source: ImageSource.camera);
+      imagemSelecionada = File(_camera.path);
     } else {
+      var _galeria = await picker.getImage(source: ImageSource.gallery);
       //galeria
-      imagemSelecionada =
-          await ImagePicker.pickImage(source: ImageSource.gallery);
+      imagemSelecionada = File(_galeria.path);
     }
 
     setState(() {
@@ -52,7 +55,7 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: GestureDetector(
-          onTap: () {},
+          onTap: () => Navigator.pop(context),
           child: Padding(
             padding: EdgeInsets.only(left: 10, top: 20),
             child: const Text(
@@ -65,6 +68,27 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
             ),
           ),
         ),
+        actions: [
+          Center(
+            child: InkWell(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(PostagemScreen.routeName),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  right: 10,
+                ),
+                child: Text(
+                  'Ok',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
         title: Text(
           'Photo',
           style: TextStyle(
@@ -73,14 +97,13 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.navigate_next_outlined),
-            color: Colors.black,
-            onPressed: () =>
-                Navigator.of(context).pushNamed(PostagemScreen.routeName),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(Icons.close),
+        //     color: Colors.black,
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: Container(
         color: Colors.white,

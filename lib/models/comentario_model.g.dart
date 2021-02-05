@@ -8,21 +8,13 @@ part of 'comentario_model.dart';
 
 Comentario _$ComentarioFromJson(Map<String, dynamic> json) {
   return Comentario(
-    id: json['id'] as int,
-    comentario: json['comentario'] as String,
-    idPost: json['idPost'] as int,
-    idUsuario: json['idUsuario'] as int,
-    usuario: json['usuario'] == null
-        ? null
-        : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
+    id: json['id'] as String,
+    body: json['body'] as String,
   );
 }
 
 Map<String, dynamic> _$ComentarioToJson(Comentario instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'comentario': instance.comentario,
-      'idPost': instance.idPost,
-      'idUsuario': instance.idUsuario,
-      'usuario': instance.usuario,
+      'body': instance.body,
     };

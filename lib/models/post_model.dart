@@ -1,24 +1,25 @@
-import 'package:hellohit/models/comentario_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post_model.g.dart';
 
 @JsonSerializable()
 class Post {
-  final int id;
-  final List<Comentario> comentario;
-  final int hits;
-  final List idsComentario;
-  final String imagem;
-  final int idUsuario;
+  String id;
+  int hits;
+  String tip;
+  List comments;
+  final String text;
+  dynamic user;
+  final dynamic file;
 
   Post({
     this.id,
-    this.comentario,
+    this.comments,
     this.hits,
-    this.idsComentario,
-    this.imagem,
-    this.idUsuario,
+    this.tip,
+    this.text,
+    this.user,
+    this.file,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);

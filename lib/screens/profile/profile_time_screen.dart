@@ -62,7 +62,7 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
                       ),
                       floating: false,
                       centerTitle: true,
-                      title: Text(_profileStore.usuario.nome),
+                      title: Text(_profileStore.usuario.full_name),
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate([

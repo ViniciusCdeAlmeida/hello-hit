@@ -1,43 +1,36 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
 class Usuario {
-  final int id;
-  String nome;
+  String id;
+  // ignore: non_constant_identifier_names
+  String full_name;
   int hits;
   int fans;
   List skills;
-  String localizacao;
-  String imagem;
-  String categoria;
-  String mensagem;
-  List<Post> posts;
-  List idUsuarios;
-  List<Usuario> usuarios;
-  List idOportunidades;
-  List<Oportunidade> oportunidades;
-  String tipoUsuario;
+  String email;
+  String userType;
+  // ignore: non_constant_identifier_names
+  String signature_status;
+  String token;
 
   Usuario({
     this.id,
-    this.nome,
+    // ignore: non_constant_identifier_names
+    this.full_name,
     this.hits,
     this.fans,
     this.skills,
-    this.imagem,
-    this.localizacao,
-    this.posts,
-    this.usuarios,
-    this.idUsuarios,
-    this.idOportunidades,
-    this.oportunidades,
-    this.categoria,
-    this.mensagem,
-    this.tipoUsuario,
+    this.email,
+    this.userType,
+    // ignore: non_constant_identifier_names
+    this.signature_status,
+    this.token,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

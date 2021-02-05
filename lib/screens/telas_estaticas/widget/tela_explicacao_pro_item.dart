@@ -11,6 +11,7 @@ class TelaExplicacaoProItem extends StatefulWidget {
 
 class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
   bool isSwitched = true;
+  String _valor = '57.00';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,13 +24,6 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
             Center(
               child: Container(
                 height: MediaQuery.of(context).size.height / 1.5,
-                // width: MediaQuery.of(context).size.width / 1.1,
-                // foregroundDecoration: BoxDecoration(
-                //   image: DecorationImage(
-                //     image: AssetImage('assets/images/tela_pro_1.jpg'),
-                //     fit: BoxFit.fitWidth,
-                //   ),
-                // ),
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/tela_pro_1.jpg'),
@@ -37,13 +31,14 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                   ),
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
-                            'Lorem ipsum elit lorem dui quisque, elementum quam pharetra non.',
+                            'Take control of your Arts \& Sports career',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 38,
@@ -55,7 +50,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Lorem ipsum elementum urna vel ornare platea vivamus, mi fermentum curae tristique nisl sed, nostra sociosqu imperdiet consequat dictumst vehicula. ',
+                            'Hello Hit Pro is the most powerful way to showcase your talent and get discovered as a Sports or Arts professional. It\'s everything you need to put your carreer forward.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
@@ -105,10 +100,10 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Text(
-                            'Lorem ipsum elit lorem dui quisque, elementum quam pharetra non.',
+                            'Get the Work or Sponsor You Want',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 38,
+                              fontSize: 32,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
@@ -117,106 +112,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Lorem ipsum elementum urna vel ornare platea vivamus, mi fermentum curae tristique nisl sed, nostra sociosqu imperdiet consequat dictumst vehicula. ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        CircleAvatar(
-                          radius: 90.0,
-                          backgroundImage: NetworkImage(
-                              'https://vectorlogoseek.com/wp-content/uploads/2018/09/san-diego-padres-baseball-club-vector-logo.png'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: RaisedButton(
-                            onPressed: () {},
-                            textColor: Colors.white,
-                            padding: const EdgeInsets.all(0.0),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: <Color>[
-                                    Color(0xFF0D47A1),
-                                    Color(0xFF1976D2),
-                                    Color(0xFF42A5F5),
-                                  ],
-                                ),
-                              ),
-                              padding: const EdgeInsets.all(12.0),
-                              child: const Text('Hire......',
-                                  style: TextStyle(fontSize: 20)),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          width: MediaQuery.of(context).size.width / 1.3,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image:
-                                  AssetImage('assets/images/comment_icon.jpg'),
-                              fit: BoxFit.scaleDown,
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Lorem ipsum elit lorem dui quisque, elementum quam pharetra non.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage: NetworkImage(
-                                        'https://vectorlogoseek.com/wp-content/uploads/2018/09/san-diego-padres-baseball-club-vector-logo.png'),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: Text(
-                                  'San Diego Team',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        FadeDivider(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            'Lorem ipsum elit lorem dui quisque, elementum quam pharetra non.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 38,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Lorem ipsum elementum urna vel ornare platea vivamus, mi fermentum curae tristique nisl sed, nostra sociosqu imperdiet consequat dictumst vehicula. ',
+                            'With Hello Hit Pro, you\'ll be recommended for jobs and Sponsors from any team on the plataform. Set your own job parameters and let us filter ou the noise for you.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
@@ -274,37 +170,37 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                               FadeDivider(),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Upload Shots.',
                                 corIcon: Colors.white,
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Give/Receive Comments.',
                                 corIcon: Colors.white,
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Work Opportunities',
                                 corIcon: Colors.white,
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Set The Rates you Want',
                                 corIcon: Colors.white,
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Sell Goods',
                                 corIcon: Colors.grey[600],
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Downloads \& Scheduling',
                                 corIcon: Colors.grey[600],
                                 corFonte: Colors.white,
                               ),
@@ -313,19 +209,25 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                               ),
                               BannerRow(
                                 icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Go Ad Free',
                                 corIcon: Colors.grey[600],
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Video',
                                 corIcon: Colors.grey[600],
                                 corFonte: Colors.white,
                               ),
                               BannerRow(
                                 icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Advanced Statistics',
+                                corIcon: Colors.grey[600],
+                                corFonte: Colors.white,
+                              ),
+                              BannerRow(
+                                icon: Icons.clear,
+                                texto: 'Exclusive Deals',
                                 corIcon: Colors.grey[600],
                                 corFonte: Colors.white,
                               ),
@@ -368,28 +270,28 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                           MediaQuery.of(context).size.width / 3,
                                     ),
                                   ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                      gradient: LinearGradient(
-                                        colors: <Color>[
-                                          Color(0xFF0D47A1),
-                                          Color(0xFF1976D2),
-                                          Color(0xFF42A5F5),
-                                        ],
-                                      ),
-                                    ),
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: const Text(
-                                      'Hire......',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   decoration: const BoxDecoration(
+                                  //     borderRadius: BorderRadius.all(
+                                  //       Radius.circular(10.0),
+                                  //     ),
+                                  //     gradient: LinearGradient(
+                                  //       colors: <Color>[
+                                  //         Color(0xFF0D47A1),
+                                  //         Color(0xFF1976D2),
+                                  //         Color(0xFF42A5F5),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  //   padding: const EdgeInsets.all(12.0),
+                                  //   child: const Text(
+                                  //     'Hire......',
+                                  //     style: TextStyle(
+                                  //       fontSize: 20,
+                                  //       color: Colors.white,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               RichText(
@@ -402,7 +304,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                       ),
                                     ),
                                     TextSpan(
-                                      text: '5',
+                                      text: _valor,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -440,6 +342,9 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                       value: isSwitched,
                                       onChanged: (value) {
                                         setState(() {
+                                          value
+                                              ? _valor = '57.00'
+                                              : _valor = '4.90';
                                           isSwitched = value;
                                         });
                                       },
@@ -461,40 +366,52 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                               FadeDivider(),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Upload Shots.',
                                 corIcon: Colors.black,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Give/Receive Comments.',
                                 corIcon: Colors.black,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Work Opportunities',
                                 corIcon: Colors.black,
                               ),
                               BannerRow(
                                 icon: Icons.check,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
-                                corIcon: Colors.black,
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 12,
-                              ),
-                              BannerRow(
-                                icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                texto: 'Set The Rates you Want',
                                 corIcon: Colors.black,
                               ),
                               BannerRow(
-                                icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                icon: Icons.check,
+                                texto: 'Sell Goods',
                                 corIcon: Colors.black,
                               ),
                               BannerRow(
-                                icon: Icons.clear,
-                                texto: 'Lorem ipsum elit lorem dui quisque.',
+                                icon: Icons.check,
+                                texto: 'Downloads \& Scheduling',
+                                corIcon: Colors.black,
+                              ),
+                              BannerRow(
+                                icon: Icons.check,
+                                texto: 'Go Ad Free',
+                                corIcon: Colors.black,
+                              ),
+                              BannerRow(
+                                icon: Icons.check,
+                                texto: 'Video',
+                                corIcon: Colors.black,
+                              ),
+                              BannerRow(
+                                icon: Icons.check,
+                                texto: 'Advanced Statistics',
+                                corIcon: Colors.black,
+                              ),
+                              BannerRow(
+                                icon: Icons.check,
+                                texto: 'Exclusive Deals',
                                 corIcon: Colors.black,
                               ),
                               SizedBox(

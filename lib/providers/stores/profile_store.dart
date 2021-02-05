@@ -107,31 +107,31 @@ abstract class _ProfileStore with Store {
 
   @action
   Future<void> loadProfile(int id) async {
-    try {
-      List<Post> postTemp;
-      _postStore.seed().whenComplete(() {
-        postTemp = _postStore.loadUserPosts(id);
-        _profileObservable =
-            _profilesObservable.firstWhere((element) => element.id == id);
-        _profileObservable.posts = postTemp;
-        _profileObservable.usuarios = loadUsers(_profileObservable.idUsuarios);
-        _marketplaceStore.carreirasOriginal;
-        _profileObservable.oportunidades = [];
-        _marketplaceStore.seed().whenComplete(
-              () => _profileObservable.idOportunidades.forEach((id) {
-                List<Oportunidade> oportunidadeTemp = [];
+    // try {
+    //   List<Post> postTemp;
+    //   _postStore.seed().whenComplete(() {
+    //     postTemp = _postStore.loadUserPosts(id);
+    //     _profileObservable =
+    //         _profilesObservable.firstWhere((element) => element.id == id);
+    //     _profileObservable.posts = postTemp;
+    //     _profileObservable.usuarios = loadUsers(_profileObservable.idUsuarios);
+    //     _marketplaceStore.carreirasOriginal;
+    //     _profileObservable.oportunidades = [];
+    //     _marketplaceStore.seed().whenComplete(
+    //           () => _profileObservable.idOportunidades.forEach((id) {
+    //             List<Oportunidade> oportunidadeTemp = [];
 
-                oportunidadeTemp = _marketplaceStore.loadUserCarreiras();
-                _profileObservable.oportunidades.addAll(
-                  oportunidadeTemp
-                      .where((carreira) => carreira.id == id)
-                      .toList(),
-                );
-              }),
-            );
-      });
-    } catch (e) {
-      throw e;
-    }
+    //             oportunidadeTemp = _marketplaceStore.loadUserCarreiras();
+    //             _profileObservable.oportunidades.addAll(
+    //               oportunidadeTemp
+    //                   .where((carreira) => carreira.id == id)
+    //                   .toList(),
+    //             );
+    //           }),
+    //         );
+    //   });
+    // } catch (e) {
+    //   throw e;
+    // }
   }
 }

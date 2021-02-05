@@ -24,15 +24,15 @@ class ProfileTimeItem extends StatelessWidget {
             child: Stack(
               children: [
                 ClipRRect(
-                  child: Image.network(
-                    usuario.imagem,
-                    height: deviceSize.orientation == Orientation.portrait
-                        ? deviceSize.size.height / 3
-                        : deviceSize.size.height,
-                    width: deviceSize.size.width,
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                    // child: Image.network(
+                    //   usuario.imagem,
+                    //   height: deviceSize.orientation == Orientation.portrait
+                    //       ? deviceSize.size.height / 3
+                    //       : deviceSize.size.height,
+                    //   width: deviceSize.size.width,
+                    //   fit: BoxFit.fill,
+                    // ),
+                    ),
                 Center(
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -59,13 +59,13 @@ class ProfileTimeItem extends StatelessWidget {
                         ),
                       ),
                       child: ClipRRect(
-                        child: Image.network(
-                          usuario.imagem,
-                          height: 120,
-                          width: 130,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                          // child: Image.network(
+                          //   usuario.imagem,
+                          //   height: 120,
+                          //   width: 130,
+                          //   fit: BoxFit.fill,
+                          // ),
+                          ),
                     ),
                   ),
                 ),
@@ -111,7 +111,7 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          Text(usuario.nome),
+          Text(usuario.full_name),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -164,7 +164,7 @@ class ProfileTimeItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 18.0),
-            child: Text(usuario.mensagem),
+            // child: Text(usuario.mensagem),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 18.0),
@@ -175,18 +175,18 @@ class ProfileTimeItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ClipRRect(
-                      child: Image.network(
-                        usuario.imagem,
-                        height: deviceSize.orientation == Orientation.portrait
-                            ? deviceSize.size.height / 10
-                            : deviceSize.size.height / 3.5,
-                        width: deviceSize.size.width / 5,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                        // child: Image.network(
+                        //   usuario.imagem,
+                        //   height: deviceSize.orientation == Orientation.portrait
+                        //       ? deviceSize.size.height / 10
+                        //       : deviceSize.size.height / 3.5,
+                        //   width: deviceSize.size.width / 5,
+                        //   fit: BoxFit.fill,
+                        // ),
+                        ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
-                      child: Text('BE LIKE ${usuario.nome} TEAM'),
+                      child: Text('BE LIKE ${usuario.full_name} TEAM'),
                     ),
                   ],
                 ),
@@ -225,14 +225,14 @@ class ProfileTimeItem extends StatelessWidget {
               childAspectRatio: (2.7 / 2),
               mainAxisSpacing: 10,
             ),
-            childrenDelegate: SliverChildListDelegate(
-              usuario.oportunidades
-                  .map((oportunidade) => TimeOportunidades(
-                        imagem: oportunidade.banner,
-                        nome: oportunidade.nomeOrganizacao,
-                      ))
-                  .toList(),
-            ),
+            childrenDelegate: SliverChildListDelegate(null
+                // usuario.oportunidades
+                //     .map((oportunidade) => TimeOportunidades(
+                //           imagem: oportunidade.banner,
+                //           nome: oportunidade.nomeOrganizacao,
+                //         ))
+                //     .toList(),
+                ),
           ),
           // MEMBROS
           Padding(
@@ -244,36 +244,36 @@ class ProfileTimeItem extends StatelessWidget {
                 InkWell(
                   onTap: () => Navigator.of(context)
                       .pushNamed(ProfileMembroScreen.routeName),
-                  child: Text('See all ${usuario.usuarios.length} members'),
+                  // child: Text('See all ${usuario.usuarios.length} members'),
                 ),
               ],
             ),
           ),
-          if (usuario.usuarios.length > 0)
-            GridView.extent(
-              maxCrossAxisExtent: 50,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              // itemCount:
-              //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: usuario.usuarios
-                  .getRange(
-                      0,
-                      usuario.usuarios.length >= 1 &&
-                              usuario.usuarios.length <= 8
-                          ? usuario.usuarios.length
-                          : 14)
-                  .map(
-                    ((usuario) => CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(usuario.imagem),
-                        )),
-                  )
-                  .toList(),
-            ),
+          // if (usuario.usuarios.length > 0)
+          // GridView.extent(
+          //   maxCrossAxisExtent: 50,
+          //   mainAxisSpacing: 10,
+          //   crossAxisSpacing: 10,
+          //   // itemCount:
+          //   //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+          //   padding: const EdgeInsets.all(10),
+          //   shrinkWrap: true,
+          //   physics: NeverScrollableScrollPhysics(),
+          //   children: usuario.usuarios
+          //       .getRange(
+          //           0,
+          //           usuario.usuarios.length >= 1 &&
+          //                   usuario.usuarios.length <= 8
+          //               ? usuario.usuarios.length
+          //               : 14)
+          //       .map(
+          //         ((usuario) => CircleAvatar(
+          //               backgroundColor: Colors.transparent,
+          //               backgroundImage: NetworkImage(usuario.imagem),
+          //             )),
+          //       )
+          //       .toList(),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -310,14 +310,14 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (_, idx) {
-              return PostCard(post: usuario.posts[idx]);
-            },
-            itemCount: usuario.posts.length,
-          ),
+          // ListView.builder(
+          //   shrinkWrap: true,
+          //   physics: NeverScrollableScrollPhysics(),
+          //   itemBuilder: (_, idx) {
+          //     return PostCard(post: usuario.posts[idx]);
+          //   },
+          //   itemCount: usuario.posts.length,
+          // ),
         ],
       ),
     );
@@ -326,7 +326,7 @@ class ProfileTimeItem extends StatelessWidget {
   // ignore: missing_return
   NetworkImage listaImagem(int count, List<Usuario> usuarios) {
     for (var i = 0; i < count; i++) {
-      return NetworkImage(usuarios[count].imagem);
+      // return NetworkImage(usuarios[count].imagem);
     }
   }
 }

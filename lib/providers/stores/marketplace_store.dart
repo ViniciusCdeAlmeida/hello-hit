@@ -70,9 +70,9 @@ abstract class _MarketplaceStore with Store {
   @action
   Future<void> seed() async {
     try {
-      _carreiraFuture = ObservableFuture(
-        _marketPlaceController.seed(),
-      );
+      _carreiraFuture = ObservableFuture(null
+          // _marketPlaceController.seed(),
+          );
       _carreiraObservable = (await _carreiraFuture).asObservable();
     } catch (e) {
       throw e;

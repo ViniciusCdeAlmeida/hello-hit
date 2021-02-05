@@ -14,71 +14,101 @@ class _PostagemScreenState extends State<PostagemScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/barra.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 125),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(
-                'assets/images/perfil_assets/Perfil_page_icon.png',
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.all(0),
+              title: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    color: Colors.orange[700],
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.chevron_left,
+                            size: 40,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    color: Colors.black,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 60, top: 15),
-            child: GestureDetector(
-              onTap: () {},
-              child: const Text(
-                'NEXT',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(top: 10),
-        child: SafeArea(
-          child: Container(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: Column(
                   children: [
-                    const Text(
-                      'Hello! Write something to your fans.',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 1.3,
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: Form(
+                            child: TextFormField(
+                              autofocus: true,
+                              maxLengthEnforced: true,
+                              maxLength: 300,
+                              maxLines: 50,
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                  top: 5,
+                                  left: 5,
+                                  bottom: 12,
+                                ),
+                                hintText:
+                                    'Hello! Write something to your fans.',
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                focusedErrorBorder: InputBorder.none,
+                              ),
+                              onSaved: null,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
-        ),
+              ),
+            ]),
+          )
+        ],
       ),
     );
   }

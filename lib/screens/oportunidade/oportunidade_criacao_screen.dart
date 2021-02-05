@@ -3,14 +3,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_google_places_web/flutter_google_places_web.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
 import 'package:google_place/google_place.dart';
-import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+
+import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 
 class OportunidadeCriacaoScreen extends StatefulWidget {
   static const routeName = '/oportunidadeCriacaoScreen';
@@ -174,9 +174,6 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                   controller: _controller,
                   readOnly: false,
                 ),
-              ),
-              FlutterGooglePlacesWeb(
-                apiKey: apiKey,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(

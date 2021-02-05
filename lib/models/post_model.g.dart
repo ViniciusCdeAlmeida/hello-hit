@@ -8,23 +8,22 @@ part of 'post_model.dart';
 
 Post _$PostFromJson(Map<String, dynamic> json) {
   return Post(
-    id: json['id'] as int,
-    comentario: (json['comentario'] as List)
-        ?.map((e) =>
-            e == null ? null : Comentario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    id: json['id'] as String,
+    comments: json['comments'] as List,
     hits: json['hits'] as int,
-    idsComentario: json['idsComentario'] as List,
-    imagem: json['imagem'] as String,
-    idUsuario: json['idUsuario'] as int,
+    tip: json['tip'] as String,
+    text: json['text'] as String,
+    user: json['user'],
+    file: json['file'],
   );
 }
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'id': instance.id,
-      'comentario': instance.comentario,
       'hits': instance.hits,
-      'idsComentario': instance.idsComentario,
-      'imagem': instance.imagem,
-      'idUsuario': instance.idUsuario,
+      'tip': instance.tip,
+      'comments': instance.comments,
+      'text': instance.text,
+      'user': instance.user,
+      'file': instance.file,
     };
