@@ -12,7 +12,7 @@ Cadastro _$CadastroFromJson(Map<String, dynamic> json) {
     email: json['email'] as String,
     password: json['password'] as String,
     userType: json['userType'] as String,
-    userName: json['userName'] as String,
+    username: json['username'] as String,
     gender: json['gender'] as String,
     confirmPassword: json['confirmPassword'] as String,
   );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$CadastroToJson(Cadastro instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
       'userType': instance.userType,
-      'userName': instance.userName,
+      'username': instance.username,
       'gender': instance.gender,
       'confirmPassword': instance.confirmPassword,
     };

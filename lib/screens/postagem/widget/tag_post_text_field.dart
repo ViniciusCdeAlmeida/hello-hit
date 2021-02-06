@@ -10,6 +10,7 @@ class TagPostTextField extends StatelessWidget {
     this.inputFormatters,
     this.validator,
     this.maxLength,
+    this.controller,
     this.textAlign = TextAlign.start,
   });
 
@@ -21,6 +22,7 @@ class TagPostTextField extends StatelessWidget {
   final FormFieldValidator<String> validator;
   final int maxLength;
   final TextAlign textAlign;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class TagPostTextField extends StatelessWidget {
                   ],
                 ),
               TextFormField(
+                controller: controller,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: bold ? FontWeight.bold : FontWeight.w500,

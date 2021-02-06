@@ -2,10 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/feed_store.dart';
-import 'package:hellohit/screens/camera_post/camera_post.dart';
+import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
-import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/time/time_screen.dart';
@@ -22,13 +23,16 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   FeedStore _feedStore;
+  AutenticacaoStore _autenticacaoStore;
   int id;
+  Usuario _usuario;
 
   @override
   void didChangeDependencies() {
     _feedStore = Provider.of<FeedStore>(context);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _feedStore.feedList();
-
+    _usuario = _autenticacaoStore.autenticacao;
     super.didChangeDependencies();
   }
 
@@ -107,7 +111,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 Navigator.of(context).pushNamed(TimeScreen.routeName);
                 break;
               case 2:
-                Navigator.of(context).pushNamed(CameraPostScreen.routeName);
+                Navigator.of(context).pushNamed(PostagemCameraScreen.routeName);
                 break;
               case 3:
                 Navigator.of(context).pushNamed(MarketPlaceScreen.routeName);
@@ -119,7 +123,7 @@ class _FeedScreenState extends State<FeedScreen> {
           },
         ),
         backgroundColor: Colors.grey[100],
-        drawer: CustomDrawer(),
+        drawer: CustomDrawer(usuario: _usuario),
         appBar: AppBar(
           title: Padding(
             padding: const EdgeInsets.only(right: 45.0),

@@ -15,8 +15,8 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
   int id;
   @override
   void didChangeDependencies() {
-    _profileStore = Provider.of<ProfileStore>(context);
-    _profileStore.seed().whenComplete(() => _profileStore.loadProfile(1));
+    // _profileStore = Provider.of<ProfileStore>(context);
+    // _profileStore.seed().whenComplete(() => _profileStore.loadProfile(1));
 
     super.didChangeDependencies();
   }
@@ -24,35 +24,35 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      body: Observer(
-        // ignore: missing_return
-        builder: (_) {
-          switch (_profileStore.profilesState) {
-            case ProfileState.inicial:
-            case ProfileState.carregando:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            case ProfileState.carregado:
-              return Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width / 1.03,
-                  child: CustomScrollView(
-                    shrinkWrap: true,
-                    slivers: <Widget>[
-                      SliverList(
-                        delegate: SliverChildListDelegate([
-                          ProfileUsuarioItem(_profileStore.usuario),
-                        ]),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-          }
-        },
-      ),
-    );
+        // backgroundColor: Colors.grey[100],
+        // body: Observer(
+        //   // ignore: missing_return
+        //   builder: (_) {
+        //     switch (_profileStore.profilesState) {
+        //       case ProfileState.inicial:
+        //       case ProfileState.carregando:
+        //         return Center(
+        //           child: CircularProgressIndicator(),
+        //         );
+        //       case ProfileState.carregado:
+        //         return Center(
+        //           child: Container(
+        //             width: MediaQuery.of(context).size.width / 1.03,
+        //             child: CustomScrollView(
+        //               shrinkWrap: true,
+        //               slivers: <Widget>[
+        //                 SliverList(
+        //                   delegate: SliverChildListDelegate([
+        //                     ProfileUsuarioItem(_profileStore.usuario),
+        //                   ]),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //     }
+        //   },
+        // ),
+        );
   }
 }

@@ -3,13 +3,16 @@ import 'package:hellohit/providers/cadastro_controller.dart';
 import 'package:hellohit/providers/feed_controller.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
 import 'package:hellohit/providers/post_controller.dart';
+import 'package:hellohit/providers/postagem_controller.dart';
 import 'package:hellohit/providers/profile_controller.dart';
 import 'package:hellohit/providers/search_controller.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/cadastro_store.dart';
+import 'package:hellohit/providers/stores/edicao_profile_store.dart';
 import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
+import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:hellohit/providers/stores/search_store.dart';
 import 'package:provider/provider.dart';
@@ -32,12 +35,12 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => ProfileStore(
           ProfileController(),
-          PostStore(
-            PostController(),
-          ),
-          MarketplaceStore(
-            MarketPlaceController(),
-          ),
+          // PostStore(
+          //   PostController(),
+          // ),
+          // MarketplaceStore(
+          //   MarketPlaceController(),
+          // ),
         ),
       ),
       Provider(
@@ -59,5 +62,13 @@ List<SingleChildWidget> providers() => [
         create: (ctx) => AutenticacaoStore(
           AutenticacaoController(),
         ),
+      ),
+      Provider(
+        create: (ctx) => PostagemStore(
+          PostagemController(),
+        ),
+      ),
+      Provider(
+        create: (ctx) => EdicaoProfileStore(),
       ),
     ];

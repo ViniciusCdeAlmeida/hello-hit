@@ -92,9 +92,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                 builder: (_) {
                   switch (_maketplaceStore.marketplaceState) {
                     case MarketplaceState.inicial:
-                      return Center(
-                        child: Text('vazio'),
-                      );
+                      return Container();
                     case MarketplaceState.carregando:
                       return Center(
                         child: CircularProgressIndicator(),
@@ -159,9 +157,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                 builder: (_) {
                   switch (_maketplaceStore.marketplaceState) {
                     case MarketplaceState.inicial:
-                      return Center(
-                        child: Text('vazio'),
-                      );
+                      return Container();
                     case MarketplaceState.carregando:
                       return Center(
                         child: CircularProgressIndicator(),

@@ -1,34 +1,44 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-import 'package:hellohit/models/usuario_model.dart';
+import 'package:dio/dio.dart';
+import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/utils/endpoint.dart';
 
 class ProfileController {
-  List<Usuario> usuario;
+  Future<Profile> atualizarUsuarioProfile(Profile profile) async {
+    try {
+      Response res = await Endpoint.patchProfileUsuario(profile);
+      return Profile.fromJson(res.data);
+    } catch (e) {
+      throw e;
+    }
+  }
 
-  Future<List<Usuario>> seed() async {
-    // ByteData data = await rootBundle.load('assets/resources/usuario_seed.json');
-    // var json = jsonDecode(utf8.decode(data.buffer.asUint8List()));
-    // usuario = List<Usuario>.from(
-    //   (json['objects'] as List).map(
-    //     (item) => Usuario(
-    //       id: item['id'],
-    //       fans: item['fans'],
-    //       categoria: item['categoria'],
-    //       hits: item['hits'],
-    //       idUsuarios: item['idUsuarios'],
-    //       usuarios: item['usuarios'],
-    //       imagem: item['imagem'],
-    //       localizacao: item['localizacao'],
-    //       mensagem: item['mensagem'],
-    //       nome: item['nome'],
-    //       posts: item['posts'],
-    //       skills: item['skills'],
-    //       idOportunidades: item['idOportunidades'],
-    //       oportunidades: item['oportunidades'],
-    //     ),
-    //   ),
-    // );
-    // return usuario;
+  Future<Profile> atualizarTimeProfile(Profile profile) async {
+    try {
+      Response res = await Endpoint.patchProfileTime(profile);
+      await Endpoint.putImagem(profile.avatar);
+      return Profile.fromJson(res.data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Profile> getTimeProfile(String id) async {
+    try {
+      Response res = await Endpoint.getProfileTime(id);
+      return Profile.fromJson(res.data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Profile> getUsuarioProfile(String id) async {
+    try {
+      Response res = await Endpoint.getProfileUsuario(id);
+      var t = Profile.fromJson(res.data);
+      t.user.full_name = res.data['user']['fullName'];
+      return t;
+    } catch (e) {
+      throw e;
+    }
   }
 }

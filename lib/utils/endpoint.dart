@@ -1,15 +1,16 @@
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
+import 'package:hellohit/models/cadastro_model.dart';
 import 'package:hellohit/models/comentario_model.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/providers/autenticacao_controller.dart';
+import 'package:hive/hive.dart';
 
 String _token;
 
-Future<void> getToken() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  _token = prefs.get('tokenUsuario');
+void getToken(String token) {
+  _token = token;
 }
 
 Dio getConexaoPrefs() {
@@ -20,8 +21,11 @@ Dio getConexaoPrefs() {
 }
 
 class Endpoint {
-  static Future postCadastroUsuario(Usuario usuario) async =>
+  static Future postCadastroUsuario(Cadastro usuario) async =>
       await getConexaoPrefs().post('signup', data: usuario);
+
+  static Future postProfileUsuario(dynamic usuario) async =>
+      await getConexaoPrefs().post('profiles', data: usuario);
 
   static Future postAutenticacaoUsuario(Autenticacao usuario) async {
     return await getConexaoPrefs().post('login', data: usuario);
@@ -31,13 +35,77 @@ class Endpoint {
 
   static Future getPosts() async => await getConexaoPrefs().get('posts');
 
+  static Future getProfileTime(String id) async =>
+      await getConexaoPrefs().get('profiles');
+
+  static Future getProfileUsuario(String id) async =>
+      await getConexaoPrefs().get('profiles/user/$id');
+
+  static Future putImagem(String image) async {
+    FormData formData =
+        FormData.fromMap({"file": await MultipartFile.fromFile(image)});
+
+    return await getConexaoPrefs().put('myuser', data: formData);
+  }
+
+  static Future patchProfileUsuario(Profile profile) async {
+    final dados = {
+      'avatar': profile.avatar,
+      'banner': profile.banner,
+      'bio': profile.bio,
+      'educations': profile.educations,
+      'freelance': profile.freelance,
+      'fullTime': profile.fullTime,
+      'hits': profile.hits,
+      'hitsCount': profile.hitsCount,
+      '_id': profile.id,
+      'jobHistory': profile.jobHistory,
+      'location': profile.location,
+      'openOpportunities': profile.openOpportunities,
+      'PersonalWebsite': profile.personalWebsite,
+      'skills': profile.skills,
+      'teams': profile.teams,
+      'user': profile.user,
+      'workAvailability': profile.workAvailability,
+    };
+    await getConexaoPrefs().patch('profiles/${profile.id}', data: dados);
+  }
+
+  static Future patchProfileTime(Profile profile) async {
+    final dados = {
+      'avatar': profile.avatar,
+      'banner': profile.banner,
+      'bio': profile.bio,
+      'educations': profile.educations,
+      'freelance': profile.freelance,
+      'fullTime': profile.fullTime,
+      'hits': profile.hits,
+      'hitsCount': profile.hitsCount,
+      '_id': profile.id,
+      'jobHistory': profile.jobHistory,
+      'location': profile.location,
+      'openOpportunities': profile.openOpportunities,
+      'PersonalWebsite': profile.personalWebsite,
+      'skills': profile.skills,
+      'teams': profile.teams,
+      'user': profile.user,
+      'workAvailability': profile.workAvailability,
+    };
+    await getConexaoPrefs().patch('posts', data: dados);
+  }
+
   static Future getUserById(String id) async =>
       await getConexaoPrefs().get('users/$id');
-  // static Future getPostsFiltro(String nome) async =>
-  //     await getConexaoPrefs().get('contatos/filtrar?nome=$nome');
 
-  static Future postPosts(Post post) async =>
-      await getConexaoPrefs().post('posts', data: post);
+  static Future postPosts(Post post) async {
+    FormData formData = FormData.fromMap({
+      "location": post.location,
+      "text": post.text,
+      "file": await MultipartFile.fromFile(post.file)
+    });
+
+    return await getConexaoPrefs().post('posts', data: formData);
+  }
 
   static Future postComenetarioPost(
           Comentario comentario, String idUsuario) async =>

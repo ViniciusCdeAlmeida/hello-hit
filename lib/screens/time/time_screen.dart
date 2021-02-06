@@ -128,9 +128,7 @@ class _TimeScreenState extends State<TimeScreen> {
                 builder: (_) {
                   switch (_maketplaceStore.marketplaceState) {
                     case MarketplaceState.inicial:
-                      return Center(
-                        child: Text('vazio'),
-                      );
+                      return Container();
                     case MarketplaceState.carregando:
                       return Center(
                         child: CircularProgressIndicator(),

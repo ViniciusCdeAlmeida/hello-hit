@@ -29,23 +29,17 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
       return;
     }
     _formKey.currentState.save();
-
-    try {
-      _autenticacaoStore
-          .autenticacaoUsuario(_loginData)
-          .then(
-            (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
-          )
-          .catchError((onError) {
-        throw onError;
-      });
-    } catch (error) {
-      print('object');
+    _autenticacaoStore
+        .autenticacaoUsuario(_loginData)
+        .then(
+          (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
+        )
+        .catchError((onError) {
       showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('teste'),
-          content: Text('mensagem'),
+          title: Text(onError),
+          content: Text(onError),
           actions: <Widget>[
             FlatButton(
               onPressed: () {
@@ -56,7 +50,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
           ],
         ),
       );
-    }
+    });
   }
 
   @override

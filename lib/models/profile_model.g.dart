@@ -9,7 +9,9 @@ part of 'profile_model.dart';
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
     id: json['id'] as String,
-    user: json['user'] as String,
+    user: json['user'] == null
+        ? null
+        : Usuario.fromJson(json['user'] as Map<String, dynamic>),
     skills: (json['skills'] as List)
         ?.map(
             (e) => e == null ? null : Skill.fromJson(e as Map<String, dynamic>))
@@ -37,6 +39,12 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.toList(),
     banner: json['banner'] as String,
     avatar: json['avatar'] as String,
+    educations: (json['educations'] as List)
+        ?.map((e) =>
+            e == null ? null : Educacao.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    freelance: json['freelance'] as bool,
+    fullTime: json['fullTime'] as bool,
   );
 }
 
@@ -55,4 +63,7 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'avatar': instance.avatar,
       'openOpportunities': instance.openOpportunities,
       'jobHistory': instance.jobHistory,
+      'educations': instance.educations,
+      'fullTime': instance.fullTime,
+      'freelance': instance.freelance,
     };

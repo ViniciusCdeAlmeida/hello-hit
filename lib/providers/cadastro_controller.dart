@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/cadastro_model.dart';
+import 'package:hellohit/utils/endpoint.dart';
 
 class CadastroController {
   Cadastro cadastro;
@@ -9,9 +10,8 @@ class CadastroController {
   // ignore: missing_return
   Future<Cadastro> cadastroUsuario(Cadastro usuario) async {
     try {
-      Dio dio = Dio()..options.baseUrl = "http://192.168.15.7:3000/";
-
-      await dio.post('signup', data: usuario);
+      Response res = await Endpoint.postCadastroUsuario(usuario);
+      // await Endpoint.postProfileUsuario(res.data);
     } catch (e) {
       throw e;
     }

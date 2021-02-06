@@ -8,7 +8,7 @@ class Cadastro {
   String email;
   String password;
   String userType;
-  String userName;
+  String username;
   String gender;
   String confirmPassword;
 
@@ -17,7 +17,7 @@ class Cadastro {
     this.email,
     this.password,
     this.userType,
-    this.userName,
+    this.username,
     this.gender,
     this.confirmPassword,
   });

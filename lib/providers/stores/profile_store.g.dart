@@ -9,18 +9,11 @@ part of 'profile_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ProfileStore on _ProfileStore, Store {
-  Computed<List<Usuario>> _$usuariosComputed;
+  Computed<Profile> _$usuarioComputed;
 
   @override
-  List<Usuario> get usuarios =>
-      (_$usuariosComputed ??= Computed<List<Usuario>>(() => super.usuarios,
-              name: '_ProfileStore.usuarios'))
-          .value;
-  Computed<Usuario> _$usuarioComputed;
-
-  @override
-  Usuario get usuario => (_$usuarioComputed ??=
-          Computed<Usuario>(() => super.usuario, name: '_ProfileStore.usuario'))
+  Profile get usuario => (_$usuarioComputed ??=
+          Computed<Profile>(() => super.usuario, name: '_ProfileStore.usuario'))
       .value;
   Computed<ProfileState> _$profilesStateComputed;
 
@@ -29,41 +22,18 @@ mixin _$ProfileStore on _ProfileStore, Store {
           Computed<ProfileState>(() => super.profilesState,
               name: '_ProfileStore.profilesState'))
       .value;
-  Computed<ProfileState> _$profileStateComputed;
-
-  @override
-  ProfileState get profileState => (_$profileStateComputed ??=
-          Computed<ProfileState>(() => super.profileState,
-              name: '_ProfileStore.profileState'))
-      .value;
-
-  final _$_profilesObservableAtom =
-      Atom(name: '_ProfileStore._profilesObservable');
-
-  @override
-  ObservableList<Usuario> get _profilesObservable {
-    _$_profilesObservableAtom.reportRead();
-    return super._profilesObservable;
-  }
-
-  @override
-  set _profilesObservable(ObservableList<Usuario> value) {
-    _$_profilesObservableAtom.reportWrite(value, super._profilesObservable, () {
-      super._profilesObservable = value;
-    });
-  }
 
   final _$_profileObservableAtom =
       Atom(name: '_ProfileStore._profileObservable');
 
   @override
-  Usuario get _profileObservable {
+  Profile get _profileObservable {
     _$_profileObservableAtom.reportRead();
     return super._profileObservable;
   }
 
   @override
-  set _profileObservable(Usuario value) {
+  set _profileObservable(Profile value) {
     _$_profileObservableAtom.reportWrite(value, super._profileObservable, () {
       super._profileObservable = value;
     });
@@ -72,54 +42,58 @@ mixin _$ProfileStore on _ProfileStore, Store {
   final _$_profileFutureAtom = Atom(name: '_ProfileStore._profileFuture');
 
   @override
-  ObservableFuture<Usuario> get _profileFuture {
+  ObservableFuture<Profile> get _profileFuture {
     _$_profileFutureAtom.reportRead();
     return super._profileFuture;
   }
 
   @override
-  set _profileFuture(ObservableFuture<Usuario> value) {
+  set _profileFuture(ObservableFuture<Profile> value) {
     _$_profileFutureAtom.reportWrite(value, super._profileFuture, () {
       super._profileFuture = value;
     });
   }
 
-  final _$_profilesFutureAtom = Atom(name: '_ProfileStore._profilesFuture');
+  final _$loadUsuarioProfileAsyncAction =
+      AsyncAction('_ProfileStore.loadUsuarioProfile');
 
   @override
-  ObservableFuture<List<Usuario>> get _profilesFuture {
-    _$_profilesFutureAtom.reportRead();
-    return super._profilesFuture;
+  Future<dynamic> loadUsuarioProfile(String id) {
+    return _$loadUsuarioProfileAsyncAction
+        .run(() => super.loadUsuarioProfile(id));
   }
 
+  final _$loadTimeProfileAsyncAction =
+      AsyncAction('_ProfileStore.loadTimeProfile');
+
   @override
-  set _profilesFuture(ObservableFuture<List<Usuario>> value) {
-    _$_profilesFutureAtom.reportWrite(value, super._profilesFuture, () {
-      super._profilesFuture = value;
-    });
+  Future<dynamic> loadTimeProfile(String id) {
+    return _$loadTimeProfileAsyncAction.run(() => super.loadTimeProfile(id));
   }
 
-  final _$seedAsyncAction = AsyncAction('_ProfileStore.seed');
+  final _$saveUsuarioProfileAsyncAction =
+      AsyncAction('_ProfileStore.saveUsuarioProfile');
 
   @override
-  Future<void> seed() {
-    return _$seedAsyncAction.run(() => super.seed());
+  Future<void> saveUsuarioProfile(Profile profile) {
+    return _$saveUsuarioProfileAsyncAction
+        .run(() => super.saveUsuarioProfile(profile));
   }
 
-  final _$loadProfileAsyncAction = AsyncAction('_ProfileStore.loadProfile');
+  final _$saveTimeProfileAsyncAction =
+      AsyncAction('_ProfileStore.saveTimeProfile');
 
   @override
-  Future<void> loadProfile(int id) {
-    return _$loadProfileAsyncAction.run(() => super.loadProfile(id));
+  Future<void> saveTimeProfile(Profile profile) {
+    return _$saveTimeProfileAsyncAction
+        .run(() => super.saveTimeProfile(profile));
   }
 
   @override
   String toString() {
     return '''
-usuarios: ${usuarios},
 usuario: ${usuario},
-profilesState: ${profilesState},
-profileState: ${profileState}
+profilesState: ${profilesState}
     ''';
   }
 }

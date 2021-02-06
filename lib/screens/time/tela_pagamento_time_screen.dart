@@ -216,9 +216,9 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                                   initialValue: null,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(),
-                                    labelText: 'Username',
+                                    labelText: 'username',
                                     helperText:
-                                        'Your team URL: hellohit/USERNAME',
+                                        'Your team URL: hellohit/username',
                                   ),
                                   textInputAction: TextInputAction.next,
                                   onFieldSubmitted: (_) {},

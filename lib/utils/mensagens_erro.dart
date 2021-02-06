@@ -3,7 +3,7 @@ class MensagensErro {
       'Your email is not correct. Did you forgot the e-mail?';
   static const String erroMalFuncionamento =
       'The app fails to do what’s requested';
-  static const String erroDigitacaoUsuarioLogin = 'Username is invalid';
+  static const String erroDigitacaoUsuarioLogin = 'username is invalid';
   static const String erroEmailSenhaIncorreta =
       'One or more field have and error. Please check and try again.';
   static const String erroMensagemPadrao = 'Something went wrong';

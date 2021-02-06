@@ -5,6 +5,7 @@ import 'package:hellohit/screens/full_post/widgets/usuario.dart';
 import 'package:hellohit/screens/full_post/widgets/button_here_me.dart';
 
 class FullPostScreen extends StatefulWidget {
+  static const routeName = '/fullPostScreen';
   @override
   _FullPostScreenState createState() => _FullPostScreenState();
 }

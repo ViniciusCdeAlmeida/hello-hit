@@ -1,17 +1,29 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/screens/postagem/postagem_screen.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-class CameraPostScreen extends StatefulWidget {
-  static const routeName = '/cameraPostScreen';
+class PostagemCameraScreen extends StatefulWidget {
+  static const routeName = '/postagemCameraScreen';
   @override
-  _CameraPostScreenState createState() => _CameraPostScreenState();
+  _PostagemCameraScreenState createState() => _PostagemCameraScreenState();
 }
 
-class _CameraPostScreenState extends State<CameraPostScreen> {
+class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
+  PostagemStore _postagemStore;
   File _imagem;
+  var _postInicial = Post(
+    comments: [],
+    file: '',
+    hits: 0,
+    text: '',
+    tip: '0',
+  );
 
   Future _recuperarImagem(bool daCamera) async {
     final picker = ImagePicker();
@@ -30,6 +42,19 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
     setState(() {
       _imagem = imagemSelecionada;
     });
+  }
+
+  void setImagemPostagem() {
+    print(_imagem.path);
+    _postagemStore.postagemImagem(_imagem.path);
+    Navigator.of(context).pushNamed(PostagemScreen.routeName);
+  }
+
+  @override
+  void didChangeDependencies() {
+    _postagemStore = Provider.of<PostagemStore>(context);
+    _postagemStore.postagemInicial(_postInicial);
+    super.didChangeDependencies();
   }
 
   @override
@@ -71,8 +96,7 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
         actions: [
           Center(
             child: InkWell(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(PostagemScreen.routeName),
+              onTap: setImagemPostagem,
               child: Padding(
                 padding: const EdgeInsets.only(
                   right: 10,
@@ -97,13 +121,6 @@ class _CameraPostScreenState extends State<CameraPostScreen> {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.close),
-        //     color: Colors.black,
-        //     onPressed: () {},
-        //   ),
-        // ],
       ),
       body: Container(
         color: Colors.white,

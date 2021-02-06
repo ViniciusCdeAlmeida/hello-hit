@@ -3,7 +3,8 @@ import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/autenticacao/email_confirmacao_screen.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
-import 'package:hellohit/screens/camera_post/camera_post.dart';
+import 'package:hellohit/screens/full_post/full_post_screen.dart';
+import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
@@ -11,8 +12,10 @@ import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
 import 'package:hellohit/screens/postagem/postagem_screen.dart';
+import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 import 'package:hellohit/screens/profile/profile_membro_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
+import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
@@ -49,8 +52,11 @@ Map<String, Widget Function(BuildContext)> rotas() {
     ProfileUsuarioEdicaoScreen.routeName: (ctx) => ProfileUsuarioEdicaoScreen(),
     TelaPagamentoProItem.routeName: (ctx) => TelaPagamentoProItem(),
     TelaExplicacaoProItem.routeName: (ctx) => TelaExplicacaoProItem(),
-    CameraPostScreen.routeName: (ctx) => CameraPostScreen(),
+    PostagemCameraScreen.routeName: (ctx) => PostagemCameraScreen(),
     EmailConfirmacaoScreen.routeName: (ctx) => EmailConfirmacaoScreen(),
     PostagemScreen.routeName: (ctx) => PostagemScreen(),
+    FullPostScreen.routeName: (ctx) => FullPostScreen(),
+    TagPostScreen.routeName: (ctx) => TagPostScreen(),
+    ProfileTimeEdicaoScreen.routeName: (ctx) => ProfileTimeEdicaoScreen(),
   };
 }

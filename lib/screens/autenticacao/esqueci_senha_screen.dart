@@ -9,6 +9,7 @@ class EsqueciSenhaScreen extends StatefulWidget {
 class _EsqueciSenhaScreenState extends State<EsqueciSenhaScreen> {
   @override
   Widget build(BuildContext context) {
+    var t = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(16),
@@ -62,6 +63,7 @@ class _EsqueciSenhaScreenState extends State<EsqueciSenhaScreen> {
                     ),
                   ),
                 ),
+                // Text(t.toString()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

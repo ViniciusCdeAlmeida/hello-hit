@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/screens/full_post/full_post_screen.dart';
+import 'package:hellohit/screens/postagem/tag_post_screen.dart';
+import 'package:provider/provider.dart';
 
 class PostagemScreen extends StatefulWidget {
   static const routeName = '/postagemScreen';
@@ -7,9 +11,24 @@ class PostagemScreen extends StatefulWidget {
 }
 
 class _PostagemScreenState extends State<PostagemScreen> {
-  _enviarMensagem() {}
+  PostagemStore _postagemStore;
+  final GlobalKey<FormState> _formKeyPostagem = GlobalKey();
+  String texto;
 
-  _enviarFoto() {}
+  void _submit() {
+    if (!_formKeyPostagem.currentState.validate()) {
+      return;
+    }
+    _formKeyPostagem.currentState.save();
+    _postagemStore.postagemTexto(texto);
+    Navigator.of(context).pushNamed(TagPostScreen.routeName);
+  }
+
+  @override
+  void didChangeDependencies() {
+    _postagemStore = Provider.of<PostagemStore>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,24 +62,27 @@ class _PostagemScreenState extends State<PostagemScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    color: Colors.black,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                  InkWell(
+                    onTap: _submit,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      color: Colors.black,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              'Next',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -80,6 +102,7 @@ class _PostagemScreenState extends State<PostagemScreen> {
                           width: MediaQuery.of(context).size.width / 1.3,
                           height: MediaQuery.of(context).size.height / 2,
                           child: Form(
+                            key: _formKeyPostagem,
                             child: TextFormField(
                               autofocus: true,
                               maxLengthEnforced: true,
@@ -97,7 +120,7 @@ class _PostagemScreenState extends State<PostagemScreen> {
                                 border: InputBorder.none,
                                 focusedErrorBorder: InputBorder.none,
                               ),
-                              onSaved: null,
+                              onSaved: (value) => texto = value,
                             ),
                           ),
                         )

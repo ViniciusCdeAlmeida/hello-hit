@@ -1,4 +1,5 @@
 import 'package:hellohit/models/oportunidade_model.dart';
+import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:mobx/mobx.dart';
@@ -20,55 +21,24 @@ enum ProfileState {
 
 abstract class _ProfileStore with Store {
   final ProfileController _profileController;
-  final PostStore _postStore;
-  final MarketplaceStore _marketplaceStore;
   _ProfileStore(
     this._profileController,
-    this._postStore,
-    this._marketplaceStore,
   );
 
   @observable
-  ObservableList<Usuario> _profilesObservable = ObservableList<Usuario>();
+  Profile _profileObservable;
 
   @observable
-  Usuario _profileObservable;
-
-  @observable
-  ObservableFuture<Usuario> _profileFuture;
-
-  @observable
-  ObservableFuture<List<Usuario>> _profilesFuture;
+  ObservableFuture<Profile> _profileFuture;
 
   @computed
-  List<Usuario> get usuarios {
-    return [..._profilesObservable];
-  }
-
-  @computed
-  Usuario get usuario {
+  Profile get usuario {
     return _profileObservable;
   }
 
   @computed
   // ignore: missing_return
   ProfileState get profilesState {
-    if ((_profilesFuture == null ||
-        _profilesFuture.status == FutureStatus.rejected)) {
-      return ProfileState.inicial;
-    }
-
-    if (_profilesFuture.status == FutureStatus.pending) {
-      return ProfileState.carregando;
-    }
-
-    if (_profilesFuture.status == FutureStatus.fulfilled)
-      return ProfileState.carregado;
-  }
-
-  @computed
-  // ignore: missing_return
-  ProfileState get profileState {
     if ((_profileFuture == null ||
         _profileFuture.status == FutureStatus.rejected)) {
       return ProfileState.inicial;
@@ -83,55 +53,44 @@ abstract class _ProfileStore with Store {
   }
 
   @action
-  Future<void> seed() async {
+  Future loadUsuarioProfile(String id) async {
     try {
-      _profilesFuture = ObservableFuture(
-        _profileController.seed(),
+      _profileFuture = ObservableFuture(
+        _profileController.getUsuarioProfile(id),
       );
-      _profilesObservable = (await _profilesFuture).asObservable();
+      _profileObservable = await _profileFuture;
     } catch (e) {
       throw e;
     }
   }
 
-  List<Usuario> loadUsers(List id) {
-    List<Usuario> temp = [];
-    id.forEach((idUsuario) {
-      // var idTemp = int.parse(idUsuario);
-      temp.addAll(_profilesObservable
-          .where((element) => element.id.toString() == idUsuario.toString())
-          .toList());
-    });
-    return temp;
+  @action
+  Future loadTimeProfile(String id) async {
+    try {
+      _profileFuture = ObservableFuture(
+        _profileController.getTimeProfile(id),
+      );
+      _profileObservable = await _profileFuture;
+    } catch (e) {
+      throw e;
+    }
   }
 
   @action
-  Future<void> loadProfile(int id) async {
-    // try {
-    //   List<Post> postTemp;
-    //   _postStore.seed().whenComplete(() {
-    //     postTemp = _postStore.loadUserPosts(id);
-    //     _profileObservable =
-    //         _profilesObservable.firstWhere((element) => element.id == id);
-    //     _profileObservable.posts = postTemp;
-    //     _profileObservable.usuarios = loadUsers(_profileObservable.idUsuarios);
-    //     _marketplaceStore.carreirasOriginal;
-    //     _profileObservable.oportunidades = [];
-    //     _marketplaceStore.seed().whenComplete(
-    //           () => _profileObservable.idOportunidades.forEach((id) {
-    //             List<Oportunidade> oportunidadeTemp = [];
+  Future<void> saveUsuarioProfile(Profile profile) async {
+    try {
+      _profileController.atualizarUsuarioProfile(profile);
+    } catch (e) {
+      throw e;
+    }
+  }
 
-    //             oportunidadeTemp = _marketplaceStore.loadUserCarreiras();
-    //             _profileObservable.oportunidades.addAll(
-    //               oportunidadeTemp
-    //                   .where((carreira) => carreira.id == id)
-    //                   .toList(),
-    //             );
-    //           }),
-    //         );
-    //   });
-    // } catch (e) {
-    //   throw e;
-    // }
+  @action
+  Future<void> saveTimeProfile(Profile profile) async {
+    try {
+      _profileController.atualizarTimeProfile(profile);
+    } catch (e) {
+      throw e;
+    }
   }
 }

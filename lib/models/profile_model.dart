@@ -1,3 +1,4 @@
+import 'package:hellohit/models/educacao_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:hellohit/models/especialidade_model.dart';
@@ -12,7 +13,7 @@ part 'profile_model.g.dart';
 @JsonSerializable()
 class Profile {
   String id;
-  String user;
+  Usuario user;
   List<Skill> skills;
   int hitsCount;
   List<Usuario> hits;
@@ -25,6 +26,9 @@ class Profile {
   String avatar;
   List<Oportunidade> openOpportunities;
   List<HistoricoJob> jobHistory;
+  List<Educacao> educations;
+  bool fullTime;
+  bool freelance;
   Profile({
     this.id,
     this.user,
@@ -40,6 +44,9 @@ class Profile {
     this.jobHistory,
     this.banner,
     this.avatar,
+    this.educations,
+    this.freelance,
+    this.fullTime,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) =>

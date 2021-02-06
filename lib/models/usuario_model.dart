@@ -1,8 +1,5 @@
+import 'package:hellohit/models/avatar_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/post_model.dart';
-
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
@@ -18,6 +15,9 @@ class Usuario {
   // ignore: non_constant_identifier_names
   String signature_status;
   String token;
+  Avatar avatar;
+  DateTime createdAt;
+  DateTime updatedAt;
 
   Usuario({
     this.id,
@@ -28,6 +28,9 @@ class Usuario {
     this.skills,
     this.email,
     this.userType,
+    this.updatedAt,
+    this.createdAt,
+    this.avatar,
     // ignore: non_constant_identifier_names
     this.signature_status,
     this.token,

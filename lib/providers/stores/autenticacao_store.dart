@@ -1,6 +1,7 @@
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/autenticacao_controller.dart';
+import 'package:hellohit/utils/endpoint.dart';
 import 'package:mobx/mobx.dart';
 
 part 'autenticacao_store.g.dart';

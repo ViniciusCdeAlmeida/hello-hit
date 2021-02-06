@@ -1,13 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/conversas/conversas_screen.dart';
+import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
-  @visibleForTesting
+  final Usuario usuario;
+
+  const CustomDrawer({Key key, this.usuario}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,34 +29,47 @@ class CustomDrawer extends StatelessWidget {
                         CircleAvatar(
                           radius: 40.0,
                           child: Image.asset(
-                            // 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
-                            'assets/images/perfil_assets/Perfil_page_icon.png',
+                            usuario.avatar != null
+                                ? usuario.avatar
+                                : 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Column(
                             children: [
-                              Text('data'),
-                              Text('data'),
-                              Text('data'),
+                              Text(
+                                usuario.full_name,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                'data',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+
+                              // Text(usuario.full_name),
                             ],
                           ),
                         )
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12.0),
-                      child: Row(
-                        children: [
-                          Text('data'),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text('data'),
-                          ),
-                        ],
-                      ),
-                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 12.0),
+                    //   child: Row(
+                    //     children: [
+                    //       Text('${usuario.fans} Fans'),
+                    //       Padding(
+                    //         padding: const EdgeInsets.only(left: 8.0),
+                    //         child: Text('data'),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -67,8 +84,15 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context)
-                    .pushNamed(ProfileUsuarioEdicaoScreen.routeName);
+                usuario.userType == 'Team'
+                    ? Navigator.of(context).pushNamed(
+                        ProfileTimeEdicaoScreen.routeName,
+                        arguments: usuario.id,
+                      )
+                    : Navigator.of(context).pushNamed(
+                        ProfileUsuarioEdicaoScreen.routeName,
+                        arguments: usuario.id,
+                      );
               },
               // key: Key(Keys.homeDrawer),
             ),

@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
+
+import 'package:timeago/timeago.dart' as timeago;
 
 class PostCard extends StatefulWidget {
   const PostCard({
@@ -15,12 +18,11 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
+  var now = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    var t = widget.post.file['url']
-        .toString()
-        .replaceAll(RegExp(r'localhost'), '192.168.15.7');
-    print(t);
+    final difference = now.difference(widget.post.createdAt);
+    var timeAgo = timeago.format(now.subtract(difference), locale: 'en');
     return Card(
       margin: const EdgeInsets.all(10),
       elevation: 3,
@@ -39,25 +41,19 @@ class _PostCardState extends State<PostCard> {
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
                       backgroundImage: NetworkImage(widget.post.file['url']
-                          .toString()
-                          .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                          .toString()),
+                          // .toString()
+                          // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                          // .toString()
+                          ),
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Teste',
+                        widget.post.user.full_name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '10h atrás',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 10,
                         ),
                       ),
                     ],
@@ -73,7 +69,7 @@ class _PostCardState extends State<PostCard> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 3.0),
                         child: Text(
-                          'Horario',
+                          timeAgo,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
@@ -91,14 +87,17 @@ class _PostCardState extends State<PostCard> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.post.text,
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                widget.post.text,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -108,10 +107,10 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url']
-                    .toString()
-                    .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                    .toString(),
+                widget.post.file['url'],
+                // .toString()
+                // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                // .toString(),
                 fit: BoxFit.fill,
               ),
             ),

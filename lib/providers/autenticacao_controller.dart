@@ -2,26 +2,34 @@ import 'package:dio/dio.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:hive/hive.dart';
 
 class AutenticacaoController {
+  String _token;
+  // Box _tokenBox = Hive.box('tokenBox');
+  String get token => _token;
   Future<Usuario> autenticacaoUsuario(Autenticacao usuario) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       Response res = await Endpoint.postAutenticacaoUsuario(usuario);
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.id = res.data['_id'];
-      var tokenExistente = prefs.getString('tokenUsuario');
-      if (tokenExistente == null) {
-        await prefs.setString('tokenUsuario', usuarioRecebido.token);
-      }
-      getToken();
+      // if (res.data['avatar'] != null)
+      //   usuarioRecebido.avatar = res.data['avatar']['url'];
+      //
+      // _token = usuarioRecebido.token;
+      getToken(usuarioRecebido.token);
+      // var tokenExistente = _tokenBox.get('tokenUsuario');
+      // if (tokenExistente == null) {
+      //   _tokenBox.put('tokenUsuario', usuarioRecebido.token);
+      // }
       return usuarioRecebido;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];
       else
         throw 'Check your connection.';
+    } catch (e) {
+      throw e;
     }
   }
 }

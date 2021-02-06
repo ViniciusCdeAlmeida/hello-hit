@@ -9,14 +9,15 @@ class FeedController {
       var post = res.data.map<Post>((content) {
         var post = Post.fromJson(content);
         post.id = content['_id'];
+        post.user.full_name = content['user']['fullName'];
         return post;
       }).toList() as List<Post>;
-      Future.forEach(post, (element) async {
-        if (element.user != null) {
-          Response res = await Endpoint.getUserById(element.user['_id']);
-          element.user = Post.fromJson(res.data);
-        }
-      });
+      // Future.forEach(post, (element) async {
+      //   if (element.user != null) {
+      //     Response res = await Endpoint.getUserById(element.user['_id']);
+      //     element.user = Post.fromJson(res.data);
+      //   }
+      // });
       return post;
     } catch (e) {
       throw e;

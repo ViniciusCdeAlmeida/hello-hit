@@ -13,7 +13,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final _form = GlobalKey<FormState>();
   final _fullNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
-  final _userNameFocusNode = FocusNode();
+  final _usernameFocusNode = FocusNode();
   final _genderFocusNode = FocusNode();
   final _userTypeFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
@@ -38,7 +38,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
     fullName: '',
     gender: '',
     password: '',
-    userName: '',
+    username: '',
     userType: '',
     confirmPassword: '',
   );
@@ -47,7 +47,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
   void dispose() {
     _fullNameFocusNode.dispose();
     _emailFocusNode.dispose();
-    _userNameFocusNode.dispose();
+    _usernameFocusNode.dispose();
     _genderFocusNode.dispose();
     _userTypeFocusNode.dispose();
     _passwordFocusNode.dispose();
@@ -227,7 +227,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                 ),
                               ),
                               labelStyle: TextStyle(color: Colors.deepOrange),
-                              labelText: 'Username',
+                              labelText: 'username',
                               fillColor: Colors.deepOrange,
                               focusColor: Colors.deepOrange,
                               hoverColor: Colors.deepOrange,
@@ -235,10 +235,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
                               FocusScope.of(context)
-                                  .requestFocus(_userNameFocusNode);
+                                  .requestFocus(_usernameFocusNode);
                             },
                             onSaved: (value) =>
-                                _cadastroUsuario.userName = value,
+                                _cadastroUsuario.username = value,
                           ),
                         ),
                       ),

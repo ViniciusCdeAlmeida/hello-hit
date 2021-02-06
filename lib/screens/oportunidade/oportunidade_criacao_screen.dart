@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
@@ -61,8 +60,8 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
 
   @override
   void initState() {
-    apiKey = DotEnv.env['API_KEY'];
-    googlePlace = GooglePlace(apiKey);
+    // apiKey = DotEnv.env['API_KEY'];
+    // googlePlace = GooglePlace(apiKey);
     super.initState();
   }
 

@@ -4,9 +4,12 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class ProfileTimeEdicaoScreen extends StatefulWidget {
   static const routeName = '/profileTimeEdicaoScreen';
@@ -27,6 +30,16 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
   File _coverImage;
   Uint8List _coverImage2;
   final picker = ImagePicker();
+
+  AutenticacaoStore _autenticacaoStore;
+  Usuario _usuario;
+
+  @override
+  void didChangeDependencies() {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _usuario = _autenticacaoStore.autenticacao;
+    super.didChangeDependencies();
+  }
 
   Future getPhotoImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -193,10 +206,12 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     children: [
                                       CircleAvatar(
                                         radius: 20.0,
-                                        child: Image.asset(
-                                          // 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
-                                          'assets/images/perfil_assets/Perfil_page_icon.png',
-                                        ),
+                                        child: _usuario.avatar == null
+                                            ? Image.asset(
+                                                'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                            : Image.network(
+                                                _usuario.avatar.url,
+                                              ),
                                       ),
                                       Container(
                                         width: 200,
@@ -209,7 +224,8 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                                 text: TextSpan(
                                                   children: [
                                                     TextSpan(
-                                                      text: 'Nome usuario / ',
+                                                      text:
+                                                          '${_usuario.full_name} / ',
                                                       style: TextStyle(
                                                         color: Colors.blue[600],
                                                         fontWeight:
