@@ -28,11 +28,11 @@ class CustomDrawer extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 40.0,
-                          child: Image.asset(
-                            usuario.avatar != null
-                                ? usuario.avatar
-                                : 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
-                          ),
+                          backgroundImage: usuario.avatar != null
+                              ? NetworkImage(usuario.avatar)
+                              : AssetImage(
+                                  'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
+                                ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
@@ -46,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'data',
+                                usuario.username,
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
@@ -84,7 +84,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.of(context).pop();
-                usuario.userType == 'Team'
+                usuario.userType == 'TEAM'
                     ? Navigator.of(context).pushNamed(
                         ProfileTimeEdicaoScreen.routeName,
                         arguments: usuario.id,

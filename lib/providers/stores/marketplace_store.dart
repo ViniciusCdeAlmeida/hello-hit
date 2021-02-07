@@ -69,17 +69,17 @@ abstract class _MarketplaceStore with Store {
 
   @action
   Future<void> seed() async {
-    try {
-      _carreiraFuture = ObservableFuture(null
-          // _marketPlaceController.seed(),
-          );
-      _carreiraObservable = (await _carreiraFuture).asObservable();
-    } catch (e) {
-      throw e;
-    }
-    _carreiraItens
-        .addAll(_carreiraObservable.getRange(present, present + perPage));
-    present = present + perPage;
+    // try {
+    //   _carreiraFuture = ObservableFuture(null
+    //       // _marketPlaceController.seed(),
+    //       );
+    //   _carreiraObservable = (await _carreiraFuture).asObservable();
+    // } catch (e) {
+    //   throw e;
+    // }
+    // _carreiraItens
+    //     .addAll(_carreiraObservable.getRange(present, present + perPage));
+    // present = present + perPage;
   }
 
   @action

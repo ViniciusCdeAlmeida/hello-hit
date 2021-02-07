@@ -7,10 +7,12 @@ import 'package:hellohit/utils/endpoint.dart';
 class CadastroController {
   Cadastro cadastro;
 
-  // ignore: missing_return
-  Future<Cadastro> cadastroUsuario(Cadastro usuario) async {
+  Future<void> cadastroUsuario(Cadastro usuario) async {
     try {
-      Response res = await Endpoint.postCadastroUsuario(usuario);
+      usuario.userType == 'Team'
+          ? usuario.userType = 'TEAM'
+          : usuario.userType = 'FREE';
+      await Endpoint.postCadastroUsuario(usuario);
       // await Endpoint.postProfileUsuario(res.data);
     } catch (e) {
       throw e;

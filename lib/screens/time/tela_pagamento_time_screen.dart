@@ -1,6 +1,12 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
+import 'package:hellohit/providers/pagamento_controller.dart';
+import 'package:provider/provider.dart';
+// import 'package:stripe_sdk/stripe_sdk.dart';
+// import 'package:stripe_sdk/stripe_sdk_ui.dart';
 
 class TelaPagamentoTimeScreen extends StatefulWidget {
   static const routeName = '/telaPagamentoTimeScreen';
@@ -9,11 +15,50 @@ class TelaPagamentoTimeScreen extends StatefulWidget {
       _TelaPagamentoTimeScreenState();
 }
 
+// const _returnUrl = 'stripesdk://demo.stripesdk.ezet.io';
+// const _returnUrlWeb = 'http://demo.stripesdk.ezet.io';
+
 class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
+  final GlobalKey<FormState> _formKeyPagamentoTime = GlobalKey();
+  String _paymentMethodId;
+  String cartao;
+  String mes;
+  String ano;
+  String cvv;
+  String postal;
+  // Token _paymentToken;
+  // PaymentMethod _paymentMethod;
+
+  PagamentoController _pagamentoController;
+  final _stripePayment = FlutterStripePayment();
+
+  @override
+  void didChangeDependencies() {
+    _pagamentoController =
+        Provider.of<PagamentoController>(context, listen: false);
+    super.didChangeDependencies();
+  }
+
+  void makePayment() {
+    if (!_formKeyPagamentoTime.currentState.validate()) {
+      return;
+    }
+    _formKeyPagamentoTime.currentState.save();
+    _pagamentoController.makeTimePayment();
+  }
+
+  @override
+  initState() {
+    _stripePayment.setStripeSettings(
+        "pk_test_51IGZOsAIZbIeL4kbzXM2d0xQWrYaANIfsEGpSjniCSOWBZacXYOgZBUgPkDHMp0WJlmtHyq6kqURt8twkbzcHusW00xKkjr7bV");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -186,6 +231,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                         ),
                       ),
                       Form(
+                        key: _formKeyPagamentoTime,
                         child: Column(
                           children: [
                             Container(
@@ -201,52 +247,171 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                                     labelText: 'Team name',
                                   ),
                                   textInputAction: TextInputAction.next,
-                                  onFieldSubmitted: (_) {},
                                   onSaved: (value) {},
                                 ),
                               ),
                             ),
-                            Container(
-                              width: deviceSize.width / 1.2,
-                              height: 80,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: TextFormField(
-                                  textAlignVertical: TextAlignVertical.center,
-                                  initialValue: null,
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'username',
-                                    helperText:
-                                        'Your team URL: hellohit/username',
-                                  ),
-                                  textInputAction: TextInputAction.next,
-                                  onFieldSubmitted: (_) {},
-                                  onSaved: (value) {},
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: deviceSize.width / 1.2,
-                              height: 95,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: TextFormField(
-                                  textAlignVertical: TextAlignVertical.center,
-                                  initialValue: null,
-                                  decoration: InputDecoration(
-                                    helperMaxLines: 2,
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Billing email',
-                                    helperText:
-                                        'We\'ll use the address to notify your team of billing and account changes.',
-                                  ),
-                                  textInputAction: TextInputAction.next,
-                                  onFieldSubmitted: (_) {},
-                                  onSaved: (value) {},
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   width: deviceSize.width / 1.2,
+                            //   height: 80,
+                            //   child: Padding(
+                            //     padding: const EdgeInsets.all(10.0),
+                            //     child: TextFormField(
+                            //       textAlignVertical: TextAlignVertical.center,
+                            //       initialValue: null,
+                            //       decoration: InputDecoration(
+                            //         border: OutlineInputBorder(),
+                            //         labelText: 'username',
+                            //         helperText:
+                            //             'Your team URL: hellohit/username',
+                            //       ),
+                            //       textInputAction: TextInputAction.next,
+                            //       onSaved: (value) {},
+                            //     ),
+                            //   ),
+                            // ),
+                            // Container(
+                            //   width: deviceSize.width / 1.2,
+                            //   child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: Text(
+                            //         'Payment Informations: ',
+                            //         style: TextStyle(
+                            //           fontWeight: FontWeight.bold,
+                            //         ),
+                            //       )),
+                            // ),
+                            //   Container(
+                            //     width: deviceSize.width / 1.2,
+                            //     height: 60,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: TextFormField(
+                            //         maxLengthEnforced: true,
+                            //         maxLength: 16,
+                            //         maxLines: 1,
+                            //         keyboardType: TextInputType.numberWithOptions(
+                            //           signed: false,
+                            //           decimal: false,
+                            //         ),
+                            //         textAlignVertical: TextAlignVertical.center,
+                            //         initialValue: null,
+                            //         decoration: InputDecoration(
+                            //           counterText: '',
+                            //           border: OutlineInputBorder(),
+                            //           labelText: 'Card Number',
+                            //         ),
+                            //         textInputAction: TextInputAction.next,
+                            //         onFieldSubmitted: (_) {},
+                            //         onSaved: (value) {
+                            //           cartao = value;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   Container(
+                            //     width: deviceSize.width / 1.2,
+                            //     height: 60,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: TextFormField(
+                            //         maxLengthEnforced: true,
+                            //         maxLength: 30,
+                            //         maxLines: 1,
+                            //         textAlignVertical: TextAlignVertical.center,
+                            //         initialValue: null,
+                            //         decoration: InputDecoration(
+                            //           counterText: '',
+                            //           border: OutlineInputBorder(),
+                            //           labelText: 'Postal / Zip Code',
+                            //         ),
+                            //         textInputAction: TextInputAction.next,
+                            //         onFieldSubmitted: (_) {},
+                            //         onSaved: (value) {
+                            //           postal = value;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   Container(
+                            //     width: deviceSize.width / 1.2,
+                            //     height: 60,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: TextFormField(
+                            //         maxLengthEnforced: true,
+                            //         maxLength: 30,
+                            //         maxLines: 1,
+                            //         textAlignVertical: TextAlignVertical.center,
+                            //         initialValue: null,
+                            //         decoration: InputDecoration(
+                            //           counterText: '',
+                            //           border: OutlineInputBorder(),
+                            //           labelText: 'Month',
+                            //         ),
+                            //         textInputAction: TextInputAction.next,
+                            //         onFieldSubmitted: (_) {},
+                            //         onSaved: (value) {
+                            //           mes = value;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   Container(
+                            //     width: deviceSize.width / 1.2,
+                            //     height: 60,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: TextFormField(
+                            //         maxLengthEnforced: true,
+                            //         maxLength: 30,
+                            //         maxLines: 1,
+                            //         keyboardType: TextInputType.numberWithOptions(
+                            //           signed: false,
+                            //           decimal: false,
+                            //         ),
+                            //         textAlignVertical: TextAlignVertical.center,
+                            //         initialValue: null,
+                            //         decoration: InputDecoration(
+                            //           counterText: '',
+                            //           border: OutlineInputBorder(),
+                            //           labelText: 'Year',
+                            //         ),
+                            //         textInputAction: TextInputAction.next,
+                            //         onFieldSubmitted: (_) {},
+                            //         onSaved: (value) {
+                            //           ano = value;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   Container(
+                            //     width: deviceSize.width / 1.2,
+                            //     height: 60,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(10.0),
+                            //       child: TextFormField(
+                            //         maxLengthEnforced: true,
+                            //         maxLength: 4,
+                            //         maxLines: 1,
+                            //         keyboardType: TextInputType.numberWithOptions(
+                            //           signed: false,
+                            //           decimal: false,
+                            //         ),
+                            //         textAlignVertical: TextAlignVertical.center,
+                            //         initialValue: null,
+                            //         decoration: InputDecoration(
+                            //           border: OutlineInputBorder(),
+                            //           labelText: 'CVV',
+                            //           counterText: '',
+                            //         ),
+                            //         textInputAction: TextInputAction.next,
+                            //         onSaved: (value) {
+                            //           cvv = value;
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ),
                           ],
                         ),
                       ),
@@ -263,7 +428,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: pagar,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
@@ -279,6 +444,17 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
         ),
       ),
     );
+  }
+
+  Future pagar() async {
+    var paymentResponse = await _stripePayment.addPaymentMethod();
+    setState(() {
+      if (paymentResponse.status == PaymentResponseStatus.succeeded) {
+        _paymentMethodId = paymentResponse.paymentMethodId;
+      } else {
+        print(paymentResponse.errorMessage);
+      }
+    });
   }
 }
 

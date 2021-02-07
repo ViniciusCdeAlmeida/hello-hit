@@ -10,6 +10,21 @@ class OportunidadePagamentoScreen extends StatefulWidget {
 class _OportunidadePagamentoScreenState
     extends State<OportunidadePagamentoScreen> {
   int _radioValue = 0;
+
+  String cartao;
+  String mes;
+  String ano;
+  String cvv;
+  String postal;
+
+  void makePayment(
+    String cartao,
+    String mes,
+    String ano,
+    String cvv,
+    String postal,
+  ) {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,9 +196,7 @@ class _OportunidadePagamentoScreenState
                         border: InputBorder.none,
                         focusedErrorBorder: InputBorder.none,
                       ),
-                      controller: null,
-                      onEditingComplete: null,
-                      onChanged: null,
+                      onChanged: (value) {},
                     ),
                   ),
                   Padding(
@@ -229,7 +242,7 @@ class _OportunidadePagamentoScreenState
                       ),
                       controller: null,
                       onEditingComplete: null,
-                      onChanged: null,
+                      onChanged: (value) {},
                     ),
                   ),
                   Padding(
@@ -279,9 +292,9 @@ class _OportunidadePagamentoScreenState
                             signed: false,
                             decimal: false,
                           ),
-                          controller: null,
-                          onEditingComplete: null,
-                          onChanged: null,
+                          onChanged: (value) {
+                            mes = value;
+                          },
                         ),
                       ),
                       Padding(
@@ -319,9 +332,9 @@ class _OportunidadePagamentoScreenState
                               signed: false,
                               decimal: false,
                             ),
-                            controller: null,
-                            onEditingComplete: null,
-                            onChanged: null,
+                            onChanged: (value) {
+                              ano = value;
+                            },
                           ),
                         ),
                       ),
@@ -363,9 +376,9 @@ class _OportunidadePagamentoScreenState
                           border: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        controller: null,
-                        onEditingComplete: null,
-                        onChanged: null,
+                        onChanged: (value) {
+                          cvv = value;
+                        },
                       ),
                     ),
                   ),
@@ -442,7 +455,13 @@ class _OportunidadePagamentoScreenState
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15.0),
                     child: RaisedButton(
-                      onPressed: () {},
+                      onPressed: () => makePayment(
+                        cartao,
+                        mes,
+                        ano,
+                        cvv,
+                        postal,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(3.0),
                       ),

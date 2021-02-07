@@ -30,8 +30,8 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
           slivers: <Widget>[
             CustomSliverAppBar(
               titulo: 'teste',
-              imagem: _maketplaceStore.carreira.imagem,
-              banner: _maketplaceStore.carreira.banner,
+              // imagem: _maketplaceStore.carreira.imagem,
+              // banner: _maketplaceStore.carreira.banner,
             ),
             SliverList(
               delegate: SliverChildListDelegate([

@@ -3,12 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/educacao_model.dart';
-import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/edicao_profile_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,24 +23,10 @@ class _ProfileUsuarioEdicaoScreenState
   final _formProfileUsuario = GlobalKey<FormState>();
   String idArgs;
   final _skillFieldController = TextEditingController();
-  // final _nameFocusNode = FocusNode();
-  // final _locationFocusNode = FocusNode();
-  // final _siteFocusNode = FocusNode();
-  // final _bioFocusNode = FocusNode();
   bool freelance = false;
   bool fullTime = false;
 
   final picker = ImagePicker();
-
-  // var _dadosEdicao = Profile(
-  //   avatar: '',
-  //   bio: '',
-  //   location: '',
-  //   personalWebsite: '',
-  //   skills: [],
-  //   jobHistory: [],
-  //   educations: [],
-  // );
 
   ProfileStore _profileStore;
   Profile _profileAtual;
@@ -81,7 +63,9 @@ class _ProfileUsuarioEdicaoScreenState
 
   Future<void> _saveForm() async {
     _profileAtual.educations.add(_educacaoUsuario);
-    _profileAtual.skills = _profileStore.skills.toList();
+    if (_profileAtual.skills.isNotEmpty)
+      _profileAtual.skills = _profileStore.skills.toList();
+
     _profileStore
         .saveUsuarioProfile(_profileAtual, _profileStore.imageAvatar)
         .then((_) => Navigator.of(context).pop())
@@ -108,14 +92,15 @@ class _ProfileUsuarioEdicaoScreenState
 
   @override
   void dispose() {
+    _profileStore.limparSkills();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // ignore: missing_return
     return Scaffold(
       body: Observer(
+        // ignore: missing_return
         builder: (_) {
           switch (_profileStore.profilesState) {
             case ProfileState.inicial:

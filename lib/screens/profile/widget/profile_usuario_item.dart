@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
-import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
-import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
-import 'package:hellohit/widgets/post_card.dart';
 
 class ProfileUsuarioItem extends StatefulWidget {
-  final Usuario usuario;
+  final Profile usuario;
 
   ProfileUsuarioItem(this.usuario);
 
@@ -39,7 +36,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                   backgroundColor: Colors.transparent,
                   maxRadius: 60.0,
                   minRadius: 10.0,
-                  // backgroundImage: NetworkImage(widget.usuario.imagem),
+                  backgroundImage: NetworkImage(widget.usuario.avatar),
                 ),
               ),
             ),
@@ -81,7 +78,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             )
           ],
         ),
-        Text(widget.usuario.full_name),
+        Text(widget.usuario.user.full_name),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -111,7 +108,8 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               titulo: 'Be Fan',
             ),
             IconRow(
-              texto: widget.usuario.fans.toString(),
+              // texto: widget.usuario.fans.toString(),
+              texto: '',
               icon: Icons.flag,
               width: 60,
               height: 60,
@@ -132,7 +130,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             ),
           ),
         ),
-        Text(widget.usuario.full_name),
+        Text(widget.usuario.user.full_name),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -177,7 +175,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
           ),
           childrenDelegate: SliverChildListDelegate(
             widget.usuario.skills
-                .map((skill) => UsuarioSkills(skill: skill))
+                .map((skill) => UsuarioSkills(skill: skill.description))
                 .toList(),
           ),
         ),

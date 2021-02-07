@@ -5,23 +5,25 @@ part 'oportunidade_model.g.dart';
 @JsonSerializable()
 class Oportunidade {
   String id;
-  final String nomeOrganizacao;
-  final String imagem;
-  final String banner;
-  final String categoria;
-  final String descricao;
-  final DateTime duracaoOportunidade;
-  final String video;
+  String title;
+  String imageUrl;
+  String location;
+  String typeOpportunity;
+  String urlYoutube;
+  DateTime duracaoOportunidade;
+  String team;
+  String website;
 
   Oportunidade({
     this.id,
-    this.nomeOrganizacao,
-    this.imagem,
-    this.categoria,
-    this.descricao,
+    this.title,
+    this.imageUrl,
+    this.location,
+    this.typeOpportunity,
+    this.urlYoutube,
     this.duracaoOportunidade,
-    this.video,
-    this.banner,
+    this.team,
+    this.website,
   });
 
   factory Oportunidade.fromJson(Map<String, dynamic> json) =>

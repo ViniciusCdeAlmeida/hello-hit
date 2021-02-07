@@ -12,10 +12,11 @@ class Usuario {
   List skills;
   String email;
   String userType;
+  String username;
   // ignore: non_constant_identifier_names
   String signature_status;
   String token;
-  Avatar avatar;
+  dynamic avatar;
   String avatarImg;
   DateTime createdAt;
   DateTime updatedAt;
@@ -32,6 +33,7 @@ class Usuario {
     this.updatedAt,
     this.createdAt,
     this.avatar,
+    this.username,
     // ignore: non_constant_identifier_names
     this.signature_status,
     this.token,

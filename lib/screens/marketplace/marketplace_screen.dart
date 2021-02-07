@@ -58,20 +58,20 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                         children: [
                           Column(
                             children: [
-                              Text('Numero'),
-                              Text('Nome'),
+                              // Text('Numero'),
+                              // Text('Nome'),
                             ],
                           ),
                           Column(
                             children: [
-                              Text('Numero'),
-                              Text('Nome'),
+                              // Text('Numero'),
+                              // Text('Nome'),
                             ],
                           ),
                           Column(
                             children: [
-                              Text('Numero'),
-                              Text('Nome'),
+                              // Text('Numero'),
+                              // Text('Nome'),
                             ],
                           ),
                         ],

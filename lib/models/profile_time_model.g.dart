@@ -1,17 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_model.dart';
+part of 'profile_time_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Profile _$ProfileFromJson(Map<String, dynamic> json) {
-  return Profile(
-    posts: (json['posts'] as List)
-        ?.map(
-            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
+  return ProfileTime(
     id: json['_id'] as String,
     user: json['user'] == null
         ? null
@@ -20,21 +16,46 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Skill.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    hitsCount: json['hitsCount'] as int,
+    categories: (json['categories'] as List)
+        ?.map((e) =>
+            e == null ? null : Categoria.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    hitCount: json['hitCount'] as int,
+    fanCount: json['fanCount'] as int,
+    sizeTeam: json['sizeTeam'] as int,
+    numMaxMembers: json['numMaxMembers'] as int,
     hits: (json['hits'] as List)
         ?.map((e) =>
             e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    teams: (json['teams'] as List)
+    fans: (json['fans'] as List)
         ?.map((e) =>
             e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    location: json['location'] as String,
+    admins: (json['admins'] as List)
+        ?.map((e) =>
+            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    members: (json['members'] as List)
+        ?.map((e) =>
+            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    awards: (json['awards'] as List)
+        ?.map((e) =>
+            e == null ? null : Premio.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     bio: json['bio'] as String,
+    posts: (json['posts'] as List)
+        ?.map(
+            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    location: json['location'] as String,
     personalWebsite: json['personalWebsite'] as String,
     workAvailability: json['workAvailability'] == null
         ? null
         : Work.fromJson(json['workAvailability'] as Map<String, dynamic>),
+    banner: json['banner'] as String,
+    avatar: json['avatar'] as String,
     openOpportunities: (json['openOpportunities'] as List)
         ?.map((e) =>
             e == null ? null : Oportunidade.fromJson(e as Map<String, dynamic>))
@@ -43,8 +64,6 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : HistoricoJob.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    banner: json['banner'] as String,
-    avatar: json['avatar'] as String,
     educations: (json['educations'] as List)
         ?.map((e) =>
             e == null ? null : Educacao.fromJson(e as Map<String, dynamic>))
@@ -52,15 +71,23 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
+Map<String, dynamic> _$ProfileTimeToJson(ProfileTime instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'user': instance.user,
       'skills': instance.skills,
-      'hitsCount': instance.hitsCount,
+      'categories': instance.categories,
+      'hitCount': instance.hitCount,
+      'fanCount': instance.fanCount,
+      'sizeTeam': instance.sizeTeam,
+      'numMaxMembers': instance.numMaxMembers,
       'hits': instance.hits,
-      'teams': instance.teams,
-      'location': instance.location,
+      'fans': instance.fans,
+      'admins': instance.admins,
+      'members': instance.members,
+      'awards': instance.awards,
       'bio': instance.bio,
+      'location': instance.location,
       'personalWebsite': instance.personalWebsite,
       'workAvailability': instance.workAvailability,
       'banner': instance.banner,

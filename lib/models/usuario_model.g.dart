@@ -21,9 +21,8 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
     createdAt: json['createdAt'] == null
         ? null
         : DateTime.parse(json['createdAt'] as String),
-    avatar: json['avatar'] == null
-        ? null
-        : Avatar.fromJson(json['avatar'] as Map<String, dynamic>),
+    avatar: json['avatar'],
+    username: json['username'] as String,
     signature_status: json['signature_status'] as String,
     token: json['token'] as String,
   )..avatarImg = json['avatarImg'] as String;
@@ -37,6 +36,7 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'skills': instance.skills,
       'email': instance.email,
       'userType': instance.userType,
+      'username': instance.username,
       'signature_status': instance.signature_status,
       'token': instance.token,
       'avatar': instance.avatar,

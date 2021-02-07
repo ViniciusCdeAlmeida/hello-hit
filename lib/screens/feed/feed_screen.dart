@@ -9,6 +9,7 @@ import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/screens/time/time_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -117,7 +118,13 @@ class _FeedScreenState extends State<FeedScreen> {
                 Navigator.of(context).pushNamed(MarketPlaceScreen.routeName);
                 break;
               case 4:
-                Navigator.of(context).pushNamed(ProfileTimeScreen.routeName);
+                _usuario.userType == 'TEAM'
+                    ? Navigator.of(context).pushNamed(
+                        ProfileTimeScreen.routeName,
+                        arguments: _usuario.id)
+                    : Navigator.of(context).pushNamed(
+                        ProfileUsuarioScreen.routeName,
+                        arguments: _usuario.id);
                 break;
             }
           },

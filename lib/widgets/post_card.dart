@@ -40,11 +40,14 @@ class _PostCardState extends State<PostCard> {
                     child: CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 20.0,
-                      backgroundImage: NetworkImage(widget.post.file['url']
-                          // .toString()
-                          // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                          // .toString()
-                          ),
+                      backgroundImage: widget.post.user.avatar == null
+                          ? AssetImage(
+                              'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                          : NetworkImage(widget.post.user.avatar['url']
+                              // .toString()
+                              // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                              // .toString()
+                              ),
                     ),
                   ),
                   Column(

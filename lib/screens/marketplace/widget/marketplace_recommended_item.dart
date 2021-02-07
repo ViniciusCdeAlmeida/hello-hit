@@ -20,7 +20,7 @@ class MarketplaceRecommendedItem extends StatelessWidget {
             const Radius.circular(10),
           ),
           child: Image.network(
-            carreira.banner,
+            carreira.imageUrl,
             height: 50,
             fit: BoxFit.contain,
           ),

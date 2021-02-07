@@ -10,6 +10,7 @@ import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_talento_item.dart';
+import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 import 'package:hive/hive.dart';
 
 import 'package:path_provider/path_provider.dart' as path_provider;

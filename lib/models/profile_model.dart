@@ -1,4 +1,5 @@
 import 'package:hellohit/models/educacao_model.dart';
+import 'package:hellohit/models/work_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:hellohit/models/especialidade_model.dart';
@@ -21,15 +22,16 @@ class Profile {
   String location;
   String bio;
   String personalWebsite;
-  String workAvailability;
+  Work workAvailability;
   String banner;
   String avatar;
   List<Oportunidade> openOpportunities;
   List<HistoricoJob> jobHistory;
   List<Educacao> educations;
-  bool fullTime = false;
-  bool freelance = false;
+  List<Post> posts;
+
   Profile({
+    this.posts,
     this.id,
     this.user,
     this.skills,
@@ -45,8 +47,6 @@ class Profile {
     this.banner,
     this.avatar,
     this.educations,
-    this.freelance,
-    this.fullTime,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) =>

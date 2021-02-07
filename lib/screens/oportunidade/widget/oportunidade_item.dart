@@ -50,7 +50,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                     topRight: const Radius.circular(15.0),
                   ),
                   child: Image.network(
-                    widget.carreira.imagem,
+                    widget.carreira.imageUrl,
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.fitWidth,
@@ -64,7 +64,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                     backgroundColor: Colors.transparent,
                     maxRadius: 40.0,
                     minRadius: 10.0,
-                    backgroundImage: NetworkImage(widget.carreira.banner),
+                    backgroundImage: NetworkImage(widget.carreira.imageUrl),
                   ),
                 ),
               ),
@@ -79,7 +79,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
               child: Column(
                 children: [
                   Text(
-                    widget.carreira.nomeOrganizacao,
+                    widget.carreira.title,
                     textAlign: TextAlign.justify,
                   ),
                   Row(
@@ -88,7 +88,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                       Column(
                         children: [
                           Text(
-                            widget.carreira.categoria,
+                            widget.carreira.typeOpportunity,
                             textAlign: TextAlign.left,
                           ),
                           IconButton(
@@ -105,7 +105,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                       Column(
                         children: [
                           Text(
-                            widget.carreira.categoria,
+                            widget.carreira.typeOpportunity,
                             textAlign: TextAlign.left,
                           ),
                           IconButton(
@@ -138,12 +138,12 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 18.0, right: 290.0),
-            child: Text(widget.carreira.nomeOrganizacao),
+            child: Text(widget.carreira.title),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              widget.carreira.descricao,
+              widget.carreira.title,
               textAlign: TextAlign.justify,
               textWidthBasis: TextWidthBasis.longestLine,
             ),

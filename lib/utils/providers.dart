@@ -2,6 +2,7 @@ import 'package:hellohit/providers/autenticacao_controller.dart';
 import 'package:hellohit/providers/cadastro_controller.dart';
 import 'package:hellohit/providers/feed_controller.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
+import 'package:hellohit/providers/pagamento_controller.dart';
 import 'package:hellohit/providers/post_controller.dart';
 import 'package:hellohit/providers/postagem_controller.dart';
 import 'package:hellohit/providers/profile_controller.dart';
@@ -21,6 +22,9 @@ import 'package:provider/single_child_widget.dart';
 List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => MarketPlaceController(),
+      ),
+      Provider(
+        create: (ctx) => PagamentoController(),
       ),
       Provider(
         create: (ctx) => MarketplaceStore(

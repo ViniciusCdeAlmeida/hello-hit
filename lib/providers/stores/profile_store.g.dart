@@ -15,12 +15,26 @@ mixin _$ProfileStore on _ProfileStore, Store {
   Profile get usuario => (_$usuarioComputed ??=
           Computed<Profile>(() => super.usuario, name: '_ProfileStore.usuario'))
       .value;
+  Computed<ProfileTime> _$usuarioTimeComputed;
+
+  @override
+  ProfileTime get usuarioTime =>
+      (_$usuarioTimeComputed ??= Computed<ProfileTime>(() => super.usuarioTime,
+              name: '_ProfileStore.usuarioTime'))
+          .value;
   Computed<ProfileState> _$profilesStateComputed;
 
   @override
   ProfileState get profilesState => (_$profilesStateComputed ??=
           Computed<ProfileState>(() => super.profilesState,
               name: '_ProfileStore.profilesState'))
+      .value;
+  Computed<ProfileState> _$profilesTimeStateComputed;
+
+  @override
+  ProfileState get profilesTimeState => (_$profilesTimeStateComputed ??=
+          Computed<ProfileState>(() => super.profilesTimeState,
+              name: '_ProfileStore.profilesTimeState'))
       .value;
 
   final _$imageAtom = Atom(name: '_ProfileStore.image');
@@ -53,6 +67,36 @@ mixin _$ProfileStore on _ProfileStore, Store {
     });
   }
 
+  final _$imageCoverAtom = Atom(name: '_ProfileStore.imageCover');
+
+  @override
+  File get imageCover {
+    _$imageCoverAtom.reportRead();
+    return super.imageCover;
+  }
+
+  @override
+  set imageCover(File value) {
+    _$imageCoverAtom.reportWrite(value, super.imageCover, () {
+      super.imageCover = value;
+    });
+  }
+
+  final _$imageAvatarCoverAtom = Atom(name: '_ProfileStore.imageAvatarCover');
+
+  @override
+  String get imageAvatarCover {
+    _$imageAvatarCoverAtom.reportRead();
+    return super.imageAvatarCover;
+  }
+
+  @override
+  set imageAvatarCover(String value) {
+    _$imageAvatarCoverAtom.reportWrite(value, super.imageAvatarCover, () {
+      super.imageAvatarCover = value;
+    });
+  }
+
   final _$fulltimeAtom = Atom(name: '_ProfileStore.fulltime');
 
   @override
@@ -80,6 +124,21 @@ mixin _$ProfileStore on _ProfileStore, Store {
   set freelance(bool value) {
     _$freelanceAtom.reportWrite(value, super.freelance, () {
       super.freelance = value;
+    });
+  }
+
+  final _$beSponsoredAtom = Atom(name: '_ProfileStore.beSponsored');
+
+  @override
+  bool get beSponsored {
+    _$beSponsoredAtom.reportRead();
+    return super.beSponsored;
+  }
+
+  @override
+  set beSponsored(bool value) {
+    _$beSponsoredAtom.reportWrite(value, super.beSponsored, () {
+      super.beSponsored = value;
     });
   }
 
@@ -129,6 +188,39 @@ mixin _$ProfileStore on _ProfileStore, Store {
     });
   }
 
+  final _$_profileTimeObservableAtom =
+      Atom(name: '_ProfileStore._profileTimeObservable');
+
+  @override
+  ProfileTime get _profileTimeObservable {
+    _$_profileTimeObservableAtom.reportRead();
+    return super._profileTimeObservable;
+  }
+
+  @override
+  set _profileTimeObservable(ProfileTime value) {
+    _$_profileTimeObservableAtom
+        .reportWrite(value, super._profileTimeObservable, () {
+      super._profileTimeObservable = value;
+    });
+  }
+
+  final _$_profileTimeFutureAtom =
+      Atom(name: '_ProfileStore._profileTimeFuture');
+
+  @override
+  ObservableFuture<ProfileTime> get _profileTimeFuture {
+    _$_profileTimeFutureAtom.reportRead();
+    return super._profileTimeFuture;
+  }
+
+  @override
+  set _profileTimeFuture(ObservableFuture<ProfileTime> value) {
+    _$_profileTimeFutureAtom.reportWrite(value, super._profileTimeFuture, () {
+      super._profileTimeFuture = value;
+    });
+  }
+
   final _$loadUsuarioProfileAsyncAction =
       AsyncAction('_ProfileStore.loadUsuarioProfile');
 
@@ -146,6 +238,24 @@ mixin _$ProfileStore on _ProfileStore, Store {
     return _$loadTimeProfileAsyncAction.run(() => super.loadTimeProfile(id));
   }
 
+  final _$loadUsuarioProfileScreenAsyncAction =
+      AsyncAction('_ProfileStore.loadUsuarioProfileScreen');
+
+  @override
+  Future<dynamic> loadUsuarioProfileScreen(String id) {
+    return _$loadUsuarioProfileScreenAsyncAction
+        .run(() => super.loadUsuarioProfileScreen(id));
+  }
+
+  final _$loadTimeProfileScreenAsyncAction =
+      AsyncAction('_ProfileStore.loadTimeProfileScreen');
+
+  @override
+  Future<dynamic> loadTimeProfileScreen(String id) {
+    return _$loadTimeProfileScreenAsyncAction
+        .run(() => super.loadTimeProfileScreen(id));
+  }
+
   final _$saveUsuarioProfileAsyncAction =
       AsyncAction('_ProfileStore.saveUsuarioProfile');
 
@@ -159,7 +269,7 @@ mixin _$ProfileStore on _ProfileStore, Store {
       AsyncAction('_ProfileStore.saveTimeProfile');
 
   @override
-  Future<void> saveTimeProfile(Profile profile) {
+  Future<void> saveTimeProfile(ProfileTime profile) {
     return _$saveTimeProfileAsyncAction
         .run(() => super.saveTimeProfile(profile));
   }
@@ -190,15 +300,53 @@ mixin _$ProfileStore on _ProfileStore, Store {
   }
 
   @override
+  void timefullTime(bool value) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.timefullTime');
+    try {
+      return super.timefullTime(value);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void timeFreeLance(bool value) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.timeFreeLance');
+    try {
+      return super.timeFreeLance(value);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void beSponsor(bool value) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.beSponsor');
+    try {
+      return super.beSponsor(value);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 image: ${image},
 imageAvatar: ${imageAvatar},
+imageCover: ${imageCover},
+imageAvatarCover: ${imageAvatarCover},
 fulltime: ${fulltime},
 freelance: ${freelance},
+beSponsored: ${beSponsored},
 skills: ${skills},
 usuario: ${usuario},
-profilesState: ${profilesState}
+usuarioTime: ${usuarioTime},
+profilesState: ${profilesState},
+profilesTimeState: ${profilesTimeState}
     ''';
   }
 }

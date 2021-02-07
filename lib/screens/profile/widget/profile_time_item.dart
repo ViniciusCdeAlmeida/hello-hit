@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/profile_time_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/screens/profile/profile_membro_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
-import 'package:hellohit/widgets/post_card.dart';
 
 class ProfileTimeItem extends StatelessWidget {
-  final Usuario usuario;
-  ProfileTimeItem(this.usuario);
+  final ProfileTime usuario;
+  final String usuarioImagem;
+  ProfileTimeItem(this.usuario, this.usuarioImagem);
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +60,15 @@ class ProfileTimeItem extends StatelessWidget {
                         ),
                       ),
                       child: ClipRRect(
-                          // child: Image.network(
-                          //   usuario.imagem,
-                          //   height: 120,
-                          //   width: 130,
-                          //   fit: BoxFit.fill,
-                          // ),
-                          ),
+                        child: usuarioImagem == null
+                            ? Container()
+                            : Image.network(
+                                usuarioImagem,
+                                height: 120,
+                                width: 130,
+                                fit: BoxFit.fill,
+                              ),
+                      ),
                     ),
                   ),
                 ),
@@ -111,12 +114,12 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          Text(usuario.full_name),
+          Text(usuario.user.full_name),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconRow(
-                texto: usuario.hits.toString(),
+                texto: usuario.hits.length.toString(),
                 icon: Icons.star,
                 width: 60,
                 height: 60,
@@ -141,7 +144,7 @@ class ProfileTimeItem extends StatelessWidget {
                 titulo: 'Be Fan',
               ),
               IconRow(
-                texto: usuario.fans.toString(),
+                texto: usuario.fans.length.toString(),
                 icon: Icons.flag,
                 width: 60,
                 height: 60,
@@ -176,7 +179,7 @@ class ProfileTimeItem extends StatelessWidget {
                   children: [
                     ClipRRect(
                         // child: Image.network(
-                        //   usuario.imagem,
+                        //   usuario.avatar,
                         //   height: deviceSize.orientation == Orientation.portrait
                         //       ? deviceSize.size.height / 10
                         //       : deviceSize.size.height / 3.5,
@@ -186,7 +189,7 @@ class ProfileTimeItem extends StatelessWidget {
                         ),
                     Padding(
                       padding: const EdgeInsets.only(left: 15.0),
-                      child: Text('BE LIKE ${usuario.full_name} TEAM'),
+                      child: Text('BE LIKE ${usuario.user.full_name} TEAM'),
                     ),
                   ],
                 ),
@@ -215,40 +218,40 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          GridView.custom(
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15,
-              childAspectRatio: (2.7 / 2),
-              mainAxisSpacing: 10,
-            ),
-            childrenDelegate: SliverChildListDelegate(null
-                // usuario.oportunidades
-                //     .map((oportunidade) => TimeOportunidades(
-                //           imagem: oportunidade.banner,
-                //           nome: oportunidade.nomeOrganizacao,
-                //         ))
-                //     .toList(),
-                ),
-          ),
+          // GridView.custom(
+          //   padding: const EdgeInsets.all(10),
+          //   shrinkWrap: true,
+          //   physics: NeverScrollableScrollPhysics(),
+          //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //     crossAxisCount: 2,
+          //     crossAxisSpacing: 15,
+          //     childAspectRatio: (2.7 / 2),
+          //     mainAxisSpacing: 10,
+          //   ),
+          //   childrenDelegate: SliverChildListDelegate(
+          //     usuario.openOpportunities
+          //         .map((oportunidade) => TimeOportunidades(
+          //               imagem: oportunidade.imageUrl,
+          //               nome: oportunidade.title,
+          //             ))
+          //         .toList(),
+          //   ),
+          // ),
           // MEMBROS
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('TEAM MEMBERS'),
-                InkWell(
-                  onTap: () => Navigator.of(context)
-                      .pushNamed(ProfileMembroScreen.routeName),
-                  // child: Text('See all ${usuario.usuarios.length} members'),
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Text('TEAM MEMBERS'),
+          //       InkWell(
+          //         onTap: () => Navigator.of(context)
+          //             .pushNamed(ProfileMembroScreen.routeName),
+          //         // child: Text('See all ${usuario.usuarios.length} members'),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           // if (usuario.usuarios.length > 0)
           // GridView.extent(
           //   maxCrossAxisExtent: 50,
@@ -294,7 +297,7 @@ class ProfileTimeItem extends StatelessWidget {
             ),
             childrenDelegate: SliverChildListDelegate(
               usuario.skills
-                  .map((skill) => UsuarioSkills(skill: skill))
+                  .map((skill) => UsuarioSkills(skill: skill.description))
                   .toList(),
             ),
           ),
@@ -324,9 +327,9 @@ class ProfileTimeItem extends StatelessWidget {
   }
 
   // ignore: missing_return
-  NetworkImage listaImagem(int count, List<Usuario> usuarios) {
-    for (var i = 0; i < count; i++) {
-      // return NetworkImage(usuarios[count].imagem);
-    }
-  }
+  // NetworkImage listaImagem(int count, List<Usuario> usuarios) {
+  //   for (var i = 0; i < count; i++) {
+  //     // return NetworkImage(usuarios[count].imagem);
+  //   }
+  // }
 }

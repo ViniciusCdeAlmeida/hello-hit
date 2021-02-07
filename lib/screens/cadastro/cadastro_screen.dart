@@ -61,8 +61,11 @@ class _CadastroScreenState extends State<CadastroScreen> {
       return;
     }
     _form.currentState.save();
-    print(_cadastroUsuario);
-    _cadastroStore.cadastroUsuario(_cadastroUsuario).catchError(
+    // print(_cadastroUsuario);
+    _cadastroStore
+        .cadastroUsuario(_cadastroUsuario)
+        .then((_) => Navigator.of(context).pop())
+        .catchError(
       (onError) {
         showDialog<Null>(
           context: context,
@@ -80,7 +83,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
           ),
         );
       },
-    ).then((_) => Navigator.of(context).pop());
+    );
   }
 
   @override
@@ -227,7 +230,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                 ),
                               ),
                               labelStyle: TextStyle(color: Colors.deepOrange),
-                              labelText: 'username',
+                              labelText: 'Username',
                               fillColor: Colors.deepOrange,
                               focusColor: Colors.deepOrange,
                               hoverColor: Colors.deepOrange,

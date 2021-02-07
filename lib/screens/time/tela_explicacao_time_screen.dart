@@ -417,8 +417,9 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                         padding: const EdgeInsets.all(8.0),
                         width: 300.0,
                         child: RaisedButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(TelaPagamentoTimeScreen.routeName),
+                          onPressed: () => Navigator.of(context).pushNamed(
+                              TelaPagamentoTimeScreen.routeName,
+                              arguments: _valorTeams[idx]),
                           color: Colors.blue[400],
                           child: Text(
                             'Create a Team',

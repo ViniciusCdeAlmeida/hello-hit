@@ -25,11 +25,11 @@ class MarketplaceOpportunitiesItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  carreira.categoria,
+                  'carreira.categoria',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(carreira.nomeOrganizacao),
-                Text(carreira.nomeOrganizacao),
+                // Text(carreira.nomeOrganizacao),
+                // Text(carreira.nomeOrganizacao),
               ],
             ),
             leading: CircleAvatar(
@@ -37,7 +37,7 @@ class MarketplaceOpportunitiesItem extends StatelessWidget {
               // maxRadius: 30.0,
               radius: 40.0,
               child: Image.network(
-                carreira.banner,
+                carreira.imageUrl,
                 height: 100,
                 fit: BoxFit.contain,
               ),

@@ -1,14 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/post_model.dart';
-
 part 'historicoJob_model.g.dart';
 
 @JsonSerializable()
 class HistoricoJob {
-  Map<String, String> from;
-  Map<String, String> to;
+  dynamic from;
+  dynamic to;
   String degree;
   String role;
   String company;
