@@ -63,10 +63,12 @@ class Endpoint {
       'location': profile.location,
       'openOpportunities': profile.openOpportunities,
       'PersonalWebsite': profile.personalWebsite,
-      'skills': profile.skills,
+      'experiences': profile.skills,
       'teams': profile.teams,
       'user': profile.user,
       'workAvailability': profile.workAvailability,
+      'skills': [],
+      'categories': []
     };
     await getConexaoPrefs().patch('profiles/${profile.id}', data: dados);
   }

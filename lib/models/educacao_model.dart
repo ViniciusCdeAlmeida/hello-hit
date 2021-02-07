@@ -10,7 +10,7 @@ class Educacao {
   String id;
   String degree;
   String schoolName;
-  String graduationYear;
+  int graduationYear;
   Educacao({
     this.id,
     this.degree,

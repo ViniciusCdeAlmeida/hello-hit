@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/models/skill_model.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:mobx/mobx.dart';
@@ -24,6 +27,21 @@ abstract class _ProfileStore with Store {
   _ProfileStore(
     this._profileController,
   );
+
+  @observable
+  File image;
+
+  @observable
+  String imageAvatar;
+
+  @observable
+  bool fulltime = false;
+
+  @observable
+  bool freelance = false;
+
+  @observable
+  ObservableList<Skill> skills = ObservableList<Skill>();
 
   @observable
   Profile _profileObservable;
@@ -53,12 +71,25 @@ abstract class _ProfileStore with Store {
   }
 
   @action
+  void fullTime(bool value) {
+    _profileObservable.fullTime = value;
+  }
+
+  @action
+  void freeLance(bool value) {
+    _profileObservable.freelance = value;
+  }
+
+  @action
   Future loadUsuarioProfile(String id) async {
     try {
       _profileFuture = ObservableFuture(
         _profileController.getUsuarioProfile(id),
       );
       _profileObservable = await _profileFuture;
+      freelance = _profileObservable.freelance;
+      fulltime = _profileObservable.fullTime;
+      skills.addAll(_profileObservable.skills);
     } catch (e) {
       throw e;
     }
@@ -73,13 +104,17 @@ abstract class _ProfileStore with Store {
       _profileObservable = await _profileFuture;
     } catch (e) {
       throw e;
+    } finally {
+      freelance = _profileObservable.freelance;
+      fulltime = _profileObservable.fullTime;
+      skills.addAll(_profileObservable.skills);
     }
   }
 
   @action
-  Future<void> saveUsuarioProfile(Profile profile) async {
+  Future<void> saveUsuarioProfile(Profile profile, String image) async {
     try {
-      _profileController.atualizarUsuarioProfile(profile);
+      _profileController.atualizarUsuarioProfile(profile, image);
     } catch (e) {
       throw e;
     }

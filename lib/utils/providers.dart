@@ -35,12 +35,6 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => ProfileStore(
           ProfileController(),
-          // PostStore(
-          //   PostController(),
-          // ),
-          // MarketplaceStore(
-          //   MarketPlaceController(),
-          // ),
         ),
       ),
       Provider(

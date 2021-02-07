@@ -16,6 +16,7 @@ class Usuario {
   String signature_status;
   String token;
   Avatar avatar;
+  String avatarImg;
   DateTime createdAt;
   DateTime updatedAt;
 

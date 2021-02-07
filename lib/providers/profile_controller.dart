@@ -3,10 +3,10 @@ import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class ProfileController {
-  Future<Profile> atualizarUsuarioProfile(Profile profile) async {
+  Future<void> atualizarUsuarioProfile(Profile profile, String image) async {
     try {
-      Response res = await Endpoint.patchProfileUsuario(profile);
-      return Profile.fromJson(res.data);
+      await Endpoint.patchProfileUsuario(profile);
+      await Endpoint.putImagem(image);
     } catch (e) {
       throw e;
     }
@@ -34,9 +34,11 @@ class ProfileController {
   Future<Profile> getUsuarioProfile(String id) async {
     try {
       Response res = await Endpoint.getProfileUsuario(id);
-      var t = Profile.fromJson(res.data);
-      t.user.full_name = res.data['user']['fullName'];
-      return t;
+      var temp = Profile.fromJson(res.data);
+      temp.user.full_name = res.data['user']['fullName'];
+      temp.freelance ??= false;
+      temp.fullTime ??= false;
+      return temp;
     } catch (e) {
       throw e;
     }

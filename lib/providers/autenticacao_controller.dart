@@ -14,7 +14,7 @@ class AutenticacaoController {
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.id = res.data['_id'];
       // if (res.data['avatar'] != null)
-      //   usuarioRecebido.avatar = res.data['avatar']['url'];
+      usuarioRecebido.avatarImg = res.data['avatar'];
       //
       // _token = usuarioRecebido.token;
       getToken(usuarioRecebido.token);

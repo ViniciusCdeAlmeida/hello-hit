@@ -11,7 +11,7 @@ Educacao _$EducacaoFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     degree: json['degree'] as String,
     schoolName: json['schoolName'] as String,
-    graduationYear: json['graduationYear'] as String,
+    graduationYear: json['graduationYear'] as int,
   );
 }
 

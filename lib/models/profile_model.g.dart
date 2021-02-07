@@ -8,7 +8,7 @@ part of 'profile_model.dart';
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
-    id: json['id'] as String,
+    id: json['_id'] as String,
     user: json['user'] == null
         ? null
         : Usuario.fromJson(json['user'] as Map<String, dynamic>),

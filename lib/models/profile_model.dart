@@ -27,8 +27,8 @@ class Profile {
   List<Oportunidade> openOpportunities;
   List<HistoricoJob> jobHistory;
   List<Educacao> educations;
-  bool fullTime;
-  bool freelance;
+  bool fullTime = false;
+  bool freelance = false;
   Profile({
     this.id,
     this.user,

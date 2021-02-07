@@ -210,7 +210,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                             ? Image.asset(
                                                 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                             : Image.network(
-                                                _usuario.avatar.url,
+                                                _usuario.avatarImg,
                                               ),
                                       ),
                                       Container(
