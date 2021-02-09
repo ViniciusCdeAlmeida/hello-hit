@@ -30,6 +30,14 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
       (_$carreiraComputed ??= Computed<Oportunidade>(() => super.carreira,
               name: '_MarketplaceStore.carreira'))
           .value;
+  Computed<MarketplaceListState> _$marketplaceListStateComputed;
+
+  @override
+  MarketplaceListState get marketplaceListState =>
+      (_$marketplaceListStateComputed ??= Computed<MarketplaceListState>(
+              () => super.marketplaceListState,
+              name: '_MarketplaceStore.marketplaceListState'))
+          .value;
   Computed<MarketplaceState> _$marketplaceStateComputed;
 
   @override
@@ -116,12 +124,45 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
     });
   }
 
+  final _$_carreiraOportunidadeFutureAtom =
+      Atom(name: '_MarketplaceStore._carreiraOportunidadeFuture');
+
+  @override
+  ObservableFuture<Oportunidade> get _carreiraOportunidadeFuture {
+    _$_carreiraOportunidadeFutureAtom.reportRead();
+    return super._carreiraOportunidadeFuture;
+  }
+
+  @override
+  set _carreiraOportunidadeFuture(ObservableFuture<Oportunidade> value) {
+    _$_carreiraOportunidadeFutureAtom
+        .reportWrite(value, super._carreiraOportunidadeFuture, () {
+      super._carreiraOportunidadeFuture = value;
+    });
+  }
+
   final _$oportunidadeListAsyncAction =
       AsyncAction('_MarketplaceStore.oportunidadeList');
 
   @override
   Future<dynamic> oportunidadeList() {
     return _$oportunidadeListAsyncAction.run(() => super.oportunidadeList());
+  }
+
+  final _$getOportunidadeAsyncAction =
+      AsyncAction('_MarketplaceStore.getOportunidade');
+
+  @override
+  Future<dynamic> getOportunidade(String id) {
+    return _$getOportunidadeAsyncAction.run(() => super.getOportunidade(id));
+  }
+
+  final _$hitOportunidadeAsyncAction =
+      AsyncAction('_MarketplaceStore.hitOportunidade');
+
+  @override
+  Future<dynamic> hitOportunidade(Map<dynamic, dynamic> dados) {
+    return _$hitOportunidadeAsyncAction.run(() => super.hitOportunidade(dados));
   }
 
   final _$_MarketplaceStoreActionController =
@@ -156,6 +197,7 @@ present: ${present},
 carreiras: ${carreiras},
 carreirasOriginal: ${carreirasOriginal},
 carreira: ${carreira},
+marketplaceListState: ${marketplaceListState},
 marketplaceState: ${marketplaceState}
     ''';
   }

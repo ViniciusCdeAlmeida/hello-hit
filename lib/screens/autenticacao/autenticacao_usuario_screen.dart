@@ -172,15 +172,22 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                RaisedButton(
-                                  child: const Text('LOGIN'),
-                                  padding: EdgeInsets.fromLTRB(75, 10, 75, 10),
-                                  textColor: Colors.orange[700],
-                                  onPressed: _submit,
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
+                                Observer(
+                                  builder: (_) =>
+                                      _autenticacaoStore.autenticando
+                                          ? CircularProgressIndicator()
+                                          : RaisedButton(
+                                              child: const Text('LOGIN'),
+                                              padding: EdgeInsets.fromLTRB(
+                                                  75, 10, 75, 10),
+                                              textColor: Colors.orange[700],
+                                              onPressed: _submit,
+                                              color: Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(32),
+                                              ),
+                                            ),
                                 ),
                                 SizedBox(
                                   height: 20,

@@ -7,6 +7,12 @@ part 'marketplace_store.g.dart';
 
 class MarketplaceStore = _MarketplaceStore with _$MarketplaceStore;
 
+enum MarketplaceListState {
+  inicial,
+  carregando,
+  carregado,
+}
+
 enum MarketplaceState {
   inicial,
   carregando,
@@ -37,6 +43,9 @@ abstract class _MarketplaceStore with Store {
   @observable
   Oportunidade _carreiraOportunidade;
 
+  @observable
+  ObservableFuture<Oportunidade> _carreiraOportunidadeFuture;
+
   @computed
   List<Oportunidade> get carreiras {
     return [..._carreiraItens];
@@ -54,17 +63,33 @@ abstract class _MarketplaceStore with Store {
 
   @computed
   // ignore: missing_return
-  MarketplaceState get marketplaceState {
+  MarketplaceListState get marketplaceListState {
     if ((_carreiraFuture == null ||
         _carreiraFuture.status == FutureStatus.rejected)) {
-      return MarketplaceState.inicial;
+      return MarketplaceListState.inicial;
     }
 
     if (_carreiraFuture.status == FutureStatus.pending) {
-      return MarketplaceState.carregando;
+      return MarketplaceListState.carregando;
     }
 
     if (_carreiraFuture.status == FutureStatus.fulfilled)
+      return MarketplaceListState.carregado;
+  }
+
+  @computed
+  // ignore: missing_return
+  MarketplaceState get marketplaceState {
+    if ((_carreiraOportunidadeFuture == null ||
+        _carreiraOportunidadeFuture.status == FutureStatus.rejected)) {
+      return MarketplaceState.inicial;
+    }
+
+    if (_carreiraOportunidadeFuture.status == FutureStatus.pending) {
+      return MarketplaceState.carregando;
+    }
+
+    if (_carreiraOportunidadeFuture.status == FutureStatus.fulfilled)
       return MarketplaceState.carregado;
   }
 
@@ -72,8 +97,29 @@ abstract class _MarketplaceStore with Store {
   Future oportunidadeList() async {
     try {
       _carreiraFuture =
-          ObservableFuture(_oportunidadeController.getOportunidade());
+          ObservableFuture(_oportunidadeController.getOportunidadeList());
       _carreiraItens = (await _carreiraFuture).asObservable();
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future getOportunidade(String id) async {
+    try {
+      _carreiraOportunidadeFuture =
+          ObservableFuture(_oportunidadeController.getOportunidade(id));
+      _carreiraOportunidade = await _carreiraOportunidadeFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future hitOportunidade(Map dados) async {
+    try {
+      _oportunidadeController.patchHitOportunidade(
+          _carreiraOportunidade.id, dados);
     } catch (e) {
       throw e;
     }

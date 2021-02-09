@@ -24,9 +24,17 @@ abstract class _AutenticacaoStore with Store {
   @observable
   Usuario _autenticacao;
 
+  @observable
+  bool _autenticando = false;
+
   @computed
   Usuario get autenticacao {
     return _autenticacao;
+  }
+
+  @computed
+  bool get autenticando {
+    return _autenticando;
   }
 
   @computed
@@ -47,10 +55,12 @@ abstract class _AutenticacaoStore with Store {
 
   @action
   Future<void> autenticacaoUsuario(Autenticacao dados) async {
+    _autenticando = true;
     try {
       _autenticacaoFuture =
           ObservableFuture(_autenticacaoController.autenticacaoUsuario(dados));
-      _autenticacao = await _autenticacaoFuture;
+      _autenticacao =
+          await _autenticacaoFuture.whenComplete(() => _autenticando = false);
     } catch (e) {
       throw e;
     }

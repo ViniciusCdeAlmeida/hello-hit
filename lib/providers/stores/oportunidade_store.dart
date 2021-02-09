@@ -51,7 +51,7 @@ abstract class _OportunidadeStore with Store {
   Future oportunidadeList() async {
     try {
       _oportunidadeFuture =
-          ObservableFuture(_oportunidadeController.getOportunidade());
+          ObservableFuture(_oportunidadeController.getOportunidadeList());
       _oportunidadeObservable = (await _oportunidadeFuture).asObservable();
     } catch (e) {
       throw e;

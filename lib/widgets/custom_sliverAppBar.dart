@@ -58,29 +58,31 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
         ),
         background: Stack(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: const Radius.circular(15.0),
-                bottomRight: const Radius.circular(15.0),
-              ),
-              child: Image.network(
-                widget.imagem,
-                // height: 100,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 200.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  // maxRadius: 30.0,
-                  radius: 40.0,
-                  backgroundImage: NetworkImage(widget.banner),
+            if (widget.imagem != null)
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: const Radius.circular(15.0),
+                  bottomRight: const Radius.circular(15.0),
+                ),
+                child: Image.network(
+                  widget.imagem,
+                  // height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
-            ),
+            if (widget.banner != null)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200.0),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    // maxRadius: 30.0,
+                    radius: 40.0,
+                    backgroundImage: NetworkImage(widget.banner),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

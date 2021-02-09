@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
 import 'package:hellohit/screens/oportunidade/widget/oportunidade_item.dart';
 import 'package:hellohit/widgets/custom_sliverAppBar.dart';
@@ -12,35 +13,55 @@ class OportunidadeScreen extends StatefulWidget {
 }
 
 class _OportunidadeScreenState extends State<OportunidadeScreen> {
-  MarketplaceStore _maketplaceStore;
-  int id;
+  final GlobalKey<ScaffoldState> _scaffoldMarketKey =
+      new GlobalKey<ScaffoldState>();
+  MarketplaceStore _marketplaceStore;
+  AutenticacaoStore _autenticacaoStore;
+  String id;
+  String idUsuario;
   @override
   void didChangeDependencies() {
-    _maketplaceStore = Provider.of<MarketplaceStore>(context);
+    _marketplaceStore = Provider.of<MarketplaceStore>(context);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    idUsuario = _autenticacaoStore.autenticacao.id;
     id = ModalRoute.of(context).settings.arguments;
-    _maketplaceStore.loadCarreira(id);
+    _marketplaceStore.getOportunidade(id);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Observer(
-        builder: (_) => CustomScrollView(
-          slivers: <Widget>[
-            CustomSliverAppBar(
-              titulo: 'teste',
-              // imagem: _maketplaceStore.carreira.imagem,
-              // banner: _maketplaceStore.carreira.banner,
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                OportunidadeItem(_maketplaceStore.carreira),
-              ]),
-            ),
-          ],
-        ),
-      ),
+      key: _scaffoldMarketKey,
+      // ignore: missing_return
+      body: Observer(builder: (_) {
+        switch (_marketplaceStore.marketplaceState) {
+          case MarketplaceState.inicial:
+          case MarketplaceState.carregando:
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          case MarketplaceState.carregado:
+            return CustomScrollView(
+              slivers: <Widget>[
+                CustomSliverAppBar(
+                  titulo: '',
+                  // imagem: _maketplaceStore.carreira.imagem,
+                  // banner: _maketplaceStore.carreira.banner,
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    OportunidadeItem(
+                      _marketplaceStore.carreira,
+                      _marketplaceStore.hitOportunidade,
+                      idUsuario,
+                    ),
+                  ]),
+                ),
+              ],
+            );
+        }
+      }),
     );
   }
 }

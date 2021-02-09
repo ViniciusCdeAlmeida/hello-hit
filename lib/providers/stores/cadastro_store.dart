@@ -66,6 +66,8 @@ abstract class _CadastroStore with Store {
         _cadastrando = false;
         throw error;
       });
+
+      // TODO COLOCAR A MESMA ESTRUTURA DO AUTENTICACAO STORE
     } catch (e) {
       _cadastrando = false;
       throw e;

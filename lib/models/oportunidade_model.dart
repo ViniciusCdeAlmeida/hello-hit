@@ -21,10 +21,9 @@ class Oportunidade {
   String website;
   DateTime expireAt;
   Categoria categoria;
-  Usuario cadidates;
+  List candidates;
   int hitCount;
-  List<Usuario> hits;
-  List<Usuario> fans;
+  List<String> hits;
 
   Oportunidade({
     this.id,
@@ -39,10 +38,9 @@ class Oportunidade {
     this.website,
     this.expireAt,
     this.categoria,
-    this.cadidates,
+    this.candidates,
     this.hitCount,
     this.hits,
-    this.fans,
   });
 
   factory Oportunidade.fromJson(Map<String, dynamic> json) =>

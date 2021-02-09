@@ -50,8 +50,15 @@ class Endpoint {
   static Future getProfileUsuario(String id) async =>
       await getConexaoPrefs().get('profiles/user/$id');
 
-  static Future getOportunidades() async =>
+  static Future getOportunidadesList() async =>
       await getConexaoPrefs().get('opportunities');
+
+  static Future getOportunidade(String id) async =>
+      await getConexaoPrefs().get('opportunities/$id');
+
+  static Future patchHitOportunidade(String id, Map data) async {
+    await getConexaoPrefs().patch('opportunities/hit/$id', data: data);
+  }
 
   static Future putImagem(String image) async {
     FormData formData =

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
@@ -10,7 +12,8 @@ class AutenticacaoController {
   String get token => _token;
   Future<Usuario> autenticacaoUsuario(Autenticacao usuario) async {
     try {
-      Response res = await Endpoint.postAutenticacaoUsuario(usuario);
+      Response res = await Endpoint.postAutenticacaoUsuario(usuario)
+          .timeout(Duration(seconds: 40));
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.id = res.data['_id'];
       // if (res.data['avatar'] != null)
@@ -28,6 +31,8 @@ class AutenticacaoController {
         throw e.response.data['message'];
       else
         throw 'Check your connection.';
+    } on TimeoutException catch (_) {
+      throw 'Check your connection';
     } catch (e) {
       throw e;
     }

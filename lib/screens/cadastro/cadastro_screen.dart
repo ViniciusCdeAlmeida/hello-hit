@@ -62,8 +62,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
       return;
     }
     _form.currentState.save();
-    // _cadastroStore.cadastroUsuario(_cadastroUsuario);
-    // print(_cadastroUsuario);
     _cadastroStore
         .cadastroUsuario(_cadastroUsuario)
         .then((_) => Navigator.of(context).pop())

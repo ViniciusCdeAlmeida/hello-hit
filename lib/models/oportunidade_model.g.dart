@@ -15,7 +15,7 @@ Oportunidade _$OportunidadeFromJson(Map<String, dynamic> json) {
     isOpen: json['isOpen'] as bool,
     team: json['team'],
     location: json['location'] as String,
-    typeOpportunity: json['typeOpportunity'] as String,
+    typeOpportunity: json['typeOpportunity'],
     urlYoutube: json['urlYoutube'] as String,
     website: json['website'] as String,
     expireAt: json['expireAt'] == null
@@ -24,18 +24,9 @@ Oportunidade _$OportunidadeFromJson(Map<String, dynamic> json) {
     categoria: json['categoria'] == null
         ? null
         : Categoria.fromJson(json['categoria'] as Map<String, dynamic>),
-    cadidates: json['cadidates'] == null
-        ? null
-        : Usuario.fromJson(json['cadidates'] as Map<String, dynamic>),
+    candidates: json['candidates'] as List,
     hitCount: json['hitCount'] as int,
-    hits: (json['hits'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    fans: (json['fans'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    hits: (json['hits'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
@@ -53,8 +44,7 @@ Map<String, dynamic> _$OportunidadeToJson(Oportunidade instance) =>
       'website': instance.website,
       'expireAt': instance.expireAt?.toIso8601String(),
       'categoria': instance.categoria,
-      'cadidates': instance.cadidates,
+      'candidates': instance.candidates,
       'hitCount': instance.hitCount,
       'hits': instance.hits,
-      'fans': instance.fans,
     };

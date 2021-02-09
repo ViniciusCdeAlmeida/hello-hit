@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_middle_section.dart';
+import 'package:intl/intl.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class OportunidadeItem extends StatefulWidget {
   final Oportunidade carreira;
+  final Function hitOpportunities;
+  final String idUsuario;
 
-  OportunidadeItem(this.carreira);
+  OportunidadeItem(this.carreira, this.hitOpportunities, this.idUsuario);
 
   @override
   _OportunidadeItemState createState() => _OportunidadeItemState();
@@ -15,11 +18,15 @@ class OportunidadeItem extends StatefulWidget {
 class _OportunidadeItemState extends State<OportunidadeItem> {
   // ignore: close_sinks
   YoutubePlayerController _controller;
+  Color _corHit;
 
   @override
   void initState() {
+    _corHit = widget.carreira.hits.contains(widget.idUsuario)
+        ? Colors.blue
+        : Colors.grey;
     _controller = YoutubePlayerController(
-      initialVideoId: '',
+      initialVideoId: widget.carreira.urlYoutube,
       params: const YoutubePlayerParams(
         autoPlay: false,
         showControls: true,
@@ -40,31 +47,39 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
         children: [
           Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: const Radius.circular(15.0),
-                    bottomRight: const Radius.circular(15.0),
-                    topLeft: const Radius.circular(15.0),
-                    topRight: const Radius.circular(15.0),
-                  ),
-                  child: Image.network(
-                    widget.carreira.imageUrl,
-                    height: 200,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(18.0),
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.only(
+              //       bottomLeft: const Radius.circular(15.0),
+              //       bottomRight: const Radius.circular(15.0),
+              //       topLeft: const Radius.circular(15.0),
+              //       topRight: const Radius.circular(15.0),
+              //     ),
+              //     child: widget.carreira.imageUrl == null
+              //         ? AssetImage(
+              //             'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+              //         : Image.network(
+              //             widget.carreira.imageUrl,
+              //             height: 200,
+              //             width: MediaQuery.of(context).size.width,
+              //             fit: BoxFit.fitWidth,
+              //           ),
+              //   ),
+              // ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 180.0),
+                  // padding: const EdgeInsets.only(top: 180.0),
+
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     maxRadius: 40.0,
                     minRadius: 10.0,
-                    backgroundImage: NetworkImage(widget.carreira.imageUrl),
+                    backgroundImage: widget.carreira.imageUrl == ""
+                        ? AssetImage(
+                            'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                        : NetworkImage(widget.carreira.imageUrl),
                   ),
                 ),
               ),
@@ -91,14 +106,19 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                             widget.carreira.typeOpportunity,
                             textAlign: TextAlign.left,
                           ),
-                          IconButton(
-                            iconSize: 80.0,
-                            icon: ImageIcon(
-                              AssetImage(
-                                  'assets/images/oportunidades_full_assets/icone_favoritar_desabilitade.png'),
-                              color: Colors.grey,
-                            ),
-                            onPressed: () {},
+                          Column(
+                            children: [
+                              IconButton(
+                                iconSize: 80.0,
+                                icon: ImageIcon(
+                                  AssetImage(
+                                      'assets/images/oportunidades_full_assets/icone_favoritar_desabilitade.png'),
+                                  color: Colors.grey,
+                                ),
+                                onPressed: () {},
+                              ),
+                              Text('Mark as Favorite')
+                            ],
                           ),
                         ],
                       ),
@@ -108,14 +128,27 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                             widget.carreira.typeOpportunity,
                             textAlign: TextAlign.left,
                           ),
-                          IconButton(
-                            iconSize: 80.0,
-                            icon: ImageIcon(
-                              AssetImage(
-                                  'assets/images/oportunidades_full_assets/Hit_desabilitado.png'),
-                              color: Colors.grey,
-                            ),
-                            onPressed: () {},
+                          Column(
+                            children: [
+                              IconButton(
+                                iconSize: 80.0,
+                                icon: ImageIcon(
+                                  AssetImage(
+                                      'assets/images/oportunidades_full_assets/Hit_desabilitado.png'),
+                                  color: _corHit,
+                                ),
+                                onPressed: () {
+                                  var dados = {'id': widget.idUsuario};
+                                  widget.hitOpportunities(dados);
+                                  setState(() {
+                                    _corHit == Colors.blue
+                                        ? _corHit = Colors.grey
+                                        : _corHit = Colors.blue;
+                                  });
+                                },
+                              ),
+                              Text('Hit it!')
+                            ],
                           ),
                         ],
                       ),
@@ -131,7 +164,8 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
             color: Colors.orange[900],
           ),
           MarketplaceMiddleSection(
-            texto: 'duration',
+            texto:
+                'Duration: ${DateFormat('yyyy-MM-dd').format(widget.carreira.expireAt)}',
             deviceSize: deviceSize,
             viewall: true,
             rota: null,
@@ -143,23 +177,24 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              widget.carreira.title,
+              widget.carreira.description,
               textAlign: TextAlign.justify,
               textWidthBasis: TextWidthBasis.longestLine,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              child: YoutubePlayerControllerProvider(
-                child: player,
-                // Passing controller to widgets below.
-                controller: _controller,
+          if (widget.carreira.urlYoutube != '')
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                child: YoutubePlayerControllerProvider(
+                  child: player,
+                  // Passing controller to widgets below.
+                  controller: _controller,
+                ),
               ),
             ),
-          ),
           Divider(
             thickness: 2,
             height: 1.0,
@@ -178,7 +213,7 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                InkWell(
+                GestureDetector(
                   onTap: () {},
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,8 +231,8 @@ class _OportunidadeItemState extends State<OportunidadeItem> {
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
+                GestureDetector(
+                  onTap: () => Navigator.pop(context),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

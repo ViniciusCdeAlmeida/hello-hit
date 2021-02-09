@@ -49,7 +49,7 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
               GestureDetector(
                 onTap: () {},
                 child: const Text(
-                  'CLOSE',
+                  'DONE',
                   style: TextStyle(color: Colors.white),
                 ),
               ),

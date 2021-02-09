@@ -16,6 +16,13 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
       (_$autenticacaoComputed ??= Computed<Usuario>(() => super.autenticacao,
               name: '_AutenticacaoStore.autenticacao'))
           .value;
+  Computed<bool> _$autenticandoComputed;
+
+  @override
+  bool get autenticando =>
+      (_$autenticandoComputed ??= Computed<bool>(() => super.autenticando,
+              name: '_AutenticacaoStore.autenticando'))
+          .value;
   Computed<AutenticacaoState> _$autenticacaoStateComputed;
 
   @override
@@ -55,6 +62,21 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
     });
   }
 
+  final _$_autenticandoAtom = Atom(name: '_AutenticacaoStore._autenticando');
+
+  @override
+  bool get _autenticando {
+    _$_autenticandoAtom.reportRead();
+    return super._autenticando;
+  }
+
+  @override
+  set _autenticando(bool value) {
+    _$_autenticandoAtom.reportWrite(value, super._autenticando, () {
+      super._autenticando = value;
+    });
+  }
+
   final _$autenticacaoUsuarioAsyncAction =
       AsyncAction('_AutenticacaoStore.autenticacaoUsuario');
 
@@ -68,6 +90,7 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
   String toString() {
     return '''
 autenticacao: ${autenticacao},
+autenticando: ${autenticando},
 autenticacaoState: ${autenticacaoState}
     ''';
   }

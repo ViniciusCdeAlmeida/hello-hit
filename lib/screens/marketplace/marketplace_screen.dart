@@ -90,32 +90,30 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                 Observer(
                   // ignore: missing_return
                   builder: (_) {
-                    switch (_maketplaceStore.marketplaceState) {
-                      case MarketplaceState.inicial:
+                    switch (_maketplaceStore.marketplaceListState) {
+                      case MarketplaceListState.inicial:
                         return Container();
-                      case MarketplaceState.carregando:
+                      case MarketplaceListState.carregando:
                         return Center(
                           child: CircularProgressIndicator(),
                         );
-                      case MarketplaceState.carregado:
+                      case MarketplaceListState.carregado:
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Expanded(
-                            child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: _maketplaceStore.carreiras.length,
-                                itemBuilder: (_, idx) =>
-                                    MarketplaceOpportunitiesItem(
-                                        _maketplaceStore.carreiras[idx])
-                                // Column(
-                                //   children: [
-                                //     MarketplaceOpportunitiesItem(
-                                //         _maketplaceStore.carreiras[idx]),
-                                //   ],
-                                // ),
-                                ),
-                          ),
+                          child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _maketplaceStore.carreiras.length,
+                              itemBuilder: (_, idx) =>
+                                  MarketplaceOpportunitiesItem(
+                                      _maketplaceStore.carreiras[idx])
+                              // Column(
+                              //   children: [
+                              //     MarketplaceOpportunitiesItem(
+                              //         _maketplaceStore.carreiras[idx]),
+                              //   ],
+                              // ),
+                              ),
                         );
                       // Flexible(
                       //   fit: FlexFit.loose,
