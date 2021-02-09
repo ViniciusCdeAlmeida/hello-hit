@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
-class MarketPlaceController {
+class OportunidadeController {
   Future<List<Oportunidade>> getOportunidade() async {
     try {
       Response res = await Endpoint.getOportunidades();

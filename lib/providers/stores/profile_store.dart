@@ -122,6 +122,40 @@ abstract class _ProfileStore with Store {
   }
 
   @action
+  void makeHitTime(String id) {
+    _profileTimeObservable.hitCount += 1;
+    // try {
+    //   _profileController
+    //       .patchHitTime(id)
+    //       .then((_) => _profileTimeObservable.hitCount += 1);
+    // } catch (e) {
+    //   throw e;
+    // }
+  }
+
+  @action
+  void makeHitUsuario(String id) {
+    try {
+      _profileController
+          .patchHitUsuario(id)
+          .then((_) => _profileObservable.hitsCount += 1);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  void makeFanTime(String id) {
+    try {
+      _profileController
+          .patchFanTime(id)
+          .then((_) => _profileTimeObservable.fanCount += 1);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
   void beSponsor(bool value) {
     _profileTimeObservable.workAvailability.beSponsored = value;
   }
@@ -132,10 +166,11 @@ abstract class _ProfileStore with Store {
       _profileFuture = ObservableFuture(
         _profileController.getUsuarioProfile(id),
       );
+      _profileObservable = await _profileFuture;
       // _profileObservable = await _profileFuture;
       // freelance = _profileObservable.freelance;
       // fulltime = _profileObservable.fullTime;
-      skills.addAll(_profileObservable.skills);
+      // skills.addAll(_profileObservable.skills);
     } catch (e) {
       throw e;
     }
@@ -164,6 +199,7 @@ abstract class _ProfileStore with Store {
       _profileFuture = ObservableFuture(
         _profileController.getUsuarioProfileScreen(id),
       );
+      // _profileObservable = await _profileTimeFuture;
     } catch (e) {
       throw e;
     }
@@ -173,7 +209,7 @@ abstract class _ProfileStore with Store {
   Future loadTimeProfileScreen(String id) async {
     try {
       _profileTimeFuture = ObservableFuture(
-        _profileController.getTimeProfileScreen(id),
+        _profileController.getTimeProfile(id),
       );
       _profileTimeObservable = await _profileTimeFuture;
     } catch (e) {

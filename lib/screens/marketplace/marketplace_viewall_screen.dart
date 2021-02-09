@@ -18,7 +18,7 @@ class _MarketplaceViewallScreenState extends State<MarketplaceViewallScreen> {
   @override
   void didChangeDependencies() {
     _maketplaceStore = Provider.of<MarketplaceStore>(context);
-    _maketplaceStore.seed();
+    _maketplaceStore.oportunidadeList();
     super.didChangeDependencies();
   }
 

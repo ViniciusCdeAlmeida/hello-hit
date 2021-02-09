@@ -8,7 +8,7 @@ part of 'educacao_model.dart';
 
 Educacao _$EducacaoFromJson(Map<String, dynamic> json) {
   return Educacao(
-    id: json['id'] as String,
+    id: json['_id'] as String,
     degree: json['degree'] as String,
     schoolName: json['schoolName'] as String,
     graduationYear: json['graduationYear'] as int,
@@ -16,7 +16,7 @@ Educacao _$EducacaoFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$EducacaoToJson(Educacao instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'degree': instance.degree,
       'schoolName': instance.schoolName,
       'graduationYear': instance.graduationYear,

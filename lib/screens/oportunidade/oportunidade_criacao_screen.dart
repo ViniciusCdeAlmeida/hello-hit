@@ -7,9 +7,11 @@ import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
 import 'package:google_place/google_place.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
+import 'package:provider/provider.dart';
 
 class OportunidadeCriacaoScreen extends StatefulWidget {
   static const routeName = '/oportunidadeCriacaoScreen';
@@ -78,6 +80,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
   final picker = ImagePicker();
 
   DateTime selectedDate = DateTime.now();
+  AutenticacaoStore _autenticacaoStore;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -123,11 +126,18 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -143,6 +153,32 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                     fontSize: 23,
                     fontWeight: FontWeight.w600,
                   ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 50,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 18.0),
+                          child: Text(
+                            'Team: ${_autenticacaoStore.autenticacao.full_name}',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                          // TextFormField(
+                          //   textAlignVertical: TextAlignVertical.center,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     labelText: 'Team',
+                          //   ),
+                          //   textInputAction: TextInputAction.next,
+                          // ),
+                          ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
@@ -160,20 +196,6 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                             title = value;
                           },
                           textInputAction: TextInputAction.next,
-                        ),
-                      ),
-                      Container(
-                        height: 60,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
-                          child: TextFormField(
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Team',
-                            ),
-                            textInputAction: TextInputAction.next,
-                          ),
                         ),
                       ),
                       Padding(
@@ -235,7 +257,6 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                     readOnly: false,
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 15.0,
@@ -765,7 +786,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                     maxLines: 1,
                     decoration: InputDecoration(
                       counterText: '',
-                      hintText: 'https://www.website.com.br/',
+                      hintText: 'Video',
                       contentPadding: const EdgeInsets.only(
                         top: 5,
                         left: 5,
@@ -785,14 +806,14 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                   child: Row(
                     children: [
                       RaisedButton(
-                        onPressed: makeOportunidade,
-                        // onPressed: () => Navigator.of(context)
-                        //     .pushNamed(OportunidadePagamentoScreen.routeName),
+                        // onPressed: makeOportunidade,
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(OportunidadePagamentoScreen.routeName),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         child: Text(
-                          'Preview',
+                          'Process',
                           style: TextStyle(color: Colors.white),
                         ),
                         color: Colors.deepOrange,

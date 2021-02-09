@@ -20,7 +20,7 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
   void didChangeDependencies() {
     idArgs = ModalRoute.of(context).settings.arguments;
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
-    _profileStore.loadUsuarioProfileScreen(idArgs);
+    _profileStore.loadUsuarioProfile(idArgs);
     // _profileAtual = _profileStore.usuario;
 
     super.didChangeDependencies();

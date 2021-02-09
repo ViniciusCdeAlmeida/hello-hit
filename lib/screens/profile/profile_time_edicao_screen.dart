@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -30,6 +29,8 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
   ProfileStore _profileStore;
   ProfileTime _profileAtual;
   final picker = ImagePicker();
+  static List<Premio> awardList = [null];
+  static List<HistoricoJob> jobHistoryList = [null];
 
   var _awardTemp = Premio();
   var _jobTemp = HistoricoJob();
@@ -39,7 +40,6 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
     idArgs = ModalRoute.of(context).settings.arguments;
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
     _profileStore.loadTimeProfile(idArgs);
-    _profileAtual = _profileStore.usuarioTime;
     super.didChangeDependencies();
   }
 
@@ -81,29 +81,29 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
     _profileAtual.awards.add(_awardTemp);
     if (_profileAtual.skills.isNotEmpty)
       _profileAtual.skills = _profileStore.skills.toList();
-
-    _profileStore
-        .saveTimeProfile(_profileAtual)
-        .then((_) => Navigator.of(context).pop())
-        .catchError(
-      (onError) {
-        showDialog<Null>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('Error'),
-            content: Text(onError),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: Text('OK'),
-              )
-            ],
-          ),
-        );
-      },
-    );
+    print(awardList);
+    // _profileStore
+    //     .saveTimeProfile(_profileAtual)
+    //     .then((_) => Navigator.of(context).pop())
+    //     .catchError(
+    //   (onError) {
+    //     showDialog<Null>(
+    //       context: context,
+    //       builder: (ctx) => AlertDialog(
+    //         title: Text('Error'),
+    //         content: Text(onError),
+    //         actions: <Widget>[
+    //           FlatButton(
+    //             onPressed: () {
+    //               Navigator.of(ctx).pop();
+    //             },
+    //             child: Text('OK'),
+    //           )
+    //         ],
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   @override
@@ -540,7 +540,8 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
+                                        vertical: 8.0,
+                                      ),
                                       child: TextField(
                                         cursorColor: Color(0xFFE0651F),
                                         style: TextStyle(
@@ -564,6 +565,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                               width: 1.0,
                                             ),
                                           ),
+                                          helperMaxLines: 2,
                                           helperText:
                                               'Brief description for your profile. URLs are hyperlinked.',
                                           contentPadding: EdgeInsets.fromLTRB(
@@ -622,243 +624,245 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     ),
                                   ],
                                 ),
-                                Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10.0),
-                                      child: TextField(
-                                        cursorColor: Color(0xFFE0651F),
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE0651F),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE0651F),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              32, 16, 32, 16),
-                                          labelText: "Award Name",
-                                          labelStyle: TextStyle(
-                                              color: Color(0xFFE0651F)),
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFFE0651F)),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(32),
-                                          ),
-                                        ),
-                                        controller: TextEditingController()
-                                          ..text =
-                                              _profileAtual.awards.isNotEmpty
-                                                  ? _profileAtual
-                                                      .awards[0].awardName
-                                                  : '',
-                                        onChanged: (value) =>
-                                            _awardTemp.awardName = value,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10.0),
-                                      child: TextField(
-                                        cursorColor: Color(0xFFE0651F),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                        ),
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE0651F),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE0651F),
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              32, 16, 32, 16),
-                                          labelText: "Description",
-                                          labelStyle: TextStyle(
-                                              color: Color(0xFFE0651F)),
-                                          hintStyle: TextStyle(
-                                              color: Color(0xFFE0651F)),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(32),
-                                          ),
-                                        ),
-                                        controller: TextEditingController()
-                                          ..text =
-                                              _profileAtual.awards.isNotEmpty
-                                                  ? _profileAtual
-                                                      .awards[0].description
-                                                  : '',
-                                        onChanged: (value) =>
-                                            _awardTemp.description = value,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: SizedBox(
-                                            width: 140,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 10.0),
-                                              child: TextField(
-                                                cursorColor: Color(0xFFE0651F),
-                                                keyboardType: TextInputType
-                                                    .numberWithOptions(
-                                                  signed: false,
-                                                  decimal: false,
-                                                ),
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                ),
-                                                maxLength: 2,
-                                                maxLengthEnforced: true,
-                                                decoration: InputDecoration(
-                                                  counterText: '',
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                    borderSide: BorderSide(
-                                                      color: Color(0xFFE0651F),
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            25.0),
-                                                    borderSide: BorderSide(
-                                                      color: Color(0xFFE0651F),
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  contentPadding:
-                                                      EdgeInsets.fromLTRB(
-                                                          32, 16, 32, 16),
-                                                  labelText: "Month",
-                                                  labelStyle: TextStyle(
-                                                      color: Color(0xFFE0651F)),
-                                                  hintStyle: TextStyle(
-                                                      color: Color(0xFFE0651F)),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            32),
-                                                  ),
-                                                ),
-                                                controller:
-                                                    TextEditingController()
-                                                      ..text = _profileAtual
-                                                              .awards.isNotEmpty
-                                                          ? _profileAtual
-                                                              .awards[0].month
-                                                          : '',
-                                                onChanged: (value) =>
-                                                    _awardTemp.month = value,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 140,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10.0),
-                                            child: TextField(
-                                              cursorColor: Color(0xFFE0651F),
-                                              keyboardType: TextInputType
-                                                  .numberWithOptions(
-                                                signed: false,
-                                                decimal: false,
-                                              ),
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                              ),
-                                              maxLength: 4,
-                                              maxLengthEnforced: true,
-                                              decoration: InputDecoration(
-                                                counterText: '',
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0),
-                                                  borderSide: BorderSide(
-                                                    color: Color(0xFFE0651F),
-                                                    width: 1.0,
-                                                  ),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25.0),
-                                                  borderSide: BorderSide(
-                                                    color: Color(0xFFE0651F),
-                                                    width: 1.0,
-                                                  ),
-                                                ),
-                                                contentPadding:
-                                                    EdgeInsets.fromLTRB(
-                                                        32, 16, 32, 16),
-                                                labelText: "Years",
-                                                labelStyle: TextStyle(
-                                                    color: Color(0xFFE0651F)),
-                                                hintStyle: TextStyle(
-                                                    color: Color(0xFFE0651F)),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(32),
-                                                ),
-                                              ),
-                                              controller:
-                                                  TextEditingController()
-                                                    ..text = _profileAtual
-                                                            .awards.isNotEmpty
-                                                        ? _profileAtual
-                                                            .awards[0].year
-                                                        : '',
-                                              onChanged: (value) => _awardTemp
-                                                  .year = int.parse(value),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+
+                                ..._getAwards(),
+                                // Column(
+                                //   children: [
+                                //     Padding(
+                                //       padding: const EdgeInsets.symmetric(
+                                //           vertical: 10.0),
+                                //       child: TextField(
+                                //         cursorColor: Color(0xFFE0651F),
+                                //         style: TextStyle(
+                                //           fontSize: 15,
+                                //         ),
+                                //         decoration: InputDecoration(
+                                //           enabledBorder: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(25.0),
+                                //             borderSide: BorderSide(
+                                //               color: Color(0xFFE0651F),
+                                //               width: 1.0,
+                                //             ),
+                                //           ),
+                                //           focusedBorder: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(25.0),
+                                //             borderSide: BorderSide(
+                                //               color: Color(0xFFE0651F),
+                                //               width: 1.0,
+                                //             ),
+                                //           ),
+                                //           contentPadding: EdgeInsets.fromLTRB(
+                                //               32, 16, 32, 16),
+                                //           labelText: "Award Name",
+                                //           labelStyle: TextStyle(
+                                //               color: Color(0xFFE0651F)),
+                                //           hintStyle: TextStyle(
+                                //               color: Color(0xFFE0651F)),
+                                //           border: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(32),
+                                //           ),
+                                //         ),
+                                //         controller: TextEditingController()
+                                //           ..text =
+                                //               _profileAtual.awards.isNotEmpty
+                                //                   ? _profileAtual
+                                //                       .awards[0].awardName
+                                //                   : '',
+                                //         onChanged: (value) =>
+                                //             _awardTemp.awardName = value,
+                                //       ),
+                                //     ),
+                                //     Padding(
+                                //       padding:
+                                //           const EdgeInsets.only(bottom: 10.0),
+                                //       child: TextField(
+                                //         cursorColor: Color(0xFFE0651F),
+                                //         keyboardType:
+                                //             TextInputType.emailAddress,
+                                //         style: TextStyle(
+                                //           fontSize: 15,
+                                //         ),
+                                //         decoration: InputDecoration(
+                                //           enabledBorder: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(25.0),
+                                //             borderSide: BorderSide(
+                                //               color: Color(0xFFE0651F),
+                                //               width: 1.0,
+                                //             ),
+                                //           ),
+                                //           focusedBorder: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(25.0),
+                                //             borderSide: BorderSide(
+                                //               color: Color(0xFFE0651F),
+                                //               width: 1.0,
+                                //             ),
+                                //           ),
+                                //           contentPadding: EdgeInsets.fromLTRB(
+                                //               32, 16, 32, 16),
+                                //           labelText: "Description",
+                                //           labelStyle: TextStyle(
+                                //               color: Color(0xFFE0651F)),
+                                //           hintStyle: TextStyle(
+                                //               color: Color(0xFFE0651F)),
+                                //           border: OutlineInputBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(32),
+                                //           ),
+                                //         ),
+                                //         controller: TextEditingController()
+                                //           ..text =
+                                //               _profileAtual.awards.isNotEmpty
+                                //                   ? _profileAtual
+                                //                       .awards[0].description
+                                //                   : '',
+                                //         onChanged: (value) =>
+                                //             _awardTemp.description = value,
+                                //       ),
+                                //     ),
+                                //     Row(
+                                //       children: [
+                                //         Padding(
+                                //           padding:
+                                //               const EdgeInsets.only(right: 8.0),
+                                //           child: SizedBox(
+                                //             width: 140,
+                                //             child: Padding(
+                                //               padding: const EdgeInsets.only(
+                                //                   bottom: 10.0),
+                                //               child: TextField(
+                                //                 cursorColor: Color(0xFFE0651F),
+                                //                 keyboardType: TextInputType
+                                //                     .numberWithOptions(
+                                //                   signed: false,
+                                //                   decimal: false,
+                                //                 ),
+                                //                 style: TextStyle(
+                                //                   fontSize: 15,
+                                //                 ),
+                                //                 maxLength: 2,
+                                //                 maxLengthEnforced: true,
+                                //                 decoration: InputDecoration(
+                                //                   counterText: '',
+                                //                   enabledBorder:
+                                //                       OutlineInputBorder(
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             25.0),
+                                //                     borderSide: BorderSide(
+                                //                       color: Color(0xFFE0651F),
+                                //                       width: 1.0,
+                                //                     ),
+                                //                   ),
+                                //                   focusedBorder:
+                                //                       OutlineInputBorder(
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             25.0),
+                                //                     borderSide: BorderSide(
+                                //                       color: Color(0xFFE0651F),
+                                //                       width: 1.0,
+                                //                     ),
+                                //                   ),
+                                //                   contentPadding:
+                                //                       EdgeInsets.fromLTRB(
+                                //                           32, 16, 32, 16),
+                                //                   labelText: "Month",
+                                //                   labelStyle: TextStyle(
+                                //                       color: Color(0xFFE0651F)),
+                                //                   hintStyle: TextStyle(
+                                //                       color: Color(0xFFE0651F)),
+                                //                   border: OutlineInputBorder(
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             32),
+                                //                   ),
+                                //                 ),
+                                //                 controller:
+                                //                     TextEditingController()
+                                //                       ..text = _profileAtual
+                                //                               .awards.isNotEmpty
+                                //                           ? _profileAtual
+                                //                               .awards[0].month
+                                //                           : '',
+                                //                 onChanged: (value) =>
+                                //                     _awardTemp.month = value,
+                                //               ),
+                                //             ),
+                                //           ),
+                                //         ),
+                                //         SizedBox(
+                                //           width: 140,
+                                //           child: Padding(
+                                //             padding: const EdgeInsets.only(
+                                //                 bottom: 10.0),
+                                //             child: TextField(
+                                //               cursorColor: Color(0xFFE0651F),
+                                //               keyboardType: TextInputType
+                                //                   .numberWithOptions(
+                                //                 signed: false,
+                                //                 decimal: false,
+                                //               ),
+                                //               style: TextStyle(
+                                //                 fontSize: 15,
+                                //               ),
+                                //               maxLength: 4,
+                                //               maxLengthEnforced: true,
+                                //               decoration: InputDecoration(
+                                //                 counterText: '',
+                                //                 enabledBorder:
+                                //                     OutlineInputBorder(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(
+                                //                           25.0),
+                                //                   borderSide: BorderSide(
+                                //                     color: Color(0xFFE0651F),
+                                //                     width: 1.0,
+                                //                   ),
+                                //                 ),
+                                //                 focusedBorder:
+                                //                     OutlineInputBorder(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(
+                                //                           25.0),
+                                //                   borderSide: BorderSide(
+                                //                     color: Color(0xFFE0651F),
+                                //                     width: 1.0,
+                                //                   ),
+                                //                 ),
+                                //                 contentPadding:
+                                //                     EdgeInsets.fromLTRB(
+                                //                         32, 16, 32, 16),
+                                //                 labelText: "Years",
+                                //                 labelStyle: TextStyle(
+                                //                     color: Color(0xFFE0651F)),
+                                //                 hintStyle: TextStyle(
+                                //                     color: Color(0xFFE0651F)),
+                                //                 border: OutlineInputBorder(
+                                //                   borderRadius:
+                                //                       BorderRadius.circular(32),
+                                //                 ),
+                                //               ),
+                                //               controller:
+                                //                   TextEditingController()
+                                //                     ..text = _profileAtual
+                                //                             .awards.isNotEmpty
+                                //                         ? _profileAtual
+                                //                             .awards[0].year
+                                //                         : '',
+                                //               onChanged: (value) => _awardTemp
+                                //                   .year = int.parse(value),
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     )
+                                //   ],
+                                // ),
                                 Column(
                                   children: [
                                     Padding(
@@ -1097,125 +1101,125 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                             _jobTemp.role = value,
                                       ),
                                     ),
-                                    //   Row(
-                                    //     children: [
-                                    //       Padding(
-                                    //         padding:
-                                    //             const EdgeInsets.only(right: 8.0),
-                                    //         child: SizedBox(
-                                    //           width: 140,
-                                    //           child: Padding(
-                                    //             padding: const EdgeInsets.only(
-                                    //                 bottom: 10.0),
-                                    //             child: TextField(
-                                    //               cursorColor: Color(0xFFE0651F),
-                                    //               keyboardType: TextInputType
-                                    //                   .numberWithOptions(
-                                    //                 signed: false,
-                                    //                 decimal: false,
-                                    //               ),
-                                    //               style: TextStyle(
-                                    //                 fontSize: 15,
-                                    //               ),
-                                    //               maxLength: 2,
-                                    //               maxLengthEnforced: true,
-                                    //               decoration: InputDecoration(
-                                    //                 counterText: '',
-                                    //                 enabledBorder:
-                                    //                     OutlineInputBorder(
-                                    //                   borderRadius:
-                                    //                       BorderRadius.circular(
-                                    //                           25.0),
-                                    //                   borderSide: BorderSide(
-                                    //                     color: Color(0xFFE0651F),
-                                    //                     width: 1.0,
-                                    //                   ),
-                                    //                 ),
-                                    //                 focusedBorder:
-                                    //                     OutlineInputBorder(
-                                    //                   borderRadius:
-                                    //                       BorderRadius.circular(
-                                    //                           25.0),
-                                    //                   borderSide: BorderSide(
-                                    //                     color: Color(0xFFE0651F),
-                                    //                     width: 1.0,
-                                    //                   ),
-                                    //                 ),
-                                    //                 contentPadding:
-                                    //                     EdgeInsets.fromLTRB(
-                                    //                         32, 16, 32, 16),
-                                    //                 labelText: "Month",
-                                    //                 labelStyle: TextStyle(
-                                    //                     color: Color(0xFFE0651F)),
-                                    //                 hintStyle: TextStyle(
-                                    //                     color: Color(0xFFE0651F)),
-                                    //                 border: OutlineInputBorder(
-                                    //                   borderRadius:
-                                    //                       BorderRadius.circular(
-                                    //                           32),
-                                    //                 ),
-                                    //               ),
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //       SizedBox(
-                                    //         width: 140,
-                                    //         child: Padding(
-                                    //           padding: const EdgeInsets.only(
-                                    //               bottom: 10.0),
-                                    //           child: TextField(
-                                    //             cursorColor: Color(0xFFE0651F),
-                                    //             keyboardType: TextInputType
-                                    //                 .numberWithOptions(
-                                    //               signed: false,
-                                    //               decimal: false,
-                                    //             ),
-                                    //             style: TextStyle(
-                                    //               fontSize: 15,
-                                    //             ),
-                                    //             maxLength: 4,
-                                    //             maxLengthEnforced: true,
-                                    //             decoration: InputDecoration(
-                                    //               counterText: '',
-                                    //               enabledBorder:
-                                    //                   OutlineInputBorder(
-                                    //                 borderRadius:
-                                    //                     BorderRadius.circular(
-                                    //                         25.0),
-                                    //                 borderSide: BorderSide(
-                                    //                   color: Color(0xFFE0651F),
-                                    //                   width: 1.0,
-                                    //                 ),
-                                    //               ),
-                                    //               focusedBorder:
-                                    //                   OutlineInputBorder(
-                                    //                 borderRadius:
-                                    //                     BorderRadius.circular(
-                                    //                         25.0),
-                                    //                 borderSide: BorderSide(
-                                    //                   color: Color(0xFFE0651F),
-                                    //                   width: 1.0,
-                                    //                 ),
-                                    //               ),
-                                    //               contentPadding:
-                                    //                   EdgeInsets.fromLTRB(
-                                    //                       32, 16, 32, 16),
-                                    //               labelText: "Years",
-                                    //               labelStyle: TextStyle(
-                                    //                   color: Color(0xFFE0651F)),
-                                    //               hintStyle: TextStyle(
-                                    //                   color: Color(0xFFE0651F)),
-                                    //               border: OutlineInputBorder(
-                                    //                 borderRadius:
-                                    //                     BorderRadius.circular(32),
-                                    //               ),
-                                    //             ),
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ],
-                                    //   )
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: SizedBox(
+                                            width: 140,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10.0),
+                                              child: TextField(
+                                                cursorColor: Color(0xFFE0651F),
+                                                keyboardType: TextInputType
+                                                    .numberWithOptions(
+                                                  signed: false,
+                                                  decimal: false,
+                                                ),
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                ),
+                                                maxLength: 2,
+                                                maxLengthEnforced: true,
+                                                decoration: InputDecoration(
+                                                  counterText: '',
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.0),
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE0651F),
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25.0),
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE0651F),
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  contentPadding:
+                                                      EdgeInsets.fromLTRB(
+                                                          32, 16, 32, 16),
+                                                  labelText: "Month",
+                                                  labelStyle: TextStyle(
+                                                      color: Color(0xFFE0651F)),
+                                                  hintStyle: TextStyle(
+                                                      color: Color(0xFFE0651F)),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            32),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 140,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 10.0),
+                                            child: TextField(
+                                              cursorColor: Color(0xFFE0651F),
+                                              keyboardType: TextInputType
+                                                  .numberWithOptions(
+                                                signed: false,
+                                                decimal: false,
+                                              ),
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              ),
+                                              maxLength: 4,
+                                              maxLengthEnforced: true,
+                                              decoration: InputDecoration(
+                                                counterText: '',
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xFFE0651F),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25.0),
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xFFE0651F),
+                                                    width: 1.0,
+                                                  ),
+                                                ),
+                                                contentPadding:
+                                                    EdgeInsets.fromLTRB(
+                                                        32, 16, 32, 16),
+                                                labelText: "Years",
+                                                labelStyle: TextStyle(
+                                                    color: Color(0xFFE0651F)),
+                                                hintStyle: TextStyle(
+                                                    color: Color(0xFFE0651F)),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(32),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                                 Padding(
@@ -1394,6 +1398,271 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
             );
         }
       }),
+    );
+  }
+
+  List<Widget> _getAwards() {
+    List<Widget> awardsTextFields = [];
+    for (int i = 0; i < awardList.length; i++) {
+      awardsTextFields.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Row(
+          children: [
+            Expanded(child: AwardTextField(i)),
+            SizedBox(
+              width: 16,
+            ),
+            _addRemoveButton(i == awardList.length - 1, i),
+          ],
+        ),
+      ));
+    }
+    return awardsTextFields;
+  }
+
+  /// add / remove button
+  Widget _addRemoveButton(bool add, int index) {
+    return InkWell(
+      onTap: () {
+        if (add) {
+          awardList.insert(0, Premio());
+        } else
+          awardList.removeAt(index);
+        // setState(() {});
+      },
+      child: Container(
+        width: 30,
+        height: 30,
+        decoration: BoxDecoration(
+          color: (add) ? Colors.green : Colors.red,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Icon(
+          (add) ? Icons.add : Icons.remove,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+//----------------------------------------//
+
+class AwardTextField extends StatefulWidget {
+  final int index;
+  AwardTextField(this.index);
+  @override
+  _AwardTextFieldState createState() => _AwardTextFieldState();
+}
+
+class _AwardTextFieldState extends State<AwardTextField> {
+  TextEditingController _nameController;
+  TextEditingController _descriptionController;
+  TextEditingController _monthController;
+  TextEditingController _yearsController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _descriptionController = TextEditingController();
+    _monthController = TextEditingController();
+    _yearsController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _nameController.text =
+          _ProfileTimeEdicaoScreenState.awardList[widget.index] ?? '';
+    });
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: TextField(
+            cursorColor: Color(0xFFE0651F),
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(
+                  color: Color(0xFFE0651F),
+                  width: 1.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(
+                  color: Color(0xFFE0651F),
+                  width: 1.0,
+                ),
+              ),
+              contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+              labelText: "Award Name",
+              labelStyle: TextStyle(color: Color(0xFFE0651F)),
+              hintStyle: TextStyle(color: Color(0xFFE0651F)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(32),
+              ),
+            ),
+            controller: _nameController,
+            //   ..text = _profileAtual.awards.isNotEmpty
+            //       ? _profileAtual.awards[0].awardName
+            //       : '',
+            onChanged: (value) => _ProfileTimeEdicaoScreenState
+                .awardList[widget.index].awardName = value,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: TextField(
+              cursorColor: Color(0xFFE0651F),
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(
+                fontSize: 15,
+              ),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0651F),
+                    width: 1.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0651F),
+                    width: 1.0,
+                  ),
+                ),
+                contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                labelText: "Description",
+                labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                hintStyle: TextStyle(color: Color(0xFFE0651F)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(32),
+                ),
+              ),
+              controller: _descriptionController
+              //   ..text = _profileAtual.awards.isNotEmpty
+              //       ? _profileAtual.awards[0].description
+              //       : '',
+              // onChanged: (value) => _awardTemp.description = value,
+              ),
+        ),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: SizedBox(
+                width: 140,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: TextField(
+                      cursorColor: Color(0xFFE0651F),
+                      keyboardType: TextInputType.numberWithOptions(
+                        signed: false,
+                        decimal: false,
+                      ),
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                      maxLength: 2,
+                      maxLengthEnforced: true,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFE0651F),
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFE0651F),
+                            width: 1.0,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        labelText: "Month",
+                        labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                        hintStyle: TextStyle(color: Color(0xFFE0651F)),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                      ),
+                      controller: _monthController
+                      //   ..text = _profileAtual.awards.isNotEmpty
+                      //       ? _profileAtual.awards[0].month
+                      //       : '',
+                      // onChanged: (value) => _awardTemp.month = value,
+                      ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 140,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: TextField(
+                    cursorColor: Color(0xFFE0651F),
+                    keyboardType: TextInputType.numberWithOptions(
+                      signed: false,
+                      decimal: false,
+                    ),
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                    maxLength: 4,
+                    maxLengthEnforced: true,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE0651F),
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: BorderSide(
+                          color: Color(0xFFE0651F),
+                          width: 1.0,
+                        ),
+                      ),
+                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                      labelText: "Years",
+                      labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                      hintStyle: TextStyle(color: Color(0xFFE0651F)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                    ),
+                    controller: _yearsController
+                    //   ..text = _profileAtual.awards.isNotEmpty
+                    //       ? _profileAtual.awards[0].year
+                    //       : '',
+                    // onChanged: (value) => _awardTemp.year = int.parse(value),
+                    ),
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

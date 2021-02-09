@@ -1,13 +1,6 @@
-import 'dart:io';
-
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/postagem_controller.dart';
 import 'package:mobx/mobx.dart';
-
-import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/models/feed_model.dart';
-import 'package:hellohit/providers/cadastro_controller.dart';
 
 part 'postagem_store.g.dart';
 

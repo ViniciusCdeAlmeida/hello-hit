@@ -8,7 +8,7 @@ part of 'post_model.dart';
 
 Post _$PostFromJson(Map<String, dynamic> json) {
   return Post(
-    id: json['id'] as String,
+    id: json['_id'] as String,
     comments: json['comments'] as List,
     hits: json['hits'] as int,
     tip: json['tip'] as String,
@@ -30,7 +30,7 @@ Post _$PostFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'hits': instance.hits,
       'tip': instance.tip,
       'comments': instance.comments,

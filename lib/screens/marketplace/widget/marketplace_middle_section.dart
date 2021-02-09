@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 
 class MarketplaceMiddleSection extends StatelessWidget {
   final Size deviceSize;
@@ -30,7 +29,6 @@ class MarketplaceMiddleSection extends StatelessWidget {
               Text(texto),
               if (viewall)
                 InkWell(
-                  //TODO - Arrumar para não ficar buscando se a lista já houver conteudo
                   onTap: () {
                     Navigator.of(context).pushNamed(
                       rota,

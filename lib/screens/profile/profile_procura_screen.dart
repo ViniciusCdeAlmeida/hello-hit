@@ -12,6 +12,7 @@ class ProfileProcuraScreen extends StatefulWidget {
 
 class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
   bool checkboxValue = false;
+  int _radioValue = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +113,49 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                         onEditingComplete: null,
                         onChanged: null,
                       ),
+                    ),
+                    Row(
+                      children: [
+                        Row(
+                          children: [
+                            Radio(
+                                value: 1,
+                                groupValue: _radioValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _radioValue = value;
+                                  });
+                                }),
+                            Text('Team'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                                value: 2,
+                                groupValue: _radioValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _radioValue = value;
+                                  });
+                                }),
+                            Text('Talent'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Radio(
+                                value: 3,
+                                groupValue: _radioValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _radioValue = value;
+                                  });
+                                }),
+                            Text('Opportunities'),
+                          ],
+                        )
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -756,7 +800,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
               ),
               Observer(
                 builder: (_) => Center(
-                  child: CircularProgressIndicator(),
+                  child: Text('Search was not found'),
                 ),
               )
             ]),

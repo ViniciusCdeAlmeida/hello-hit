@@ -1,16 +1,15 @@
+import 'dart:io';
+
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
-import 'package:hellohit/screens/postagem/widget/radiobutton.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-
 import 'package:hellohit/screens/postagem/widget/tag_post_text_field.dart';
-import 'package:hellohit/screens/postagem/widget/checkbox.dart';
-import 'package:provider/provider.dart';
 
 class TagPostScreen extends StatefulWidget {
   static const routeName = '/tagPostScreen';
@@ -19,8 +18,10 @@ class TagPostScreen extends StatefulWidget {
 }
 
 class _TagPostScreenState extends State<TagPostScreen> {
+  GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
   PostagemStore _postagemStore;
   AutenticacaoStore _usuarioStore;
+  String currentText = "";
   final _locationController = TextEditingController();
   final _teamController = TextEditingController();
   final _eventController = TextEditingController();
@@ -35,13 +36,15 @@ class _TagPostScreenState extends State<TagPostScreen> {
     super.didChangeDependencies();
   }
 
+  List<String> t = ['teste1', 'teste2', 'teste3', 'ABC', 'CBD'];
+
   Future<void> submit() async {
-    if (_locationController.text == '' ||
-        _eventController.text == '' ||
-        _teamController.text == '') return;
-    _postagem.location = _locationController.text;
-    _postagem.event = _eventController.text;
-    _postagem.team = _teamController.text;
+    // if (_locationController.text == '' ||
+    //     _eventController.text == '' ||
+    //     _teamController.text == '') return;
+    // _postagem.location = _locationController.text;
+    // _postagem.event = _eventController.text;
+    // _postagem.team = _teamController.text;
 
     try {
       await _postagemStore
@@ -103,7 +106,13 @@ class _TagPostScreenState extends State<TagPostScreen> {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.white,
+                      radius: 15,
+                      backgroundImage: _usuarioLogado.avatar != null
+                          ? NetworkImage(_usuarioLogado.avatar)
+                          : AssetImage(
+                              'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
+                            ),
+                      backgroundColor: Colors.transparent,
                     ),
                     Text(
                       _usuarioLogado.full_name,
@@ -154,11 +163,81 @@ class _TagPostScreenState extends State<TagPostScreen> {
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           children: [
-                            TagPostTextField(
-                              title: 'Team',
-                              hint: 'Puma',
-                              controller: _teamController,
+                            // TypeAheadField(
+                            //   textFieldConfiguration: TextFieldConfiguration(
+                            //     autofocus: false,
+                            //     style: DefaultTextStyle.of(context)
+                            //         .style
+                            //         .copyWith(fontStyle: FontStyle.italic),
+                            //     decoration: InputDecoration(
+                            //       hintText: 'Team',
+                            //       hintStyle: TextStyle(
+                            //         fontSize: 12,
+                            //         color: Colors.white.withAlpha(100),
+                            //       ),
+                            //       border: InputBorder.none,
+                            //       isDense: true,
+                            //       contentPadding:
+                            //           const EdgeInsets.symmetric(vertical: 2),
+                            //       counterText: '',
+                            //     ),
+                            //   ),
+                            //   suggestionsCallback: (value) {
+                            //     return t;
+                            //   },
+                            //   itemBuilder: (context, suggestion) {
+                            //     return ListTile(
+                            //       leading: Icon(Icons.shopping_cart),
+                            //       title: Text(suggestion),
+                            //     );
+                            //   },
+                            //   onSuggestionSelected: (suggestion) {},
+                            // ),
+                            Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Text(
+                                'Team',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
+                            SimpleAutoCompleteTextField(
+                              key: key,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              decoration: InputDecoration(
+                                hintText: 'Team',
+                                hintStyle: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.white.withAlpha(100),
+                                ),
+                                border: InputBorder.none,
+                                isDense: true,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                counterText: '',
+                              ),
+                              controller: _teamController,
+                              suggestions: t,
+                              textChanged: (text) => currentText = text,
+                              clearOnSubmit: false,
+                              submitOnSuggestionTap: true,
+                              textSubmitted: (value) {
+                                // print(value);
+                                // _teamController.text = value;
+                                // print(_teamController.text);
+                              },
+                            ),
+                            // TagPostTextField(
+                            //   title: 'Team',
+                            //   hint: 'Puma',
+                            //   controller: _teamController,
+                            // ),
                             Divider(
                               color: Colors.grey,
                             ),

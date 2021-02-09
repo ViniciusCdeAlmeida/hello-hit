@@ -2,16 +2,19 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/widgets/acoes.dart';
+import 'package:hellohit/widgets/popup_menu.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 
 class PostCard extends StatefulWidget {
   const PostCard({
     @required this.post,
+    this.id,
   });
 
   final Post post;
+  final String id;
 
   @override
   _PostCardState createState() => _PostCardState();
@@ -19,6 +22,21 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
+
+  void _actionButtons(int id, Acoes acoes) {
+    switch (acoes) {
+      case Acoes.editarPost:
+        // Navigator.of(context)
+        //     .push(MaterialPageRoute(builder: (context) => MoorDbViewer(db)));
+        break;
+      case Acoes.removerPost:
+        // Navigator.of(context).pushNamed(BensInventariadosScreen.routeName);
+        break;
+      case Acoes.denunciarPost:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final difference = now.difference(widget.post.createdAt);
@@ -80,15 +98,52 @@ class _PostCardState extends State<PostCard> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.more_horiz),
-                        onPressed: () {},
+                      PopupMenuButton<Acoes>(
+                        icon: Icon(
+                          Icons.more_horiz,
+                          color: Colors.black,
+                        ),
+                        // onSelected: (value) {
+                        //   _redirecionamento(value,
+                        //       widget.unidade.estruturaOrganizacional.id);
+                        // },
+                        offset: Offset(0, 100),
+                        itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
+                          PopupMenuItem<Acoes>(
+                            child: PopupMenuCustom('Edit Post', Icons.edit),
+                            value: Acoes.editarPost,
+                          ),
+                          const PopupMenuDivider(),
+                          PopupMenuItem<Acoes>(
+                            child: PopupMenuCustom(
+                                'Remove Post', Icons.highlight_remove),
+                            value: Acoes.removerPost,
+                          ),
+                          const PopupMenuDivider(),
+                          PopupMenuItem<Acoes>(
+                            child: PopupMenuCustom('Report Post', Icons.report),
+                            value: Acoes.denunciarPost,
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
             ],
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  if (widget.post.team != null) Text(widget.post.team),
+                  if (widget.post.event != null) Text(widget.post.event),
+                  if (widget.post.location != null) Text(widget.post.location),
+                ],
+              ),
+            ),
           ),
           Align(
             alignment: Alignment.centerLeft,
@@ -145,20 +200,20 @@ class _PostCardState extends State<PostCard> {
                         size: 20,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Icon(
-                        Icons.monetization_on_outlined,
-                        color: Colors.orange,
-                      ),
-                    ),
-                    Text(
-                      'SEND TIP',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(right: 5.0),
+                    //   child: Icon(
+                    //     Icons.monetization_on_outlined,
+                    //     color: Colors.orange,
+                    //   ),
+                    // ),
+                    // Text(
+                    //   'SEND TIP',
+                    //   style: TextStyle(
+                    //     color: Colors.grey,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
                   ],
                 ),
                 Spacer(),
@@ -182,20 +237,24 @@ class _PostCardState extends State<PostCard> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    '\$${widget.post.hits} Tips',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 15.0),
+                //   child: Text(
+                //     '\$${widget.post.hits} Tips',
+                //     style: TextStyle(
+                //       fontWeight: FontWeight.bold,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 17.0, top: 8.0, bottom: 18.0),
+            padding: const EdgeInsets.only(
+              left: 17.0,
+              top: 8.0,
+              bottom: 18.0,
+            ),
             child: Row(
               children: [
                 InkWell(

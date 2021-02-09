@@ -20,6 +20,9 @@ abstract class _CadastroStore with Store {
   _CadastroStore(this._cadastroController);
 
   @observable
+  bool _cadastrando = false;
+
+  @observable
   ObservableFuture<Cadastro> _cadastroFuture;
 
   @observable
@@ -28,6 +31,11 @@ abstract class _CadastroStore with Store {
   @computed
   Cadastro get cadastro {
     return _cadastro;
+  }
+
+  @computed
+  bool get cadastrando {
+    return _cadastrando;
   }
 
   @computed
@@ -49,12 +57,17 @@ abstract class _CadastroStore with Store {
   @action
   // ignore: missing_return
   Future<Cadastro> cadastroUsuario(Cadastro usuario) async {
+    _cadastrando = true;
     try {
-      _cadastroFuture = ObservableFuture(
-        _cadastroController.cadastroUsuario(usuario),
-      );
-      _cadastro = await _cadastroFuture;
+      _cadastroController
+          .cadastroUsuario(usuario)
+          .then((_) => _cadastrando = false)
+          .catchError((error) {
+        _cadastrando = false;
+        throw error;
+      });
     } catch (e) {
+      _cadastrando = false;
       throw e;
     }
   }

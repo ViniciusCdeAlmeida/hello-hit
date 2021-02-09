@@ -18,13 +18,15 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
   String idArgs;
   String imagem;
   int id;
+
   @override
   void didChangeDependencies() {
     idArgs = ModalRoute.of(context).settings.arguments;
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
     imagem = _autenticacaoStore.autenticacao.avatar;
-    _profileStore.loadTimeProfileScreen(idArgs);
+    if (_profileStore.usuarioTime == null)
+      _profileStore.loadTimeProfileScreen(idArgs);
 
     super.didChangeDependencies();
   }
@@ -73,7 +75,15 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate([
-                        ProfileTimeItem(_profileStore.usuarioTime, imagem),
+                        Observer(
+                          builder: (_) => ProfileTimeItem(
+                            _profileStore.usuarioTime,
+                            imagem,
+                            _profileStore.makeFanTime,
+                            _profileStore.makeHitTime,
+                            idArgs,
+                          ),
+                        ),
                       ]),
                     ),
                   ],

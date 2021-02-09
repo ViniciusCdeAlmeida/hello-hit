@@ -8,11 +8,11 @@ part of 'profile_model.dart';
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
+    id: json['_id'] as String,
     posts: (json['posts'] as List)
         ?.map(
             (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    id: json['_id'] as String,
     user: json['user'] == null
         ? null
         : Usuario.fromJson(json['user'] as Map<String, dynamic>),
@@ -53,7 +53,7 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'user': instance.user,
       'skills': instance.skills,
       'hitsCount': instance.hitsCount,

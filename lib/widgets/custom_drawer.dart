@@ -94,7 +94,6 @@ class CustomDrawer extends StatelessWidget {
                         arguments: usuario.id,
                       );
               },
-              // key: Key(Keys.homeDrawer),
             ),
             ListTile(
               leading: Icon(
@@ -112,7 +111,6 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 );
               },
-              // key: Key(Keys.homeDrawer),
             ),
             ListTile(
               leading: Icon(
@@ -131,9 +129,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Bookmarks'),
-              onTap: () {
-                // Navigator.of(context).pushNamed(ConexaoScreen.routeName);
-              },
+              onTap: () {},
             ),
             ListTile(
               leading: Icon(
@@ -141,10 +137,7 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Lists'),
-              onTap: () {
-                // _configBens(context);
-              },
-              // key: Key(Keys.digitosDrawer),
+              onTap: () {},
             ),
             ListTile(
               leading: Icon(
@@ -152,31 +145,25 @@ class CustomDrawer extends StatelessWidget {
                 color: Colors.blue[700],
               ),
               title: const Text('Settings'),
-              onTap: () {
-                // _configNumero(context);
-              },
-              // key: Key(Keys.prefixoDrawer),
-            ),
-            ListTile(
-              // key: Key(Keys.rfidDrawer),
-              leading: Icon(
-                Icons.credit_card,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Your Cards'),
               onTap: () {},
             ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.credit_card,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Your Cards'),
+            //   onTap: () {},
+            // ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.account_balance,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Add Bank'),
+            //   onTap: () {},
+            // ),
             ListTile(
-              // key: Key(Keys.rfidDrawer),
-              leading: Icon(
-                Icons.account_balance,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Add Bank'),
-              onTap: () {},
-            ),
-            ListTile(
-              // key: Key(Keys.rfidDrawer),
               leading: Icon(
                 Icons.help,
                 color: Colors.blue[700],
@@ -184,21 +171,22 @@ class CustomDrawer extends StatelessWidget {
               title: const Text('Help and support'),
               onTap: () {},
             ),
+            usuario.userType == 'TEAM'
+                ? Container()
+                : ListTile(
+                    leading: ClipRRect(
+                      child: Image.asset(
+                        'assets/images/menu_open_assets/Selo_Perfil_Pro.png',
+                        width: 30,
+                        height: 50,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    title: const Text('Turn Pro'),
+                    onTap: () {},
+                  ),
             ListTile(
-              // key: Key(Keys.rfidDrawer),
-              leading: ClipRRect(
-                child: Image.asset(
-                  'assets/images/menu_open_assets/Selo_Perfil_Pro.png',
-                  width: 30,
-                  height: 50,
-                  fit: BoxFit.scaleDown,
-                ),
-              ),
-              title: const Text('Turn Pro'),
-              onTap: () {},
-            ),
-            ListTile(
-              // key: Key(Keys.rfidDrawer),
+              enabled: false,
               leading: ClipRRect(
                 child: Image.asset(
                   'assets/images/versus.png',
@@ -215,13 +203,13 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       text: 'Battle Rounds',
                     ),
-                    // TextSpan(
-                    //   style: TextStyle(
-                    //     color: Colors.grey,
-                    //     fontSize: 12,
-                    //   ),
-                    //   text: ' Soon',
-                    // ),
+                    TextSpan(
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                      text: ' Soon',
+                    ),
                   ],
                 ),
               ),

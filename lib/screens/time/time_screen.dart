@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/marketplace_store.dart';
@@ -14,15 +15,17 @@ class TimeScreen extends StatefulWidget {
 
 class _TimeScreenState extends State<TimeScreen> {
   MarketplaceStore _maketplaceStore;
+  AutenticacaoStore _autenticacaoStore;
   @override
   void didChangeDependencies() {
     _maketplaceStore = Provider.of<MarketplaceStore>(context);
-    _maketplaceStore.seed();
+    _maketplaceStore.oportunidadeList();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     var deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -92,9 +95,12 @@ class _TimeScreenState extends State<TimeScreen> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               color: Theme.of(context).primaryColor,
-                              onPressed: () => Navigator.of(context).pushNamed(
-                                  TelaExplicacaoTimeScreen.routeName),
-                              // icon: Icon(Icons.),
+                              onPressed: () =>
+                                  _autenticacaoStore.autenticacao.userType ==
+                                          'TEAM'
+                                      ? Navigator.of(context).pushNamed(
+                                          TelaExplicacaoTimeScreen.routeName)
+                                      : showAlertDialog(context),
                               child: Text(
                                 'CREATE TEAM',
                                 style: TextStyle(
@@ -186,6 +192,28 @@ class _TimeScreenState extends State<TimeScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text('Only Team'),
+      content: Text('Be a Team to access'),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

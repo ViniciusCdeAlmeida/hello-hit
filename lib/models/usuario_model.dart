@@ -1,9 +1,9 @@
-import 'package:hellohit/models/avatar_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
 class Usuario {
+  @JsonKey(name: '_id')
   String id;
   // ignore: non_constant_identifier_names
   String full_name;

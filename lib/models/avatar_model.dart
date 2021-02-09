@@ -1,8 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/post_model.dart';
-
 part 'avatar_model.g.dart';
 
 @JsonSerializable()

@@ -11,8 +11,12 @@ class PagamentoController {
   //   print(res);
   // }
 
-  Future<void> makeTimePayment() async {
-    Response res = await Endpoint.createSubscription();
-    print(res);
+  Future<void> makeTimePayment(String pm) async {
+    try {
+      Response res = await Endpoint.makePayment(pm);
+      print(res);
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -5,6 +5,7 @@ part 'post_model.g.dart';
 
 @JsonSerializable()
 class Post {
+  @JsonKey(name: '_id')
   String id;
   int hits;
   String tip;

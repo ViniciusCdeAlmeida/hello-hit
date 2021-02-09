@@ -21,7 +21,7 @@ class IconRow extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
           width: width / 1.2,
           height: 50,
           decoration: BoxDecoration(
@@ -47,7 +47,9 @@ class IconRow extends StatelessWidget {
             ],
           ),
         ),
-        Text(titulo),
+        Container(
+          child: Text(titulo),
+        ),
       ],
     );
   }

@@ -322,6 +322,39 @@ mixin _$ProfileStore on _ProfileStore, Store {
   }
 
   @override
+  void makeHitTime(String id) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.makeHitTime');
+    try {
+      return super.makeHitTime(id);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void makeHitUsuario(String id) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.makeHitUsuario');
+    try {
+      return super.makeHitUsuario(id);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void makeFanTime(String id) {
+    final _$actionInfo = _$_ProfileStoreActionController.startAction(
+        name: '_ProfileStore.makeFanTime');
+    try {
+      return super.makeFanTime(id);
+    } finally {
+      _$_ProfileStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void beSponsor(bool value) {
     final _$actionInfo = _$_ProfileStoreActionController.startAction(
         name: '_ProfileStore.beSponsor');

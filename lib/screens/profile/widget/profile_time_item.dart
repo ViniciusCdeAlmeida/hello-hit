@@ -1,19 +1,44 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/screens/profile/profile_membro_screen.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 
-class ProfileTimeItem extends StatelessWidget {
-  final ProfileTime usuario;
+class ProfileTimeItem extends StatefulWidget {
+  ProfileTime usuario;
   final String usuarioImagem;
-  ProfileTimeItem(this.usuario, this.usuarioImagem);
+  final Function makeHit;
+  final Function beFan;
+  final String usuarioAtual;
+  ProfileTimeItem(this.usuario, this.usuarioImagem, this.beFan, this.makeHit,
+      this.usuarioAtual);
+
+  @override
+  _ProfileTimeItemState createState() => _ProfileTimeItemState();
+}
+
+class _ProfileTimeItemState extends State<ProfileTimeItem> {
+  ProfileStore _profileStore;
+  AutenticacaoStore _autenticacaoStore;
+  @override
+  void didChangeDependencies() {
+    _profileStore = Provider.of<ProfileStore>(context, listen: false);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
+    _profileStore = Provider.of<ProfileStore>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -45,7 +70,8 @@ class ProfileTimeItem extends StatelessWidget {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
+                            color: Colors.grey.withOpacity(
+                                widget.usuarioImagem == null ? 0.0 : 0.3),
                             spreadRadius: 2,
                             blurRadius: 5,
                             offset: Offset(0, 3),
@@ -55,15 +81,18 @@ class ProfileTimeItem extends StatelessWidget {
                           Radius.circular(4),
                         ),
                         border: Border.all(
-                          width: 3.0,
+                          width: widget.usuarioImagem == null ? 0.0 : 3.0,
                           color: Colors.grey[100],
                         ),
                       ),
                       child: ClipRRect(
-                        child: usuarioImagem == null
-                            ? Container()
+                        child: widget.usuarioImagem == null
+                            ? Image.asset(
+                                'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
+                                fit: BoxFit.fill,
+                              )
                             : Image.network(
-                                usuarioImagem,
+                                widget.usuarioImagem,
                                 height: 120,
                                 width: 130,
                                 fit: BoxFit.fill,
@@ -114,37 +143,58 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          Text(usuario.user.full_name),
+          Text(widget.usuario.user.full_name),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconRow(
-                texto: usuario.hits.length.toString(),
-                icon: Icons.star,
-                width: 60,
-                height: 60,
-                titulo: 'Hits',
+              GestureDetector(
+                onTap: () {
+                  // setState(() {
+                  //   _profileStore.makeHitTime(widget.usuario.id);
+                  // });
+                },
+                child: GestureDetector(
+                  onTap: () {},
+                  child: IconRow(
+                    texto: widget.usuario.hitCount.toString(),
+                    icon: Icons.star,
+                    width: 60,
+                    height: 60,
+                    titulo: 'Hits',
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: IconRow(
+                  icon: Icons.question_answer,
+                  width: 38,
+                  height: 38,
+                  titulo: 'Inbox',
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: IconRow(
+                  icon: Icons.plus_one,
+                  width: 38,
+                  height: 38,
+                  titulo: 'Insert in your team',
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  widget.beFan(widget.usuario.id);
+                },
+                child: IconRow(
+                  icon: Icons.person_add_alt_1,
+                  width: 38,
+                  height: 38,
+                  titulo: 'Be Fan',
+                ),
               ),
               IconRow(
-                icon: Icons.question_answer,
-                width: 38,
-                height: 38,
-                titulo: 'Inbox',
-              ),
-              IconRow(
-                icon: Icons.emoji_events,
-                width: 38,
-                height: 38,
-                titulo: 'Ranking',
-              ),
-              IconRow(
-                icon: Icons.person_add_alt_1,
-                width: 38,
-                height: 38,
-                titulo: 'Be Fan',
-              ),
-              IconRow(
-                texto: usuario.fans.length.toString(),
+                texto: widget.usuario.fanCount.toString(),
                 icon: Icons.flag,
                 width: 60,
                 height: 60,
@@ -152,19 +202,24 @@ class ProfileTimeItem extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: FlatButton(
-              color: Colors.orange[700],
-              onPressed: () {},
-              child: Text(
-                'Edit Team',
-                style: TextStyle(
-                  color: Colors.white,
+          if (_autenticacaoStore.autenticacao.userType == 'TEAM' &&
+              _autenticacaoStore.autenticacao.id == widget.usuario.user.id)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: FlatButton(
+                color: Colors.orange[700],
+                onPressed: () => Navigator.of(context).popAndPushNamed(
+                  ProfileTimeEdicaoScreen.routeName,
+                  arguments: _autenticacaoStore.autenticacao.id,
+                ),
+                child: Text(
+                  'Edit Team',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
           Padding(
             padding: const EdgeInsets.only(bottom: 18.0),
             // child: Text(usuario.mensagem),
@@ -187,10 +242,6 @@ class ProfileTimeItem extends StatelessWidget {
                         //   fit: BoxFit.fill,
                         // ),
                         ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
-                      child: Text('BE LIKE ${usuario.user.full_name} TEAM'),
-                    ),
                   ],
                 ),
                 Padding(
@@ -205,7 +256,32 @@ class ProfileTimeItem extends StatelessWidget {
                     minWidth: 240,
                     color: Colors.orange[800],
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    top: 10.0,
+                    bottom: 10.0,
+                  ),
+                  child: Text('BE LIKE ${widget.usuario.user.full_name} TEAM'),
+                ),
+                Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15.0,
+                    top: 20.0,
+                    right: 15.0,
+                  ),
+                  child: Text(
+                    widget.usuario.bio == ""
+                        ? 'No bio yet.'
+                        : widget.usuario.bio,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
               ],
             ),
           ),
@@ -218,65 +294,99 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          // GridView.custom(
-          //   padding: const EdgeInsets.all(10),
-          //   shrinkWrap: true,
-          //   physics: NeverScrollableScrollPhysics(),
-          //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //     crossAxisCount: 2,
-          //     crossAxisSpacing: 15,
-          //     childAspectRatio: (2.7 / 2),
-          //     mainAxisSpacing: 10,
-          //   ),
-          //   childrenDelegate: SliverChildListDelegate(
-          //     usuario.openOpportunities
-          //         .map((oportunidade) => TimeOportunidades(
-          //               imagem: oportunidade.imageUrl,
-          //               nome: oportunidade.title,
-          //             ))
-          //         .toList(),
-          //   ),
-          // ),
-          // MEMBROS
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Text('TEAM MEMBERS'),
-          //       InkWell(
-          //         onTap: () => Navigator.of(context)
-          //             .pushNamed(ProfileMembroScreen.routeName),
-          //         // child: Text('See all ${usuario.usuarios.length} members'),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // if (usuario.usuarios.length > 0)
-          // GridView.extent(
-          //   maxCrossAxisExtent: 50,
-          //   mainAxisSpacing: 10,
-          //   crossAxisSpacing: 10,
-          //   // itemCount:
-          //   //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
-          //   padding: const EdgeInsets.all(10),
-          //   shrinkWrap: true,
-          //   physics: NeverScrollableScrollPhysics(),
-          //   children: usuario.usuarios
-          //       .getRange(
-          //           0,
-          //           usuario.usuarios.length >= 1 &&
-          //                   usuario.usuarios.length <= 8
-          //               ? usuario.usuarios.length
-          //               : 14)
-          //       .map(
-          //         ((usuario) => CircleAvatar(
-          //               backgroundColor: Colors.transparent,
-          //               backgroundImage: NetworkImage(usuario.imagem),
-          //             )),
-          //       )
-          //       .toList(),
-          // ),
+          if (widget.usuario.openOpportunities.length > 0)
+            GridView.custom(
+              padding: const EdgeInsets.all(10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 15,
+                childAspectRatio: (2.7 / 2),
+                mainAxisSpacing: 10,
+              ),
+              childrenDelegate: SliverChildListDelegate(
+                widget.usuario.openOpportunities
+                    .map((oportunidade) => TimeOportunidades(
+                          imagem: oportunidade.imageUrl,
+                          nome: oportunidade.title,
+                        ))
+                    .toList(),
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  'No Opportunities yet',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          Divider(
+            thickness: 1,
+            color: Colors.grey,
+          ),
+          //MEMBROS
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('TEAM MEMBERS'),
+                if (widget.usuario.members.length > 0)
+                  InkWell(
+                    onTap: () {},
+                    // onTap: () => Navigator.of(context)
+                    //     .pushNamed(ProfileMembroScreen.routeName),
+                    child: Text(
+                        'See all ${widget.usuario.members.length} members'),
+                    // ),
+                  ),
+              ],
+            ),
+          ),
+
+          if (widget.usuario.members.length > 0)
+            GridView.extent(
+              maxCrossAxisExtent: 50,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              // itemCount:
+              //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+              padding: const EdgeInsets.all(10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: widget.usuario.members
+                  .getRange(
+                      0,
+                      widget.usuario.members.length >= 1 &&
+                              widget.usuario.members.length <= 8
+                          ? widget.usuario.members.length
+                          : 14)
+                  .map(
+                    ((usuario) => CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(usuario.avatar),
+                        )),
+                  )
+                  .toList(),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  'No Members yet',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          Divider(
+            thickness: 1,
+            color: Colors.grey,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -285,21 +395,36 @@ class ProfileTimeItem extends StatelessWidget {
               ],
             ),
           ),
-          GridView.custom(
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 30,
-              childAspectRatio: (5 / 2),
-              mainAxisSpacing: 10,
+          if (widget.usuario.skills.length > 0)
+            GridView.custom(
+              padding: const EdgeInsets.all(10),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                crossAxisSpacing: 30,
+                childAspectRatio: (5 / 2),
+                mainAxisSpacing: 10,
+              ),
+              childrenDelegate: SliverChildListDelegate(
+                widget.usuario.skills
+                    .map((skill) => UsuarioSkills(skill: skill.description))
+                    .toList(),
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text(
+                  'No Skills yet',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
             ),
-            childrenDelegate: SliverChildListDelegate(
-              usuario.skills
-                  .map((skill) => UsuarioSkills(skill: skill.description))
-                  .toList(),
-            ),
+          Divider(
+            thickness: 1,
+            color: Colors.grey,
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -325,11 +450,4 @@ class ProfileTimeItem extends StatelessWidget {
       ),
     );
   }
-
-  // ignore: missing_return
-  // NetworkImage listaImagem(int count, List<Usuario> usuarios) {
-  //   for (var i = 0; i < count; i++) {
-  //     // return NetworkImage(usuarios[count].imagem);
-  //   }
-  // }
 }

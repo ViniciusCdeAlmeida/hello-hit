@@ -5,8 +5,6 @@ import 'package:hellohit/models/comentario_model.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/providers/autenticacao_controller.dart';
-import 'package:hive/hive.dart';
 
 String _token;
 
@@ -40,8 +38,20 @@ class Endpoint {
   static Future getProfileTime(String id) async =>
       await getConexaoPrefs().get('profilesTeam/user/$id');
 
+  static Future patchHitTime(String id) async =>
+      await getConexaoPrefs().get('profilesTeam/hit/$id');
+
+  static Future patchFanTime(String id) async =>
+      await getConexaoPrefs().get('profilesTeam/fan/$id');
+
+  static Future patchHitUsuario(String id) async =>
+      await getConexaoPrefs().get('profiles/hit/$id');
+
   static Future getProfileUsuario(String id) async =>
       await getConexaoPrefs().get('profiles/user/$id');
+
+  static Future getOportunidades() async =>
+      await getConexaoPrefs().get('opportunities');
 
   static Future putImagem(String image) async {
     FormData formData =
@@ -97,6 +107,19 @@ class Endpoint {
     });
 
     return await getConexaoPrefs().post('posts', data: formData);
+  }
+
+  static Future putHitPosts(String id, int hitAtual) async {
+    var data = Post(hits: (hitAtual + 1));
+    return await getConexaoPrefs().post('posts/$id', data: data);
+  }
+
+  static Future makePayment(String pm) async {
+    var data = {
+      "price": "price_1IGkiwAIZbIeL4kbL4Fe4ASc",
+      "paymentMethodId": pm
+    };
+    return await getConexaoPrefs().post('/create-subscription', data: data);
   }
 
   static Future postComenetarioPost(

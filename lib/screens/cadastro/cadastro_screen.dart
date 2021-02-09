@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/cadastro_model.dart';
 import 'package:hellohit/providers/stores/cadastro_store.dart';
 import 'package:provider/provider.dart';
@@ -61,6 +62,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
       return;
     }
     _form.currentState.save();
+    // _cadastroStore.cadastroUsuario(_cadastroUsuario);
     // print(_cadastroUsuario);
     _cadastroStore
         .cadastroUsuario(_cadastroUsuario)
@@ -111,8 +113,14 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           horizontal: 50.0,
                         ),
                         child: Container(
-                          height: 40,
+                          height: 60,
                           child: TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Choose one';
+                              }
+                              return null;
+                            },
                             style: TextStyle(
                               color: Colors.deepOrange,
                             ),
@@ -130,6 +138,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
                                   color: Colors.deepOrange,
@@ -158,8 +180,14 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           vertical: 10.0,
                         ),
                         child: Container(
-                          height: 40,
+                          height: 60,
                           child: TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Choose one';
+                              }
+                              return null;
+                            },
                             style: TextStyle(
                               color: Colors.deepOrange,
                             ),
@@ -169,6 +197,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             decoration: InputDecoration(
                               contentPadding:
                                   EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -204,8 +246,14 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           vertical: 10.0,
                         ),
                         child: Container(
-                          height: 40,
+                          height: 60,
                           child: TextFormField(
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Choose one';
+                              }
+                              return null;
+                            },
                             style: TextStyle(
                               color: Colors.deepOrange,
                             ),
@@ -216,6 +264,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               contentPadding:
                                   EdgeInsets.fromLTRB(20, 16, 20, 16),
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
                                   color: Colors.deepOrange,
@@ -306,6 +368,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           vertical: 10.0,
                         ),
                         child: FormField(
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Choose one';
+                            }
+                            return null;
+                          },
                           onSaved: (value) => _cadastroUsuario.userType = value,
                           builder: (FormFieldState state) {
                             return InputDecorator(
@@ -326,6 +394,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                     width: 2.0,
                                   ),
                                 ),
+                                helperText:
+                                    'Choose your user as talent or team',
                                 labelStyle: TextStyle(color: Colors.deepOrange),
                                 labelText: 'User Type',
                                 fillColor: Colors.deepOrange,
@@ -356,13 +426,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 50.0,
-                          vertical: 10.0,
+                        padding: const EdgeInsets.only(
+                          right: 50.0,
+                          left: 50.0,
+                          top: 10.0,
                         ),
                         child: Container(
-                          height: 40,
+                          height: 120,
                           child: TextFormField(
+                            validator: (value) {
+                              if (value.length < 7) {
+                                return 'Password not correct';
+                              }
+                              return null;
+                            },
                             style: TextStyle(
                               color: Colors.deepOrange,
                             ),
@@ -387,8 +464,25 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                   width: 2.0,
                                 ),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
                               labelStyle: TextStyle(color: Colors.deepOrange),
                               labelText: 'Password',
+                              helperMaxLines: 3,
+                              helperText:
+                                  'Minimal 7 characters and must contain one letter, one number and one non-alphabetic characters',
                               fillColor: Colors.deepOrange,
                               focusColor: Colors.deepOrange,
                               hoverColor: Colors.deepOrange,
@@ -398,6 +492,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               FocusScope.of(context)
                                   .requestFocus(_passwordFocusNode);
                             },
+                            onChanged: (value) =>
+                                _cadastroUsuario.password = value,
                             onSaved: (value) =>
                                 _cadastroUsuario.password = value,
                           ),
@@ -406,11 +502,18 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 50.0,
-                          vertical: 10.0,
+                          // vertical: 10.0,
                         ),
                         child: Container(
-                          height: 40,
+                          height: 65,
                           child: TextFormField(
+                            validator: (value) {
+                              if (value != _cadastroUsuario.password ||
+                                  value.isEmpty) {
+                                return 'Password must be equal';
+                              }
+                              return null;
+                            },
                             obscureText: true,
                             style: TextStyle(
                               color: Colors.deepOrange,
@@ -429,6 +532,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(
+                                  color: Colors.deepOrange,
+                                  width: 2.0,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
                                   color: Colors.deepOrange,
@@ -457,26 +574,36 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                 ),
-                RaisedButton(
-                  child: Text(
-                    "Finalize",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-                  ),
-                  color: Color(0xffE0651F),
-                  padding: EdgeInsets.fromLTRB(55, 10, 55, 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32),
-                  ),
-                  onPressed: _saveForm,
-                )
+                Observer(
+                    builder: (_) =>
+                        _cadastroStore.cadastrando ? loading() : showButton()),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget loading() {
+    return CircularProgressIndicator();
+  }
+
+  Widget showButton() {
+    return RaisedButton(
+      child: Text(
+        "Finalize",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+        ),
+      ),
+      color: Color(0xffE0651F),
+      padding: EdgeInsets.fromLTRB(55, 10, 55, 10),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32),
+      ),
+      onPressed: _saveForm,
     );
   }
 }

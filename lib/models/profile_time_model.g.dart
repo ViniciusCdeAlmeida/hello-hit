@@ -73,7 +73,7 @@ ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ProfileTimeToJson(ProfileTime instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'user': instance.user,
       'skills': instance.skills,
       'categories': instance.categories,

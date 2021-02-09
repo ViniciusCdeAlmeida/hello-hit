@@ -29,7 +29,7 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'full_name': instance.full_name,
       'hits': instance.hits,
       'fans': instance.fans,

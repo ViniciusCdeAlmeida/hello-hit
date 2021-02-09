@@ -27,7 +27,7 @@ class ProfileController {
       Response res = await Endpoint.getProfileTime(id);
       var temp = ProfileTime.fromJson(res.data);
       temp.user.full_name = res.data['user']['fullName'];
-
+      temp.openOpportunities ??= [];
       return temp;
     } catch (e) {
       throw e;
@@ -50,7 +50,7 @@ class ProfileController {
       Response resP = await Endpoint.getProfileTime(id);
       var temp = ProfileTime.fromJson(resP.data);
       temp.user.full_name = resP.data['user']['fullName'];
-
+      temp.openOpportunities ??= [];
       return temp;
     } catch (e) {
       throw e;
@@ -64,6 +64,30 @@ class ProfileController {
       temp.user.full_name = resP.data['user']['fullName'];
       // Response resP = await Endpoint.getProfileUsuario(id);
       return temp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> patchHitUsuario(String id) async {
+    try {
+      await Endpoint.patchHitUsuario(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> patchHitTime(String id) async {
+    try {
+      await Endpoint.patchHitTime(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> patchFanTime(String id) async {
+    try {
+      await Endpoint.patchFanTime(id);
     } catch (e) {
       throw e;
     }

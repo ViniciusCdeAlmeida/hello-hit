@@ -1,18 +1,18 @@
-import 'package:hellohit/models/educacao_model.dart';
-import 'package:hellohit/models/work_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:hellohit/models/especialidade_model.dart';
+import 'package:hellohit/models/educacao_model.dart';
 import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/skill_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/models/work_model.dart';
 
 part 'profile_model.g.dart';
 
 @JsonSerializable()
 class Profile {
+  @JsonKey(name: '_id')
   String id;
   Usuario user;
   List<Skill> skills;
@@ -31,8 +31,8 @@ class Profile {
   List<Post> posts;
 
   Profile({
-    this.posts,
     this.id,
+    this.posts,
     this.user,
     this.skills,
     this.hitsCount,

@@ -1,5 +1,6 @@
 import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
+import 'package:hellohit/providers/oportunidade_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'marketplace_store.g.dart';
@@ -13,8 +14,8 @@ enum MarketplaceState {
 }
 
 abstract class _MarketplaceStore with Store {
-  final MarketPlaceController _marketPlaceController;
-  _MarketplaceStore(this._marketPlaceController);
+  final OportunidadeController _oportunidadeController;
+  _MarketplaceStore(this._oportunidadeController);
 
   int qtdeCarreiras = 0;
 
@@ -68,18 +69,14 @@ abstract class _MarketplaceStore with Store {
   }
 
   @action
-  Future<void> seed() async {
-    // try {
-    //   _carreiraFuture = ObservableFuture(null
-    //       // _marketPlaceController.seed(),
-    //       );
-    //   _carreiraObservable = (await _carreiraFuture).asObservable();
-    // } catch (e) {
-    //   throw e;
-    // }
-    // _carreiraItens
-    //     .addAll(_carreiraObservable.getRange(present, present + perPage));
-    // present = present + perPage;
+  Future oportunidadeList() async {
+    try {
+      _carreiraFuture =
+          ObservableFuture(_oportunidadeController.getOportunidade());
+      _carreiraItens = (await _carreiraFuture).asObservable();
+    } catch (e) {
+      throw e;
+    }
   }
 
   @action

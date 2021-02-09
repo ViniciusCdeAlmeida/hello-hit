@@ -82,33 +82,33 @@ class _OportunidadePagamentoScreenState
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(4),
-                          ),
-                          border: Border.all(
-                            width: 0.5,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Radio(
-                                value: 2,
-                                groupValue: _radioValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _radioValue = value;
-                                  });
-                                }),
-                            Text('Bill quartely \$299/mo'),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 8.0),
+                    //   child: Container(
+                    //     width: MediaQuery.of(context).size.width,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius: const BorderRadius.all(
+                    //         Radius.circular(4),
+                    //       ),
+                    //       border: Border.all(
+                    //         width: 0.5,
+                    //       ),
+                    //     ),
+                    // child: Row(
+                    //   children: [
+                    //     Radio(
+                    //         value: 2,
+                    //         groupValue: _radioValue,
+                    //         onChanged: (value) {
+                    //           setState(() {
+                    //             _radioValue = value;
+                    //           });
+                    //         }),
+                    //     Text('Bill quartely \$299/mo'),
+                    //   ],
+                    // ),
+                    // ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Container(

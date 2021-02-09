@@ -2,6 +2,7 @@ import 'package:hellohit/providers/autenticacao_controller.dart';
 import 'package:hellohit/providers/cadastro_controller.dart';
 import 'package:hellohit/providers/feed_controller.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
+import 'package:hellohit/providers/oportunidade_controller.dart';
 import 'package:hellohit/providers/pagamento_controller.dart';
 import 'package:hellohit/providers/post_controller.dart';
 import 'package:hellohit/providers/postagem_controller.dart';
@@ -27,8 +28,26 @@ List<SingleChildWidget> providers() => [
         create: (ctx) => PagamentoController(),
       ),
       Provider(
+        create: (ctx) => CadastroController(),
+      ),
+      Provider(
+        create: (ctx) => AutenticacaoController(),
+      ),
+      Provider(
+        create: (ctx) => FeedController(),
+      ),
+      Provider(
+        create: (ctx) => MarketPlaceController(),
+      ),
+      Provider(
+        create: (ctx) => OportunidadeController(),
+      ),
+      Provider(
+        create: (ctx) => PostagemController(),
+      ),
+      Provider(
         create: (ctx) => MarketplaceStore(
-          MarketPlaceController(),
+          OportunidadeController(),
         ),
       ),
       Provider(

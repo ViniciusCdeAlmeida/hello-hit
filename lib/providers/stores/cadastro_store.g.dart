@@ -16,6 +16,13 @@ mixin _$CadastroStore on _CadastroStore, Store {
       (_$cadastroComputed ??= Computed<Cadastro>(() => super.cadastro,
               name: '_CadastroStore.cadastro'))
           .value;
+  Computed<bool> _$cadastrandoComputed;
+
+  @override
+  bool get cadastrando =>
+      (_$cadastrandoComputed ??= Computed<bool>(() => super.cadastrando,
+              name: '_CadastroStore.cadastrando'))
+          .value;
   Computed<CadastroState> _$marketplaceStateComputed;
 
   @override
@@ -23,6 +30,21 @@ mixin _$CadastroStore on _CadastroStore, Store {
           Computed<CadastroState>(() => super.marketplaceState,
               name: '_CadastroStore.marketplaceState'))
       .value;
+
+  final _$_cadastrandoAtom = Atom(name: '_CadastroStore._cadastrando');
+
+  @override
+  bool get _cadastrando {
+    _$_cadastrandoAtom.reportRead();
+    return super._cadastrando;
+  }
+
+  @override
+  set _cadastrando(bool value) {
+    _$_cadastrandoAtom.reportWrite(value, super._cadastrando, () {
+      super._cadastrando = value;
+    });
+  }
 
   final _$_cadastroFutureAtom = Atom(name: '_CadastroStore._cadastroFuture');
 
@@ -67,6 +89,7 @@ mixin _$CadastroStore on _CadastroStore, Store {
   String toString() {
     return '''
 cadastro: ${cadastro},
+cadastrando: ${cadastrando},
 marketplaceState: ${marketplaceState}
     ''';
   }

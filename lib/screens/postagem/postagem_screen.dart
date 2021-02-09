@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/providers/stores/postagem_store.dart';
-import 'package:hellohit/screens/full_post/full_post_screen.dart';
-import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 
 class PostagemScreen extends StatefulWidget {
   static const routeName = '/postagemScreen';

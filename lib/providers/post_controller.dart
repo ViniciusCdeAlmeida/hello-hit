@@ -12,6 +12,14 @@ class PostController {
     }
   }
 
+  Future<void> makeHitPost(String id, int hitAtual) async {
+    try {
+      await Endpoint.putHitPosts(id, hitAtual);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<Post> getAllPosts() async {
     try {
       Response res = await Endpoint.getPosts();

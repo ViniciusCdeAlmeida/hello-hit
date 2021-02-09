@@ -116,11 +116,12 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
     });
   }
 
-  final _$seedAsyncAction = AsyncAction('_MarketplaceStore.seed');
+  final _$oportunidadeListAsyncAction =
+      AsyncAction('_MarketplaceStore.oportunidadeList');
 
   @override
-  Future<void> seed() {
-    return _$seedAsyncAction.run(() => super.seed());
+  Future<dynamic> oportunidadeList() {
+    return _$oportunidadeListAsyncAction.run(() => super.oportunidadeList());
   }
 
   final _$_MarketplaceStoreActionController =

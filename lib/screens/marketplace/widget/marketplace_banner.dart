@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
-import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 
 class MarketplaceBanner extends StatelessWidget {
   final Size deviceSize;

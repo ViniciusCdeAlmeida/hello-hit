@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';

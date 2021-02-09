@@ -40,7 +40,7 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 2,
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Colors.grey[300],
@@ -163,7 +163,7 @@ class _FeedScreenState extends State<FeedScreen> {
           elevation: 0,
           backgroundColor: Color(0xffF26525),
           bottom: TabBar(
-            labelPadding: EdgeInsets.symmetric(horizontal: 13),
+            labelPadding: EdgeInsets.symmetric(horizontal: 30),
             isScrollable: true,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -182,46 +182,46 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                 ),
               ),
-              Tab(
-                child: Text(
-                  'Polular',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  'Talents',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  'Teams',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  'Fans',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              // Tab(
+              //   child: Text(
+              //     'Polular',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 13,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
+              // Tab(
+              //   child: Text(
+              //     'Talents',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 13,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
+              // Tab(
+              //   child: Text(
+              //     'Teams',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 13,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
+              // Tab(
+              //   child: Text(
+              //     'Fans',
+              //     style: TextStyle(
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 13,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
               Tab(
                 child: IconButton(
                   icon: Icon(Icons.search),
@@ -266,118 +266,118 @@ class _FeedScreenState extends State<FeedScreen> {
                 }
               },
             ),
-            Observer(
-              // ignore: missing_return
-              builder: (_) {
-                switch (_feedStore.feedState) {
-                  case FeedState.inicial:
-                  case FeedState.carregando:
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
-                    );
-                  case FeedState.carregado:
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        itemCount: _feedStore.feed.length,
-                        itemBuilder: (_, idx) => Column(
-                          children: [
-                            PostCard(
-                              post: _feedStore.feed[idx],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                }
-              },
-            ),
-            Observer(
-              // ignore: missing_return
-              builder: (_) {
-                switch (_feedStore.feedState) {
-                  case FeedState.inicial:
-                  case FeedState.carregando:
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
-                    );
-                  case FeedState.carregado:
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        itemCount: _feedStore.feed.length,
-                        itemBuilder: (_, idx) => Column(
-                          children: [
-                            PostCard(
-                              post: _feedStore.feed[idx],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                }
-              },
-            ),
-            Observer(
-              // ignore: missing_return
-              builder: (_) {
-                switch (_feedStore.feedState) {
-                  case FeedState.inicial:
-                  case FeedState.carregando:
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
-                    );
-                  case FeedState.carregado:
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        itemCount: _feedStore.feed.length,
-                        itemBuilder: (_, idx) => Column(
-                          children: [
-                            PostCard(
-                              post: _feedStore.feed[idx],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                }
-              },
-            ),
-            Observer(
-              // ignore: missing_return
-              builder: (_) {
-                switch (_feedStore.feedState) {
-                  case FeedState.inicial:
-                  case FeedState.carregando:
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                      ),
-                    );
-                  case FeedState.carregado:
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        itemCount: _feedStore.feed.length,
-                        itemBuilder: (_, idx) => Column(
-                          children: [
-                            PostCard(
-                              post: _feedStore.feed[idx],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                }
-              },
-            ),
+            // Observer(
+            //   // ignore: missing_return
+            //   builder: (_) {
+            //     switch (_feedStore.feedState) {
+            //       case FeedState.inicial:
+            //       case FeedState.carregando:
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             backgroundColor: Colors.white,
+            //           ),
+            //         );
+            //       case FeedState.carregado:
+            //         return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: ListView.builder(
+            //             itemCount: _feedStore.feed.length,
+            //             itemBuilder: (_, idx) => Column(
+            //               children: [
+            //                 PostCard(
+            //                   post: _feedStore.feed[idx],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //     }
+            //   },
+            // ),
+            // Observer(
+            //   // ignore: missing_return
+            //   builder: (_) {
+            //     switch (_feedStore.feedState) {
+            //       case FeedState.inicial:
+            //       case FeedState.carregando:
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             backgroundColor: Colors.white,
+            //           ),
+            //         );
+            //       case FeedState.carregado:
+            //         return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: ListView.builder(
+            //             itemCount: _feedStore.feed.length,
+            //             itemBuilder: (_, idx) => Column(
+            //               children: [
+            //                 PostCard(
+            //                   post: _feedStore.feed[idx],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //     }
+            //   },
+            // ),
+            // Observer(
+            //   // ignore: missing_return
+            //   builder: (_) {
+            //     switch (_feedStore.feedState) {
+            //       case FeedState.inicial:
+            //       case FeedState.carregando:
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             backgroundColor: Colors.white,
+            //           ),
+            //         );
+            //       case FeedState.carregado:
+            //         return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: ListView.builder(
+            //             itemCount: _feedStore.feed.length,
+            //             itemBuilder: (_, idx) => Column(
+            //               children: [
+            //                 PostCard(
+            //                   post: _feedStore.feed[idx],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //     }
+            //   },
+            // ),
+            // Observer(
+            //   // ignore: missing_return
+            //   builder: (_) {
+            //     switch (_feedStore.feedState) {
+            //       case FeedState.inicial:
+            //       case FeedState.carregando:
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             backgroundColor: Colors.white,
+            //           ),
+            //         );
+            //       case FeedState.carregado:
+            //         return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: ListView.builder(
+            //             itemCount: _feedStore.feed.length,
+            //             itemBuilder: (_, idx) => Column(
+            //               children: [
+            //                 PostCard(
+            //                   post: _feedStore.feed[idx],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //     }
+            //   },
+            // ),
             Container()
           ],
         ),

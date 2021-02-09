@@ -14,6 +14,7 @@ part 'profile_time_model.g.dart';
 
 @JsonSerializable()
 class ProfileTime {
+  @JsonKey(name: '_id')
   String id;
   Usuario user;
   List<Skill> skills;

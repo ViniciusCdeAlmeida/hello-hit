@@ -1,10 +1,10 @@
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'comentario_model.g.dart';
 
 @JsonSerializable()
 class Comentario {
+  @JsonKey(name: '_id')
   String id;
   final String body;
 
