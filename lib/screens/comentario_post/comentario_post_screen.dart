@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/comentario_model.dart';
+import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/comentario_post_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
@@ -69,7 +70,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Comentários'),
+        title: const Text('Comments'),
         actions: [
           IconButton(
             icon: Icon(
@@ -102,60 +103,8 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
                             itemCount: _comentarioStore.carreiras.length,
                             itemBuilder: (_, idx) => ComentarioPostItem(
                                   _comentarioStore.carreiras[idx],
-                                )
-                            // Column(
-                            //   children: [
-                            //     MarketplaceOpportunitiesItem(
-                            //         _maketplaceStore.carreiras[idx]),
-                            //   ],
-                            // ),
-                            ),
+                                )),
                       );
-                    // Flexible(
-                    //   fit: FlexFit.loose,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: ListView.builder(
-                    //       physics: NeverScrollableScrollPhysics(),
-                    //       shrinkWrap: true,
-                    //       itemCount: (_maketplaceStore.present <=
-                    //               _maketplaceStore.carreirasOriginal.length)
-                    //           ? _maketplaceStore.carreiras.length + 1
-                    //           : _maketplaceStore.carreiras.length,
-                    //       itemBuilder: (_, idx) {
-                    //         return (idx == _maketplaceStore.carreiras.length)
-                    //             ? Container(
-                    //                 padding: EdgeInsets.symmetric(
-                    //                     horizontal: deviceSize.width / 3.1),
-                    //                 child: FlatButton.icon(
-                    //                   shape: RoundedRectangleBorder(
-                    //                     borderRadius:
-                    //                         BorderRadius.circular(8.0),
-                    //                   ),
-                    //                   color: Theme.of(context).primaryColor,
-                    //                   onPressed: () {
-                    //                     _maketplaceStore.loadMore();
-                    //                   },
-                    //                   icon: Icon(Icons.visibility),
-                    //                   label: const Text(
-                    //                     'Load more',
-                    //                     style: TextStyle(
-                    //                       color: Colors.white,
-                    //                     ),
-                    //                   ),
-                    //                 ),
-                    //               )
-                    //             : Column(
-                    //                 children: [
-                    //                   MarketplaceOpportunitiesItem(
-                    //                     _maketplaceStore.carreiras[idx],
-                    //                   ),
-                    //                 ],
-                    //               );
-                    //       },
-                    //     ),
-                    //   ),
-                    // );
                   }
                 },
               ),
@@ -196,7 +145,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
             builder: (_) => _comentarioStore.req
                 ? Center(
                     child: CircularProgressIndicator(
-                    backgroundColor: Colors.red,
+                    backgroundColor: Colors.orange[700],
                   ))
                 : FloatingActionButton(
                     backgroundColor: Colors.orange[700],

@@ -1,7 +1,7 @@
 import 'package:hellohit/models/usuario_model.dart';
 
 class Conversation {
-  Usuario member;
+  List<Usuario> members;
 
-  Usuario usuario;
+  Usuario creator;
 }

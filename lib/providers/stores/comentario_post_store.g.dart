@@ -150,14 +150,6 @@ mixin _$ComentarioPostStore on _ComentarioPostStore, Store {
         .run(() => super.fazerComentario(id, post));
   }
 
-  final _$comentarioListAsyncAction =
-      AsyncAction('_ComentarioPostStore.comentarioList');
-
-  @override
-  Future<dynamic> comentarioList(String id) {
-    return _$comentarioListAsyncAction.run(() => super.comentarioList(id));
-  }
-
   @override
   String toString() {
     return '''

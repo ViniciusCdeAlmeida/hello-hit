@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/conversas/widgets/contatos_favoritos.dart';
-import 'package:hellohit/screens/conversas/widgets/conversas_recentes.dart';
+import 'package:hellohit/models/conversation_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ConversasScreen extends StatefulWidget {
   @override
@@ -8,6 +9,44 @@ class ConversasScreen extends StatefulWidget {
 }
 
 class _ConversasScreenState extends State<ConversasScreen> {
+  AutenticacaoStore _autenticacaoStore;
+  newChat() {
+    Socket socket = io(
+        'http://3.16.49.191:3000',
+        OptionBuilder()
+            .setTransports(['websocket']) // for Flutter or Dart VM
+            .disableAutoConnect() // disable auto-connection
+            .setExtraHeaders({'foo': 'bar'}) // optional
+            .build());
+    socket.connect();
+
+    /**
+     *  
+     *  conversation: {
+     *    members: [
+     *     {
+     *        id: _autenticacaoStore._id
+     *     },
+     *     {
+     *       id: 6023e2895df84a001ef4ef68 <UserId>
+     *     }
+     *    ],
+     *    creator: _autenticacaoStore._id
+     *  }
+     * 
+    */
+
+    var conversation = {
+      "members": [
+        {"id": _autenticacaoStore.autenticacao.id},
+        {"id": "6023e2895df84a001ef4ef68"}
+      ],
+      "creator": _autenticacaoStore.autenticacao.id,
+    };
+
+    socket.emit('new_chat', conversation);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +80,9 @@ class _ConversasScreenState extends State<ConversasScreen> {
               icon: Icon(Icons.add),
               iconSize: 20,
               color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                newChat(); /* Chamada! */
+              },
             ),
           ],
         ),

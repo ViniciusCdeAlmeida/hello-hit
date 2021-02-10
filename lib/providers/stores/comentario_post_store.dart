@@ -114,17 +114,6 @@ abstract class _ComentarioPostStore with Store {
     }
   }
 
-  @action
-  Future comentarioList(String id) async {
-    try {
-      _comentarioFuture =
-          ObservableFuture(_comentarioPostController.getAllComentariosPost(id));
-      _comentarioItens = (await _comentariosFuture).asObservable();
-    } catch (e) {
-      throw e;
-    }
-  }
-
   List<Comentario> loadUserComentarios() {
     return [..._comentarioObservable];
   }

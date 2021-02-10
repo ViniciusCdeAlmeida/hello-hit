@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/message_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chatScreen';
@@ -13,6 +18,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
+  String idArgs;
 
   final TextEditingController textEditingController = TextEditingController();
 
@@ -36,9 +42,32 @@ class _ChatScreenState extends State<ChatScreen> {
     "SADSDASDQWDASDA",
     "DASDASDASD",
   ];
+
   TextEditingController _controllerMensagem = TextEditingController();
 
-  _enviarMensagem() {}
+  var _text = Message(
+    text: '',
+  );
+
+  Socket socket;
+
+  _enviar() {
+    sendMessage(String text) {
+      socket.emit(
+        'new_message',
+        json.encode({
+          'message': text,
+        }),
+      );
+      //notifyListeners();
+    }
+  }
+
+  /*List<Message> getMessagesForChatID(String chatID) {
+    return messages
+        .where((msg) => msg.senderID == chatID || msg.receiverID == chatID)
+        .toList();
+  }*/
 
   _enviarFoto() {}
 
@@ -52,6 +81,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(_text.text);
+
     var caixaMensagem = Container(
       padding: EdgeInsets.all(8),
       child: Row(
@@ -60,6 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Padding(
               padding: EdgeInsets.only(right: 8),
               child: TextField(
+                onChanged: (text) => _text.text = text,
                 controller: _controllerMensagem,
                 autofocus: true,
                 keyboardType: TextInputType.text,
@@ -67,7 +99,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 cursorColor: Colors.orange[700],
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.fromLTRB(32, 8, 32, 8),
-                  hintText: "Digite uma mensagem...",
+                  hintText: "Message",
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -85,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
               color: Colors.white,
             ),
             mini: true,
-            onPressed: _enviarMensagem,
+            onPressed: _enviar,
           )
         ],
       ),

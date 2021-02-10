@@ -16,8 +16,7 @@ void main() {
           .build());
   socket.connect();
 
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await DotEnv.load(fileName: '.env');
+// await DotEnv.load(fileName: '.env');
   // openBox();
   runApp(MyApp());
 }
