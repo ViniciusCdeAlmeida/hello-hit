@@ -16,6 +16,20 @@ mixin _$ComentarioPostStore on _ComentarioPostStore, Store {
       (_$comentarioComputed ??= Computed<Comentario>(() => super.comentario,
               name: '_ComentarioPostStore.comentario'))
           .value;
+  Computed<List<Comentario>> _$carreirasComputed;
+
+  @override
+  List<Comentario> get carreiras =>
+      (_$carreirasComputed ??= Computed<List<Comentario>>(() => super.carreiras,
+              name: '_ComentarioPostStore.carreiras'))
+          .value;
+  Computed<List<Comentario>> _$comentariosOriginalComputed;
+
+  @override
+  List<Comentario> get comentariosOriginal => (_$comentariosOriginalComputed ??=
+          Computed<List<Comentario>>(() => super.comentariosOriginal,
+              name: '_ComentarioPostStore.comentariosOriginal'))
+      .value;
   Computed<ComentarioPostState> _$comentarioStateComputed;
 
   @override
@@ -23,6 +37,46 @@ mixin _$ComentarioPostStore on _ComentarioPostStore, Store {
           Computed<ComentarioPostState>(() => super.comentarioState,
               name: '_ComentarioPostStore.comentarioState'))
       .value;
+  Computed<ComentarioPostListState> _$marketplaceListStateComputed;
+
+  @override
+  ComentarioPostListState get marketplaceListState =>
+      (_$marketplaceListStateComputed ??= Computed<ComentarioPostListState>(
+              () => super.marketplaceListState,
+              name: '_ComentarioPostStore.marketplaceListState'))
+          .value;
+
+  final _$_comentarioObservableAtom =
+      Atom(name: '_ComentarioPostStore._comentarioObservable');
+
+  @override
+  ObservableList<Comentario> get _comentarioObservable {
+    _$_comentarioObservableAtom.reportRead();
+    return super._comentarioObservable;
+  }
+
+  @override
+  set _comentarioObservable(ObservableList<Comentario> value) {
+    _$_comentarioObservableAtom.reportWrite(value, super._comentarioObservable,
+        () {
+      super._comentarioObservable = value;
+    });
+  }
+
+  final _$reqAtom = Atom(name: '_ComentarioPostStore.req');
+
+  @override
+  bool get req {
+    _$reqAtom.reportRead();
+    return super.req;
+  }
+
+  @override
+  set req(bool value) {
+    _$reqAtom.reportWrite(value, super.req, () {
+      super.req = value;
+    });
+  }
 
   final _$_comentarioFutureAtom =
       Atom(name: '_ComentarioPostStore._comentarioFuture');
@@ -55,6 +109,38 @@ mixin _$ComentarioPostStore on _ComentarioPostStore, Store {
     });
   }
 
+  final _$_comentarioItensAtom =
+      Atom(name: '_ComentarioPostStore._comentarioItens');
+
+  @override
+  ObservableList<Comentario> get _comentarioItens {
+    _$_comentarioItensAtom.reportRead();
+    return super._comentarioItens;
+  }
+
+  @override
+  set _comentarioItens(ObservableList<Comentario> value) {
+    _$_comentarioItensAtom.reportWrite(value, super._comentarioItens, () {
+      super._comentarioItens = value;
+    });
+  }
+
+  final _$_comentariosFutureAtom =
+      Atom(name: '_ComentarioPostStore._comentariosFuture');
+
+  @override
+  ObservableFuture<List<Comentario>> get _comentariosFuture {
+    _$_comentariosFutureAtom.reportRead();
+    return super._comentariosFuture;
+  }
+
+  @override
+  set _comentariosFuture(ObservableFuture<List<Comentario>> value) {
+    _$_comentariosFutureAtom.reportWrite(value, super._comentariosFuture, () {
+      super._comentariosFuture = value;
+    });
+  }
+
   final _$fazerComentarioAsyncAction =
       AsyncAction('_ComentarioPostStore.fazerComentario');
 
@@ -64,11 +150,23 @@ mixin _$ComentarioPostStore on _ComentarioPostStore, Store {
         .run(() => super.fazerComentario(id, post));
   }
 
+  final _$comentarioListAsyncAction =
+      AsyncAction('_ComentarioPostStore.comentarioList');
+
+  @override
+  Future<dynamic> comentarioList(String id) {
+    return _$comentarioListAsyncAction.run(() => super.comentarioList(id));
+  }
+
   @override
   String toString() {
     return '''
+req: ${req},
 comentario: ${comentario},
-comentarioState: ${comentarioState}
+carreiras: ${carreiras},
+comentariosOriginal: ${comentariosOriginal},
+comentarioState: ${comentarioState},
+marketplaceListState: ${marketplaceListState}
     ''';
   }
 }

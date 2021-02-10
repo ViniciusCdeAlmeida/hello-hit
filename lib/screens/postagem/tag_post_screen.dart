@@ -27,6 +27,7 @@ class _TagPostScreenState extends State<TagPostScreen> {
   final _eventController = TextEditingController();
   var _postagem = Post();
   var _usuarioLogado = Usuario();
+
   @override
   void didChangeDependencies() {
     _postagemStore = Provider.of<PostagemStore>(context);
@@ -39,13 +40,6 @@ class _TagPostScreenState extends State<TagPostScreen> {
   List<String> t = ['teste1', 'teste2', 'teste3', 'ABC', 'CBD'];
 
   Future<void> submit() async {
-    // if (_locationController.text == '' ||
-    //     _eventController.text == '' ||
-    //     _teamController.text == '') return;
-    // _postagem.location = _locationController.text;
-    // _postagem.event = _eventController.text;
-    // _postagem.team = _teamController.text;
-
     try {
       await _postagemStore
           .fazerPostagem(_postagem)

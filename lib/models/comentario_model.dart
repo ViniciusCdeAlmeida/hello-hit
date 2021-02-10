@@ -6,11 +6,11 @@ part 'comentario_model.g.dart';
 class Comentario {
   @JsonKey(name: '_id')
   String id;
-  String body;
+  String text;
 
   Comentario({
     this.id,
-    this.body,
+    this.text,
   });
 
   factory Comentario.fromJson(Map<String, dynamic> json) =>

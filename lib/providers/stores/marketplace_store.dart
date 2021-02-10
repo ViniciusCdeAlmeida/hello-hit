@@ -1,5 +1,4 @@
 import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/providers/marketplace_controller.dart';
 import 'package:hellohit/providers/oportunidade_controller.dart';
 import 'package:mobx/mobx.dart';
 

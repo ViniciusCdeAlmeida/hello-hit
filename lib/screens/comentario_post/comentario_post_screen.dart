@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/comentario_model.dart';
-import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/comentario_post_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
-import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
+import 'package:hellohit/screens/comentario_post/widget/comentario_post_item.dart';
+import 'package:provider/provider.dart';
+import 'package:hellohit/models/post_model.dart';
 
 class ComentarioPostScreen extends StatefulWidget {
   static const routeName = '/comentarioPostScreen';
-  ComentarioPostScreen({Key key}) : super(key: key);
+  final Post post;
+  ComentarioPostScreen({this.post});
 
   @override
   _ComentarioPostScreenState createState() => _ComentarioPostScreenState();
@@ -20,106 +23,49 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
   PostStore _postStore;
   String idArgs;
 
-  var _comentario = Comentario();
-  var _post = Post();
+  var _comentario = Comentario(
+    text: '',
+  );
 
-  List<String> _comentarios = [
-    "Que da hora!",
-    "Muito massa :)",
-  ];
+  @override
+  void didChangeDependencies() {
+    _comentarioStore = Provider.of<ComentarioPostStore>(context);
+    super.didChangeDependencies();
+  }
 
   Future<void> submit() async {
-    try {
-      await _comentarioStore
-          .fazerComentario(_post.id, _comentario)
-          .then(
-            (_) => Navigator.of(context)
-                .pushNamed(PostagemComentarioScreen.routeName),
-          )
-          .catchError((onError) {
-        showDialog<Null>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('teste'),
-            content: Text(onError),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: Text('OK'),
-              )
-            ],
-          ),
-        );
-      });
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  _enviarFoto() {}
-
-  TextEditingController _controllerMensagem = TextEditingController();
-
-  Widget _buildComentarioLista() {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        if (index < _comentarios.length)
-          return _buildComentarioItem(_comentarios[index]);
-      },
-    );
-  }
-
-  Widget _buildComentarioItem(String itemComentario) {
-    return ListTile(
-      title: Text(itemComentario),
-    );
+    _comentarioStore
+        .fazerComentario(_comentario.id, _comentario)
+        .then(
+          (_) => Navigator.pop(context),
+        )
+        .catchError((onError) {
+      showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('teste'),
+          content: Text('onError'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('OK'),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     print(ModalRoute.of(context).settings.arguments.toString());
     idArgs = ModalRoute.of(context).settings.arguments;
+    _comentario.id = idArgs;
+    print(_comentario.id);
     print(idArgs);
-    var caixaMensagem = Container(
-      padding: EdgeInsets.all(8),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: TextField(
-                controller: _controllerMensagem,
-                autofocus: true,
-                keyboardType: TextInputType.text,
-                style: TextStyle(fontSize: 15),
-                cursorColor: Colors.orange[700],
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(32, 8, 32, 8),
-                  hintText: "Digite uma comentário",
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  prefixIcon: IconButton(
-                      icon: Icon(Icons.camera_alt), onPressed: _enviarFoto),
-                ),
-              ),
-            ),
-          ),
-          FloatingActionButton(
-            backgroundColor: Colors.orange[700],
-            child: Icon(
-              Icons.send,
-              color: Colors.white,
-            ),
-            mini: true,
-            onPressed: submit,
-          )
-        ],
-      ),
-    );
+    print(_comentario);
 
     return Scaffold(
       appBar: AppBar(
@@ -137,9 +83,131 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
       body: Column(
         children: [
           Expanded(
-            child: _buildComentarioLista(),
+            child: Container(
+              child: Observer(
+                builder: (_) {
+                  switch (_comentarioStore.comentarioState) {
+                    case ComentarioPostState.inicial:
+                      return Container();
+                    case ComentarioPostState.carregando:
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case ComentarioPostState.carregado:
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _comentarioStore.carreiras.length,
+                            itemBuilder: (_, idx) => ComentarioPostItem(
+                                  _comentarioStore.carreiras[idx],
+                                )
+                            // Column(
+                            //   children: [
+                            //     MarketplaceOpportunitiesItem(
+                            //         _maketplaceStore.carreiras[idx]),
+                            //   ],
+                            // ),
+                            ),
+                      );
+                    // Flexible(
+                    //   fit: FlexFit.loose,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: ListView.builder(
+                    //       physics: NeverScrollableScrollPhysics(),
+                    //       shrinkWrap: true,
+                    //       itemCount: (_maketplaceStore.present <=
+                    //               _maketplaceStore.carreirasOriginal.length)
+                    //           ? _maketplaceStore.carreiras.length + 1
+                    //           : _maketplaceStore.carreiras.length,
+                    //       itemBuilder: (_, idx) {
+                    //         return (idx == _maketplaceStore.carreiras.length)
+                    //             ? Container(
+                    //                 padding: EdgeInsets.symmetric(
+                    //                     horizontal: deviceSize.width / 3.1),
+                    //                 child: FlatButton.icon(
+                    //                   shape: RoundedRectangleBorder(
+                    //                     borderRadius:
+                    //                         BorderRadius.circular(8.0),
+                    //                   ),
+                    //                   color: Theme.of(context).primaryColor,
+                    //                   onPressed: () {
+                    //                     _maketplaceStore.loadMore();
+                    //                   },
+                    //                   icon: Icon(Icons.visibility),
+                    //                   label: const Text(
+                    //                     'Load more',
+                    //                     style: TextStyle(
+                    //                       color: Colors.white,
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               )
+                    //             : Column(
+                    //                 children: [
+                    //                   MarketplaceOpportunitiesItem(
+                    //                     _maketplaceStore.carreiras[idx],
+                    //                   ),
+                    //                 ],
+                    //               );
+                    //       },
+                    //     ),
+                    //   ),
+                    // );
+                  }
+                },
+              ),
+            ),
           ),
-          caixaMensagem,
+          TextFormField(
+            onSaved: (value) => _comentario.text = value,
+            onChanged: (text) => _comentario.text = text,
+            textAlignVertical: TextAlignVertical.center,
+            cursorColor: Colors.white,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                  width: 2.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(
+                  color: Colors.orange[700],
+                  width: 2.0,
+                ),
+              ),
+              labelStyle: TextStyle(color: Colors.black),
+              labelText: 'Comment',
+              fillColor: Colors.white,
+              focusColor: Colors.white,
+              hoverColor: Colors.white,
+            ),
+          ),
+          Observer(
+            builder: (_) => _comentarioStore.req
+                ? Center(
+                    child: CircularProgressIndicator(
+                    backgroundColor: Colors.red,
+                  ))
+                : FloatingActionButton(
+                    backgroundColor: Colors.orange[700],
+                    child: Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
+                    mini: true,
+                    onPressed: submit,
+                  ),
+          )
         ],
       ),
     );

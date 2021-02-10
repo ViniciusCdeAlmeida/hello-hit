@@ -9,12 +9,12 @@ part of 'comentario_model.dart';
 Comentario _$ComentarioFromJson(Map<String, dynamic> json) {
   return Comentario(
     id: json['_id'] as String,
-    body: json['body'] as String,
+    text: json['text'] as String,
   );
 }
 
 Map<String, dynamic> _$ComentarioToJson(Comentario instance) =>
     <String, dynamic>{
       '_id': instance.id,
-      'body': instance.body,
+      'text': instance.text,
     };
