@@ -11,13 +11,12 @@ class FeedController {
   Future<List<Post>> getFeed() async {
     try {
       Response res = await Endpoint.getPosts();
-      var post = res.data.map<Post>((content) {
+
+      return res.data.map<Post>((content) {
         var post = Post.fromJson(content);
         post.user.full_name = content['user']['fullName'];
         return post;
       }).toList() as List<Post>;
-      // });
-      return post;
     } catch (e) {
       throw e;
     }

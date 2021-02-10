@@ -1,4 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:hellohit/models/profile_model.dart';
+
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
@@ -20,23 +23,26 @@ class Usuario {
   String avatarImg;
   DateTime createdAt;
   DateTime updatedAt;
+  bool existeCategoria;
 
   Usuario({
-    this.id,
     // ignore: non_constant_identifier_names
+    // ignore: non_constant_identifier_names
+    this.id,
     this.full_name,
     this.hits,
     this.fans,
     this.skills,
     this.email,
     this.userType,
-    this.updatedAt,
-    this.createdAt,
-    this.avatar,
     this.username,
-    // ignore: non_constant_identifier_names
     this.signature_status,
     this.token,
+    this.avatar,
+    this.avatarImg,
+    this.createdAt,
+    this.updatedAt,
+    this.existeCategoria,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

@@ -23,10 +23,10 @@ class ProfileTime {
   int fanCount;
   int sizeTeam;
   int numMaxMembers;
-  List<Usuario> hits;
-  List<Usuario> fans;
-  List<Usuario> admins;
-  List<Usuario> members;
+  List<String> hits;
+  List<String> fans;
+  List<String> admins;
+  List<String> members;
   List<Premio> awards;
   String bio;
   String location;

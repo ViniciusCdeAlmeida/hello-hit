@@ -21,22 +21,10 @@ ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
     fanCount: json['fanCount'] as int,
     sizeTeam: json['sizeTeam'] as int,
     numMaxMembers: json['numMaxMembers'] as int,
-    hits: (json['hits'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    fans: (json['fans'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    admins: (json['admins'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    members: (json['members'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    hits: (json['hits'] as List)?.map((e) => e as String)?.toList(),
+    fans: (json['fans'] as List)?.map((e) => e as String)?.toList(),
+    admins: (json['admins'] as List)?.map((e) => e as String)?.toList(),
+    members: (json['members'] as List)?.map((e) => e as String)?.toList(),
     awards: (json['awards'] as List)
         ?.map((e) =>
             e == null ? null : Premio.fromJson(e as Map<String, dynamic>))

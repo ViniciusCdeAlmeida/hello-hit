@@ -38,9 +38,10 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
     }
     _formKey.currentState.save();
     _autenticacaoStore.autenticacaoUsuario(_loginData).then(
-      (_) {
-        // _autenticacaoStore.autenticacao;
-        Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName);
+      (value) {
+        !_autenticacaoStore.autenticacao.existeCategoria
+            ? Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName)
+            : Navigator.of(context).pushNamed(FeedScreen.routeName);
       },
     ).catchError((onError) {
       showDialog<Null>(

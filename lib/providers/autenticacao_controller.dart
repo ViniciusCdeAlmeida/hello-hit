@@ -12,9 +12,13 @@ class AutenticacaoController {
     try {
       Response res = await Endpoint.postAutenticacaoUsuario(usuario)
           .timeout(Duration(seconds: 40));
+      var existeCategoria = res.data['profile']['categories'] as List;
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.id = res.data['_id'];
       usuarioRecebido.avatarImg = res.data['avatar'];
+      existeCategoria.length == 0
+          ? usuarioRecebido.existeCategoria = false
+          : usuarioRecebido.existeCategoria = true;
       getToken(usuarioRecebido.token);
       return usuarioRecebido;
     } on DioError catch (e) {
@@ -43,6 +47,14 @@ class AutenticacaoController {
         throw 'Check your connection.';
     } on TimeoutException catch (_) {
       throw 'Check your connection';
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> patchCategoriaUsuario(String id) async {
+    try {
+      await Endpoint.patchCategoriaUsuario(id);
     } catch (e) {
       throw e;
     }

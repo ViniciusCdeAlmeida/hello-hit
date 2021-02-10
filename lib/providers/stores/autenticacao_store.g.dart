@@ -126,6 +126,15 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
         .run(() => super.autenticacaoUsuario(dados));
   }
 
+  final _$atualizaCategoriaUsuarioAsyncAction =
+      AsyncAction('_AutenticacaoStore.atualizaCategoriaUsuario');
+
+  @override
+  Future<void> atualizaCategoriaUsuario(String id) {
+    return _$atualizaCategoriaUsuarioAsyncAction
+        .run(() => super.atualizaCategoriaUsuario(id));
+  }
+
   @override
   String toString() {
     return '''

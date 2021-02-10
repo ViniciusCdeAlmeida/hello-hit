@@ -43,6 +43,16 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
     super.initState();
   }
 
+  Future<void> makeHitTime() async {
+    await _profileStore.makeHitTime(
+        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+  }
+
+  Future<void> makeFanTime() async {
+    await _profileStore.makeFanTime(
+        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
@@ -157,19 +167,31 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
             children: [
               GestureDetector(
                 onTap: () {
-                  // setState(() {
-                  //   _profileStore.makeHitTime(widget.usuario.id);
-                  // });
+                  setState(() {
+                    if (widget.usuario.hits.contains(widget.usuario.user.id)) {
+                      widget.usuario.hitCount -= 1;
+                      widget.usuario.hits.removeWhere(
+                          (element) => element == widget.usuario.user.id);
+                      var snackBar =
+                          SnackBar(content: Text('You removed your hit.'));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    } else {
+                      widget.usuario.hitCount += 1;
+                      widget.usuario.hits.insert(0, widget.usuario.user.id);
+                      var snackBar = SnackBar(
+                          content: Text(
+                              'Yay! You Hitted ${widget.usuario.user.username}'));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    }
+                    makeHitTime();
+                  });
                 },
-                child: GestureDetector(
-                  onTap: () {},
-                  child: IconRow(
-                    texto: widget.usuario.hitCount.toString(),
-                    icon: Icons.star,
-                    width: 60,
-                    height: 60,
-                    titulo: 'Hits',
-                  ),
+                child: IconRow(
+                  texto: widget.usuario.hitCount.toString(),
+                  icon: Icons.star,
+                  width: 60,
+                  height: 60,
+                  titulo: 'Hits',
                 ),
               ),
               GestureDetector(
@@ -192,7 +214,24 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
               GestureDetector(
                 onTap: () {
-                  widget.beFan(widget.usuario.id);
+                  setState(() {
+                    if (widget.usuario.fans.contains(widget.usuario.user.id)) {
+                      widget.usuario.fanCount -= 1;
+                      widget.usuario.fans.removeWhere(
+                          (element) => element == widget.usuario.user.id);
+                      var snackBar =
+                          SnackBar(content: Text('You removed your fan.'));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    } else {
+                      widget.usuario.fanCount += 1;
+                      widget.usuario.fans.insert(0, widget.usuario.user.id);
+                      var snackBar = SnackBar(
+                          content: Text(
+                              'Yay! Now you follow ${widget.usuario.user.username}'));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    }
+                    makeFanTime();
+                  });
                 },
                 child: IconRow(
                   icon: Icons.person_add_alt_1,
@@ -355,41 +394,41 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
             ),
           ),
 
-          if (widget.usuario.members.length > 0)
-            GridView.extent(
-              maxCrossAxisExtent: 50,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              // itemCount:
-              //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: widget.usuario.members
-                  .getRange(
-                      0,
-                      widget.usuario.members.length >= 1 &&
-                              widget.usuario.members.length <= 8
-                          ? widget.usuario.members.length
-                          : 14)
-                  .map(
-                    ((usuario) => CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(usuario.avatar),
-                        )),
-                  )
-                  .toList(),
-            )
-          else
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(
-                  'No Members yet',
-                  style: TextStyle(fontSize: 16),
-                ),
+          // if (widget.usuario.members.length > 0)
+          //   GridView.extent(
+          //     maxCrossAxisExtent: 50,
+          //     mainAxisSpacing: 10,
+          //     crossAxisSpacing: 10,
+          //     // itemCount:
+          //     //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+          //     padding: const EdgeInsets.all(10),
+          //     shrinkWrap: true,
+          //     physics: NeverScrollableScrollPhysics(),
+          //     children: widget.usuario.members
+          //         .getRange(
+          //             0,
+          //             widget.usuario.members.length >= 1 &&
+          //                     widget.usuario.members.length <= 8
+          //                 ? widget.usuario.members.length
+          //                 : 14)
+          //         .map(
+          //           ((usuario) => CircleAvatar(
+          //                 backgroundColor: Colors.transparent,
+          //                 backgroundImage: NetworkImage(usuario.avatar),
+          //               )),
+          //         )
+          //         .toList(),
+          //   )
+          // else
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                'No Members yet',
+                style: TextStyle(fontSize: 16),
               ),
             ),
+          ),
           Divider(
             thickness: 1,
             color: Colors.grey[300],

@@ -236,6 +236,40 @@ mixin _$ProfileStore on _ProfileStore, Store {
     });
   }
 
+  final _$makeHitTimeAsyncAction = AsyncAction('_ProfileStore.makeHitTime');
+
+  @override
+  Future<void> makeHitTime(String idUsuario, String idPerfil) {
+    return _$makeHitTimeAsyncAction
+        .run(() => super.makeHitTime(idUsuario, idPerfil));
+  }
+
+  final _$makeHitUsuarioAsyncAction =
+      AsyncAction('_ProfileStore.makeHitUsuario');
+
+  @override
+  Future<void> makeHitUsuario(String idUsuario, String idPerfil) {
+    return _$makeHitUsuarioAsyncAction
+        .run(() => super.makeHitUsuario(idUsuario, idPerfil));
+  }
+
+  final _$makeFanTimeAsyncAction = AsyncAction('_ProfileStore.makeFanTime');
+
+  @override
+  Future<void> makeFanTime(String idUsuario, String idPerfil) {
+    return _$makeFanTimeAsyncAction
+        .run(() => super.makeFanTime(idUsuario, idPerfil));
+  }
+
+  final _$makeFanUsuarioAsyncAction =
+      AsyncAction('_ProfileStore.makeFanUsuario');
+
+  @override
+  Future<void> makeFanUsuario(String idUsuario, String idPerfil) {
+    return _$makeFanUsuarioAsyncAction
+        .run(() => super.makeFanUsuario(idUsuario, idPerfil));
+  }
+
   final _$loadUsuarioProfileAsyncAction =
       AsyncAction('_ProfileStore.loadUsuarioProfile');
 
@@ -319,40 +353,7 @@ mixin _$ProfileStore on _ProfileStore, Store {
   }
 
   @override
-  void makeHitTime(String id) {
-    final _$actionInfo = _$_ProfileStoreActionController.startAction(
-        name: '_ProfileStore.makeHitTime');
-    try {
-      return super.makeHitTime(id);
-    } finally {
-      _$_ProfileStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void makeHitUsuario(String id) {
-    final _$actionInfo = _$_ProfileStoreActionController.startAction(
-        name: '_ProfileStore.makeHitUsuario');
-    try {
-      return super.makeHitUsuario(id);
-    } finally {
-      _$_ProfileStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void makeFanTime(String id) {
-    final _$actionInfo = _$_ProfileStoreActionController.startAction(
-        name: '_ProfileStore.makeFanTime');
-    try {
-      return super.makeFanTime(id);
-    } finally {
-      _$_ProfileStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void beSponsor(bool value) {
+  Future<void> beSponsor(bool value) {
     final _$actionInfo = _$_ProfileStoreActionController.startAction(
         name: '_ProfileStore.beSponsor');
     try {

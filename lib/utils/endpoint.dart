@@ -22,8 +22,24 @@ Dio getConexaoPrefs() {
 }
 
 class Endpoint {
+  static Future getComentariosPost(String id) async =>
+      await getConexaoPrefs().get('posts/$id/comments');
+
   static Future postCadastroUsuario(Cadastro usuario) async =>
       await getConexaoPrefs().post('signup', data: usuario);
+
+  static Future getPostId(String id) async {
+    await getConexaoPrefs().get('posts/$id');
+  }
+
+  static Future postComentarioPost(String id, Comentario comentario) async {
+    FormData formData = FormData.fromMap(
+      {
+        "body": comentario.text,
+      },
+    );
+    return await getConexaoPrefs().post('posts/$id/comments', data: comentario);
+  }
 
   static Future postProfileUsuario(dynamic usuario) async =>
       await getConexaoPrefs().post('profiles', data: usuario);
@@ -33,6 +49,11 @@ class Endpoint {
 
   static Future getCategorias() async =>
       await getConexaoPrefs().get('categories');
+
+  static Future patchCategoriaUsuario(String id) async =>
+      await getConexaoPrefs().patch('/categories/update', data: {
+        'categories': [id]
+      });
 
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
@@ -52,14 +73,21 @@ class Endpoint {
   static Future getAllProfileTime() async =>
       await getConexaoPrefs().get('profilesTeam');
 
-  static Future patchHitTime(String id) async =>
-      await getConexaoPrefs().get('profilesTeam/hit/$id');
+  static Future patchHitTime(String idUsuario, String idPerfil) async =>
+      await getConexaoPrefs()
+          .patch('profilesTeam/hit/$idPerfil', data: {'id': idUsuario});
 
-  static Future patchFanTime(String id) async =>
-      await getConexaoPrefs().get('profilesTeam/fan/$id');
+  static Future patchFanUsuario(String idUsuario, String idPerfil) async =>
+      await getConexaoPrefs()
+          .patch('profiles/hit/$idPerfil', data: {'id': idUsuario});
 
-  static Future patchHitUsuario(String id) async =>
-      await getConexaoPrefs().get('profiles/hit/$id');
+  static Future patchFanTime(String idUsuario, String idPerfil) async =>
+      await getConexaoPrefs()
+          .patch('profiles/fan/$idPerfil', data: {'id': idUsuario});
+
+  static Future patchHitUsuario(String idUsuario, String idPerfil) async =>
+      await getConexaoPrefs()
+          .patch('profilesTeam/fan/$idPerfil', data: {'id': idUsuario});
 
   static Future getProfileUsuario(String id) async =>
       await getConexaoPrefs().get('profiles/user/$id');
