@@ -35,6 +35,9 @@ class Endpoint {
 
   static Future getPosts() async => await getConexaoPrefs().get('posts');
 
+  static Future getChatsUsers() async =>
+      await getConexaoPrefs().get('/chats/user');
+
   static Future getComentariosPost(String id) async =>
       await getConexaoPrefs().get('posts/$id/comments');
 

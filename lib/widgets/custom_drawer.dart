@@ -104,12 +104,7 @@ class CustomDrawer extends StatelessWidget {
                 'Chat',
               ),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ConversasScreen(),
-                  ),
-                );
+                Navigator.of(context).pushNamed(ConversasScreen.routeName);
               },
             ),
             ListTile(

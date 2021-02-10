@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/conversation_model.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/providers/stores/conversation_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class ConversasScreen extends StatefulWidget {
+  static const routeName = "/conversasScreen";
   @override
   _ConversasScreenState createState() => _ConversasScreenState();
 }
 
 class _ConversasScreenState extends State<ConversasScreen> {
   AutenticacaoStore _autenticacaoStore;
+  ConversationStore _conversationStore;
+  String id;
+  String idUsuario;
+
+  @override
+  void didChangeDependencies() {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _conversationStore = Provider.of<ConversationStore>(context);
+    idUsuario = _autenticacaoStore.autenticacao.id;
+    id = ModalRoute.of(context).settings.arguments;
+    _conversationStore.conversationList();
+    super.didChangeDependencies();
+  }
+
   newChat() {
     Socket socket = io(
         'http://3.16.49.191:3000',
@@ -101,22 +118,38 @@ class _ConversasScreenState extends State<ConversasScreen> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  //ContatosFavoritos(),
-                  //ConversasRecentes(),
+      body: Observer(
+        builder: (_) {
+          switch (_conversationStore.conversationState) {
+            case ConversationState.inicial:
+            case ConversationState.carregando:
+              return Center(
+                child: CircularProgressIndicator(
+                    //backgroundColor: Colors.orange[700],
+                    ),
+              );
+            case ConversationState.carregado:
+              return CustomScrollView(
+                slivers: <Widget>[
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      /*OportunidadeItem(
+                        _conversationStore.conv,
+                        idUsuario,
+                      ),*/
+                    ]),
+                  ),
                 ],
-              ),
-            ),
-          ),
-        ],
+              );
+          }
+          ConversationState.carregado == null
+              ? Center(
+                  child: const Text('Inicie uma conversa'),
+                )
+              : Center(
+                  child: const Text('Inicie uma conversa'),
+                );
+        },
       ),
     );
   }

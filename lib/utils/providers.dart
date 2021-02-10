@@ -1,6 +1,7 @@
 import 'package:hellohit/providers/autenticacao_controller.dart';
 import 'package:hellohit/providers/cadastro_controller.dart';
 import 'package:hellohit/providers/comentario_post_controller.dart';
+import 'package:hellohit/providers/conversation_controller.dart';
 import 'package:hellohit/providers/feed_controller.dart';
 import 'package:hellohit/providers/marketplace_controller.dart';
 import 'package:hellohit/providers/oportunidade_controller.dart';
@@ -12,6 +13,7 @@ import 'package:hellohit/providers/search_controller.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/cadastro_store.dart';
 import 'package:hellohit/providers/stores/comentario_post_store.dart';
+import 'package:hellohit/providers/stores/conversation_store.dart';
 import 'package:hellohit/providers/stores/edicao_profile_store.dart';
 import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
@@ -93,6 +95,11 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => ComentarioPostStore(
           ComentarioPostController(),
+        ),
+      ),
+      Provider(
+        create: (ctx) => ConversationStore(
+          ConversationController(),
         ),
       ),
     ];

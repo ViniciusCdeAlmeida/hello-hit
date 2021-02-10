@@ -19,6 +19,7 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
   AutenticacaoStore _autenticacaoStore;
   String id;
   String idUsuario;
+
   @override
   void didChangeDependencies() {
     _marketplaceStore = Provider.of<MarketplaceStore>(context);
@@ -34,34 +35,36 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
     return Scaffold(
       key: _scaffoldMarketKey,
       // ignore: missing_return
-      body: Observer(builder: (_) {
-        switch (_marketplaceStore.marketplaceState) {
-          case MarketplaceState.inicial:
-          case MarketplaceState.carregando:
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          case MarketplaceState.carregado:
-            return CustomScrollView(
-              slivers: <Widget>[
-                CustomSliverAppBar(
-                  titulo: '',
-                  // imagem: _maketplaceStore.carreira.imagem,
-                  // banner: _maketplaceStore.carreira.banner,
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    OportunidadeItem(
-                      _marketplaceStore.carreira,
-                      _marketplaceStore.hitOportunidade,
-                      idUsuario,
-                    ),
-                  ]),
-                ),
-              ],
-            );
-        }
-      }),
+      body: Observer(
+        builder: (_) {
+          switch (_marketplaceStore.marketplaceState) {
+            case MarketplaceState.inicial:
+            case MarketplaceState.carregando:
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            case MarketplaceState.carregado:
+              return CustomScrollView(
+                slivers: <Widget>[
+                  CustomSliverAppBar(
+                    titulo: '',
+                    // imagem: _maketplaceStore.carreira.imagem,
+                    // banner: _maketplaceStore.carreira.banner,
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      OportunidadeItem(
+                        _marketplaceStore.carreira,
+                        _marketplaceStore.hitOportunidade,
+                        idUsuario,
+                      ),
+                    ]),
+                  ),
+                ],
+              );
+          }
+        },
+      ),
     );
   }
 }
