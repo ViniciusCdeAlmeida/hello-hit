@@ -18,7 +18,7 @@ class ProfileTime {
   String id;
   Usuario user;
   List<Skill> skills;
-  List<Categoria> categories;
+  List<String> categories;
   int hitCount;
   int fanCount;
   int sizeTeam;

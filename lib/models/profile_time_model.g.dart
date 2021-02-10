@@ -16,10 +16,7 @@ ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Skill.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    categories: (json['categories'] as List)
-        ?.map((e) =>
-            e == null ? null : Categoria.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    categories: (json['categories'] as List)?.map((e) => e as String)?.toList(),
     hitCount: json['hitCount'] as int,
     fanCount: json['fanCount'] as int,
     sizeTeam: json['sizeTeam'] as int,

@@ -9,19 +9,20 @@ part of 'search_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$SearchStore on _SearchStore, Store {
-  Computed<List<Usuario>> _$usuariosComputed;
+  Computed<List<Profile>> _$talentosComputed;
 
   @override
-  List<Usuario> get usuarios =>
-      (_$usuariosComputed ??= Computed<List<Usuario>>(() => super.usuarios,
-              name: '_SearchStore.usuarios'))
+  List<Profile> get talentos =>
+      (_$talentosComputed ??= Computed<List<Profile>>(() => super.talentos,
+              name: '_SearchStore.talentos'))
           .value;
-  Computed<Usuario> _$usuarioComputed;
+  Computed<List<ProfileTime>> _$timesComputed;
 
   @override
-  Usuario get usuario => (_$usuarioComputed ??=
-          Computed<Usuario>(() => super.usuario, name: '_SearchStore.usuario'))
-      .value;
+  List<ProfileTime> get times =>
+      (_$timesComputed ??= Computed<List<ProfileTime>>(() => super.times,
+              name: '_SearchStore.times'))
+          .value;
   Computed<SearchState> _$searchStateComputed;
 
   @override
@@ -30,87 +31,71 @@ mixin _$SearchStore on _SearchStore, Store {
               name: '_SearchStore.searchState'))
           .value;
 
-  final _$_profilesObservableAtom =
-      Atom(name: '_SearchStore._profilesObservable');
+  final _$_timesObservableAtom = Atom(name: '_SearchStore._timesObservable');
 
   @override
-  ObservableList<Usuario> get _profilesObservable {
-    _$_profilesObservableAtom.reportRead();
-    return super._profilesObservable;
+  ObservableList<ProfileTime> get _timesObservable {
+    _$_timesObservableAtom.reportRead();
+    return super._timesObservable;
   }
 
   @override
-  set _profilesObservable(ObservableList<Usuario> value) {
-    _$_profilesObservableAtom.reportWrite(value, super._profilesObservable, () {
-      super._profilesObservable = value;
+  set _timesObservable(ObservableList<ProfileTime> value) {
+    _$_timesObservableAtom.reportWrite(value, super._timesObservable, () {
+      super._timesObservable = value;
     });
   }
 
-  final _$_profileObservableAtom =
-      Atom(name: '_SearchStore._profileObservable');
+  final _$_talentosObservableAtom =
+      Atom(name: '_SearchStore._talentosObservable');
 
   @override
-  Usuario get _profileObservable {
-    _$_profileObservableAtom.reportRead();
-    return super._profileObservable;
+  ObservableList<Profile> get _talentosObservable {
+    _$_talentosObservableAtom.reportRead();
+    return super._talentosObservable;
   }
 
   @override
-  set _profileObservable(Usuario value) {
-    _$_profileObservableAtom.reportWrite(value, super._profileObservable, () {
-      super._profileObservable = value;
+  set _talentosObservable(ObservableList<Profile> value) {
+    _$_talentosObservableAtom.reportWrite(value, super._talentosObservable, () {
+      super._talentosObservable = value;
     });
   }
 
-  final _$_profileFutureAtom = Atom(name: '_SearchStore._profileFuture');
+  final _$_searchFutureAtom = Atom(name: '_SearchStore._searchFuture');
 
   @override
-  ObservableFuture<Usuario> get _profileFuture {
-    _$_profileFutureAtom.reportRead();
-    return super._profileFuture;
+  ObservableFuture<List<dynamic>> get _searchFuture {
+    _$_searchFutureAtom.reportRead();
+    return super._searchFuture;
   }
 
   @override
-  set _profileFuture(ObservableFuture<Usuario> value) {
-    _$_profileFutureAtom.reportWrite(value, super._profileFuture, () {
-      super._profileFuture = value;
+  set _searchFuture(ObservableFuture<List<dynamic>> value) {
+    _$_searchFutureAtom.reportWrite(value, super._searchFuture, () {
+      super._searchFuture = value;
     });
   }
 
-  final _$_profilesFutureAtom = Atom(name: '_SearchStore._profilesFuture');
+  final _$getTalentosAsyncAction = AsyncAction('_SearchStore.getTalentos');
 
   @override
-  ObservableFuture<List<Usuario>> get _profilesFuture {
-    _$_profilesFutureAtom.reportRead();
-    return super._profilesFuture;
+  Future<void> getTalentos(Search data) {
+    return _$getTalentosAsyncAction.run(() => super.getTalentos(data));
   }
 
-  @override
-  set _profilesFuture(ObservableFuture<List<Usuario>> value) {
-    _$_profilesFutureAtom.reportWrite(value, super._profilesFuture, () {
-      super._profilesFuture = value;
-    });
-  }
-
-  final _$seedAsyncAction = AsyncAction('_SearchStore.seed');
+  final _$getTimesAsyncAction = AsyncAction('_SearchStore.getTimes');
 
   @override
-  Future<void> seed() {
-    return _$seedAsyncAction.run(() => super.seed());
-  }
-
-  final _$loadProfileAsyncAction = AsyncAction('_SearchStore.loadProfile');
-
-  @override
-  Future<void> loadProfile(int id) {
-    return _$loadProfileAsyncAction.run(() => super.loadProfile(id));
+  Future<void> getTimes(Search data) {
+    return _$getTimesAsyncAction.run(() => super.getTimes(data));
   }
 
   @override
   String toString() {
     return '''
-usuarios: ${usuarios},
-usuario: ${usuario},
+talentos: ${talentos},
+times: ${times},
 searchState: ${searchState}
     ''';
   }

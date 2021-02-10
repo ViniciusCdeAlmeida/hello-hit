@@ -16,6 +16,13 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
       (_$autenticacaoComputed ??= Computed<Usuario>(() => super.autenticacao,
               name: '_AutenticacaoStore.autenticacao'))
           .value;
+  Computed<List<Categoria>> _$categoriasComputed;
+
+  @override
+  List<Categoria> get categorias => (_$categoriasComputed ??=
+          Computed<List<Categoria>>(() => super.categorias,
+              name: '_AutenticacaoStore.categorias'))
+      .value;
   Computed<bool> _$autenticandoComputed;
 
   @override
@@ -62,6 +69,39 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
     });
   }
 
+  final _$_categoriaFutureAtom =
+      Atom(name: '_AutenticacaoStore._categoriaFuture');
+
+  @override
+  ObservableFuture<List<Categoria>> get _categoriaFuture {
+    _$_categoriaFutureAtom.reportRead();
+    return super._categoriaFuture;
+  }
+
+  @override
+  set _categoriaFuture(ObservableFuture<List<Categoria>> value) {
+    _$_categoriaFutureAtom.reportWrite(value, super._categoriaFuture, () {
+      super._categoriaFuture = value;
+    });
+  }
+
+  final _$_categoriaObservableAtom =
+      Atom(name: '_AutenticacaoStore._categoriaObservable');
+
+  @override
+  ObservableList<Categoria> get _categoriaObservable {
+    _$_categoriaObservableAtom.reportRead();
+    return super._categoriaObservable;
+  }
+
+  @override
+  set _categoriaObservable(ObservableList<Categoria> value) {
+    _$_categoriaObservableAtom.reportWrite(value, super._categoriaObservable,
+        () {
+      super._categoriaObservable = value;
+    });
+  }
+
   final _$_autenticandoAtom = Atom(name: '_AutenticacaoStore._autenticando');
 
   @override
@@ -90,6 +130,7 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
   String toString() {
     return '''
 autenticacao: ${autenticacao},
+categorias: ${categorias},
 autenticando: ${autenticando},
 autenticacaoState: ${autenticacaoState}
     ''';

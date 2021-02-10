@@ -39,103 +39,40 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.grey[300],
-          iconSize: 35,
-          selectedItemColor: Color(0xffF26525),
-          type: BottomNavigationBarType.fixed,
-          showUnselectedLabels: true,
-          selectedLabelStyle: TextStyle(
-            color: Color(0xffF26525),
-            fontSize: 14,
-          ),
-          unselectedLabelStyle: TextStyle(
-            color: Color(0xffF26525),
-            fontSize: 14,
-          ),
-          items: [
-            BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage(
-                    'assets/images/perfil_assets/Barra_fixa_newsfeed.png'),
-                color: Color(0xffF26525),
-                // size: 20,
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage('assets/images/perfil_assets/Barra_fixa_teams.png'),
-                color: Color(0xffF26525),
-                // size: 20,
-              ),
-              label: 'Team',
-            ),
-            BottomNavigationBarItem(
-              icon: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
-                  ),
-                ),
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage('assets/images/perfil_assets/Barra_fixa_jobs.png'),
-                color: Color(0xffF26525),
-                // size: 20,
-              ),
-              label: 'Recruit',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(
-                AssetImage('assets/images/perfil_assets/Barra_fixa_perfil.png'),
-                color: Color(0xffF26525),
-                // size: 20,
-              ),
-              label: 'Profile',
-            ),
-          ],
-          onTap: (index) {
-            switch (index) {
-              case 0:
-                Navigator.of(context).pushNamed(FeedScreen.routeName);
-                break;
-              case 1:
-                Navigator.of(context).pushNamed(TimeScreen.routeName);
-                break;
-              case 2:
-                Navigator.of(context).pushNamed(PostagemCameraScreen.routeName);
-                break;
-              case 3:
-                Navigator.of(context).pushNamed(MarketPlaceScreen.routeName);
-                break;
-              case 4:
-                _usuario.userType == 'TEAM'
-                    ? Navigator.of(context).pushNamed(
-                        ProfileTimeScreen.routeName,
-                        arguments: _usuario.id)
-                    : Navigator.of(context).pushNamed(
-                        ProfileUsuarioScreen.routeName,
-                        arguments: _usuario.id,
-                      );
-                break;
-            }
-          },
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey[300],
+        iconSize: 35,
+        selectedItemColor: Color(0xffF26525),
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        selectedLabelStyle: TextStyle(
+          color: Color(0xffF26525),
+          fontSize: 14,
         ),
-        backgroundColor: Colors.grey[100],
-        drawer: CustomDrawer(usuario: _usuario),
-        appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(right: 45.0),
-            child: Container(
+        unselectedLabelStyle: TextStyle(
+          color: Color(0xffF26525),
+          fontSize: 14,
+        ),
+        items: [
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/perfil_assets/Barra_fixa_newsfeed.png'),
+              color: Color(0xffF26525),
+              // size: 20,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/perfil_assets/Barra_fixa_teams.png'),
+              color: Color(0xffF26525),
+              // size: 20,
+            ),
+            label: 'Team',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
               height: 40,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -144,112 +81,113 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
               ),
             ),
+            label: '',
           ),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: ImageIcon(
-                  AssetImage('assets/images/perfil_post_assets/Icon_menu.png'),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
-          ),
-          elevation: 0,
-          backgroundColor: Color(0xffF26525),
-          bottom: TabBar(
-            labelPadding: EdgeInsets.symmetric(horizontal: 30),
-            isScrollable: true,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-              color: Colors.orange[700],
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/perfil_assets/Barra_fixa_jobs.png'),
+              color: Color(0xffF26525),
+              // size: 20,
             ),
-            tabs: [
-              Tab(
-                child: Text(
-                  'All',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    color: Colors.white,
-                  ),
+            label: 'Recruit',
+          ),
+          BottomNavigationBarItem(
+            icon: ImageIcon(
+              AssetImage('assets/images/perfil_assets/Barra_fixa_perfil.png'),
+              color: Color(0xffF26525),
+              // size: 20,
+            ),
+            label: 'Profile',
+          ),
+        ],
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.of(context).pushNamed(FeedScreen.routeName);
+              break;
+            case 1:
+              Navigator.of(context).pushNamed(TimeScreen.routeName);
+              break;
+            case 2:
+              Navigator.of(context).pushNamed(PostagemCameraScreen.routeName);
+              break;
+            case 3:
+              Navigator.of(context).pushNamed(MarketPlaceScreen.routeName);
+              break;
+            case 4:
+              _usuario.userType == 'TEAM'
+                  ? Navigator.of(context).pushNamed(ProfileTimeScreen.routeName,
+                      arguments: _usuario.id)
+                  : Navigator.of(context).pushNamed(
+                      ProfileUsuarioScreen.routeName,
+                      arguments: _usuario.id);
+              break;
+          }
+        },
+      ),
+      backgroundColor: Colors.grey[100],
+      drawer: CustomDrawer(usuario: _usuario),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.grey[100],
+            title: Container(
+              height: 60,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/logos/logo_hello.png'),
                 ),
               ),
-              // Tab(
-              //   child: Text(
-              //     'Polular',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 13,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              // Tab(
-              //   child: Text(
-              //     'Talents',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 13,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              // Tab(
-              //   child: Text(
-              //     'Teams',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 13,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              // Tab(
-              //   child: Text(
-              //     'Fans',
-              //     style: TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 13,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-              Tab(
-                child: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed(ProfileProcuraScreen.routeName),
-                ),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => Navigator.of(context)
+                    .pushNamed(ProfileProcuraScreen.routeName),
               ),
             ],
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: ImageIcon(
+                    AssetImage(
+                        'assets/images/perfil_post_assets/Icon_menu.png'),
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                );
+              },
+            ),
+            elevation: 0,
           ),
-        ),
-        body: TabBarView(
-          children: [
+          SliverList(
+              delegate: SliverChildListDelegate([
             Observer(
               // ignore: missing_return
               builder: (_) {
                 switch (_feedStore.feedState) {
                   case FeedState.inicial:
                   case FeedState.carregando:
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        ),
                       ),
                     );
                   case FeedState.carregado:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         itemCount: _feedStore.feed.length,
                         itemBuilder: (_, idx) => Column(
                           children: [
@@ -267,121 +205,8 @@ class _FeedScreenState extends State<FeedScreen> {
                 }
               },
             ),
-            // Observer(
-            //   // ignore: missing_return
-            //   builder: (_) {
-            //     switch (_feedStore.feedState) {
-            //       case FeedState.inicial:
-            //       case FeedState.carregando:
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             backgroundColor: Colors.white,
-            //           ),
-            //         );
-            //       case FeedState.carregado:
-            //         return Padding(
-            //           padding: const EdgeInsets.all(8.0),
-            //           child: ListView.builder(
-            //             itemCount: _feedStore.feed.length,
-            //             itemBuilder: (_, idx) => Column(
-            //               children: [
-            //                 PostCard(
-            //                   post: _feedStore.feed[idx],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         );
-            //     }
-            //   },
-            // ),
-            // Observer(
-            //   // ignore: missing_return
-            //   builder: (_) {
-            //     switch (_feedStore.feedState) {
-            //       case FeedState.inicial:
-            //       case FeedState.carregando:
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             backgroundColor: Colors.white,
-            //           ),
-            //         );
-            //       case FeedState.carregado:
-            //         return Padding(
-            //           padding: const EdgeInsets.all(8.0),
-            //           child: ListView.builder(
-            //             itemCount: _feedStore.feed.length,
-            //             itemBuilder: (_, idx) => Column(
-            //               children: [
-            //                 PostCard(
-            //                   post: _feedStore.feed[idx],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         );
-            //     }
-            //   },
-            // ),
-            // Observer(
-            //   // ignore: missing_return
-            //   builder: (_) {
-            //     switch (_feedStore.feedState) {
-            //       case FeedState.inicial:
-            //       case FeedState.carregando:
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             backgroundColor: Colors.white,
-            //           ),
-            //         );
-            //       case FeedState.carregado:
-            //         return Padding(
-            //           padding: const EdgeInsets.all(8.0),
-            //           child: ListView.builder(
-            //             itemCount: _feedStore.feed.length,
-            //             itemBuilder: (_, idx) => Column(
-            //               children: [
-            //                 PostCard(
-            //                   post: _feedStore.feed[idx],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         );
-            //     }
-            //   },
-            // ),
-            // Observer(
-            //   // ignore: missing_return
-            //   builder: (_) {
-            //     switch (_feedStore.feedState) {
-            //       case FeedState.inicial:
-            //       case FeedState.carregando:
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             backgroundColor: Colors.white,
-            //           ),
-            //         );
-            //       case FeedState.carregado:
-            //         return Padding(
-            //           padding: const EdgeInsets.all(8.0),
-            //           child: ListView.builder(
-            //             itemCount: _feedStore.feed.length,
-            //             itemBuilder: (_, idx) => Column(
-            //               children: [
-            //                 PostCard(
-            //                   post: _feedStore.feed[idx],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         );
-            //     }
-            //   },
-            // ),
-            Container()
-          ],
-        ),
+          ])),
+        ],
       ),
     );
   }

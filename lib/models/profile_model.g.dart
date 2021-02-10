@@ -9,10 +9,6 @@ part of 'profile_model.dart';
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return Profile(
     id: json['_id'] as String,
-    posts: (json['posts'] as List)
-        ?.map(
-            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     user: json['user'] == null
         ? null
         : Usuario.fromJson(json['user'] as Map<String, dynamic>),
@@ -20,6 +16,8 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Skill.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    experiences: json['experiences'] as List,
+    categories: (json['categories'] as List)?.map((e) => e as String)?.toList(),
     hitsCount: json['hitsCount'] as int,
     hits: (json['hits'] as List)
         ?.map((e) =>
@@ -35,6 +33,8 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     workAvailability: json['workAvailability'] == null
         ? null
         : Work.fromJson(json['workAvailability'] as Map<String, dynamic>),
+    banner: json['banner'] as String,
+    avatar: json['avatar'] as String,
     openOpportunities: (json['openOpportunities'] as List)
         ?.map((e) =>
             e == null ? null : Oportunidade.fromJson(e as Map<String, dynamic>))
@@ -43,11 +43,13 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : HistoricoJob.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    banner: json['banner'] as String,
-    avatar: json['avatar'] as String,
     educations: (json['educations'] as List)
         ?.map((e) =>
             e == null ? null : Educacao.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    posts: (json['posts'] as List)
+        ?.map(
+            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }
@@ -56,6 +58,8 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       '_id': instance.id,
       'user': instance.user,
       'skills': instance.skills,
+      'experiences': instance.experiences,
+      'categories': instance.categories,
       'hitsCount': instance.hitsCount,
       'hits': instance.hits,
       'teams': instance.teams,

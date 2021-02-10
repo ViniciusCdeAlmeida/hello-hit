@@ -131,14 +131,14 @@ class CustomDrawer extends StatelessWidget {
               title: const Text('Bookmarks'),
               onTap: () {},
             ),
-            ListTile(
-              leading: Icon(
-                Icons.list,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Lists'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.list,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Lists'),
+            //   onTap: () {},
+            // ),
             ListTile(
               leading: Icon(
                 Icons.settings,
@@ -208,7 +208,7 @@ class CustomDrawer extends StatelessWidget {
                         color: Colors.grey,
                         fontSize: 12,
                       ),
-                      text: ' Soon',
+                      text: ' Coming soon',
                     ),
                   ],
                 ),

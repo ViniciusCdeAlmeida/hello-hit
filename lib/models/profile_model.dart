@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:hellohit/models/categoria_model.dart';
 import 'package:hellohit/models/educacao_model.dart';
 import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
@@ -16,6 +17,8 @@ class Profile {
   String id;
   Usuario user;
   List<Skill> skills;
+  List experiences;
+  List<String> categories;
   int hitsCount;
   List<Usuario> hits;
   List<Usuario> teams;
@@ -32,9 +35,10 @@ class Profile {
 
   Profile({
     this.id,
-    this.posts,
     this.user,
     this.skills,
+    this.experiences,
+    this.categories,
     this.hitsCount,
     this.hits,
     this.teams,
@@ -42,11 +46,12 @@ class Profile {
     this.bio,
     this.personalWebsite,
     this.workAvailability,
-    this.openOpportunities,
-    this.jobHistory,
     this.banner,
     this.avatar,
+    this.openOpportunities,
+    this.jobHistory,
     this.educations,
+    this.posts,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) =>

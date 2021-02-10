@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/marketplace_store.dart';
-import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
+import 'package:hellohit/providers/stores/time_store.dart';
 import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
+import 'package:hellohit/screens/time/widget/times_item.dart';
 
 class TimeScreen extends StatefulWidget {
   static const routeName = '/timeScreen';
@@ -14,18 +13,17 @@ class TimeScreen extends StatefulWidget {
 }
 
 class _TimeScreenState extends State<TimeScreen> {
-  MarketplaceStore _maketplaceStore;
-  AutenticacaoStore _autenticacaoStore;
+  TimeStore _timeStore;
+
   @override
   void didChangeDependencies() {
-    _maketplaceStore = Provider.of<MarketplaceStore>(context);
-    _maketplaceStore.oportunidadeList();
+    _timeStore = Provider.of<TimeStore>(context);
+    _timeStore.getTeams();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     var deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +78,7 @@ class _TimeScreenState extends State<TimeScreen> {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Get Your Team\'s Work in Front of the right People Whether tha\'s new clients, prospective arts and sports talents candidates, or peers in the industry.',
+                                  'Get Your Team\'s Work in Front of the right People Whether that\'s new clients, prospective arts and sports talents candidates, or peers in the industry.',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 18.0,
@@ -95,12 +93,13 @@ class _TimeScreenState extends State<TimeScreen> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               color: Theme.of(context).primaryColor,
-                              onPressed: () =>
-                                  _autenticacaoStore.autenticacao.userType ==
-                                          'TEAM'
-                                      ? Navigator.of(context).pushNamed(
-                                          TelaExplicacaoTimeScreen.routeName)
-                                      : showAlertDialog(context),
+                              onPressed: () => Navigator.of(context).pushNamed(
+                                  TelaExplicacaoTimeScreen.routeName),
+                              // _autenticacaoStore.autenticacao.userType ==
+                              //         'TEAM'
+                              //     ? Navigator.of(context).pushNamed(
+                              //         TelaExplicacaoTimeScreen.routeName)
+                              //     : showAlertDialog(context),
                               child: Text(
                                 'CREATE TEAM',
                                 style: TextStyle(
@@ -132,14 +131,16 @@ class _TimeScreenState extends State<TimeScreen> {
               Observer(
                 // ignore: missing_return
                 builder: (_) {
-                  switch (_maketplaceStore.marketplaceState) {
-                    case MarketplaceState.inicial:
-                      return Container();
-                    case MarketplaceState.carregando:
+                  switch (_timeStore.timeState) {
+                    case TimeState.inicial:
+                      return Center(
+                        child: Text('No teams yet.'),
+                      );
+                    case TimeState.carregando:
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    case MarketplaceState.carregado:
+                    case TimeState.carregado:
                       return Flexible(
                         fit: FlexFit.loose,
                         child: Padding(
@@ -147,40 +148,38 @@ class _TimeScreenState extends State<TimeScreen> {
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: (_maketplaceStore.present <=
-                                    _maketplaceStore.carreirasOriginal.length)
-                                ? _maketplaceStore.carreiras.length + 1
-                                : _maketplaceStore.carreiras.length,
+                            itemCount: _timeStore.times.length,
                             itemBuilder: (_, idx) {
-                              return (idx == _maketplaceStore.carreiras.length)
-                                  ? Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: deviceSize.width / 3.1),
-                                      child: FlatButton.icon(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        color: Theme.of(context).primaryColor,
-                                        onPressed: () {
-                                          _maketplaceStore.loadMore();
-                                        },
-                                        icon: Icon(Icons.visibility),
-                                        label: const Text(
-                                          'Load more',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Column(
-                                      children: [
-                                        MarketplaceOpportunitiesItem(
-                                          _maketplaceStore.carreiras[idx],
-                                        ),
-                                      ],
-                                    );
+                              // return (idx == _timeStore.times[idx])
+                              //     ? Container(
+                              //         padding: EdgeInsets.symmetric(
+                              //             horizontal: deviceSize.width / 3.1),
+                              //         child: FlatButton.icon(
+                              //           shape: RoundedRectangleBorder(
+                              //             borderRadius:
+                              //                 BorderRadius.circular(8.0),
+                              //           ),
+                              //           color: Theme.of(context).primaryColor,
+                              //           onPressed: () {
+                              //             _timeStore.loadMore();
+                              //           },
+                              //           icon: Icon(Icons.visibility),
+                              //           label: const Text(
+                              //             'Load more',
+                              //             style: TextStyle(
+                              //               color: Colors.white,
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       )
+                              // :
+                              return Column(
+                                children: [
+                                  TimesItem(
+                                    _timeStore.times[idx],
+                                  ),
+                                ],
+                              );
                             },
                           ),
                         ),

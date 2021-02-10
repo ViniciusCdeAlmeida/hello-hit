@@ -5,6 +5,7 @@ import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
+import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -36,17 +37,17 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
       return;
     }
     _formKey.currentState.save();
-    _autenticacaoStore
-        .autenticacaoUsuario(_loginData)
-        .then(
-          (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
-        )
-        .catchError((onError) {
+    _autenticacaoStore.autenticacaoUsuario(_loginData).then(
+      (_) {
+        // _autenticacaoStore.autenticacao;
+        Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName);
+      },
+    ).catchError((onError) {
       showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(onError),
-          content: Text(onError),
+          content: Text('Your connection is not available.'),
           actions: <Widget>[
             FlatButton(
               onPressed: () {

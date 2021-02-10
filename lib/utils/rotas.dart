@@ -3,8 +3,7 @@ import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/autenticacao/email_confirmacao_screen.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
-import 'package:hellohit/screens/chat/chat_screen.dart';
-import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
+import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/full_post/full_post_screen.dart';
 import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
@@ -13,7 +12,6 @@ import 'package:hellohit/screens/marketplace/marketplace_viewall_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
-import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
 import 'package:hellohit/screens/postagem/postagem_screen.dart';
 import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 import 'package:hellohit/screens/profile/profile_membro_screen.dart';
@@ -61,8 +59,6 @@ Map<String, Widget Function(BuildContext)> rotas() {
     FullPostScreen.routeName: (ctx) => FullPostScreen(),
     TagPostScreen.routeName: (ctx) => TagPostScreen(),
     ProfileTimeEdicaoScreen.routeName: (ctx) => ProfileTimeEdicaoScreen(),
-    ChatScreen.routeName: (ctx) => ChatScreen(),
-    ComentarioPostScreen.routeName: (ctx) => ComentarioPostScreen(),
-    PostagemComentarioScreen.routeName: (ctx) => PostagemComentarioScreen()
+    EscolhaCategoriaScreen.routeName: (ctx) => EscolhaCategoriaScreen(),
   };
 }

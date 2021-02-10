@@ -8,8 +8,10 @@ part of 'historicoJob_model.dart';
 
 HistoricoJob _$HistoricoJobFromJson(Map<String, dynamic> json) {
   return HistoricoJob(
-    from: json['from'],
-    to: json['to'],
+    fromMonth: json['fromMonth'] as String,
+    fromYear: json['fromYear'] as String,
+    toMonth: json['toMonth'] as String,
+    toYear: json['toYear'] as String,
     degree: json['degree'] as String,
     role: json['role'] as String,
     company: json['company'] as String,
@@ -18,8 +20,10 @@ HistoricoJob _$HistoricoJobFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$HistoricoJobToJson(HistoricoJob instance) =>
     <String, dynamic>{
-      'from': instance.from,
-      'to': instance.to,
+      'fromMonth': instance.fromMonth,
+      'fromYear': instance.fromYear,
+      'toMonth': instance.toMonth,
+      'toYear': instance.toYear,
       'degree': instance.degree,
       'role': instance.role,
       'company': instance.company,

@@ -59,15 +59,13 @@ abstract class _CadastroStore with Store {
   Future<Cadastro> cadastroUsuario(Cadastro usuario) async {
     _cadastrando = true;
     try {
-      _cadastroController
+      await _cadastroController
           .cadastroUsuario(usuario)
           .then((_) => _cadastrando = false)
           .catchError((error) {
         _cadastrando = false;
         throw error;
       });
-
-      // TODO COLOCAR A MESMA ESTRUTURA DO AUTENTICACAO STORE
     } catch (e) {
       _cadastrando = false;
       throw e;

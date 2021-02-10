@@ -27,6 +27,9 @@ abstract class _ProfileStore with Store {
   File image;
 
   @observable
+  bool saveProfile = false;
+
+  @observable
   String imageAvatar;
 
   @observable
@@ -167,10 +170,6 @@ abstract class _ProfileStore with Store {
         _profileController.getUsuarioProfile(id),
       );
       _profileObservable = await _profileFuture;
-      // _profileObservable = await _profileFuture;
-      // freelance = _profileObservable.freelance;
-      // fulltime = _profileObservable.fullTime;
-      // skills.addAll(_profileObservable.skills);
     } catch (e) {
       throw e;
     }
@@ -178,35 +177,6 @@ abstract class _ProfileStore with Store {
 
   @action
   Future loadTimeProfile(String id) async {
-    try {
-      _profileTimeFuture = ObservableFuture(
-        _profileController.getTimeProfile(id),
-      );
-      _profileTimeObservable = await _profileTimeFuture;
-    } catch (e) {
-      throw e;
-    } finally {
-      // freelance = _profileTimeObservable.freelance;
-      // fulltime = _profileTimeObservable.fullTime;
-      // beSponsored = _profileTimeObservable.beSponsored;
-      skills.addAll(_profileTimeObservable.skills);
-    }
-  }
-
-  @action
-  Future loadUsuarioProfileScreen(String id) async {
-    try {
-      _profileFuture = ObservableFuture(
-        _profileController.getUsuarioProfileScreen(id),
-      );
-      // _profileObservable = await _profileTimeFuture;
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  @action
-  Future loadTimeProfileScreen(String id) async {
     try {
       _profileTimeFuture = ObservableFuture(
         _profileController.getTimeProfile(id),
@@ -223,8 +193,11 @@ abstract class _ProfileStore with Store {
 
   @action
   Future<void> saveUsuarioProfile(Profile profile, String image) async {
+    saveProfile = true;
     try {
-      _profileController.atualizarUsuarioProfile(profile, image);
+      await _profileController
+          .atualizarUsuarioProfile(profile, image)
+          .whenComplete(() => saveProfile = false);
     } catch (e) {
       throw e;
     }
@@ -232,8 +205,11 @@ abstract class _ProfileStore with Store {
 
   @action
   Future<void> saveTimeProfile(ProfileTime profile) async {
+    saveProfile = true;
     try {
-      _profileController.atualizarTimeProfile(profile, imageAvatar);
+      await _profileController
+          .atualizarTimeProfile(profile, imageAvatar)
+          .whenComplete(() => saveProfile = false);
     } catch (e) {
       throw e;
     }

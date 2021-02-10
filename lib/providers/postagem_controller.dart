@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class PostagemController {

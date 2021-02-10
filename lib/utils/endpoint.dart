@@ -5,6 +5,7 @@ import 'package:hellohit/models/comentario_model.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/profile_time_model.dart';
+import 'package:hellohit/models/search_model.dart';
 
 String _token;
 
@@ -14,8 +15,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    //..options.baseUrl = "http://10.0.0.100:3000/"
-    ..options.baseUrl = "http://3.16.49.191:3000/"
+    ..options.baseUrl = "http://192.168.15.7:3000/"
+    // ..options.baseUrl = "http://3.16.49.191:3000/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -27,19 +28,29 @@ class Endpoint {
   static Future postProfileUsuario(dynamic usuario) async =>
       await getConexaoPrefs().post('profiles', data: usuario);
 
-  static Future postAutenticacaoUsuario(Autenticacao usuario) async {
-    return await getConexaoPrefs().post('login', data: usuario);
-  }
+  static Future postAutenticacaoUsuario(Autenticacao usuario) async =>
+      await getConexaoPrefs().post('login', data: usuario);
+
+  static Future getCategorias() async =>
+      await getConexaoPrefs().get('categories');
 
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
   static Future getPosts() async => await getConexaoPrefs().get('posts');
 
-  static Future getComentariosPost(String id) async =>
-      await getConexaoPrefs().get('posts/$id/comments');
+  static Future getTeams() async => await getConexaoPrefs().get('profilesTeam');
+
+  static Future getTimeSearch(Search data) async =>
+      await getConexaoPrefs().post('search', data: data);
+
+  static Future getTalentoSearch(Search data) async =>
+      await getConexaoPrefs().post('search', data: data);
 
   static Future getProfileTime(String id) async =>
       await getConexaoPrefs().get('profilesTeam/user/$id');
+
+  static Future getAllProfileTime() async =>
+      await getConexaoPrefs().get('profilesTeam');
 
   static Future patchHitTime(String id) async =>
       await getConexaoPrefs().get('profilesTeam/hit/$id');
@@ -79,32 +90,12 @@ class Endpoint {
     return await getConexaoPrefs().post('create-subscription', data: dados);
   }
 
-  static Future patchProfileUsuario(Profile profile) async {
-    final dados = {
-      'avatar': profile.avatar,
-      'banner': profile.banner,
-      'bio': profile.bio,
-      'educations': profile.educations,
-      'hits': profile.hits,
-      'hitsCount': profile.hitsCount,
-      '_id': profile.id,
-      'jobHistory': profile.jobHistory,
-      'location': profile.location,
-      'openOpportunities': profile.openOpportunities,
-      'PersonalWebsite': profile.personalWebsite,
-      'experiences': profile.skills,
-      'teams': profile.teams,
-      'user': profile.user,
-      'workAvailability': profile.workAvailability,
-      'skills': [],
-      'categories': []
-    };
-    await getConexaoPrefs().patch('profiles/${profile.id}', data: dados);
-  }
+  static Future patchProfileUsuario(Profile profile) async =>
+      await getConexaoPrefs().patch('profiles/${profile.id}', data: profile);
 
-  static Future patchProfileTime(ProfileTime profile) async {
-    await getConexaoPrefs().patch('profilesTeam/${profile.id}', data: profile);
-  }
+  static Future patchProfileTime(ProfileTime profile) async =>
+      await getConexaoPrefs()
+          .patch('profilesTeam/${profile.id}', data: profile);
 
   static Future getUserById(String id) async =>
       await getConexaoPrefs().get('users/$id');
@@ -113,23 +104,12 @@ class Endpoint {
     FormData formData = FormData.fromMap({
       "location": post.location,
       "text": post.text,
+      "event": post.event,
+      "team": post.team,
       "file": await MultipartFile.fromFile(post.file)
     });
 
     return await getConexaoPrefs().post('posts', data: formData);
-  }
-
-  static Future getPostId(String id) async {
-    await getConexaoPrefs().get('posts/$id');
-  }
-
-  static Future postComentarioPost(String id, Comentario comentario) async {
-    FormData formData = FormData.fromMap(
-      {
-        "body": comentario.text,
-      },
-    );
-    return await getConexaoPrefs().post('posts/$id/comments', data: comentario);
   }
 
   static Future putHitPosts(String id, int hitAtual) async {
@@ -137,13 +117,13 @@ class Endpoint {
     return await getConexaoPrefs().post('posts/$id', data: data);
   }
 
-  static Future makePayment(String pm) async {
-    var data = {
-      "price": "price_1IGkiwAIZbIeL4kbL4Fe4ASc",
-      "paymentMethodId": pm
-    };
+  static Future makePayment(String pm, String priceId) async {
+    var data = {"price": priceId, "paymentMethodId": pm};
     return await getConexaoPrefs().post('/create-subscription', data: data);
   }
+
+  static Future getProdutos() async =>
+      await getConexaoPrefs().get('/list-products');
 
   static Future postComenetarioPost(
           Comentario comentario, String idUsuario) async =>

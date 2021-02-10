@@ -26,7 +26,7 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
     imagem = _autenticacaoStore.autenticacao.avatar;
     if (_profileStore.usuarioTime == null)
-      _profileStore.loadTimeProfileScreen(idArgs);
+      _profileStore.loadTimeProfile(idArgs);
 
     super.didChangeDependencies();
   }
@@ -34,16 +34,6 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.transparent,
-      //   leading: IconButton(
-      //     icon: Icon(
-      //       Icons.arrow_back,
-      //     ),
-      //     onPressed: () => Navigator.pop(context),
-      //   ),
-      // ),
       backgroundColor: Colors.grey[100],
       //ignore: missing_return
       body: Observer(builder: (_) {

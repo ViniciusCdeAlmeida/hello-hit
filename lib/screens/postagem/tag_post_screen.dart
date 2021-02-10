@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/post_model.dart';
@@ -37,35 +38,35 @@ class _TagPostScreenState extends State<TagPostScreen> {
     super.didChangeDependencies();
   }
 
-  List<String> t = ['teste1', 'teste2', 'teste3', 'ABC', 'CBD'];
+  List<String> _suggestions = [];
 
   Future<void> submit() async {
-    try {
-      await _postagemStore
-          .fazerPostagem(_postagem)
-          .then(
-            (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
-          )
-          .catchError((onError) {
-        showDialog<Null>(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: Text('teste'),
-            content: Text(onError),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-                child: Text('OK'),
-              )
-            ],
-          ),
-        );
-      });
-    } catch (error) {
-      throw error;
-    }
+    _postagem.location = _locationController.text;
+    _postagem.event = _eventController.text;
+    _postagem.team = _teamController.text;
+
+    await _postagemStore
+        .fazerPostagem(_postagem)
+        .then(
+          (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
+        )
+        .catchError((onError) {
+      showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('Error'),
+          content: Text('Your connection is not available.'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('OK'),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   @override
@@ -88,19 +89,20 @@ class _TagPostScreenState extends State<TagPostScreen> {
             backgroundColor: Colors.grey[850],
             automaticallyImplyLeading: false,
             leading: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.of(context).pop(),
               child: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
               ),
             ),
+            toolbarHeight: 80,
             title: Padding(
               padding: const EdgeInsets.only(top: 3.0),
               child: Container(
                 child: Column(
                   children: [
                     CircleAvatar(
-                      radius: 15,
+                      radius: 25,
                       backgroundImage: _usuarioLogado.avatar != null
                           ? NetworkImage(_usuarioLogado.avatar)
                           : AssetImage(
@@ -108,13 +110,16 @@ class _TagPostScreenState extends State<TagPostScreen> {
                             ),
                       backgroundColor: Colors.transparent,
                     ),
-                    Text(
-                      _usuarioLogado.full_name,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        _usuarioLogado.full_name,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -157,36 +162,6 @@ class _TagPostScreenState extends State<TagPostScreen> {
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
                           children: [
-                            // TypeAheadField(
-                            //   textFieldConfiguration: TextFieldConfiguration(
-                            //     autofocus: false,
-                            //     style: DefaultTextStyle.of(context)
-                            //         .style
-                            //         .copyWith(fontStyle: FontStyle.italic),
-                            //     decoration: InputDecoration(
-                            //       hintText: 'Team',
-                            //       hintStyle: TextStyle(
-                            //         fontSize: 12,
-                            //         color: Colors.white.withAlpha(100),
-                            //       ),
-                            //       border: InputBorder.none,
-                            //       isDense: true,
-                            //       contentPadding:
-                            //           const EdgeInsets.symmetric(vertical: 2),
-                            //       counterText: '',
-                            //     ),
-                            //   ),
-                            //   suggestionsCallback: (value) {
-                            //     return t;
-                            //   },
-                            //   itemBuilder: (context, suggestion) {
-                            //     return ListTile(
-                            //       leading: Icon(Icons.shopping_cart),
-                            //       title: Text(suggestion),
-                            //     );
-                            //   },
-                            //   onSuggestionSelected: (suggestion) {},
-                            // ),
                             Align(
                               alignment: Alignment.bottomLeft,
                               child: Text(
@@ -217,7 +192,7 @@ class _TagPostScreenState extends State<TagPostScreen> {
                                 counterText: '',
                               ),
                               controller: _teamController,
-                              suggestions: t,
+                              suggestions: _suggestions,
                               textChanged: (text) => currentText = text,
                               clearOnSubmit: false,
                               submitOnSuggestionTap: true,
@@ -326,28 +301,41 @@ class _TagPostScreenState extends State<TagPostScreen> {
                             //     color: Colors.white,
                             //   ),
                             // ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  RaisedButton(
-                                    child: const Text(
-                                      'Post',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                            // ignore: missing_return
+                            Observer(builder: (_) {
+                              switch (_postagemStore.postagemState) {
+                                case PostagemState.carregando:
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                case PostagemState.carregado:
+                                case PostagemState.inicial:
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        RaisedButton(
+                                          child: const Text(
+                                            'Post',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          textColor: Colors.black,
+                                          onPressed: submit,
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    textColor: Colors.black,
-                                    onPressed: submit,
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  );
+                              }
+                            })
                           ],
                         ),
                       ),

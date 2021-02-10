@@ -4,14 +4,18 @@ part 'historicoJob_model.g.dart';
 
 @JsonSerializable()
 class HistoricoJob {
-  dynamic from;
-  dynamic to;
+  String fromMonth;
+  String fromYear;
+  String toMonth;
+  String toYear;
   String degree;
   String role;
   String company;
   HistoricoJob({
-    this.from,
-    this.to,
+    this.fromMonth,
+    this.fromYear,
+    this.toMonth,
+    this.toYear,
     this.degree,
     this.role,
     this.company,

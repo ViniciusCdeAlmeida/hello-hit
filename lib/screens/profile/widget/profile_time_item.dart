@@ -24,15 +24,23 @@ class ProfileTimeItem extends StatefulWidget {
   _ProfileTimeItemState createState() => _ProfileTimeItemState();
 }
 
-class _ProfileTimeItemState extends State<ProfileTimeItem> {
+class _ProfileTimeItemState extends State<ProfileTimeItem>
+    with SingleTickerProviderStateMixin {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
+  TabController _tabController;
   @override
   void didChangeDependencies() {
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    super.initState();
   }
 
   @override
@@ -267,7 +275,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> {
                 ),
                 Divider(
                   thickness: 1,
-                  color: Colors.grey,
+                  color: Colors.grey[300],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -285,7 +293,6 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> {
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -326,7 +333,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> {
             ),
           Divider(
             thickness: 1,
-            color: Colors.grey,
+            color: Colors.grey[300],
           ),
           //MEMBROS
           Padding(
@@ -385,7 +392,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> {
             ),
           Divider(
             thickness: 1,
-            color: Colors.grey,
+            color: Colors.grey[300],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -424,28 +431,73 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> {
             ),
           Divider(
             thickness: 1,
-            color: Colors.grey,
+            color: Colors.grey[300],
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-              left: 8.0,
-              right: 8.0,
-            ),
-            child: Row(
-              children: [
-                Text('PROFILE POSTS'),
+          TabBar(
+            controller: _tabController,
+            tabs: [
+              // Tab(
+              //   icon: const Icon(Icons.apps),
+              // ),
+              Tab(
+                icon: const Icon(Icons.format_list_bulleted),
+              ),
+              Tab(
+                icon: const Icon(Icons.place),
+              ),
+              Tab(
+                icon: const Icon(Icons.person_pin_circle_outlined),
+              ),
+            ],
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                // GridView.custom(
+                //   padding: const EdgeInsets.all(10),
+                //   shrinkWrap: true,
+                //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                //     crossAxisCount: 2,
+                //     crossAxisSpacing: 15,
+                //     childAspectRatio: (3.3 / 2),
+                //     mainAxisSpacing: 10,
+                //   ),
+                //   childrenDelegate: SliverChildListDelegate(
+                // widget.usuario.usuarios
+                //     .map((usuario) => UsuarioParente(imagem: usuario.imagem))
+                //     .toList(),
+                //       ),
+                // ),
+                // Card(
+                //   child: ListTile(
+                //     leading: const Icon(Icons.home),
+                //     title: TextField(
+                //       decoration: const InputDecoration(
+                //           hintText: 'Search for address...'),
+                //     ),
+                //   ),
+                // ),
+
+                Container(
+                  child: Center(
+                    child: Text('No hit posts'),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Text('No hit posts'),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Text('No users'),
+                  ),
+                ),
               ],
             ),
           ),
-          // ListView.builder(
-          //   shrinkWrap: true,
-          //   physics: NeverScrollableScrollPhysics(),
-          //   itemBuilder: (_, idx) {
-          //     return PostCard(post: usuario.posts[idx]);
-          //   },
-          //   itemCount: usuario.posts.length,
-          // ),
         ],
       ),
     );

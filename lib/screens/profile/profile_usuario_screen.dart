@@ -46,6 +46,20 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
                   child: CustomScrollView(
                     shrinkWrap: true,
                     slivers: <Widget>[
+                      SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        leading: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        floating: false,
+                        centerTitle: true,
+                        title: Text(_profileStore.usuario.user.full_name),
+                      ),
                       SliverList(
                         delegate: SliverChildListDelegate([
                           ProfileUsuarioItem(_profileStore.usuario),
