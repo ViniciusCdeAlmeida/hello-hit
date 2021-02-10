@@ -1,3 +1,6 @@
+import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/models/profile_time_model.dart';
+import 'package:hellohit/models/search_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:hellohit/models/usuario_model.dart';
@@ -20,93 +23,61 @@ abstract class _SearchStore with Store {
   );
 
   @observable
-  ObservableList<Usuario> _profilesObservable = ObservableList<Usuario>();
+  ObservableList<ProfileTime> _timesObservable = ObservableList<ProfileTime>();
 
   @observable
-  Usuario _profileObservable;
+  ObservableList<Profile> _talentosObservable = ObservableList<Profile>();
 
   @observable
-  ObservableFuture<Usuario> _profileFuture;
+  ObservableFuture<List> _searchFuture;
 
-  @observable
-  ObservableFuture<List<Usuario>> _profilesFuture;
+  // @observable
+  // ObservableFuture<List<ProfileTime>> _timesFuture;
 
   @computed
-  List<Usuario> get usuarios {
-    return [..._profilesObservable];
+  List<Profile> get talentos {
+    return [..._talentosObservable];
   }
 
   @computed
-  Usuario get usuario {
-    return _profileObservable;
+  List<ProfileTime> get times {
+    return [..._timesObservable];
   }
 
   @computed
   // ignore: missing_return
   SearchState get searchState {
-    if ((_profilesFuture == null ||
-        _profilesFuture.status == FutureStatus.rejected)) {
+    if ((_searchFuture == null ||
+        _searchFuture.status == FutureStatus.rejected)) {
       return SearchState.inicial;
     }
 
-    if (_profilesFuture.status == FutureStatus.pending) {
+    if (_searchFuture.status == FutureStatus.pending) {
       return SearchState.carregando;
     }
 
-    if (_profilesFuture.status == FutureStatus.fulfilled)
+    if (_searchFuture.status == FutureStatus.fulfilled)
       return SearchState.carregado;
   }
 
   @action
-  Future<void> seed() async {
-    // try {
-    //   _profilesFuture = ObservableFuture(
-    //     _profileController.seed(),
-    //   );
-    //   _profilesObservable = (await _profilesFuture).asObservable();
-    // } catch (e) {
-    //   throw e;
-    // }
-  }
-
-  List<Usuario> loadUsers(List id) {
-    // List<Usuario> temp = [];
-    // id.forEach((idUsuario) {
-    //   // var idTemp = int.parse(idUsuario);
-    //   temp.addAll(_profilesObservable
-    //       .where((element) => element.id.toString() == idUsuario.toString())
-    //       .toList());
-    // });
-    // return temp;
+  Future<void> getTalentos(Search data) async {
+    try {
+      _searchFuture =
+          ObservableFuture(_searchController.getTalentoSearch(data));
+      _talentosObservable = (await _searchFuture).asObservable();
+    } catch (e) {
+      throw e;
+    }
   }
 
   @action
-  Future<void> loadProfile(int id) async {
-    // try {
-    //   List<Post> postTemp;
-    //   _postStore.seed().whenComplete(() {
-    //     postTemp = _postStore.loadUserPosts(id);
-    //     _profileObservable =
-    //         _profilesObservable.firstWhere((element) => element.id == id);
-    //     _profileObservable.posts = postTemp;
-    //     _profileObservable.usuarios = loadUsers(_profileObservable.idUsuarios);
-    //     _marketplaceStore.carreirasOriginal;
-    //     _profileObservable.oportunidades = [];
-    //     _marketplaceStore.seed().whenComplete(
-    //           () => _profileObservable.idOportunidades.forEach((id) {
-    //             List<Oportunidade> oportunidadeTemp = [];
-
-    //             oportunidadeTemp = _marketplaceStore.loadUserCarreiras();
-    //             _profileObservable.oportunidades.addAll(
-    //               oportunidadeTemp
-    //                   .where((carreira) => carreira.id == id)
-    //                   .toList(),
-    //             );
-    //           }),
-    //         );
-    //   });
-    // } catch (e) {
-    //   throw e;
-    // }
+  Future<void> getTimes(Search data) async {
+    try {
+      _searchFuture = ObservableFuture(_searchController.getTimeSearch(data));
+      _timesObservable = (await _searchFuture).asObservable();
+    } catch (e) {
+      throw e;
+    }
   }
 }

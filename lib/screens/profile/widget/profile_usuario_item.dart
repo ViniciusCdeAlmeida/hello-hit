@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
-import 'package:hellohit/screens/chat/chat_screen.dart';
-import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
@@ -22,6 +21,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
     with SingleTickerProviderStateMixin {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
+  TabController _tabController;
   @override
   void didChangeDependencies() {
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
@@ -29,8 +29,6 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
 
     super.didChangeDependencies();
   }
-
-  TabController _tabController;
 
   @override
   void initState() {
@@ -103,30 +101,29 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconRow(
-              texto: widget.usuario.hitsCount.toString(),
+              texto: widget.usuario.hitsCount == null
+                  ? '0'
+                  : widget.usuario.hitsCount.toString(),
               icon: Icons.star,
               width: 60,
               height: 60,
               titulo: 'Hits',
             ),
+            IconRow(
+              icon: Icons.question_answer,
+              width: 38,
+              height: 38,
+              titulo: 'Inbox',
+            ),
             GestureDetector(
-              onTap: () => Navigator.of(context).popAndPushNamed(
-                ChatScreen.routeName,
-                arguments: _autenticacaoStore.autenticacao.id,
-              ),
+              onTap: () {},
               child: IconRow(
-                icon: Icons.question_answer,
+                icon: Icons.plus_one,
                 width: 38,
                 height: 38,
-                titulo: 'Inbox',
+                titulo: 'Insert in your team',
               ),
             ),
-            // IconRow(
-            //   icon: Icons.emoji_events,
-            //   width: 38,
-            //   height: 38,
-            //   titulo: 'Ranking',
-            // ),
             InkWell(
               onTap: () {},
               child: IconRow(
@@ -150,7 +147,10 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: FlatButton(
             color: Colors.orange[700],
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).popAndPushNamed(
+              ProfileUsuarioEdicaoScreen.routeName,
+              arguments: _autenticacaoStore.autenticacao.id,
+            ),
             child: Text(
               'Edit Profile',
               style: TextStyle(
@@ -202,7 +202,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
           ),
         Divider(
           thickness: 1,
-          color: Colors.grey,
+          color: Colors.grey[300],
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -240,7 +240,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
         ),
         Divider(
           thickness: 1,
-          color: Colors.grey,
+          color: Colors.grey[300],
         ),
         TabBar(
           controller: _tabController,
@@ -288,30 +288,20 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               //     ),
               //   ),
               // ),
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.home),
-                  title: TextField(
-                    decoration: const InputDecoration(
-                        hintText: 'Search for address...'),
-                  ),
+
+              Container(
+                child: Center(
+                  child: Text('No hit posts'),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.home),
-                  title: TextField(
-                    decoration: const InputDecoration(
-                        hintText: 'Search for address...'),
-                  ),
+              Container(
+                child: Center(
+                  child: Text('No hit posts'),
                 ),
               ),
-              Card(
-                child: ListTile(
-                  leading: const Icon(Icons.location_on),
-                  title: Text('Latitude: 48.09342\nLongitude: 11.23403'),
-                  trailing: IconButton(
-                      icon: const Icon(Icons.my_location), onPressed: () {}),
+              Container(
+                child: Center(
+                  child: Text('No users'),
                 ),
               ),
             ],

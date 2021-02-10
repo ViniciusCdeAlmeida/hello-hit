@@ -1,7 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
+import 'package:hellohit/models/produtos_pagamento_model.dart';
+import 'package:hellohit/providers/stores/pagamento_store.dart';
 import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TelaExplicacaoTimeScreen extends StatefulWidget {
   static const routeName = '/telaExplicacaoTimeScreen';
@@ -11,20 +17,43 @@ class TelaExplicacaoTimeScreen extends StatefulWidget {
 }
 
 class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
-  List _valorTeams = [
-    {"preco": "12", "quantidade": "3"},
-    {"preco": "22.90", "quantidade": "10"},
-    {"preco": "41.50", "quantidade": "25"},
-    {"preco": "67.80", "quantidade": "50"},
-    {"preco": "133.80", "quantidade": "100"},
-    {"preco": "357", "quantidade": "200"},
-    {"preco": "1099", "quantidade": "+400"},
-  ];
+  List<ProdutosPagamento> _produtos;
   int idx = 0;
+  PagamentoStore _pagamentoStore;
+
+  final oCcy = NumberFormat("#,##", "en_US");
+
+  @override
+  void didChangeDependencies() {
+    _pagamentoStore = Provider.of<PagamentoStore>(context, listen: false);
+    if (_pagamentoStore.produtos.isEmpty) _pagamentoStore.getProdutos();
+    super.didChangeDependencies();
+  }
+
+  Future pagar(String pm) async {
+    _pagamentoStore.makePagamentoTime(pm).catchError((onError) {
+      showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('onError'),
+          content: Text('Your connection is not available.'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('OK'),
+            )
+          ],
+        ),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: missing_return
       body: Padding(
         padding: const EdgeInsets.only(
           top: 40.0,
@@ -306,134 +335,149 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                   ),
                 ),
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      4,
-                    ),
-                  ),
-                  side: BorderSide(width: 1, color: Colors.grey[300]),
-                ),
-                elevation: 3,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.2,
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+              // ignore: missing_return
+              Observer(builder: (_) {
+                switch (_pagamentoStore.pagamentoState) {
+                  case PagamentoState.inicial:
+                  case PagamentoState.carregando:
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                    break;
+                  case PagamentoState.carregado:
+                    _produtos = _pagamentoStore.produtosProTalento;
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            4,
+                          ),
+                        ),
+                        side: BorderSide(width: 1, color: Colors.grey[300]),
+                      ),
+                      elevation: 3,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RichText(
-                                  text: TextSpan(
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      TextSpan(
-                                        text: '\$',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 56,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: '${_valorTeams[idx]["preco"]}',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                          fontSize: 56,
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '\$',
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 56,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  '${oCcy.format(_produtos[0].prices[idx].amount)}',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                                fontSize: 56,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Per Month',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Per Month',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blue,
+                                          ),
+                                        ),
+                                        Text(
+                                          'BILLED ANNUALY',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.grey,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  Text(
-                                    'BILLED ANNUALY',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      fontSize: 10,
-                                    ),
-                                  ),
+                                  )
                                 ],
                               ),
-                            )
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Container(
+                                width: 300,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4),
+                                  ),
+                                  border: Border.all(
+                                    width: 0.5,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.remove),
+                                      onPressed: _decrementCounter,
+                                    ),
+                                    Text(
+                                      'Up to ${_produtos[0].prices[idx].quantidade} Team Members',
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add),
+                                      onPressed: _incrementCounter,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              width: 300.0,
+                              child: RaisedButton(
+                                onPressed: () =>
+                                    pagar(_produtos[0].prices[idx].id),
+                                color: Colors.blue[400],
+                                child: Text(
+                                  'Create a Team',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Container(
-                          width: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(4),
-                            ),
-                            border: Border.all(
-                              width: 0.5,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.remove),
-                                onPressed: _decrementCounter,
-                              ),
-                              Text(
-                                'Up to ${_valorTeams[idx]["quantidade"]} Team Members',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.add),
-                                onPressed: _incrementCounter,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(8.0),
-                        width: 300.0,
-                        child: RaisedButton(
-                          onPressed: () => Navigator.of(context).pushNamed(
-                              TelaPagamentoTimeScreen.routeName,
-                              arguments: _valorTeams[idx]),
-                          color: Colors.blue[400],
-                          child: Text(
-                            'Create a Team',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    );
+                }
+              }),
             ],
           ),
         ),
@@ -443,13 +487,13 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
 
   void _incrementCounter() {
     setState(() {
-      idx = (idx + 1) % _valorTeams.length;
+      idx = (idx + 1) % _produtos[0].prices.length;
     });
   }
 
   void _decrementCounter() {
     setState(() {
-      idx = (idx - 1) % _valorTeams.length;
+      idx = (idx - 1) % _produtos[0].prices.length;
     });
   }
 }

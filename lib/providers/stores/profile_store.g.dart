@@ -52,6 +52,21 @@ mixin _$ProfileStore on _ProfileStore, Store {
     });
   }
 
+  final _$saveProfileAtom = Atom(name: '_ProfileStore.saveProfile');
+
+  @override
+  bool get saveProfile {
+    _$saveProfileAtom.reportRead();
+    return super.saveProfile;
+  }
+
+  @override
+  set saveProfile(bool value) {
+    _$saveProfileAtom.reportWrite(value, super.saveProfile, () {
+      super.saveProfile = value;
+    });
+  }
+
   final _$imageAvatarAtom = Atom(name: '_ProfileStore.imageAvatar');
 
   @override
@@ -238,24 +253,6 @@ mixin _$ProfileStore on _ProfileStore, Store {
     return _$loadTimeProfileAsyncAction.run(() => super.loadTimeProfile(id));
   }
 
-  final _$loadUsuarioProfileScreenAsyncAction =
-      AsyncAction('_ProfileStore.loadUsuarioProfileScreen');
-
-  @override
-  Future<dynamic> loadUsuarioProfileScreen(String id) {
-    return _$loadUsuarioProfileScreenAsyncAction
-        .run(() => super.loadUsuarioProfileScreen(id));
-  }
-
-  final _$loadTimeProfileScreenAsyncAction =
-      AsyncAction('_ProfileStore.loadTimeProfileScreen');
-
-  @override
-  Future<dynamic> loadTimeProfileScreen(String id) {
-    return _$loadTimeProfileScreenAsyncAction
-        .run(() => super.loadTimeProfileScreen(id));
-  }
-
   final _$saveUsuarioProfileAsyncAction =
       AsyncAction('_ProfileStore.saveUsuarioProfile');
 
@@ -369,6 +366,7 @@ mixin _$ProfileStore on _ProfileStore, Store {
   String toString() {
     return '''
 image: ${image},
+saveProfile: ${saveProfile},
 imageAvatar: ${imageAvatar},
 imageCover: ${imageCover},
 imageAvatarCover: ${imageAvatarCover},

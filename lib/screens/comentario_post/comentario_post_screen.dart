@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/comentario_model.dart';
-import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/comentario_post_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';

@@ -1,13 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/categoria_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/screens/feed/feed_screen.dart';
+import 'package:provider/provider.dart';
 
 class EscolhaCategoriaScreen extends StatefulWidget {
+  static const routeName = '/escolhaCategoriaScreen';
   @override
   _EscolhaCategoriaScreenState createState() => _EscolhaCategoriaScreenState();
 }
 
 class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
+  String _currentSelected;
+  List<Categoria> _categories = [];
+
+  AutenticacaoStore _autenticacaoStore;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  Future<void> submit() async {
+    print(_currentSelected);
+    // if (!_formKey.currentState.validate()) {
+    //   return;
+    // }
+    // _formKey.currentState.save();
+    // _autenticacaoStore.autenticacaoUsuario(_loginData).then(
+    //   (_) {
+    //     // _autenticacaoStore.autenticacao;
+    //     Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName);
+    //   },
+    // ).catchError((onError) {
+    //   showDialog<Null>(
+    //     context: context,
+    //     builder: (ctx) => AlertDialog(
+    //       title: Text(onError),
+    //       content: Text('Your connection is not available.'),
+    //       actions: <Widget>[
+    //         FlatButton(
+    //           onPressed: () {
+    //             Navigator.of(ctx).pop();
+    //           },
+    //           child: Text('OK'),
+    //         )
+    //       ],
+    //     ),
+    //   );
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _categories = _autenticacaoStore.categorias;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -15,20 +62,76 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
           "Interest Categories",
           style: TextStyle(color: Colors.white),
         ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         padding: EdgeInsets.only(top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
           children: [
-            const Text('Search and select the Skills you love'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Text('Search and select the Skills you love'),
+              ],
+            ),
+            Container(
+              height: 100,
+              // width: 100,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50.0,
+                  vertical: 10.0,
+                ),
+                child: FormField(
+                  // onSaved: (value) => _cadastroUsuario.gender = value,
+                  builder: (FormFieldState state) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.deepOrange,
+                            width: 2.0,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.deepOrange,
+                            width: 2.0,
+                          ),
+                        ),
+                        labelStyle: TextStyle(color: Colors.deepOrange),
+                        labelText: 'Categories',
+                        fillColor: Colors.deepOrange,
+                        focusColor: Colors.deepOrange,
+                        hoverColor: Colors.deepOrange,
+                      ),
+                      isEmpty: _currentSelected == '',
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: _currentSelected,
+                          isDense: true,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _currentSelected = newValue;
+                              state.didChange(newValue);
+                            });
+                          },
+                          items: _categories.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value.id,
+                              child: Text(value.name),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -40,14 +143,15 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               GestureDetector(
-                onTap: () {},
+                onTap: () =>
+                    Navigator.of(context).pushNamed(FeedScreen.routeName),
                 child: const Text(
                   'SKIP',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: submit,
                 child: const Text(
                   'DONE',
                   style: TextStyle(color: Colors.white),

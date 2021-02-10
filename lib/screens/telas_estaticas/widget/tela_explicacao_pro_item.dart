@@ -1,7 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/produtos_pagamento_model.dart';
+import 'package:hellohit/providers/stores/pagamento_store.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_pro_item.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TelaExplicacaoProItem extends StatefulWidget {
   static const routeName = '/telaExplicacaoProItem';
@@ -11,7 +16,41 @@ class TelaExplicacaoProItem extends StatefulWidget {
 
 class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
   bool isSwitched = true;
-  String _valor = '57.00';
+  String _valor = '57,00';
+
+  List<ProdutosPagamento> _produtos;
+  int idx = 0;
+  PagamentoStore _pagamentoStore;
+
+  final oCcy = NumberFormat("#,##", "en_US");
+
+  @override
+  void didChangeDependencies() {
+    _pagamentoStore = Provider.of<PagamentoStore>(context, listen: false);
+    if (_pagamentoStore.produtos.isEmpty) _pagamentoStore.getProdutos();
+    super.didChangeDependencies();
+  }
+
+  Future pagar(String pm) async {
+    _pagamentoStore.makePagamentoTalentoPro(pm).catchError((onError) {
+      showDialog<Null>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('onError'),
+          content: Text('Your connection is not available.'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: Text('OK'),
+            )
+          ],
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -251,236 +290,287 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                             ],
                           ),
                         ),
-                        Card(
-                          color: Colors.white,
-                          margin: EdgeInsets.all(20.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    child: Image.asset(
-                                      'assets/images/logos/logo_hello.png',
-                                      fit: BoxFit.cover,
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                    ),
-                                  ),
-                                  // Container(
-                                  //   decoration: const BoxDecoration(
-                                  //     borderRadius: BorderRadius.all(
-                                  //       Radius.circular(10.0),
-                                  //     ),
-                                  //     gradient: LinearGradient(
-                                  //       colors: <Color>[
-                                  //         Color(0xFF0D47A1),
-                                  //         Color(0xFF1976D2),
-                                  //         Color(0xFF42A5F5),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  //   padding: const EdgeInsets.all(12.0),
-                                  //   child: const Text(
-                                  //     'Hire......',
-                                  //     style: TextStyle(
-                                  //       fontSize: 20,
-                                  //       color: Colors.white,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: '\$',
-                                      style: TextStyle(
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: _valor,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontSize: 60,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '\/mo',
-                                      style: TextStyle(
-                                        color: Colors.grey[500],
-                                      ),
-                                    ),
-                                  ],
+                        // ignore: missing_return
+                        Observer(builder: (_) {
+                          switch (_pagamentoStore.pagamentoState) {
+                            case PagamentoState.inicial:
+                            case PagamentoState.carregando:
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                              break;
+                            case PagamentoState.carregado:
+                              _produtos = _pagamentoStore.produtosProTalento;
+                              return Card(
+                                color: Colors.white,
+                                margin: EdgeInsets.all(20.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                child: Column(
                                   children: [
-                                    Text(
-                                      'Billed Monthly',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: !isSwitched
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Switch(
-                                      value: isSwitched,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          value
-                                              ? _valor = '57.00'
-                                              : _valor = '4.90';
-                                          isSwitched = value;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      'Billed Annually',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: isSwitched
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              FadeDivider(),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Upload Shots.',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Give/Receive Comments.',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Work Opportunities',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Set The Rates you Want',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Sell Goods',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Downloads \& Scheduling',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Go Ad Free',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Video',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Advanced Statistics',
-                                corIcon: Colors.black,
-                              ),
-                              BannerRow(
-                                icon: Icons.check,
-                                texto: 'Exclusive Deals',
-                                corIcon: Colors.black,
-                              ),
-                              SizedBox(
-                                height: MediaQuery.of(context).size.height / 20,
-                              ),
-                              FadeDivider(),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Don\'t have an invite? ',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 16),
-                                    ),
-                                    TextSpan(
-                                      text: 'Skip the wait.',
-                                      style: TextStyle(
-                                        color: Colors.grey[500],
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15.0),
-                                child: RaisedButton(
-                                  onPressed: () => Navigator.of(context)
-                                      .pushNamed(
-                                          TelaPagamentoProItem.routeName),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  padding: EdgeInsets.all(0.0),
-                                  child: Ink(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xff374ABE),
-                                          Color(0xff64B6FF)
-                                        ],
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                      ),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                        maxWidth: 300.0,
-                                        minHeight: 50.0,
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Go Pro",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          child: Image.asset(
+                                            'assets/images/logos/logo_hello.png',
+                                            fit: BoxFit.cover,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                3,
+                                          ),
                                         ),
+                                        // Container(
+                                        //   decoration: const BoxDecoration(
+                                        //     borderRadius: BorderRadius.all(
+                                        //       Radius.circular(10.0),
+                                        //     ),
+                                        //     gradient: LinearGradient(
+                                        //       colors: <Color>[
+                                        //         Color(0xFF0D47A1),
+                                        //         Color(0xFF1976D2),
+                                        //         Color(0xFF42A5F5),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        //   padding: const EdgeInsets.all(12.0),
+                                        //   child: const Text(
+                                        //     'Hire......',
+                                        //     style: TextStyle(
+                                        //       fontSize: 20,
+                                        //       color: Colors.white,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                      ],
+                                    ),
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: '\$',
+                                            style: TextStyle(
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: _valor,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              fontSize: 60,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: '\/mo',
+                                            style: TextStyle(
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 20.0, horizontal: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'Billed Monthly',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: !isSwitched
+                                                  ? Colors.black
+                                                  : Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Switch(
+                                            value: isSwitched,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                if (value) {
+                                                  _valor = oCcy.format(
+                                                      _produtos[0]
+                                                          .prices[0]
+                                                          .amount);
+                                                  idx = 0;
+                                                } else {
+                                                  _valor = oCcy.format(
+                                                      _produtos[0]
+                                                          .prices[1]
+                                                          .amount);
+                                                  idx = 1;
+                                                }
+                                                isSwitched = value;
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            'Billed Annually',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              color: isSwitched
+                                                  ? Colors.black
+                                                  : Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    FadeDivider(),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Upload Shots.',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Give/Receive Comments.',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Work Opportunities',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Set The Rates you Want',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Sell Goods',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Downloads \& Scheduling',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Go Ad Free',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Video',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Advanced Statistics',
+                                      corIcon: Colors.black,
+                                    ),
+                                    BannerRow(
+                                      icon: Icons.check,
+                                      texto: 'Exclusive Deals',
+                                      corIcon: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                    ),
+                                    FadeDivider(),
+                                    RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'Don\'t have an invite? ',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16),
+                                          ),
+                                          TextSpan(
+                                            text: 'Skip the wait.',
+                                            style: TextStyle(
+                                              color: Colors.grey[500],
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Observer(
+                                      builder: (_) => _pagamentoStore.pagando
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15.0),
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            )
+                                          : Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 15.0),
+                                              child: RaisedButton(
+                                                onPressed: () => pagar(
+                                                    _produtos[0]
+                                                        .prices[idx]
+                                                        .id),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                padding: EdgeInsets.all(0.0),
+                                                child: Ink(
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        Color(0xff374ABE),
+                                                        Color(0xff64B6FF)
+                                                      ],
+                                                      begin:
+                                                          Alignment.centerLeft,
+                                                      end:
+                                                          Alignment.centerRight,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  child: Container(
+                                                    constraints: BoxConstraints(
+                                                      maxWidth: 300.0,
+                                                      minHeight: 50.0,
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Text(
+                                                      "Go Pro",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
+                              );
+                          }
+                        })
                       ],
                     ),
                   ],

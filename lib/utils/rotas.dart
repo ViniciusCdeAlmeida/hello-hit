@@ -6,6 +6,7 @@ import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
 import 'package:hellohit/screens/conversas/conversas_screen.dart';
+import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 import 'package:hellohit/screens/full_post/full_post_screen.dart';
 import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
@@ -66,5 +67,6 @@ Map<String, Widget Function(BuildContext)> rotas() {
     ComentarioPostScreen.routeName: (ctx) => ComentarioPostScreen(),
     PostagemComentarioScreen.routeName: (ctx) => PostagemComentarioScreen(),
     ConversasScreen.routeName: (ctx) => ConversasScreen(),
+    EscolhaCategoriaScreen.routeName: (ctx) => EscolhaCategoriaScreen(),
   };
 }

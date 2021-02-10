@@ -4,10 +4,13 @@ part 'categoria_model.g.dart';
 
 @JsonSerializable()
 class Categoria {
+  @JsonKey(name: '_id')
+  String id;
   String name;
   String description;
   String imageUrl;
   Categoria({
+    this.id,
     this.name,
     this.description,
     this.imageUrl,

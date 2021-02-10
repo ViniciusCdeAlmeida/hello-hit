@@ -2,10 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/post_store.dart';
-import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
-import 'package:hellohit/screens/full_post/full_post_screen.dart';
+import 'package:hellohit/screens/profile/profile_time_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/widgets/acoes.dart';
 import 'package:hellohit/widgets/popup_menu.dart';
 
@@ -26,10 +24,6 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
-
-  Usuario usuario;
-
-  PostStore _postStore;
 
   void _actionButtons(int id, Acoes acoes) {
     switch (acoes) {
@@ -63,17 +57,25 @@ class _PostCardState extends State<PostCard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 20.0,
-                      backgroundImage: widget.post.user.avatar == null
-                          ? AssetImage(
-                              'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                          : NetworkImage(widget.post.user.avatar['url']
-                              // .toString()
-                              // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                              // .toString()
-                              ),
+                    child: GestureDetector(
+                      onTap: () => widget.post.user.userType == 'TEAM'
+                          ? Navigator.of(context).pushNamed(
+                              ProfileTimeScreen.routeName,
+                              arguments: widget.post.user.id)
+                          : Navigator.of(context).pushNamed(
+                              ProfileUsuarioScreen.routeName,
+                              arguments: widget.post.user.id),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        radius: 20.0,
+                        backgroundImage: widget.post.user.avatar == null
+                            ? AssetImage(
+                                'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                            : NetworkImage(widget.post.user.avatar['url']),
+                        // .toString()
+                        // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                        // .toString()
+                      ),
                     ),
                   ),
                   Column(
@@ -118,20 +120,20 @@ class _PostCardState extends State<PostCard> {
                         offset: Offset(0, 100),
                         itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
                           PopupMenuItem<Acoes>(
-                            child: PopupMenuCustom('Edit Post', Icons.edit),
+                            child: PopupMenuCustom('Edit', Icons.edit),
                             value: Acoes.editarPost,
                           ),
                           const PopupMenuDivider(),
                           PopupMenuItem<Acoes>(
                             child: PopupMenuCustom(
-                                'Remove Post', Icons.highlight_remove),
+                                'Remove', Icons.highlight_remove),
                             value: Acoes.removerPost,
                           ),
-                          const PopupMenuDivider(),
-                          PopupMenuItem<Acoes>(
-                            child: PopupMenuCustom('Report Post', Icons.report),
-                            value: Acoes.denunciarPost,
-                          ),
+                          // const PopupMenuDivider(),
+                          // PopupMenuItem<Acoes>(
+                          //   child: PopupMenuCustom('Report', Icons.report),
+                          //   value: Acoes.denunciarPost,
+                          // ),
                         ],
                       ),
                     ],
@@ -201,18 +203,11 @@ class _PostCardState extends State<PostCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            ComentarioPostScreen.routeName,
-                            arguments: widget.post.id,
-                          );
-                        },
-                        icon: Icon(
-                          Icons.comment,
-                          color: Colors.orange,
-                          size: 30,
-                        ),
+                      child: ImageIcon(
+                        AssetImage(
+                            'assets/images/perfil_assets/comentario_inativo.png'),
+                        color: Colors.grey,
+                        size: 20,
                       ),
                     ),
                     // Padding(

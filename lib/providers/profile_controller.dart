@@ -6,7 +6,8 @@ import 'package:hellohit/utils/endpoint.dart';
 class ProfileController {
   Future<void> atualizarUsuarioProfile(Profile profile, String image) async {
     try {
-      await Endpoint.patchProfileUsuario(profile);
+      await Endpoint.patchProfileUsuario(profile)
+          .timeout(Duration(seconds: 40));
       if (image != null) await Endpoint.putImagem(image);
     } catch (e) {
       throw e;
@@ -25,10 +26,22 @@ class ProfileController {
   Future<ProfileTime> getTimeProfile(String id) async {
     try {
       Response res = await Endpoint.getProfileTime(id);
-      var temp = ProfileTime.fromJson(res.data);
-      temp.user.full_name = res.data['user']['fullName'];
+      var temp = ProfileTime.fromJson(res.data[0]);
+      temp.user.full_name = res.data[0]['user']['fullName'];
       temp.openOpportunities ??= [];
       return temp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List<ProfileTime>> getAllTimeProfile() async {
+    try {
+      Response res = await Endpoint.getAllProfileTime();
+
+      return res.data
+          .map<ProfileTime>((content) => ProfileTime.fromJson(content))
+          .toList() as List<ProfileTime>;
     } catch (e) {
       throw e;
     }
@@ -48,7 +61,7 @@ class ProfileController {
   Future<ProfileTime> getTimeProfileScreen(String id) async {
     try {
       Response resP = await Endpoint.getProfileTime(id);
-      var temp = ProfileTime.fromJson(resP.data);
+      var temp = ProfileTime.fromJson(resP.data[0]);
       temp.user.full_name = resP.data['user']['fullName'];
       temp.openOpportunities ??= [];
       return temp;

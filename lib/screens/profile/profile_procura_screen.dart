@@ -2,7 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/search_model.dart';
+import 'package:hellohit/providers/stores/search_store.dart';
+import 'package:hellohit/screens/profile/widget/profile_talento_search_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_time_search_item.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_talento_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProfileProcuraScreen extends StatefulWidget {
   static const routeName = '/profileProcuraScreen';
@@ -13,6 +18,17 @@ class ProfileProcuraScreen extends StatefulWidget {
 class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
   bool checkboxValue = false;
   int _radioValue = 0;
+
+  SearchStore _searchStore;
+
+  var _procura = Search();
+
+  @override
+  void didChangeDependencies() {
+    _searchStore = Provider.of<SearchStore>(context, listen: false);
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +42,13 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                 color: Colors.white,
               ),
             ),
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.of(context).pop()),
             centerTitle: true,
             floating: true,
             snap: false,
@@ -71,9 +94,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                           border: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        controller: null,
-                        onEditingComplete: null,
-                        onChanged: null,
+                        onChanged: (value) => _procura.skills = value,
                       ),
                     ),
                     Padding(
@@ -109,9 +130,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                           border: InputBorder.none,
                           focusedErrorBorder: InputBorder.none,
                         ),
-                        controller: null,
-                        onEditingComplete: null,
-                        onChanged: null,
+                        onChanged: (value) => _procura.location = value,
                       ),
                     ),
                     Row(
@@ -123,6 +142,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                 groupValue: _radioValue,
                                 onChanged: (value) {
                                   setState(() {
+                                    _procura.teamOrUser = 'TEAM';
                                     _radioValue = value;
                                   });
                                 }),
@@ -136,6 +156,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                 groupValue: _radioValue,
                                 onChanged: (value) {
                                   setState(() {
+                                    _procura.teamOrUser = 'TALENT';
                                     _radioValue = value;
                                   });
                                 }),
@@ -149,6 +170,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                 groupValue: _radioValue,
                                 onChanged: (value) {
                                   setState(() {
+                                    _procura.teamOrUser = 'TEAM';
                                     _radioValue = value;
                                   });
                                 }),
@@ -162,7 +184,12 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       child: Row(
                         children: [
                           RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_procura.teamOrUser == 'TEAM')
+                                _searchStore.getTimes(_procura);
+                              else
+                                _searchStore.getTalentos(_procura);
+                            },
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
@@ -178,7 +205,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () => {},
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
@@ -798,11 +825,64 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                   ),
                 ),
               ),
-              Observer(
-                builder: (_) => Center(
-                  child: Text('Search was not found'),
-                ),
-              )
+              // ignore: missing_return
+              Observer(builder: (_) {
+                switch (_searchStore.searchState) {
+                  case SearchState.inicial:
+                  case SearchState.carregando:
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  case SearchState.carregado:
+                    if (_searchStore.talentos.length == 0 &&
+                        _searchStore.times.length == 0)
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text('Search was not found'),
+                        ),
+                      );
+                    else if (_searchStore.talentos.length != 0)
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: _searchStore.talentos.length,
+                          itemBuilder: (_, idx) => Column(
+                            children: [
+                              Observer(
+                                builder: (_) {
+                                  return ProfileTalentoSearchItem(
+                                    _searchStore.talentos[idx],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    else if (_searchStore.times.length != 0)
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: _searchStore.times.length,
+                          itemBuilder: (_, idx) => Column(
+                            children: [
+                              Observer(
+                                builder: (_) {
+                                  return ProfileTimeSearchItem(
+                                    _searchStore.times[idx],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                }
+              })
             ]),
           ),
         ],

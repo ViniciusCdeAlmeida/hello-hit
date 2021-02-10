@@ -1,4 +1,5 @@
 import 'package:hellohit/models/autenticacao_model.dart';
+import 'package:hellohit/models/categoria_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/autenticacao_controller.dart';
 import 'package:hellohit/utils/endpoint.dart';
@@ -25,11 +26,22 @@ abstract class _AutenticacaoStore with Store {
   Usuario _autenticacao;
 
   @observable
+  ObservableFuture<List<Categoria>> _categoriaFuture;
+
+  @observable
+  ObservableList<Categoria> _categoriaObservable = ObservableList<Categoria>();
+
+  @observable
   bool _autenticando = false;
 
   @computed
   Usuario get autenticacao {
     return _autenticacao;
+  }
+
+  @computed
+  List<Categoria> get categorias {
+    return [..._categoriaObservable];
   }
 
   @computed
@@ -59,9 +71,14 @@ abstract class _AutenticacaoStore with Store {
     try {
       _autenticacaoFuture =
           ObservableFuture(_autenticacaoController.autenticacaoUsuario(dados));
-      _autenticacao =
-          await _autenticacaoFuture.whenComplete(() => _autenticando = false);
+      _autenticacao = await _autenticacaoFuture;
+      _categoriaFuture =
+          ObservableFuture(_autenticacaoController.getCategorias());
+      _categoriaObservable =
+          (await _categoriaFuture.whenComplete(() => _autenticando = false))
+              .asObservable();
     } catch (e) {
+      _autenticando = false;
       throw e;
     }
   }

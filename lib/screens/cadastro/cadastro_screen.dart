@@ -480,7 +480,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               labelText: 'Password',
                               helperMaxLines: 3,
                               helperText:
-                                  'Minimal 7 characters and must contain one letter, one number and one non-alphabetic characters',
+                                  'Minimal 7 characters and must contain one letter, one number and one non-alphabetic characters.',
                               fillColor: Colors.deepOrange,
                               focusColor: Colors.deepOrange,
                               hoverColor: Colors.deepOrange,

@@ -448,15 +448,15 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
   }
 
   Future pagar() async {
-    var paymentResponse = await _stripePayment.addPaymentMethod();
-    setState(() {
-      if (paymentResponse.status == PaymentResponseStatus.succeeded) {
-        _paymentMethodId = paymentResponse.paymentMethodId;
-        _pagamentoController.makeTimePayment(paymentResponse.paymentMethodId);
-      } else {
-        print(paymentResponse.errorMessage);
-      }
-    });
+    // var paymentResponse = await _stripePayment.addPaymentMethod();
+    // setState(() {
+    //   if (paymentResponse.status == PaymentResponseStatus.succeeded) {
+    //     _paymentMethodId = paymentResponse.paymentMethodId;
+    //     _pagamentoController.makeTimePayment(paymentResponse.paymentMethodId);
+    //   } else {
+    //     print(paymentResponse.errorMessage);
+    //   }
+    // });
   }
 }
 
