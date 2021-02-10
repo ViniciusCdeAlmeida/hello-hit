@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/message_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:provider/provider.dart';

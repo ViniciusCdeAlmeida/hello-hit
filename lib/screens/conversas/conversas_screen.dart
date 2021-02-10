@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class ConversasScreen extends StatefulWidget {
@@ -33,18 +34,31 @@ class _ConversasScreenState extends State<ConversasScreen> {
      *    ],
      *    creator: _autenticacaoStore._id
      *  }
-     * 
     */
 
     var conversation = {
       "members": [
-        {"id": _autenticacaoStore.autenticacao.id},
+        {"id": "6022b6eb51f309001d3e8bbe"},
         {"id": "6023e2895df84a001ef4ef68"}
       ],
-      "creator": _autenticacaoStore.autenticacao.id,
+      "creator": '6022b6eb51f309001d3e8bbe',
     };
 
     socket.emit('new_chat', conversation);
+
+    /* [GET] /chats/user <- Lista as conversas do seu usuário (precisa estar autenticado) */
+
+    //socket.emit("new_message" {...messsage}) <- Para enviar mensagens
+
+    //var messa
+
+    /* Redirecionar para a tela de chat */
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatScreen(),
+      ),
+    );
   }
 
   @override
