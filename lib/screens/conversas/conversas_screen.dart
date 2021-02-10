@@ -19,10 +19,12 @@ class _ConversasScreenState extends State<ConversasScreen> {
             icon: Icon(Icons.arrow_back),
             iconSize: 20,
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           title: const Text(
-            'Chat',
+            'Conversas',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -53,8 +55,8 @@ class _ConversasScreenState extends State<ConversasScreen> {
               ),
               child: Column(
                 children: [
-                  ContatosFavoritos(),
-                  ConversasRecentes(),
+                  //ContatosFavoritos(),
+                  //ConversasRecentes(),
                 ],
               ),
             ),

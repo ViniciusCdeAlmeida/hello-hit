@@ -2,6 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/providers/stores/post_store.dart';
+import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
+import 'package:hellohit/screens/full_post/full_post_screen.dart';
 import 'package:hellohit/widgets/acoes.dart';
 import 'package:hellohit/widgets/popup_menu.dart';
 
@@ -22,6 +26,10 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
+
+  Usuario usuario;
+
+  PostStore _postStore;
 
   void _actionButtons(int id, Acoes acoes) {
     switch (acoes) {
@@ -193,11 +201,18 @@ class _PostCardState extends State<PostCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: ImageIcon(
-                        AssetImage(
-                            'assets/images/perfil_assets/comentario_inativo.png'),
-                        color: Colors.grey,
-                        size: 20,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            ComentarioPostScreen.routeName,
+                            arguments: widget.post.id,
+                          );
+                        },
+                        icon: Icon(
+                          Icons.comment,
+                          color: Colors.orange,
+                          size: 30,
+                        ),
                       ),
                     ),
                     // Padding(

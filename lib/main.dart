@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
 
 import 'package:provider/provider.dart';
-
 import 'package:hellohit/screens/splash/base_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 void main() {
+  Socket socket = io(
+      'http://3.16.49.191:3000',
+      OptionBuilder()
+          .setTransports(['websocket']) // for Flutter or Dart VM
+          .disableAutoConnect() // disable auto-connection
+          .setExtraHeaders({'foo': 'bar'}) // optional
+          .build());
+  socket.connect();
+
   // WidgetsFlutterBinding.ensureInitialized();
   // await DotEnv.load(fileName: '.env');
   // openBox();
@@ -35,7 +43,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: EscolhaCategoriaScreen(),
+        home: BaseScreen(),
         routes: rotas(),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PostagemComentarioScreen extends StatefulWidget {
+  static const routeName = '/postagemComentarioScreen';
   @override
   _PostagemComentarioScreenState createState() =>
       _PostagemComentarioScreenState();

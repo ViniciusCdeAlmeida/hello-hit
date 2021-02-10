@@ -14,8 +14,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.7:3000/"
-    // ..options.baseUrl = "http://3.16.49.191:3000/"
+    //..options.baseUrl = "http://192.168.15.7:3000/"
+    ..options.baseUrl = "http://3.16.49.191:3000/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -34,6 +34,9 @@ class Endpoint {
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
   static Future getPosts() async => await getConexaoPrefs().get('posts');
+
+  static Future getComentariosPost(String id) async =>
+      await getConexaoPrefs().get('$id/comments');
 
   static Future getProfileTime(String id) async =>
       await getConexaoPrefs().get('profilesTeam/user/$id');
@@ -114,6 +117,11 @@ class Endpoint {
     });
 
     return await getConexaoPrefs().post('posts', data: formData);
+  }
+
+  static Future postComentarioPost(String id, Comentario comentario) async {
+    FormData formData = FormData.fromMap({"body": comentario.body});
+    return await getConexaoPrefs().post('posts/$id/comments', data: formData);
   }
 
   static Future putHitPosts(String id, int hitAtual) async {

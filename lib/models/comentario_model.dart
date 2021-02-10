@@ -6,7 +6,7 @@ part 'comentario_model.g.dart';
 class Comentario {
   @JsonKey(name: '_id')
   String id;
-  final String body;
+  String body;
 
   Comentario({
     this.id,

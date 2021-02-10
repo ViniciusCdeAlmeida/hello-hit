@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/screens/chat/chat_screen.dart';
+import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
+import 'package:provider/provider.dart';
 
 class ProfileUsuarioItem extends StatefulWidget {
   final Profile usuario;
@@ -15,6 +20,16 @@ class ProfileUsuarioItem extends StatefulWidget {
 
 class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
     with SingleTickerProviderStateMixin {
+  ProfileStore _profileStore;
+  AutenticacaoStore _autenticacaoStore;
+  @override
+  void didChangeDependencies() {
+    _profileStore = Provider.of<ProfileStore>(context, listen: false);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+
+    super.didChangeDependencies();
+  }
+
   TabController _tabController;
 
   @override
@@ -94,11 +109,17 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               height: 60,
               titulo: 'Hits',
             ),
-            IconRow(
-              icon: Icons.question_answer,
-              width: 38,
-              height: 38,
-              titulo: 'Inbox',
+            GestureDetector(
+              onTap: () => Navigator.of(context).popAndPushNamed(
+                ChatScreen.routeName,
+                arguments: _autenticacaoStore.autenticacao.id,
+              ),
+              child: IconRow(
+                icon: Icons.question_answer,
+                width: 38,
+                height: 38,
+                titulo: 'Inbox',
+              ),
             ),
             // IconRow(
             //   icon: Icons.emoji_events,

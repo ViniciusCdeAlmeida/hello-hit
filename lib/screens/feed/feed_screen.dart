@@ -124,7 +124,8 @@ class _FeedScreenState extends State<FeedScreen> {
                         arguments: _usuario.id)
                     : Navigator.of(context).pushNamed(
                         ProfileUsuarioScreen.routeName,
-                        arguments: _usuario.id);
+                        arguments: _usuario.id,
+                      );
                 break;
             }
           },
