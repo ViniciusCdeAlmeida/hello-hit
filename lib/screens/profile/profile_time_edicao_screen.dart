@@ -653,24 +653,24 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                   ],
                                 ),
                                 ..._getAwards(),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 20.0,
-                                    bottom: 10.0,
-                                  ),
-                                  child: Text(
-                                    'Skills',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                      fontSize: 22,
-                                    ),
-                                  ),
-                                ),
-                                Divider(
-                                  color: Colors.grey,
-                                ),
-                                ..._getSkills(),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //     top: 20.0,
+                                //     bottom: 10.0,
+                                //   ),
+                                //   child: Text(
+                                //     'Skills',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       color: Colors.grey,
+                                //       fontSize: 22,
+                                //     ),
+                                //   ),
+                                // ),
+                                // Divider(
+                                //   color: Colors.grey,
+                                // ),
+                                // ..._getSkills(),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     top: 20.0,

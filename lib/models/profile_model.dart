@@ -20,8 +20,10 @@ class Profile {
   List experiences;
   List<String> categories;
   int hitsCount;
-  List<Usuario> hits;
-  List<Usuario> teams;
+  List<String> hits;
+  List<String> teams;
+  List<String> fans;
+  int fansCount;
   String location;
   String bio;
   String personalWebsite;
@@ -42,6 +44,8 @@ class Profile {
     this.hitsCount,
     this.hits,
     this.teams,
+    this.fans,
+    this.fansCount,
     this.location,
     this.bio,
     this.personalWebsite,

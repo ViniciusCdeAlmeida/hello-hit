@@ -125,41 +125,43 @@ abstract class _ProfileStore with Store {
   }
 
   @action
-  void makeHitTime(String id) {
-    _profileTimeObservable.hitCount += 1;
-    // try {
-    //   _profileController
-    //       .patchHitTime(id)
-    //       .then((_) => _profileTimeObservable.hitCount += 1);
-    // } catch (e) {
-    //   throw e;
-    // }
-  }
-
-  @action
-  void makeHitUsuario(String id) {
+  Future<void> makeHitTime(String idUsuario, String idPerfil) async {
     try {
-      _profileController
-          .patchHitUsuario(id)
-          .then((_) => _profileObservable.hitsCount += 1);
+      await _profileController.patchHitTime(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }
   }
 
   @action
-  void makeFanTime(String id) {
+  Future<void> makeHitUsuario(String idUsuario, String idPerfil) async {
     try {
-      _profileController
-          .patchFanTime(id)
-          .then((_) => _profileTimeObservable.fanCount += 1);
+      await _profileController.patchHitUsuario(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }
   }
 
   @action
-  void beSponsor(bool value) {
+  Future<void> makeFanTime(String idUsuario, String idPerfil) async {
+    try {
+      await _profileController.patchFanTime(idUsuario, idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future<void> makeFanUsuario(String idUsuario, String idPerfil) async {
+    try {
+      await _profileController.patchFanUsuario(idUsuario, idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future<void> beSponsor(bool value) {
     _profileTimeObservable.workAvailability.beSponsored = value;
   }
 

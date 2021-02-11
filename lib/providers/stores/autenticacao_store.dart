@@ -82,4 +82,13 @@ abstract class _AutenticacaoStore with Store {
       throw e;
     }
   }
+
+  @action
+  Future<void> atualizaCategoriaUsuario(String id) async {
+    _autenticando = true;
+    try {} catch (e) {
+      _autenticando = false;
+      throw e;
+    }
+  }
 }

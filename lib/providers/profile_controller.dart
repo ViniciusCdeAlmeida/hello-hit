@@ -82,25 +82,33 @@ class ProfileController {
     }
   }
 
-  Future<void> patchHitUsuario(String id) async {
+  Future<void> patchHitUsuario(String idUsuario, String idPerfil) async {
     try {
-      await Endpoint.patchHitUsuario(id);
+      await Endpoint.patchHitUsuario(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }
   }
 
-  Future<void> patchHitTime(String id) async {
+  Future<void> patchHitTime(String idUsuario, String idPerfil) async {
     try {
-      await Endpoint.patchHitTime(id);
+      await Endpoint.patchHitTime(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }
   }
 
-  Future<void> patchFanTime(String id) async {
+  Future<void> patchFanTime(String idUsuario, String idPerfil) async {
     try {
-      await Endpoint.patchFanTime(id);
+      await Endpoint.patchFanTime(idUsuario, idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<void> patchFanUsuario(String idUsuario, String idPerfil) async {
+    try {
+      await Endpoint.patchFanTime(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }

@@ -561,44 +561,44 @@ class _ProfileUsuarioEdicaoScreenState
                                       ),
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 20.0,
-                                      bottom: 10.0,
-                                    ),
-                                    child: Text(
-                                      'Experience',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.grey,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 20.0,
-                                          bottom: 10.0,
-                                        ),
-                                        child: Text(
-                                          'Select your top 3 specialities and add years of experience',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                      ..._getSkills()
-                                    ],
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //     top: 20.0,
+                                  //     bottom: 10.0,
+                                  //   ),
+                                  //   child: Text(
+                                  //     'Experience',
+                                  //     style: TextStyle(
+                                  //       fontWeight: FontWeight.bold,
+                                  //       color: Colors.grey,
+                                  //       fontSize: 22,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // Divider(
+                                  //   color: Colors.grey,
+                                  // ),
+                                  // Column(
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.start,
+                                  //   children: [
+                                  //     Padding(
+                                  //       padding: const EdgeInsets.only(
+                                  //         top: 20.0,
+                                  //         bottom: 10.0,
+                                  //       ),
+                                  //       child: Text(
+                                  //         'Select your top 3 specialities and add years of experience',
+                                  //         style: TextStyle(
+                                  //           fontWeight: FontWeight.bold,
+                                  //           color: Colors.black,
+                                  //           fontSize: 16,
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //     ..._getSkills()
+                                  //   ],
+                                  // ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                       top: 20.0,

@@ -19,14 +19,10 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
     experiences: json['experiences'] as List,
     categories: (json['categories'] as List)?.map((e) => e as String)?.toList(),
     hitsCount: json['hitsCount'] as int,
-    hits: (json['hits'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    teams: (json['teams'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    hits: (json['hits'] as List)?.map((e) => e as String)?.toList(),
+    teams: (json['teams'] as List)?.map((e) => e as String)?.toList(),
+    fans: (json['fans'] as List)?.map((e) => e as String)?.toList(),
+    fansCount: json['fansCount'] as int,
     location: json['location'] as String,
     bio: json['bio'] as String,
     personalWebsite: json['personalWebsite'] as String,
@@ -63,6 +59,8 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'hitsCount': instance.hitsCount,
       'hits': instance.hits,
       'teams': instance.teams,
+      'fans': instance.fans,
+      'fansCount': instance.fansCount,
       'location': instance.location,
       'bio': instance.bio,
       'personalWebsite': instance.personalWebsite,

@@ -36,6 +36,16 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
     super.initState();
   }
 
+  Future<void> makeHitTalento() async {
+    await _profileStore.makeHitUsuario(
+        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+  }
+
+  Future<void> makeFanTalento() async {
+    await _profileStore.makeFanUsuario(
+        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
@@ -100,14 +110,36 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            IconRow(
-              texto: widget.usuario.hitsCount == null
-                  ? '0'
-                  : widget.usuario.hitsCount.toString(),
-              icon: Icons.star,
-              width: 60,
-              height: 60,
-              titulo: 'Hits',
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (widget.usuario.hits.contains(widget.usuario.user.id)) {
+                    widget.usuario.hitsCount -= 1;
+                    widget.usuario.hits.removeWhere(
+                        (element) => element == widget.usuario.user.id);
+                    var snackBar =
+                        SnackBar(content: Text('You removed your hit.'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  } else {
+                    widget.usuario.hitsCount += 1;
+                    widget.usuario.hits.insert(0, widget.usuario.user.id);
+                    var snackBar = SnackBar(
+                        content: Text(
+                            'Yay! You Hitted ${widget.usuario.user.username}'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
+                  makeHitTalento();
+                });
+              },
+              child: IconRow(
+                texto: widget.usuario.hitsCount == null
+                    ? '0'
+                    : widget.usuario.hitsCount.toString(),
+                icon: Icons.star,
+                width: 60,
+                height: 60,
+                titulo: 'Hits',
+              ),
             ),
             IconRow(
               icon: Icons.question_answer,
@@ -124,8 +156,27 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 titulo: 'Insert in your team',
               ),
             ),
-            InkWell(
-              onTap: () {},
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (widget.usuario.fans.contains(widget.usuario.user.id)) {
+                    widget.usuario.fansCount -= 1;
+                    widget.usuario.fans.removeWhere(
+                        (element) => element == widget.usuario.user.id);
+                    var snackBar =
+                        SnackBar(content: Text('You removed your fan.'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  } else {
+                    widget.usuario.fansCount += 1;
+                    widget.usuario.fans.insert(0, widget.usuario.user.id);
+                    var snackBar = SnackBar(
+                        content: Text(
+                            'Yay! Now you follow ${widget.usuario.user.username}'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
+                  makeFanTalento();
+                });
+              },
               child: IconRow(
                 icon: Icons.person_add_alt_1,
                 width: 38,
@@ -173,33 +224,33 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             ],
           ),
         ),
-        if (widget.usuario.teams.length > 0)
-          GridView.custom(
-            padding: const EdgeInsets.all(10),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15,
-              childAspectRatio: (3.3 / 2),
-              mainAxisSpacing: 10,
-            ),
-            childrenDelegate: SliverChildListDelegate(
-              widget.usuario.teams
-                  .map((usuario) => UsuarioParente(imagem: usuario.avatar))
-                  .toList(),
-            ),
-          )
-        else
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'No Members yet',
-                style: TextStyle(fontSize: 16),
-              ),
+        // if (widget.usuario.teams.length > 0)
+        //   GridView.custom(
+        //     padding: const EdgeInsets.all(10),
+        //     shrinkWrap: true,
+        //     physics: NeverScrollableScrollPhysics(),
+        //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //       crossAxisCount: 2,
+        //       crossAxisSpacing: 15,
+        //       childAspectRatio: (3.3 / 2),
+        //       mainAxisSpacing: 10,
+        //     ),
+        //     childrenDelegate: SliverChildListDelegate(
+        //       widget.usuario.teams
+        //           .map((usuario) => UsuarioParente(imagem: usuario.avatar))
+        //           .toList(),
+        //     ),
+        //   )
+        // else
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'No Members yet',
+              style: TextStyle(fontSize: 16),
             ),
           ),
+        ),
         Divider(
           thickness: 1,
           color: Colors.grey[300],
