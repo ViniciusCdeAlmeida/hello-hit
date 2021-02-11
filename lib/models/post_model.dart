@@ -1,5 +1,6 @@
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'package:hellohit/models/usuario_model.dart';
 
 part 'post_model.g.dart';
 
@@ -7,7 +8,8 @@ part 'post_model.g.dart';
 class Post {
   @JsonKey(name: '_id')
   String id;
-  int hits;
+  List hits;
+  int hitCount;
   String tip;
   List comments;
   String text;
@@ -21,10 +23,14 @@ class Post {
 
   Post({
     this.id,
-    this.comments,
     this.hits,
+    this.hitCount,
     this.tip,
+    this.comments,
     this.text,
+    this.location,
+    this.event,
+    this.team,
     this.user,
     this.file,
     this.createdAt,

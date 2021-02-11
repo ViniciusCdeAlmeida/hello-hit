@@ -97,6 +97,9 @@ class Endpoint {
   static Future patchHitUsuario(String idUsuario, String idPerfil) async =>
       await getConexaoPrefs().patch('profiles/hit/$idUsuario');
 
+  static Future patchHitPost(String idPerfil) async =>
+      await getConexaoPrefs().patch('profiles/hit/$idPerfil');
+
   static Future getProfileUsuario(String id) async =>
       await getConexaoPrefs().get('profiles/user/$id');
 
@@ -132,16 +135,15 @@ class Endpoint {
       "location": post.location,
       "text": post.text,
       "event": post.event,
-      "team": post.team,
+      // "team": post.team,
       "file": await MultipartFile.fromFile(post.file)
     });
 
     return await getConexaoPrefs().post('posts', data: formData);
   }
 
-  static Future putHitPosts(String id, int hitAtual) async {
-    var data = Post(hits: (hitAtual + 1));
-    return await getConexaoPrefs().post('posts/$id', data: data);
+  static Future putHitPosts(String id) async {
+    return await getConexaoPrefs().post('posts/$id');
   }
 
   static Future makePayment(String pm, String priceId) async {

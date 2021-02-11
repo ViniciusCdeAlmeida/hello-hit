@@ -19,7 +19,7 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
   var _postInicial = Post(
     comments: [],
     file: '',
-    hits: 0,
+    hitCount: 0,
     text: '',
     tip: '0',
   );

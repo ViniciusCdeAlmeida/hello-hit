@@ -80,6 +80,15 @@ mixin _$OportunidadeStore on _OportunidadeStore, Store {
     return _$oportunidadeListAsyncAction.run(() => super.oportunidadeList());
   }
 
+  final _$makeOportunidadeAsyncAction =
+      AsyncAction('_OportunidadeStore.makeOportunidade');
+
+  @override
+  Future<dynamic> makeOportunidade(Oportunidade oportunidade) {
+    return _$makeOportunidadeAsyncAction
+        .run(() => super.makeOportunidade(oportunidade));
+  }
+
   @override
   String toString() {
     return '''

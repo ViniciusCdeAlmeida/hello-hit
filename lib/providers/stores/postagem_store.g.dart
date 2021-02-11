@@ -61,6 +61,13 @@ mixin _$PostagemStore on _PostagemStore, Store {
     return _$fazerPostagemAsyncAction.run(() => super.fazerPostagem(post));
   }
 
+  final _$makeHitPostAsyncAction = AsyncAction('_PostagemStore.makeHitPost');
+
+  @override
+  Future<void> makeHitPost(String idPerfil) {
+    return _$makeHitPostAsyncAction.run(() => super.makeHitPost(idPerfil));
+  }
+
   @override
   String toString() {
     return '''

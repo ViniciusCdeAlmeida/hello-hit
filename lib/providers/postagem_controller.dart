@@ -24,4 +24,12 @@ class PostagemController {
       throw e;
     }
   }
+
+  Future<void> patchHitPost(String idPerfil) async {
+    try {
+      await Endpoint.patchHitPost(idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

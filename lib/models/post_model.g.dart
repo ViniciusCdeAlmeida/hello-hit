@@ -9,10 +9,14 @@ part of 'post_model.dart';
 Post _$PostFromJson(Map<String, dynamic> json) {
   return Post(
     id: json['_id'] as String,
-    comments: json['comments'] as List,
-    hits: json['hits'] as int,
+    hits: json['hits'] as List,
+    hitCount: json['hitCount'] as int,
     tip: json['tip'] as String,
+    comments: json['comments'] as List,
     text: json['text'] as String,
+    location: json['location'] as String,
+    event: json['event'] as String,
+    team: json['team'] as String,
     user: json['user'] == null
         ? null
         : Usuario.fromJson(json['user'] as Map<String, dynamic>),
@@ -23,15 +27,13 @@ Post _$PostFromJson(Map<String, dynamic> json) {
     updatedAt: json['updatedAt'] == null
         ? null
         : DateTime.parse(json['updatedAt'] as String),
-  )
-    ..location = json['location'] as String
-    ..event = json['event'] as String
-    ..team = json['team'] as String;
+  );
 }
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       '_id': instance.id,
       'hits': instance.hits,
+      'hitCount': instance.hitCount,
       'tip': instance.tip,
       'comments': instance.comments,
       'text': instance.text,

@@ -67,4 +67,13 @@ abstract class _PostagemStore with Store {
       throw e;
     }
   }
+
+  @action
+  Future<void> makeHitPost(String idPerfil) async {
+    try {
+      await _postagemController.patchHitPost(idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

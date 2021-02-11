@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/widgets/acoes.dart';
 import 'package:hellohit/widgets/popup_menu.dart';
+import 'package:provider/provider.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -24,6 +26,7 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
+  PostagemStore _postStore;
 
   void _actionButtons(int id, Acoes acoes) {
     switch (acoes) {
@@ -39,8 +42,13 @@ class _PostCardState extends State<PostCard> {
     }
   }
 
+  Future<void> makeHitPost() async {
+    await _postStore.makeHitPost(widget.post.id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    _postStore = Provider.of<PostagemStore>(context);
     final difference = now.difference(widget.post.createdAt);
     var timeAgo = timeago.format(now.subtract(difference), locale: 'en');
     return Card(
@@ -71,10 +79,11 @@ class _PostCardState extends State<PostCard> {
                         backgroundImage: widget.post.user.avatar == null
                             ? AssetImage(
                                 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                            : NetworkImage(widget.post.user.avatar['url']),
-                        // .toString()
-                        // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                        // .toString()
+                            : NetworkImage(widget.post.user.avatar['url'])
+                                .toString()
+                                .replaceAll(
+                                    RegExp(r'localhost'), '192.168.15.7')
+                                .toString(),
                       ),
                     ),
                   ),
@@ -175,10 +184,10 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url'],
-                // .toString()
-                // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                // .toString(),
+                widget.post.file['url']
+                    .toString()
+                    .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                    .toString(),
                 fit: BoxFit.fill,
               ),
             ),
@@ -193,7 +202,27 @@ class _PostCardState extends State<PostCard> {
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            if (widget.post.hits
+                                .contains(widget.post.user.id)) {
+                              widget.post.hitCount -= 1;
+                              widget.post.hits.removeWhere(
+                                  (element) => element == widget.post.user.id);
+                              var snackBar = SnackBar(
+                                  content: Text('You removed your hit.'));
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            } else {
+                              widget.post.hitCount += 1;
+                              widget.post.hits.insert(0, widget.post.user.id);
+                              var snackBar = SnackBar(
+                                  content: Text(
+                                      'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.full_name : widget.post.user.username}'));
+                              Scaffold.of(context).showSnackBar(snackBar);
+                            }
+                            makeHitPost();
+                          });
+                        },
                         icon: Icon(
                           Icons.star,
                           color: Colors.orange,
@@ -242,7 +271,7 @@ class _PostCardState extends State<PostCard> {
             child: Row(
               children: [
                 Text(
-                  '${widget.post.hits} Hits',
+                  '${widget.post.hitCount} Hits',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
