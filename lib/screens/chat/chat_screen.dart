@@ -21,27 +21,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final TextEditingController textEditingController = TextEditingController();
 
-  List<String> listaMensagens = [
-    "Olá meu amigo, tudo bem?",
-    "Tudo ótimo!!! e contigo?",
-    "Estou muito bem!! queria ver uma coisa contigo, você vai na corrida de sábado?",
-    "Não sei ainda :(",
-    "Pq se você fosse, queria ver se posso ir com você...",
-    "Posso te confirma no sábado? vou ver isso",
-    "Opa! tranquilo",
-    "Excelente!!",
-    "Estou animado para essa corrida, não vejo a hora de chegar! ;) ",
-    "Vai estar bem legal!! muita gente",
-    "vai sim!",
-    "Lembra do carro que tinha te falado",
-    "Que legal!!",
-    "DASDASDASD",
-    "DASDASDASDASDASDAS",
-    "DASDASDAS",
-    "SADSDASDQWDASDA",
-    "DASDASDASD",
-  ];
-
   TextEditingController _controllerMensagem = TextEditingController();
 
   var _text = Message(
@@ -124,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     var listView = Expanded(
       child: ListView.builder(
-          itemCount: listaMensagens.length,
+          itemCount: null,
           itemBuilder: (context, indice) {
             double larguraContainer = MediaQuery.of(context).size.width * 0.8;
 
@@ -154,7 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   child: Text(
-                    listaMensagens[indice],
+                    '',
                     style: TextStyle(fontSize: 18),
                   ),
                 ),

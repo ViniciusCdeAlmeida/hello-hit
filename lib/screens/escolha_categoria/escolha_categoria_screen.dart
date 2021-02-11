@@ -44,7 +44,7 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
     //             Navigator.of(ctx).pop();
     //           },
     //           child: Text('OK'),
-    //         )
+    //         )g
     //       ],
     //     ),
     //   );
