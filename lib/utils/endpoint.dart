@@ -76,6 +76,9 @@ class Endpoint {
   static Future getProfileTime(String id) async =>
       await getConexaoPrefs().get('profilesTeam/user/$id');
 
+  static Future getProfileTimeScreen(String id) async =>
+      await getConexaoPrefs().get('profilesTeam/$id');
+
   static Future getAllProfileTime() async =>
       await getConexaoPrefs().get('profilesTeam');
 
@@ -84,16 +87,14 @@ class Endpoint {
           .patch('profilesTeam/hit/$idPerfil', data: {'id': idUsuario});
 
   static Future patchFanUsuario(String idUsuario, String idPerfil) async =>
-      await getConexaoPrefs()
-          .patch('profiles/hit/$idPerfil', data: {'id': idUsuario});
+      await getConexaoPrefs().patch('profiles/fan/$idUsuario');
 
   static Future patchFanTime(String idUsuario, String idPerfil) async =>
       await getConexaoPrefs()
-          .patch('profiles/fan/$idPerfil', data: {'id': idUsuario});
+          .patch('profilesTeam/fan/$idUsuario', data: {'id': idPerfil});
 
   static Future patchHitUsuario(String idUsuario, String idPerfil) async =>
-      await getConexaoPrefs()
-          .patch('profilesTeam/fan/$idPerfil', data: {'id': idUsuario});
+      await getConexaoPrefs().patch('profiles/hit/$idUsuario');
 
   static Future getProfileUsuario(String id) async =>
       await getConexaoPrefs().get('profiles/user/$id');

@@ -35,6 +35,18 @@ class ProfileController {
     }
   }
 
+  Future<ProfileTime> getTimeProfileScreen(String id) async {
+    try {
+      Response res = await Endpoint.getProfileTimeScreen(id);
+      var temp = ProfileTime.fromJson(res.data[0]);
+      temp.user.full_name = res.data[0]['user']['fullName'];
+      temp.openOpportunities ??= [];
+      return temp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<List<ProfileTime>> getAllTimeProfile() async {
     try {
       Response res = await Endpoint.getAllProfileTime();
@@ -52,18 +64,6 @@ class ProfileController {
       Response res = await Endpoint.getProfileUsuario(id);
       var temp = Profile.fromJson(res.data);
       temp.user.full_name = res.data['user']['fullName'];
-      return temp;
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  Future<ProfileTime> getTimeProfileScreen(String id) async {
-    try {
-      Response resP = await Endpoint.getProfileTime(id);
-      var temp = ProfileTime.fromJson(resP.data[0]);
-      temp.user.full_name = resP.data['user']['fullName'];
-      temp.openOpportunities ??= [];
       return temp;
     } catch (e) {
       throw e;
@@ -108,7 +108,7 @@ class ProfileController {
 
   Future<void> patchFanUsuario(String idUsuario, String idPerfil) async {
     try {
-      await Endpoint.patchFanTime(idUsuario, idPerfil);
+      await Endpoint.patchFanUsuario(idUsuario, idPerfil);
     } catch (e) {
       throw e;
     }

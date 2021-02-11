@@ -19,11 +19,11 @@ class Profile {
   List<Skill> skills;
   List experiences;
   List<String> categories;
-  int hitsCount;
   List<String> hits;
   List<String> teams;
   List<String> fans;
   int fansCount;
+  int hitCount;
   String location;
   String bio;
   String personalWebsite;
@@ -41,11 +41,11 @@ class Profile {
     this.skills,
     this.experiences,
     this.categories,
-    this.hitsCount,
     this.hits,
     this.teams,
     this.fans,
     this.fansCount,
+    this.hitCount,
     this.location,
     this.bio,
     this.personalWebsite,

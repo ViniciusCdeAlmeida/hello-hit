@@ -7,14 +7,14 @@ import 'package:hellohit/utils/rotas.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 void main() {
-  Socket socket = io(
-      'http://3.16.49.191:3000',
-      OptionBuilder()
-          .setTransports(['websocket']) // for Flutter or Dart VM
-          .disableAutoConnect() // disable auto-connection
-          .setExtraHeaders({'foo': 'bar'}) // optional
-          .build());
-  socket.connect();
+  // Socket socket = io(
+  //     'http://3.16.49.191:3000',
+  //     OptionBuilder()
+  //         .setTransports(['websocket']) // for Flutter or Dart VM
+  //         .disableAutoConnect() // disable auto-connection
+  //         .setExtraHeaders({'foo': 'bar'}) // optional
+  //         .build());
+  // socket.connect();
 
 // await DotEnv.load(fileName: '.env');
   // openBox();

@@ -16,7 +16,7 @@ class TimesItem extends StatelessWidget {
         onTap: () {
           Navigator.of(context).pushNamed(
             ProfileTimeScreen.routeName,
-            arguments: time.id,
+            arguments: time.user.id,
           );
         },
         child: Padding(

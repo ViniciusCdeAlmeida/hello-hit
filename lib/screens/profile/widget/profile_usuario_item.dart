@@ -4,7 +4,6 @@ import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
-import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:provider/provider.dart';
 
@@ -114,27 +113,25 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               onTap: () {
                 setState(() {
                   if (widget.usuario.hits.contains(widget.usuario.user.id)) {
-                    widget.usuario.hitsCount -= 1;
+                    widget.usuario.hitCount -= 1;
                     widget.usuario.hits.removeWhere(
                         (element) => element == widget.usuario.user.id);
                     var snackBar =
                         SnackBar(content: Text('You removed your hit.'));
                     Scaffold.of(context).showSnackBar(snackBar);
                   } else {
-                    widget.usuario.hitsCount += 1;
+                    widget.usuario.hitCount += 1;
                     widget.usuario.hits.insert(0, widget.usuario.user.id);
                     var snackBar = SnackBar(
                         content: Text(
-                            'Yay! You Hitted ${widget.usuario.user.username}'));
+                            'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
                     Scaffold.of(context).showSnackBar(snackBar);
                   }
                   makeHitTalento();
                 });
               },
               child: IconRow(
-                texto: widget.usuario.hitsCount == null
-                    ? '0'
-                    : widget.usuario.hitsCount.toString(),
+                texto: widget.usuario.hitCount.toString(),
                 icon: Icons.star,
                 width: 60,
                 height: 60,
@@ -171,7 +168,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                     widget.usuario.fans.insert(0, widget.usuario.user.id);
                     var snackBar = SnackBar(
                         content: Text(
-                            'Yay! Now you follow ${widget.usuario.user.username}'));
+                            'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
                     Scaffold.of(context).showSnackBar(snackBar);
                   }
                   makeFanTalento();
@@ -186,7 +183,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             ),
             IconRow(
               // texto: widget.usuario..toString(),
-              texto: '0',
+              texto: widget.usuario.fansCount.toString(),
               icon: Icons.flag,
               width: 60,
               height: 60,
