@@ -3,7 +3,6 @@ import 'package:hellohit/models/profile_time_model.dart';
 import 'package:hellohit/models/search_model.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/search_controller.dart';
 
 part 'search_store.g.dart';

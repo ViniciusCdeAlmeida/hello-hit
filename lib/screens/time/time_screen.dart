@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/time_store.dart';
@@ -14,10 +15,12 @@ class TimeScreen extends StatefulWidget {
 
 class _TimeScreenState extends State<TimeScreen> {
   TimeStore _timeStore;
+  AutenticacaoStore _autenticacaoStore;
 
   @override
   void didChangeDependencies() {
     _timeStore = Provider.of<TimeStore>(context);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _timeStore.getTeams();
     super.didChangeDependencies();
   }
@@ -93,13 +96,12 @@ class _TimeScreenState extends State<TimeScreen> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               color: Theme.of(context).primaryColor,
-                              onPressed: () => Navigator.of(context).pushNamed(
-                                  TelaExplicacaoTimeScreen.routeName),
-                              // _autenticacaoStore.autenticacao.userType ==
-                              //         'TEAM'
-                              //     ? Navigator.of(context).pushNamed(
-                              //         TelaExplicacaoTimeScreen.routeName)
-                              //     : showAlertDialog(context),
+                              onPressed: () =>
+                                  _autenticacaoStore.usuarioLogado.userType ==
+                                          'TEAM'
+                                      ? Navigator.of(context).pushNamed(
+                                          TelaExplicacaoTimeScreen.routeName)
+                                      : showAlertDialog(context),
                               child: Text(
                                 'CREATE TEAM',
                                 style: TextStyle(

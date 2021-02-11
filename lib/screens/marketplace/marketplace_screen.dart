@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/usuario_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/providers/stores/marketplace_store.dart';
@@ -16,11 +18,15 @@ class MarketPlaceScreen extends StatefulWidget {
 
 class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
   MarketplaceStore _maketplaceStore;
+  AutenticacaoStore _autenticacaoStore;
+  Usuario usuario;
 
   @override
   void didChangeDependencies() {
     _maketplaceStore = Provider.of<MarketplaceStore>(context);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _maketplaceStore.oportunidadeList();
+    usuario = _autenticacaoStore.usuarioLogado;
     super.didChangeDependencies();
   }
 
@@ -74,7 +80,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                           ],
                         ),
                       ),
-                      MarketplaceBanner(deviceSize),
+                      MarketplaceBanner(deviceSize, usuario: usuario),
                       MaketplaceDivider(deviceSize)
                     ],
                   ),

@@ -152,7 +152,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text(_autenticacaoStore.autenticacao.full_name),
+        title: Text(_autenticacaoStore.usuarioLogado.full_name),
         centerTitle: true,
       ),
       body: Container(

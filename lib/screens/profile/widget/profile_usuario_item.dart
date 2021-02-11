@@ -37,12 +37,12 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
 
   Future<void> makeHitTalento() async {
     await _profileStore.makeHitUsuario(
-        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   Future<void> makeFanTalento() async {
     await _profileStore.makeFanUsuario(
-        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   @override
@@ -197,7 +197,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             color: Colors.orange[700],
             onPressed: () => Navigator.of(context).popAndPushNamed(
               ProfileUsuarioEdicaoScreen.routeName,
-              arguments: _autenticacaoStore.autenticacao.id,
+              arguments: _autenticacaoStore.usuarioLogado.id,
             ),
             child: Text(
               'Edit Profile',

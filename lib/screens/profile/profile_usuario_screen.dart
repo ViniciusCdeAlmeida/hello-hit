@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_item.dart';
 import 'package:provider/provider.dart';

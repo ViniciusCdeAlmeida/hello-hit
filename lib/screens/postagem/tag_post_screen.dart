@@ -33,7 +33,7 @@ class _TagPostScreenState extends State<TagPostScreen> {
   void didChangeDependencies() {
     _postagemStore = Provider.of<PostagemStore>(context);
     _usuarioStore = Provider.of<AutenticacaoStore>(context);
-    _usuarioLogado = _usuarioStore.autenticacao;
+    _usuarioLogado = _usuarioStore.usuarioLogado;
     _postagem = _postagemStore.postagem;
     super.didChangeDependencies();
   }

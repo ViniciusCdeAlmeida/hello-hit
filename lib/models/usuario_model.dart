@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:hellohit/models/profile_model.dart';
-
 part 'usuario_model.g.dart';
 
 @JsonSerializable()

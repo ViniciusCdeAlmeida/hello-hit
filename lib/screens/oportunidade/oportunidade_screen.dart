@@ -24,7 +24,7 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
   void didChangeDependencies() {
     _marketplaceStore = Provider.of<MarketplaceStore>(context);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
-    idUsuario = _autenticacaoStore.autenticacao.id;
+    idUsuario = _autenticacaoStore.usuarioLogado.id;
     id = ModalRoute.of(context).settings.arguments;
     _marketplaceStore.getOportunidade(id);
     super.didChangeDependencies();

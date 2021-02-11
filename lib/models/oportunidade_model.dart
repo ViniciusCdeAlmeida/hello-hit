@@ -1,8 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:hellohit/models/categoria_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
 
 part 'oportunidade_model.g.dart';
 

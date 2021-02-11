@@ -33,7 +33,7 @@ class _FeedScreenState extends State<FeedScreen> {
     _feedStore = Provider.of<FeedStore>(context);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _feedStore.feedList();
-    _usuario = _autenticacaoStore.autenticacao;
+    _usuario = _autenticacaoStore.usuarioLogado;
     super.didChangeDependencies();
   }
 

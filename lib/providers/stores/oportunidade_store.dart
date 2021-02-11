@@ -57,4 +57,13 @@ abstract class _OportunidadeStore with Store {
       throw e;
     }
   }
+
+  @action
+  Future makeOportunidade(Oportunidade oportunidade) async {
+    try {
+      _oportunidadeController.makeOportunidade(oportunidade);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

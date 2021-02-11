@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
 
 class MarketplaceBanner extends StatelessWidget {
   final Size deviceSize;
+  final Usuario usuario;
 
-  MarketplaceBanner(this.deviceSize);
+  MarketplaceBanner(this.deviceSize, {this.usuario});
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -48,8 +50,10 @@ class MarketplaceBanner extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               color: Theme.of(context).primaryColor,
-              onPressed: () => Navigator.of(context)
-                  .pushNamed(OportunidadeCriacaoScreen.routeName),
+              onPressed: () => usuario.userType == 'TEAM'
+                  ? Navigator.of(context)
+                      .pushNamed(OportunidadeCriacaoScreen.routeName)
+                  : showAlertDialog(context),
               // icon: Icon(Icons.),
               child: Text(
                 'POST A JOB - AS LOW AS 199/MO',
@@ -61,6 +65,28 @@ class MarketplaceBanner extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () => Navigator.of(context).pop(),
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text('Only Team'),
+      content: Text('Be a Team to access'),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -1,9 +1,9 @@
+import 'package:mobx/mobx.dart';
+
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/categoria_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/autenticacao_controller.dart';
-import 'package:hellohit/utils/endpoint.dart';
-import 'package:mobx/mobx.dart';
 
 part 'autenticacao_store.g.dart';
 
@@ -35,7 +35,7 @@ abstract class _AutenticacaoStore with Store {
   bool _autenticando = false;
 
   @computed
-  Usuario get autenticacao {
+  Usuario get usuarioLogado {
     return _autenticacao;
   }
 
@@ -71,12 +71,11 @@ abstract class _AutenticacaoStore with Store {
     try {
       _autenticacaoFuture =
           ObservableFuture(_autenticacaoController.autenticacaoUsuario(dados));
-      _autenticacao = await _autenticacaoFuture;
+      _autenticacao =
+          await _autenticacaoFuture.whenComplete(() => _autenticando = false);
       _categoriaFuture =
           ObservableFuture(_autenticacaoController.getCategorias());
-      _categoriaObservable =
-          (await _categoriaFuture.whenComplete(() => _autenticando = false))
-              .asObservable();
+      _categoriaObservable = (await _categoriaFuture).asObservable();
     } catch (e) {
       _autenticando = false;
       throw e;

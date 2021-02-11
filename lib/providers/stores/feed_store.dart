@@ -1,7 +1,7 @@
-import 'package:hellohit/models/feed_model.dart';
+import 'package:mobx/mobx.dart';
+
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/feed_controller.dart';
-import 'package:mobx/mobx.dart';
 
 part 'feed_store.g.dart';
 

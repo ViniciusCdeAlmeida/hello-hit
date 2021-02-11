@@ -1,8 +1,6 @@
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/work_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:hellohit/models/categoria_model.dart';
 import 'package:hellohit/models/educacao_model.dart';
 import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/oportunidade_model.dart';

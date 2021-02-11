@@ -30,4 +30,12 @@ class OportunidadeController {
       throw e;
     }
   }
+
+  Future<void> makeOportunidade(Oportunidade oportunidade) async {
+    try {
+      await Endpoint.postOportunidade(oportunidade);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

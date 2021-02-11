@@ -7,7 +7,9 @@ import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
 import 'package:google_place/google_place.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/providers/stores/oportunidade_store.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
@@ -41,15 +43,14 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
   int _radioValue = 0;
   int _cor = 0;
   String apiKey;
-  String title;
   String description;
   String location;
   String typeOpportunity;
   int typeSelected;
   String role;
-  String website;
-  String youtube;
   DateTime expiredAt;
+
+  Oportunidade oportunidade;
 
   GooglePlace googlePlace;
   List<AutocompletePrediction> predictions = [];
@@ -81,6 +82,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
 
   DateTime selectedDate = DateTime.now();
   AutenticacaoStore _autenticacaoStore;
+  OportunidadeStore _oportunidadeStore;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -100,16 +102,19 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
     }
     _formMakeOportunidade.currentState.save();
     description = _controller.plainTextEditingValue.text;
-    if (_radioValue == 1) location = 'Remote';
-    if (_radioValue == 2) location = 'Onsite or Remote';
+    if (_radioValue == 1) oportunidade.location = 'Remote';
+    if (_radioValue == 2) oportunidade.location = 'Onsite or Remote';
 
-    if (_cor == 1) typeOpportunity = 'Full-time';
-    if (_cor == 2) typeOpportunity = 'Part-time';
-    if (_cor == 3) typeOpportunity = 'Freelance';
-    if (_cor == 4) typeOpportunity = 'Contract';
+    if (_cor == 1) oportunidade.typeOpportunity = 'Full-time';
+    if (_cor == 2) oportunidade.typeOpportunity = 'Part-time';
+    if (_cor == 3) oportunidade.typeOpportunity = 'Freelance';
+    if (_cor == 4) oportunidade.typeOpportunity = 'Contract';
     expiredAt = selectedDate;
-    print(typeOpportunity);
-    // _pagamentoController.makeTimePayment();
+    oportunidade.description = description;
+    print(oportunidade);
+
+    // var oportunidade = Oportunidade(title: )
+    // _oportunidadeStore.makeOportunidade(oportunidade);
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -121,6 +126,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
     );
     if (picked != null && picked != selectedDate)
       setState(() {
+        oportunidade.expireAt = picked;
         selectedDate = picked;
       });
   }
@@ -128,6 +134,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
   @override
   void didChangeDependencies() {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+    _oportunidadeStore = Provider.of<OportunidadeStore>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -160,23 +167,15 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                     Container(
                       height: 50,
                       child: Padding(
-                          padding: const EdgeInsets.only(top: 18.0),
-                          child: Text(
-                            'Team: ${_autenticacaoStore.autenticacao.full_name}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                          // TextFormField(
-                          //   textAlignVertical: TextAlignVertical.center,
-                          //   decoration: InputDecoration(
-                          //     border: OutlineInputBorder(),
-                          //     labelText: 'Team',
-                          //   ),
-                          //   textInputAction: TextInputAction.next,
-                          // ),
+                        padding: const EdgeInsets.only(top: 18.0),
+                        child: Text(
+                          'Team: ${_autenticacaoStore.usuarioLogado.full_name}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
                           ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -193,7 +192,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                             labelText: 'Job title *',
                           ),
                           onSaved: (value) {
-                            title = value;
+                            oportunidade.title = value;
                           },
                           textInputAction: TextInputAction.next,
                         ),
@@ -356,7 +355,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                                               controller: null,
                                               onEditingComplete: () {},
                                               onSaved: (value) {
-                                                location = value;
+                                                oportunidade.location = value;
                                                 // if (value.isNotEmpty) {
                                                 //   autoCompleteSearch(value);
                                                 // } else {
@@ -495,7 +494,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                             hint: Text('Choose One'),
                             items: talent,
                             onChanged: (value) {
-                              // type = value;
+                              oportunidade.categoria = value;
                               print(value);
                             },
                           ),
@@ -674,7 +673,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                       focusedErrorBorder: InputBorder.none,
                     ),
                     onSaved: (value) {
-                      website = value;
+                      oportunidade.website = value;
                     },
                   ),
                 ),
@@ -797,7 +796,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                       focusedErrorBorder: InputBorder.none,
                     ),
                     onSaved: (value) {
-                      youtube = value;
+                      oportunidade.urlYoutube = value;
                     },
                   ),
                 ),
@@ -806,9 +805,9 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                   child: Row(
                     children: [
                       RaisedButton(
-                        // onPressed: makeOportunidade,
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(OportunidadePagamentoScreen.routeName),
+                        onPressed: makeOportunidade,
+                        // onPressed: () => Navigator.of(context)
+                        //     .pushNamed(OportunidadePagamentoScreen.routeName),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0),
                         ),

@@ -45,12 +45,12 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
 
   Future<void> makeHitTime() async {
     await _profileStore.makeHitTime(
-        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   Future<void> makeFanTime() async {
     await _profileStore.makeFanTime(
-        _autenticacaoStore.autenticacao.id, widget.usuario.id);
+        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   @override
@@ -249,15 +249,15 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
             ],
           ),
-          if (_autenticacaoStore.autenticacao.userType == 'TEAM' &&
-              _autenticacaoStore.autenticacao.id == widget.usuario.user.id)
+          if (_autenticacaoStore.usuarioLogado.userType == 'TEAM' &&
+              _autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: FlatButton(
                 color: Colors.orange[700],
                 onPressed: () => Navigator.of(context).popAndPushNamed(
                   ProfileTimeEdicaoScreen.routeName,
-                  arguments: _autenticacaoStore.autenticacao.id,
+                  arguments: _autenticacaoStore.usuarioLogado.id,
                 ),
                 child: Text(
                   'Edit Team',

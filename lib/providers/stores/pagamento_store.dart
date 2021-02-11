@@ -115,8 +115,8 @@ abstract class _PostStore with Store {
       await _pagamentoController
           .makeTimePayment(paymentResponse.paymentMethodId, priceId)
           .then((_) {
-        _autenticacaoStore.autenticacao.userType = 'PRO';
-        _autenticacaoStore.autenticacao.signature_status = 'ACTIVE';
+        _autenticacaoStore.usuarioLogado.userType = 'PRO';
+        _autenticacaoStore.usuarioLogado.signature_status = 'ACTIVE';
         pagando = false;
       }).whenComplete(() => pagando = false);
     } catch (e) {

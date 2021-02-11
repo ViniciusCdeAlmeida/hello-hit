@@ -2,8 +2,6 @@ import 'package:hellohit/models/profile_time_model.dart';
 import 'package:hellohit/providers/profile_controller.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/models/usuario_model.dart';
-
 part 'time_store.g.dart';
 
 class TimeStore = _TimeStore with _$TimeStore;

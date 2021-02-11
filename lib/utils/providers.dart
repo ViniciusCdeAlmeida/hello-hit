@@ -17,6 +17,7 @@ import 'package:hellohit/providers/stores/conversation_store.dart';
 import 'package:hellohit/providers/stores/edicao_profile_store.dart';
 import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:hellohit/providers/stores/marketplace_store.dart';
+import 'package:hellohit/providers/stores/oportunidade_store.dart';
 import 'package:hellohit/providers/stores/pagamento_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';
@@ -104,6 +105,11 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => TimeStore(
           ProfileController(),
+        ),
+      ),
+      Provider(
+        create: (ctx) => OportunidadeStore(
+          OportunidadeController(),
         ),
       ),
       Provider(

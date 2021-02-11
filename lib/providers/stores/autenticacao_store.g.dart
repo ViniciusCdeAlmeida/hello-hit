@@ -9,12 +9,12 @@ part of 'autenticacao_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
-  Computed<Usuario> _$autenticacaoComputed;
+  Computed<Usuario> _$usuarioLogadoComputed;
 
   @override
-  Usuario get autenticacao =>
-      (_$autenticacaoComputed ??= Computed<Usuario>(() => super.autenticacao,
-              name: '_AutenticacaoStore.autenticacao'))
+  Usuario get usuarioLogado =>
+      (_$usuarioLogadoComputed ??= Computed<Usuario>(() => super.usuarioLogado,
+              name: '_AutenticacaoStore.usuarioLogado'))
           .value;
   Computed<List<Categoria>> _$categoriasComputed;
 
@@ -138,7 +138,7 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
   @override
   String toString() {
     return '''
-autenticacao: ${autenticacao},
+usuarioLogado: ${usuarioLogado},
 categorias: ${categorias},
 autenticando: ${autenticando},
 autenticacaoState: ${autenticacaoState}

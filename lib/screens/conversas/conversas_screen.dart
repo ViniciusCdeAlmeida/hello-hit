@@ -22,7 +22,7 @@ class _ConversasScreenState extends State<ConversasScreen> {
   void didChangeDependencies() {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _conversationStore = Provider.of<ConversationStore>(context);
-    idUsuario = _autenticacaoStore.autenticacao.id;
+    idUsuario = _autenticacaoStore.usuarioLogado.id;
     id = ModalRoute.of(context).settings.arguments;
     _conversationStore.conversationList();
     super.didChangeDependencies();

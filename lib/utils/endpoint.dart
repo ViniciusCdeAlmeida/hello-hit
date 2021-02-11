@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/cadastro_model.dart';
 import 'package:hellohit/models/comentario_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/profile_time_model.dart';
@@ -15,8 +16,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    //..options.baseUrl = "http://192.168.15.7:3000/"
-    ..options.baseUrl = "http://3.16.49.191:3000/"
+    ..options.baseUrl = "http://192.168.15.7:3000/"
+    // ..options.baseUrl = "http://3.16.49.191:3000/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -47,6 +48,9 @@ class Endpoint {
   static Future postAutenticacaoUsuario(Autenticacao usuario) async =>
       await getConexaoPrefs().post('login', data: usuario);
 
+  static Future postOportunidade(Oportunidade oportunidade) async =>
+      await getConexaoPrefs().post('opportunities', data: oportunidade);
+
   static Future getCategorias() async =>
       await getConexaoPrefs().get('categories');
 
@@ -61,9 +65,6 @@ class Endpoint {
 
   static Future getChatsUsers() async =>
       await getConexaoPrefs().get('/chats/user');
-
-  static Future getComentariosPost(String id) async =>
-      await getConexaoPrefs().get('posts/$id/comments');
 
   static Future getTeams() async => await getConexaoPrefs().get('profilesTeam');
 
@@ -114,24 +115,6 @@ class Endpoint {
         FormData.fromMap({"file": await MultipartFile.fromFile(image)});
 
     return await getConexaoPrefs().put('myuser', data: formData);
-  }
-
-  static Future postComentarioPost(String id, Comentario comentario) async {
-    FormData formData = FormData.fromMap(
-      {
-        "body": comentario.text,
-      },
-    );
-    return await getConexaoPrefs().post('posts/$id/comments', data: comentario);
-  }
-
-  static Future createSubscription() async {
-    final dados = {
-      "price": "price_1IGkiwAIZbIeL4kbL4Fe4ASc",
-      "paymentMethodId": "pm_1IHTgPAIZbIeL4kbbXNUPmmZ",
-      "customerId": "cus_601401ee40648b09944109f5",
-    };
-    return await getConexaoPrefs().post('create-subscription', data: dados);
   }
 
   static Future patchProfileUsuario(Profile profile) async =>

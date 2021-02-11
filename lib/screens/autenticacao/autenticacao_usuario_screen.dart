@@ -39,7 +39,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
     _formKey.currentState.save();
     _autenticacaoStore.autenticacaoUsuario(_loginData).then(
       (value) {
-        !_autenticacaoStore.autenticacao.existeCategoria
+        !_autenticacaoStore.usuarioLogado.existeCategoria
             ? Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName)
             : Navigator.of(context).pushNamed(FeedScreen.routeName);
       },
@@ -68,7 +68,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
     return Scaffold(
       body: Observer(
         builder: (_) {
-          var a = _autenticacaoStore.autenticacao;
+          var a = _autenticacaoStore.usuarioLogado;
           return SingleChildScrollView(
             child: Container(
               child: Column(

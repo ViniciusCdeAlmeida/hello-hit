@@ -9,7 +9,6 @@ class CheckBox extends StatefulWidget {
 
 class _CheckBoxState extends State<CheckBox> {
   bool _checkbox = false;
-  bool _checkboxListTile = false;
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,6 @@
-import 'package:hellohit/models/usuario_model.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/models/feed_model.dart';
 import 'package:hellohit/providers/cadastro_controller.dart';
 
 part 'cadastro_store.g.dart';

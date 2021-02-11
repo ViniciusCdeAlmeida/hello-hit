@@ -139,8 +139,8 @@ abstract class _MarketplaceStore with Store {
 
   @action
   void loadCarreira(int id) {
-    _carreiraOportunidade =
-        _carreiraObservable.firstWhere((element) => element.id == id);
+    // _carreiraOportunidade =
+    //     _carreiraObservable.firstWhere((element) => element.id == id);
   }
 
   List<Oportunidade> loadUserCarreiras() {
