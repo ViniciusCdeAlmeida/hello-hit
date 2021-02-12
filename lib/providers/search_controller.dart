@@ -8,7 +8,6 @@ class SearchController {
   Future<List<ProfileTime>> getTimeSearch(Search data) async {
     try {
       Response res = await Endpoint.getTimeSearch(data);
-      print(res.data);
       return res.data.map<ProfileTime>((content) {
         var post = ProfileTime.fromJson(content);
         return post;
@@ -21,7 +20,7 @@ class SearchController {
   Future<List<Profile>> getTalentoSearch(Search data) async {
     try {
       Response res = await Endpoint.getTalentoSearch(data);
-      print(res.data);
+
       return res.data.map<Profile>((content) {
         var post = Profile.fromJson(content);
         return post;

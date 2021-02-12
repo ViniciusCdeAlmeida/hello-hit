@@ -88,7 +88,9 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(
-                                widget.usuarioImagem == null ? 0.0 : 0.3),
+                                widget.usuario.user.avatarUrl == null
+                                    ? 0.0
+                                    : 0.3),
                             spreadRadius: 2,
                             blurRadius: 5,
                             offset: Offset(0, 3),
@@ -98,12 +100,13 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                           Radius.circular(4),
                         ),
                         border: Border.all(
-                          width: widget.usuarioImagem == null ? 0.0 : 3.0,
+                          width:
+                              widget.usuario.user.avatarUrl == null ? 0.0 : 3.0,
                           color: Colors.grey[100],
                         ),
                       ),
                       child: ClipRRect(
-                        child: widget.usuarioImagem == null
+                        child: widget.usuario.user.avatarUrl == null
                             ? Image.asset(
                                 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
                                 fit: BoxFit.fill,
@@ -300,19 +303,19 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                         ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      'BUILD YOUR TEAM',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    height: 50,
-                    minWidth: 240,
-                    color: Colors.orange[800],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 18.0),
+                //   child: FlatButton(
+                //     onPressed: () {},
+                //     child: Text(
+                //       'BUILD YOUR TEAM',
+                //       style: TextStyle(color: Colors.white, fontSize: 20),
+                //     ),
+                //     height: 50,
+                //     minWidth: 240,
+                //     color: Colors.orange[800],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 15.0,

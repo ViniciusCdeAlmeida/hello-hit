@@ -201,7 +201,7 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
           Container(
-            height: 300,
+            // height: 300,
             color: Colors.grey[300],
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
@@ -210,7 +210,7 @@ class _PostCardState extends State<PostCard> {
                     .toString()
                     .replaceAll(RegExp(r'localhost'), '192.168.15.7')
                     .toString(),
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
                 cacheHeight: 1080,
                 cacheWidth: 1080,
               ),
@@ -294,13 +294,13 @@ class _PostCardState extends State<PostCard> {
                   ],
                 ),
                 Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Icon(
-                    Icons.bookmark_border,
-                    color: Colors.orange,
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15.0),
+                //   child: Icon(
+                //     Icons.bookmark_border,
+                //     color: Colors.orange,
+                //   ),
+                // ),
               ],
             ),
           ),
