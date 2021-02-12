@@ -37,6 +37,10 @@ class _FeedScreenState extends State<FeedScreen> {
     super.didChangeDependencies();
   }
 
+  Future<void> atualizarFeed() async {
+    await _feedStore.feedList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,86 +131,89 @@ class _FeedScreenState extends State<FeedScreen> {
       ),
       backgroundColor: Colors.grey[100],
       drawer: CustomDrawer(usuario: _usuario),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            backgroundColor: Colors.grey[100],
-            title: Container(
-              height: 60,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/logos/logo_hello.png'),
+      body: RefreshIndicator(
+        onRefresh: atualizarFeed,
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              backgroundColor: Colors.grey[100],
+              title: Container(
+                height: 60,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/logos/logo_hello.png'),
+                  ),
                 ),
               ),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () => Navigator.of(context)
-                    .pushNamed(ProfileProcuraScreen.routeName),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(ProfileProcuraScreen.routeName),
+                ),
+              ],
+              centerTitle: true,
+              automaticallyImplyLeading: false,
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: ImageIcon(
+                      AssetImage(
+                          'assets/images/perfil_post_assets/Icon_menu.png'),
+                      color: Colors.black,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  );
+                },
               ),
-            ],
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: ImageIcon(
-                    AssetImage(
-                        'assets/images/perfil_post_assets/Icon_menu.png'),
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                );
-              },
+              elevation: 0,
             ),
-            elevation: 0,
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            Observer(
-              // ignore: missing_return
-              builder: (_) {
-                switch (_feedStore.feedState) {
-                  case FeedState.inicial:
-                  case FeedState.carregando:
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.white,
+            SliverList(
+                delegate: SliverChildListDelegate([
+              Observer(
+                // ignore: missing_return
+                builder: (_) {
+                  switch (_feedStore.feedState) {
+                    case FeedState.inicial:
+                    case FeedState.carregando:
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                          ),
                         ),
-                      ),
-                    );
-                  case FeedState.carregado:
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: _feedStore.feed.length,
-                        itemBuilder: (_, idx) => Column(
-                          children: [
-                            Observer(
-                              builder: (_) {
-                                return PostCard(
-                                  post: _feedStore.feed[idx],
-                                );
-                              },
-                            ),
-                          ],
+                      );
+                    case FeedState.carregado:
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _feedStore.feed.length,
+                          itemBuilder: (_, idx) => Column(
+                            children: [
+                              Observer(
+                                builder: (_) {
+                                  return PostCard(
+                                    post: _feedStore.feed[idx],
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                }
-              },
-            ),
-          ])),
-        ],
+                      );
+                  }
+                },
+              ),
+            ])),
+          ],
+        ),
       ),
     );
   }

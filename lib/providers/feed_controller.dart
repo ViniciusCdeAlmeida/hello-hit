@@ -11,7 +11,6 @@ class FeedController {
   Future<List<Post>> getFeed() async {
     try {
       Response res = await Endpoint.getPosts();
-
       return res.data.map<Post>((content) {
         var post = Post.fromJson(content);
         post.user.full_name = content['user']['fullName'];

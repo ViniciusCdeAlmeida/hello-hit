@@ -162,4 +162,17 @@ abstract class _AutenticacaoStore with Store {
       throw e;
     }
   }
+
+  @action
+  Future<void> atualizaCategoriaTime(String id) async {
+    _autenticando = true;
+    try {
+      await _autenticacaoController
+          .patchCategoriaTime(id)
+          .whenComplete(() => _autenticando = false);
+    } catch (e) {
+      _autenticando = false;
+      throw e;
+    }
+  }
 }

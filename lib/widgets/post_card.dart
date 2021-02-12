@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
@@ -27,8 +28,9 @@ class PostCard extends StatefulWidget {
 class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
   PostagemStore _postStore;
+  AutenticacaoStore _autenticacaoStore;
 
-  void _actionButtons(int id, Acoes acoes) {
+  void _actionButtons(Post post, Acoes acoes) {
     switch (acoes) {
       case Acoes.editarPost:
         // Navigator.of(context)
@@ -43,12 +45,17 @@ class _PostCardState extends State<PostCard> {
   }
 
   Future<void> makeHitPost() async {
-    await _postStore.makeHitPost(widget.post.id);
+    _postStore.makeHitPost(widget.post.id).catchError((erro) {
+      setState(() {
+        widget.post.hitCount -= 1;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     _postStore = Provider.of<PostagemStore>(context);
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     final difference = now.difference(widget.post.createdAt);
     var timeAgo = timeago.format(now.subtract(difference), locale: 'en');
     return Card(
@@ -74,26 +81,33 @@ class _PostCardState extends State<PostCard> {
                               ProfileUsuarioScreen.routeName,
                               arguments: widget.post.user.id),
                       child: CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        radius: 20.0,
-                        backgroundImage: widget.post.user.avatar == null
-                            ? AssetImage(
-                                'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                            : NetworkImage(widget.post.user.avatar['url'])
-                                .toString()
-                                .replaceAll(
-                                    RegExp(r'localhost'), '192.168.15.7')
-                                .toString(),
-                      ),
+                          backgroundColor: Colors.transparent,
+                          radius: 20.0,
+                          backgroundImage: widget.post.user.avatar == null
+                              ? AssetImage(
+                                  'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                              : NetworkImage(widget.post.user.avatar['url'])
+                          // .toString()
+                          // .replaceAll(
+                          //     RegExp(r'localhost'), '192.168.15.7')
+                          // .toString(),
+                          ),
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.post.user.full_name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        constraints: BoxConstraints(
+                          maxHeight: 50,
+                          maxWidth: 100,
+                        ),
+                        child: Text(
+                          widget.post.user.username,
+                          overflow: TextOverflow.fade,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -102,12 +116,14 @@ class _PostCardState extends State<PostCard> {
               ),
               Positioned.fill(
                 child: Align(
-                  alignment: Alignment.bottomRight,
+                  alignment: Alignment.centerRight,
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 3.0),
+                        padding:
+                            const EdgeInsets.only(bottom: 3.0, right: 10.0),
                         child: Text(
                           timeAgo,
                           style: TextStyle(
@@ -117,34 +133,35 @@ class _PostCardState extends State<PostCard> {
                           ),
                         ),
                       ),
-                      PopupMenuButton<Acoes>(
-                        icon: Icon(
-                          Icons.more_horiz,
-                          color: Colors.black,
+                      if (widget.post.user.id ==
+                          _autenticacaoStore.usuarioLogado.id)
+                        PopupMenuButton<Acoes>(
+                          icon: Icon(
+                            Icons.more_horiz,
+                            color: Colors.black,
+                          ),
+                          onSelected: (value) {
+                            _actionButtons(widget.post, value);
+                          },
+                          offset: Offset(0, 100),
+                          itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
+                            PopupMenuItem<Acoes>(
+                              child: PopupMenuCustom('Edit', Icons.edit),
+                              value: Acoes.editarPost,
+                            ),
+                            const PopupMenuDivider(),
+                            PopupMenuItem<Acoes>(
+                              child: PopupMenuCustom(
+                                  'Remove', Icons.highlight_remove),
+                              value: Acoes.removerPost,
+                            ),
+                            // const PopupMenuDivider(),
+                            // PopupMenuItem<Acoes>(
+                            //   child: PopupMenuCustom('Report', Icons.report),
+                            //   value: Acoes.denunciarPost,
+                            // ),
+                          ],
                         ),
-                        // onSelected: (value) {
-                        //   _redirecionamento(value,
-                        //       widget.unidade.estruturaOrganizacional.id);
-                        // },
-                        offset: Offset(0, 100),
-                        itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
-                          PopupMenuItem<Acoes>(
-                            child: PopupMenuCustom('Edit', Icons.edit),
-                            value: Acoes.editarPost,
-                          ),
-                          const PopupMenuDivider(),
-                          PopupMenuItem<Acoes>(
-                            child: PopupMenuCustom(
-                                'Remove', Icons.highlight_remove),
-                            value: Acoes.removerPost,
-                          ),
-                          // const PopupMenuDivider(),
-                          // PopupMenuItem<Acoes>(
-                          //   child: PopupMenuCustom('Report', Icons.report),
-                          //   value: Acoes.denunciarPost,
-                          // ),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -156,10 +173,15 @@ class _PostCardState extends State<PostCard> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.post.team != null) Text(widget.post.team),
-                  if (widget.post.event != null) Text(widget.post.event),
-                  if (widget.post.location != null) Text(widget.post.location),
+                  if (widget.post.team != null && widget.post.team.isNotEmpty)
+                    Text(widget.post.team),
+                  if (widget.post.event != null && widget.post.event.isNotEmpty)
+                    Text(widget.post.event),
+                  if (widget.post.location != null &&
+                      widget.post.location.isNotEmpty)
+                    Text(widget.post.location),
                 ],
               ),
             ),
@@ -189,6 +211,8 @@ class _PostCardState extends State<PostCard> {
                     .replaceAll(RegExp(r'localhost'), '192.168.15.7')
                     .toString(),
                 fit: BoxFit.fill,
+                cacheHeight: 1080,
+                cacheWidth: 1080,
               ),
             ),
           ),
@@ -204,28 +228,42 @@ class _PostCardState extends State<PostCard> {
                       child: IconButton(
                         onPressed: () {
                           setState(() {
-                            if (widget.post.hits
-                                .contains(widget.post.user.id)) {
-                              widget.post.hitCount -= 1;
-                              widget.post.hits.removeWhere(
-                                  (element) => element == widget.post.user.id);
-                              var snackBar = SnackBar(
-                                  content: Text('You removed your hit.'));
-                              Scaffold.of(context).showSnackBar(snackBar);
+                            if (widget.post.user.id !=
+                                _autenticacaoStore.usuarioLogado.id) {
+                              if (widget.post.hits.contains(
+                                  _autenticacaoStore.usuarioLogado.id)) {
+                                widget.post.hitCount -= 1;
+                                widget.post.hits.removeWhere((element) =>
+                                    element ==
+                                    _autenticacaoStore.usuarioLogado.id);
+                                var snackBar = SnackBar(
+                                    content: Text('You removed your hit.'));
+                                Scaffold.of(context).showSnackBar(snackBar);
+                              } else {
+                                widget.post.hitCount += 1;
+                                widget.post.hits.insert(
+                                    0, _autenticacaoStore.usuarioLogado.id);
+                                var snackBar = SnackBar(
+                                    content: Text(
+                                        'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.full_name : widget.post.user.username}'));
+                                Scaffold.of(context).showSnackBar(snackBar);
+                              }
+                              makeHitPost();
                             } else {
-                              widget.post.hitCount += 1;
-                              widget.post.hits.insert(0, widget.post.user.id);
                               var snackBar = SnackBar(
-                                  content: Text(
-                                      'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.full_name : widget.post.user.username}'));
+                                content: Text(
+                                    'A post owner cannot give a hit to himself.'),
+                              );
                               Scaffold.of(context).showSnackBar(snackBar);
                             }
-                            makeHitPost();
                           });
                         },
                         icon: Icon(
                           Icons.star,
-                          color: Colors.orange,
+                          color: widget.post.hits
+                                  .contains(_autenticacaoStore.usuarioLogado.id)
+                              ? Colors.orange
+                              : Colors.grey,
                           size: 30,
                         ),
                       ),

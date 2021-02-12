@@ -69,8 +69,6 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
                           builder: (_) => ProfileTimeItem(
                             _profileStore.usuarioTime,
                             imagem,
-                            _profileStore.makeFanTime,
-                            _profileStore.makeHitTime,
                             idArgs,
                           ),
                         ),

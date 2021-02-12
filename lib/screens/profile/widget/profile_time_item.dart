@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/profile_time_model.dart';
@@ -14,11 +16,8 @@ import 'package:hellohit/widgets/lista_icones.dart';
 class ProfileTimeItem extends StatefulWidget {
   ProfileTime usuario;
   final String usuarioImagem;
-  final Function makeHit;
-  final Function beFan;
   final String usuarioAtual;
-  ProfileTimeItem(this.usuario, this.usuarioImagem, this.beFan, this.makeHit,
-      this.usuarioAtual);
+  ProfileTimeItem(this.usuario, this.usuarioImagem, this.usuarioAtual);
 
   @override
   _ProfileTimeItemState createState() => _ProfileTimeItemState();
@@ -206,7 +205,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               GestureDetector(
                 onTap: () {},
                 child: IconRow(
-                  icon: Icons.plus_one,
+                  icon: Icons.add,
                   width: 38,
                   height: 38,
                   titulo: 'Insert in your team',
@@ -249,23 +248,33 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
             ],
           ),
-          if (_autenticacaoStore.usuarioLogado.userType == 'TEAM' &&
-              _autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
+          if (_autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: FlatButton(
-                color: Colors.orange[700],
-                onPressed: () => Navigator.of(context).popAndPushNamed(
-                  ProfileTimeEdicaoScreen.routeName,
-                  arguments: _autenticacaoStore.usuarioLogado.id,
-                ),
-                child: Text(
-                  'Edit Team',
-                  style: TextStyle(
-                    color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
-                ),
-              ),
+                  color: Colors.grey[300],
+                  onPressed: () => Navigator.of(context).popAndPushNamed(
+                        ProfileTimeEdicaoScreen.routeName,
+                        arguments: _autenticacaoStore.usuarioLogado.id,
+                      ),
+                  child: Container(
+                    width: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(Icons.edit),
+                        Text('Edit Team'),
+                      ],
+                    ),
+                  )),
             ),
           Padding(
             padding: const EdgeInsets.only(bottom: 18.0),
@@ -494,34 +503,20 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
             child: TabBarView(
               controller: _tabController,
               children: <Widget>[
-                // GridView.custom(
-                //   padding: const EdgeInsets.all(10),
-                //   shrinkWrap: true,
-                //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 2,
-                //     crossAxisSpacing: 15,
-                //     childAspectRatio: (3.3 / 2),
-                //     mainAxisSpacing: 10,
-                //   ),
-                //   childrenDelegate: SliverChildListDelegate(
-                // widget.usuario.usuarios
-                //     .map((usuario) => UsuarioParente(imagem: usuario.imagem))
-                //     .toList(),
-                //       ),
-                // ),
-                // Card(
-                //   child: ListTile(
-                //     leading: const Icon(Icons.home),
-                //     title: TextField(
-                //       decoration: const InputDecoration(
-                //           hintText: 'Search for address...'),
-                //     ),
-                //   ),
-                // ),
-
-                Container(
-                  child: Center(
-                    child: Text('No hit posts'),
+                GridView.custom(
+                  padding: const EdgeInsets.all(10),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 15,
+                    childAspectRatio: (3.3 / 2),
+                    mainAxisSpacing: 10,
+                  ),
+                  childrenDelegate: SliverChildListDelegate(
+                    widget.usuario.posts
+                        .map((usuario) =>
+                            UsuarioParente(imagem: usuario.file['url']))
+                        .toList(),
                   ),
                 ),
                 Container(
@@ -531,7 +526,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                 ),
                 Container(
                   child: Center(
-                    child: Text('No users'),
+                    child: Text('No hit posts'),
                   ),
                 ),
               ],

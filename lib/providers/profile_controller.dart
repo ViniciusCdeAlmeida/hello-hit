@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/profile_time_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
@@ -25,11 +26,27 @@ class ProfileController {
 
   Future<ProfileTime> getTimeProfile(String id) async {
     try {
-      Response res = await Endpoint.getProfileTime(id);
-      var temp = ProfileTime.fromJson(res.data[0]);
-      temp.user.full_name = res.data[0]['user']['fullName'];
+      Response resProfile = await Endpoint.getProfileTime(id);
+      var temp = ProfileTime.fromJson(resProfile.data);
+      temp.user.full_name = resProfile.data['user']['fullName'];
       temp.openOpportunities ??= [];
+
+      temp.posts = await _getUsuarioPosts(temp.user.id);
       return temp;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List<Post>> _getUsuarioPosts(String id) async {
+    try {
+      Response resProfilePosts = await Endpoint.getPostsUsuario(id);
+
+      return resProfilePosts.data.map<Post>((content) {
+        var post = Post.fromJson(content);
+        post.user.full_name = content['user']['fullName'];
+        return post;
+      }).toList() as List<Post>;
     } catch (e) {
       throw e;
     }
@@ -41,6 +58,13 @@ class ProfileController {
       var temp = ProfileTime.fromJson(res.data[0]);
       temp.user.full_name = res.data[0]['user']['fullName'];
       temp.openOpportunities ??= [];
+
+      Response resProfilePosts = await Endpoint.getPostsUsuario(temp.id);
+      temp.posts = resProfilePosts.data.map<Post>((content) {
+        var post = Post.fromJson(content);
+        post.user.full_name = content['user']['fullName'];
+        return post;
+      }).toList() as List<Post>;
       return temp;
     } catch (e) {
       throw e;
@@ -64,6 +88,7 @@ class ProfileController {
       Response res = await Endpoint.getProfileUsuario(id);
       var temp = Profile.fromJson(res.data);
       temp.user.full_name = res.data['user']['fullName'];
+      temp.posts = await _getUsuarioPosts(temp.user.id);
       return temp;
     } catch (e) {
       throw e;

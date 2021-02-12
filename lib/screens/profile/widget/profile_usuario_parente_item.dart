@@ -17,6 +17,8 @@ class UsuarioParente extends StatelessWidget {
         child: Image.network(
           imagem,
           height: 10,
+          cacheHeight: 500,
+          cacheWidth: 500,
           fit: BoxFit.fill,
         ),
       ),

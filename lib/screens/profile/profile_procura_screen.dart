@@ -829,6 +829,12 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
               Observer(builder: (_) {
                 switch (_searchStore.searchState) {
                   case SearchState.inicial:
+                    return Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Center(
+                        child: Text('No data'),
+                      ),
+                    );
                   case SearchState.carregando:
                     return Padding(
                       padding: const EdgeInsets.all(8.0),

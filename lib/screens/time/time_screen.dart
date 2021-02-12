@@ -139,8 +139,11 @@ class _TimeScreenState extends State<TimeScreen> {
                         child: Text('No teams yet.'),
                       );
                     case TimeState.carregando:
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
                     case TimeState.carregado:
                       return Flexible(

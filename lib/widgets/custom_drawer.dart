@@ -36,24 +36,27 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                usuario.full_name,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                          child: Container(
+                            width: 80,
+                            child: Column(
+                              children: [
+                                Text(
+                                  usuario.full_name,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                usuario.username,
-                                style: TextStyle(
-                                  fontSize: 18,
+                                Text(
+                                  usuario.username,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
                                 ),
-                              ),
 
-                              // Text(usuario.full_name),
-                            ],
+                                // Text(usuario.full_name),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -107,25 +110,25 @@ class CustomDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(ConversasScreen.routeName);
               },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.work,
-                color: Colors.blue[700],
-              ),
-              title: const Text('My jobs & Teams'),
-              onTap: () {
-                Navigator.of(context)
-                    .pushNamed(TimesOportunidadesScreen.routeName);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.bookmark_sharp,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Bookmarks'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.work,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('My jobs & Teams'),
+            //   onTap: () {
+            //     Navigator.of(context)
+            //         .pushNamed(TimesOportunidadesScreen.routeName);
+            //   },
+            // ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.bookmark_sharp,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Bookmarks'),
+            //   onTap: () {},
+            // ),
             // ListTile(
             //   leading: Icon(
             //     Icons.list,
@@ -134,14 +137,14 @@ class CustomDrawer extends StatelessWidget {
             //   title: const Text('Lists'),
             //   onTap: () {},
             // ),
-            ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Settings'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.settings,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Settings'),
+            //   onTap: () {},
+            // ),
             // ListTile(
             //   leading: Icon(
             //     Icons.credit_card,
@@ -158,14 +161,14 @@ class CustomDrawer extends StatelessWidget {
             //   title: const Text('Add Bank'),
             //   onTap: () {},
             // ),
-            ListTile(
-              leading: Icon(
-                Icons.help,
-                color: Colors.blue[700],
-              ),
-              title: const Text('Help and support'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.help,
+            //     color: Colors.blue[700],
+            //   ),
+            //   title: const Text('Help and support'),
+            //   onTap: () {},
+            // ),
             usuario.userType == 'TEAM'
                 ? Container()
                 : ListTile(

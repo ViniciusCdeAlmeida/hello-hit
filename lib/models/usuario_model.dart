@@ -22,6 +22,7 @@ class Usuario {
   DateTime createdAt;
   DateTime updatedAt;
   bool existeCategoria;
+  String avatarUrl;
 
   Usuario({
     // ignore: non_constant_identifier_names
@@ -41,6 +42,7 @@ class Usuario {
     this.createdAt,
     this.updatedAt,
     this.existeCategoria,
+    this.avatarUrl,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

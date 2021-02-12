@@ -96,4 +96,12 @@ class AutenticacaoController {
       throw e;
     }
   }
+
+  Future<void> patchCategoriaTime(String id) async {
+    try {
+      await Endpoint.patchCategoriaTime(id);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

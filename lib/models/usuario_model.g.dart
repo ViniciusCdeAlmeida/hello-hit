@@ -27,6 +27,7 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['updatedAt'] as String),
     existeCategoria: json['existeCategoria'] as bool,
+    avatarUrl: json['avatarUrl'] as String,
   );
 }
 
@@ -46,4 +47,5 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'existeCategoria': instance.existeCategoria,
+      'avatarUrl': instance.avatarUrl,
     };

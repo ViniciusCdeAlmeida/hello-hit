@@ -4,6 +4,7 @@ import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:provider/provider.dart';
 
@@ -59,10 +60,10 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                   backgroundColor: Colors.transparent,
                   maxRadius: 60.0,
                   minRadius: 10.0,
-                  backgroundImage: widget.usuario.avatar == null
+                  backgroundImage: widget.usuario.user.avatarUrl == null
                       ? AssetImage(
                           'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                      : NetworkImage(widget.usuario.avatar),
+                      : NetworkImage(widget.usuario.user.avatarUrl),
                 ),
               ),
             ),
@@ -191,27 +192,31 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             ),
           ],
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: FlatButton(
-            color: Colors.orange[700],
-            onPressed: () => Navigator.of(context).popAndPushNamed(
-              ProfileUsuarioEdicaoScreen.routeName,
-              arguments: _autenticacaoStore.usuarioLogado.id,
-            ),
-            child: Text(
-              'Edit Profile',
-              style: TextStyle(
-                color: Colors.white,
+        if (_autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: FlatButton(
+              color: Colors.orange[700],
+              onPressed: () => Navigator.of(context).popAndPushNamed(
+                ProfileUsuarioEdicaoScreen.routeName,
+                arguments: _autenticacaoStore.usuarioLogado.id,
+              ),
+              child: Text(
+                'Edit Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        ),
-        Text(
-          widget.usuario.bio == "" || widget.usuario.bio == null
-              ? 'No bio yet.'
-              : widget.usuario.bio,
-          style: TextStyle(fontSize: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
+          child: Text(
+            widget.usuario.bio == "" || widget.usuario.bio == null
+                ? 'No bio yet.'
+                : widget.usuario.bio,
+            style: TextStyle(fontSize: 16),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -337,9 +342,20 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               //   ),
               // ),
 
-              Container(
-                child: Center(
-                  child: Text('No hit posts'),
+              GridView.custom(
+                padding: const EdgeInsets.all(10),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 3,
+                  childAspectRatio: (2 / 2),
+                  mainAxisSpacing: 10,
+                ),
+                childrenDelegate: SliverChildListDelegate(
+                  widget.usuario.posts
+                      .map((usuario) =>
+                          UsuarioParente(imagem: usuario.file['url']))
+                      .toList(),
                 ),
               ),
               Container(
