@@ -20,7 +20,8 @@ class _ChatScreenState extends State<ChatScreen> {
   AutenticacaoStore _autenticacaoStore;
 
   String idUsuario;
-  String idArgs;
+  String idConversation;
+  String userName;
   String _textMessage;
 
   var _text = Message(
@@ -40,10 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
     idUsuario = _autenticacaoStore.usuarioLogado.id;
-    idArgs = ModalRoute.of(context).settings.arguments;
+    idConversation = ModalRoute.of(context).settings.arguments;
+    userName = ModalRoute.of(context).settings.arguments;
 
     print('Usuario Logado ' + idUsuario);
-    print("Id conversa " + idArgs);
+    print("Id conversa " + idConversation);
+    print('User Name ' + userName);
 
     var caixaMensagem = Container(
       padding: EdgeInsets.all(8),

@@ -177,6 +177,6 @@ class Endpoint {
       await getConexaoPrefs()
           .post('posts/$idUsuario/comments', data: comentario);
 
-  static Future getUsuarios() async => await getConexaoPrefs().get('users');
-  static Future getMessages() async => await getConexaoPrefs().get('messages');
+  //static Future getUsuarios() async => await getConexaoPrefs().get('users');
+  //static Future getMessages() async => await getConexaoPrefs().get('messages');
 }
