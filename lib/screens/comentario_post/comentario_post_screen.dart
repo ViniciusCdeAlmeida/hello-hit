@@ -124,7 +124,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
                                                   .avatar['url'],
                                             ),
                                     ),*/
-                                  //onTap: () {},
+                                  onTap: () {},
                                 ),
                               ],
                             ),
