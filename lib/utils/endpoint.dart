@@ -16,8 +16,10 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.7:3000/"
-    // ..options.baseUrl = "http://3.16.49.191:3000/"
+
+    //..options.baseUrl = "http://192.168.15.7:3000/"
+    //..options.baseUrl = "http://10.0.0.102:3000/"
+    ..options.baseUrl = "http://developer.api.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -64,7 +66,9 @@ class Endpoint {
   static Future getPosts() async => await getConexaoPrefs().get('posts');
 
   static Future getChatsUsers() async =>
-      await getConexaoPrefs().get('/chats/user');
+      await getConexaoPrefs().get('chats/user');
+
+  static Future getMessages() async => await getConexaoPrefs().get('messages');
 
   static Future getTeams() async => await getConexaoPrefs().get('profilesTeam');
 
@@ -82,6 +86,8 @@ class Endpoint {
 
   static Future getAllProfileTime() async =>
       await getConexaoPrefs().get('profilesTeam');
+
+  static Future getUsuarios() async => await getConexaoPrefs().get('users');
 
   static Future patchHitTime(String idUsuario, String idPerfil) async =>
       await getConexaoPrefs()
@@ -118,6 +124,15 @@ class Endpoint {
         FormData.fromMap({"file": await MultipartFile.fromFile(image)});
 
     return await getConexaoPrefs().put('myuser', data: formData);
+  }
+
+  static Future createSubscription() async {
+    final dados = {
+      "price": "price_1IGkiwAIZbIeL4kbL4Fe4ASc",
+      "paymentMethodId": "pm_1IHTgPAIZbIeL4kbbXNUPmmZ",
+      "customerId": "cus_601401ee40648b09944109f5",
+    };
+    return await getConexaoPrefs().post('create-subscription', data: dados);
   }
 
   static Future patchProfileUsuario(Profile profile) async =>

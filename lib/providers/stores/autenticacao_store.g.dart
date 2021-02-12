@@ -16,6 +16,13 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
       (_$usuarioLogadoComputed ??= Computed<Usuario>(() => super.usuarioLogado,
               name: '_AutenticacaoStore.usuarioLogado'))
           .value;
+  Computed<List<Usuario>> _$usuariosComputed;
+
+  @override
+  List<Usuario> get usuarios =>
+      (_$usuariosComputed ??= Computed<List<Usuario>>(() => super.usuarios,
+              name: '_AutenticacaoStore.usuarios'))
+          .value;
   Computed<List<Categoria>> _$categoriasComputed;
 
   @override
@@ -23,6 +30,20 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
           Computed<List<Categoria>>(() => super.categorias,
               name: '_AutenticacaoStore.categorias'))
       .value;
+  Computed<List<Conversation>> _$conversationsComputed;
+
+  @override
+  List<Conversation> get conversations => (_$conversationsComputed ??=
+          Computed<List<Conversation>>(() => super.conversations,
+              name: '_AutenticacaoStore.conversations'))
+      .value;
+  Computed<List<Message>> _$messagesComputed;
+
+  @override
+  List<Message> get messages =>
+      (_$messagesComputed ??= Computed<List<Message>>(() => super.messages,
+              name: '_AutenticacaoStore.messages'))
+          .value;
   Computed<bool> _$autenticandoComputed;
 
   @override
@@ -69,6 +90,37 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
     });
   }
 
+  final _$_messageFutureAtom = Atom(name: '_AutenticacaoStore._messageFuture');
+
+  @override
+  ObservableFuture<List<Message>> get _messageFuture {
+    _$_messageFutureAtom.reportRead();
+    return super._messageFuture;
+  }
+
+  @override
+  set _messageFuture(ObservableFuture<List<Message>> value) {
+    _$_messageFutureAtom.reportWrite(value, super._messageFuture, () {
+      super._messageFuture = value;
+    });
+  }
+
+  final _$_messageObservableAtom =
+      Atom(name: '_AutenticacaoStore._messageObservable');
+
+  @override
+  ObservableList<Message> get _messageObservable {
+    _$_messageObservableAtom.reportRead();
+    return super._messageObservable;
+  }
+
+  @override
+  set _messageObservable(ObservableList<Message> value) {
+    _$_messageObservableAtom.reportWrite(value, super._messageObservable, () {
+      super._messageObservable = value;
+    });
+  }
+
   final _$_categoriaFutureAtom =
       Atom(name: '_AutenticacaoStore._categoriaFuture');
 
@@ -99,6 +151,70 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
     _$_categoriaObservableAtom.reportWrite(value, super._categoriaObservable,
         () {
       super._categoriaObservable = value;
+    });
+  }
+
+  final _$_usuarioFutureAtom = Atom(name: '_AutenticacaoStore._usuarioFuture');
+
+  @override
+  ObservableFuture<List<Usuario>> get _usuarioFuture {
+    _$_usuarioFutureAtom.reportRead();
+    return super._usuarioFuture;
+  }
+
+  @override
+  set _usuarioFuture(ObservableFuture<List<Usuario>> value) {
+    _$_usuarioFutureAtom.reportWrite(value, super._usuarioFuture, () {
+      super._usuarioFuture = value;
+    });
+  }
+
+  final _$_usuarioObservableAtom =
+      Atom(name: '_AutenticacaoStore._usuarioObservable');
+
+  @override
+  ObservableList<Usuario> get _usuarioObservable {
+    _$_usuarioObservableAtom.reportRead();
+    return super._usuarioObservable;
+  }
+
+  @override
+  set _usuarioObservable(ObservableList<Usuario> value) {
+    _$_usuarioObservableAtom.reportWrite(value, super._usuarioObservable, () {
+      super._usuarioObservable = value;
+    });
+  }
+
+  final _$_conversationFutureAtom =
+      Atom(name: '_AutenticacaoStore._conversationFuture');
+
+  @override
+  ObservableFuture<List<Conversation>> get _conversationFuture {
+    _$_conversationFutureAtom.reportRead();
+    return super._conversationFuture;
+  }
+
+  @override
+  set _conversationFuture(ObservableFuture<List<Conversation>> value) {
+    _$_conversationFutureAtom.reportWrite(value, super._conversationFuture, () {
+      super._conversationFuture = value;
+    });
+  }
+
+  final _$_conversationObservableAtom =
+      Atom(name: '_AutenticacaoStore._conversationObservable');
+
+  @override
+  ObservableList<Conversation> get _conversationObservable {
+    _$_conversationObservableAtom.reportRead();
+    return super._conversationObservable;
+  }
+
+  @override
+  set _conversationObservable(ObservableList<Conversation> value) {
+    _$_conversationObservableAtom
+        .reportWrite(value, super._conversationObservable, () {
+      super._conversationObservable = value;
     });
   }
 
@@ -139,7 +255,10 @@ mixin _$AutenticacaoStore on _AutenticacaoStore, Store {
   String toString() {
     return '''
 usuarioLogado: ${usuarioLogado},
+usuarios: ${usuarios},
 categorias: ${categorias},
+conversations: ${conversations},
+messages: ${messages},
 autenticando: ${autenticando},
 autenticacaoState: ${autenticacaoState}
     ''';

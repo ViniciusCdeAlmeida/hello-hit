@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/models/message_model.dart';
+import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
 import 'package:provider/provider.dart';
@@ -15,51 +17,28 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
+  Conversation _conversation;
+  List<Usuario> _usuarios;
   String idArgs;
-
-  final TextEditingController textEditingController = TextEditingController();
-
-  TextEditingController _controllerMensagem = TextEditingController();
+  String _textMessage;
 
   var _text = Message(
     text: '',
   );
 
-  Socket socket;
-
-  _enviar() {
-    sendMessage(String text) {
-      socket.emit(
-        'new_message',
-        json.encode({
-          'message': text,
-        }),
-      );
-      //notifyListeners();
-    }
-  }
-
-  /*List<Message> getMessagesForChatID(String chatID) {
-    return messages
-        .where((msg) => msg.senderID == chatID || msg.receiverID == chatID)
-        .toList();
-  }*/
-
   _enviarFoto() {}
 
   @override
   void didChangeDependencies() {
-    _profileStore = Provider.of<ProfileStore>(context, listen: false);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
-
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(_text.text);
+    idArgs = ModalRoute.of(context).settings.arguments;
+    //_conversation = _autenticacaoStore.print(idArgs);
 
     var caixaMensagem = Container(
       padding: EdgeInsets.all(8),
@@ -69,77 +48,107 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Padding(
               padding: EdgeInsets.only(right: 8),
               child: TextField(
-                onChanged: (text) => _text.text = text,
-                controller: _controllerMensagem,
+                //onChanged: (text) => _text.text = text,
+                onChanged: (texto) => _textMessage,
                 autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(fontSize: 20),
                 cursorColor: Colors.orange[700],
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(32, 8, 32, 8),
+                  contentPadding: EdgeInsets.fromLTRB(20, 8, 20, 8),
                   hintText: "Message",
+                  hintStyle: TextStyle(fontSize: 15),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  prefixIcon: IconButton(
-                      icon: Icon(Icons.camera_alt), onPressed: _enviarFoto),
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                  /*prefixIcon: IconButton(
+                    icon: Icon(Icons.camera_alt),
+                    onPressed: _enviarFoto,
+                  ),*/
                 ),
               ),
             ),
           ),
-          FloatingActionButton(
-            backgroundColor: Colors.orange[700],
-            child: Icon(
-              Icons.send,
-              color: Colors.white,
-            ),
-            mini: true,
-            onPressed: _enviar,
-          )
+          IconButton(
+            color: Colors.orange[700],
+            icon: Icon(Icons.send),
+            onPressed: () {
+              Socket socket = io(
+                  'http://developer.api.hellohit.co',
+                  OptionBuilder()
+                      .setTransports(
+                        ['websocket'],
+                      ) // for Flutter or Dart VM
+                      .disableAutoConnect() // disable auto-connection
+                      .setExtraHeaders({'foo': 'bar'}) // optional
+                      .build());
+              socket.connect();
+
+              /*var message = {
+                "conversation": idconversation,
+                "receiver": idreceiver,
+                "sender": idsender,
+                "text": text
+              };*/
+
+              /*var conversation = {
+                "receiver": _usuarios[idx].id,
+                "sender": _autenticacaoStore.usuarioLogado.id,
+              };*/
+
+              var message = {};
+
+              socket.emit('new_message', message);
+
+              print('ENVIANDO MENSAGEM');
+            },
+          ),
         ],
       ),
     );
 
     var listView = Expanded(
       child: ListView.builder(
-          itemCount: null,
-          itemBuilder: (context, indice) {
-            double larguraContainer = MediaQuery.of(context).size.width * 0.8;
+        itemCount: null,
+        itemBuilder: (context, indice) {
+          double larguraContainer = MediaQuery.of(context).size.width * 0.8;
 
-            //larguraContainer -> 100
-            //x                -> 80
+          //larguraContainer -> 100
+          //x                -> 80
 
-            //Define cores e alinhamentos
-            Alignment alinhamento = Alignment.centerRight;
-            Color cor = Colors.orange[700];
-            if (indice % 2 == 0) {
-              //par
-              alinhamento = Alignment.centerLeft;
-              cor = Colors.white;
-            }
+          //Define cores e alinhamentos
+          Alignment alinhamento = Alignment.centerRight;
+          Color cor = Colors.orange[700];
+          if (indice % 2 == 0) {
+            //par
+            alinhamento = Alignment.centerLeft;
+            cor = Colors.white;
+          }
 
-            return Align(
-              alignment: alinhamento,
-              child: Padding(
-                padding: EdgeInsets.all(6),
-                child: Container(
-                  width: larguraContainer,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: cor,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    '',
-                    style: TextStyle(fontSize: 18),
+          /*return Align(
+            alignment: alinhamento,
+            child: Padding(
+              padding: EdgeInsets.all(6),
+              child: Container(
+                width: larguraContainer,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: cor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
                   ),
                 ),
+                child: Text(
+                  '',
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
-            );
-          }),
+            ),
+          );*/
+        },
+      ),
     );
 
     return Scaffold(
@@ -152,7 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text(_autenticacaoStore.usuarioLogado.full_name),
+        title: Text(idArgs),
         centerTitle: true,
       ),
       body: Container(

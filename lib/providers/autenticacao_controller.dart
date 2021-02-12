@@ -1,11 +1,10 @@
 import 'dart:async';
-
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
 import 'package:hellohit/models/categoria_model.dart';
+import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/utils/endpoint.dart';
-// import 'package:hive/hive.dart';
 
 class AutenticacaoController {
   Future<Usuario> autenticacaoUsuario(Autenticacao usuario) async {
@@ -21,6 +20,44 @@ class AutenticacaoController {
           : usuarioRecebido.existeCategoria = true;
       getToken(usuarioRecebido.token);
       return usuarioRecebido;
+    } on DioError catch (e) {
+      if (e.response != null)
+        throw e.response.data['message'];
+      else
+        throw 'Check your connection.';
+    } on TimeoutException catch (_) {
+      throw 'Check your connection';
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List<Usuario>> getUsuarios() async {
+    try {
+      Response res =
+          await Endpoint.getUsuarios().timeout(Duration(seconds: 40));
+      return res.data
+          .map<Usuario>((content) => Usuario.fromJson(content))
+          .toList() as List<Usuario>;
+    } on DioError catch (e) {
+      if (e.response != null)
+        throw e.response.data['message'];
+      else
+        throw 'Check your connection.';
+    } on TimeoutException catch (_) {
+      throw 'Check your connection';
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<List<Conversation>> getConversationList() async {
+    try {
+      Response res =
+          await Endpoint.getChatsUsers().timeout(Duration(seconds: 40));
+      return res.data
+          .map<Conversation>((content) => Conversation.fromJson(content))
+          .toList() as List<Conversation>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];

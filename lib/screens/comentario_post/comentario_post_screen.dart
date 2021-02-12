@@ -22,6 +22,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
   AutenticacaoStore _usuarioStore;
   PostStore _postStore;
   String idArgs;
+  List<Comentario> _comentarios;
 
   var _comentario = Comentario(
     text: '',
@@ -97,12 +98,18 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _comentarioStore.carreiras.length,
-                            itemBuilder: (_, idx) => ComentarioPostItem(
-                                  _comentarioStore.carreiras[idx],
-                                )),
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: _comentarios.length,
+                          itemBuilder: (_, idx) => Column(
+                            children: [
+                              ListTile(
+                                title: Text(_comentarios[idx].text),
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                   }
                 },

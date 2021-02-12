@@ -8,18 +8,19 @@ part of 'conversation_model.dart';
 
 Conversation _$ConversationFromJson(Map<String, dynamic> json) {
   return Conversation(
-    members: (json['members'] as List)
-        ?.map((e) =>
-            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    creator: json['creator'] == null
+    id: json['_id'] as String,
+    receiver: json['receiver'] == null
         ? null
-        : Usuario.fromJson(json['creator'] as Map<String, dynamic>),
+        : Usuario.fromJson(json['receiver'] as Map<String, dynamic>),
+    sender: json['sender'] == null
+        ? null
+        : Usuario.fromJson(json['sender'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$ConversationToJson(Conversation instance) =>
     <String, dynamic>{
-      'members': instance.members,
-      'creator': instance.creator,
+      '_id': instance.id,
+      'receiver': instance.receiver,
+      'sender': instance.sender,
     };

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/conversation_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
+import 'package:hellohit/screens/lista_usuarios/lista_usuarios_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 class ConversasScreen extends StatefulWidget {
   static const routeName = "/conversasScreen";
@@ -14,72 +14,23 @@ class ConversasScreen extends StatefulWidget {
 
 class _ConversasScreenState extends State<ConversasScreen> {
   AutenticacaoStore _autenticacaoStore;
-  ConversationStore _conversationStore;
   String id;
   String idUsuario;
+  List<Conversation> _conversations;
 
   @override
   void didChangeDependencies() {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
-    _conversationStore = Provider.of<ConversationStore>(context);
     idUsuario = _autenticacaoStore.usuarioLogado.id;
     id = ModalRoute.of(context).settings.arguments;
-    _conversationStore.conversationList();
     super.didChangeDependencies();
-  }
-
-  newChat() {
-    Socket socket = io(
-        'http://3.16.49.191:3000',
-        OptionBuilder()
-            .setTransports(['websocket']) // for Flutter or Dart VM
-            .disableAutoConnect() // disable auto-connection
-            .setExtraHeaders({'foo': 'bar'}) // optional
-            .build());
-    socket.connect();
-
-    /**
-     *  
-     *  conversation: {
-     *    members: [
-     *     {
-     *        id: _autenticacaoStore._id
-     *     },
-     *     {
-     *       id: 6023e2895df84a001ef4ef68 <UserId>
-     *     }
-     *    ],
-     *    creator: _autenticacaoStore._id
-     *  }
-    */
-
-    var conversation = {
-      "members": [
-        {"id": "6022b6eb51f309001d3e8bbe"},
-        {"id": "6023e2895df84a001ef4ef68"}
-      ],
-      "creator": '6022b6eb51f309001d3e8bbe',
-    };
-
-    socket.emit('new_chat', conversation);
-
-    /* [GET] /chats/user <- Lista as conversas do seu usuário (precisa estar autenticado) */
-
-    //socket.emit("new_message" {...messsage}) <- Para enviar mensagens
-
-    //var messa
-
-    /* Redirecionar para a tela de chat */
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChatScreen(),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _conversations = _autenticacaoStore.conversations;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
@@ -112,44 +63,71 @@ class _ConversasScreenState extends State<ConversasScreen> {
               iconSize: 20,
               color: Colors.white,
               onPressed: () {
-                newChat(); /* Chamada! */
+                Navigator.of(context).pushNamed(ListaUsuarios.routeName);
+                //newChat(); /* Chamada! */
               },
             ),
           ],
         ),
       ),
-      body: Observer(
-        builder: (_) {
-          switch (_conversationStore.conversationState) {
-            case ConversationState.inicial:
-            case ConversationState.carregando:
-              return Center(
-                child: CircularProgressIndicator(
-                    //backgroundColor: Colors.orange[700],
+      body: ListView(
+        children: [
+          Observer(
+            builder: (_) {
+              switch (_autenticacaoStore.autenticacaoState) {
+                case AutenticacaoState.inicial:
+                case AutenticacaoState.carregando:
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                     ),
-              );
-            case ConversationState.carregado:
-              return CustomScrollView(
-                slivers: <Widget>[
-                  SliverList(
-                    delegate: SliverChildListDelegate([
-                      /*OportunidadeItem(
-                        _conversationStore.conv,
-                        idUsuario,
-                      ),*/
-                    ]),
-                  ),
-                ],
-              );
-          }
-          ConversationState.carregado == null
-              ? Center(
-                  child: const Text('Inicie uma conversa'),
-                )
-              : Center(
-                  child: const Text('Inicie uma conversa'),
-                );
-        },
+                  );
+                case AutenticacaoState.carregado:
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _conversations.length,
+                      itemBuilder: (_, idx) => Column(
+                        children: [
+                          if (_conversations[idx].sender.id ==
+                              _autenticacaoStore.usuarioLogado.id)
+                            ListTile(
+                              title:
+                                  Text(_conversations[idx].receiver.username),
+                              leading: CircleAvatar(
+                                backgroundImage: _conversations[idx]
+                                            .receiver
+                                            .avatar ==
+                                        null
+                                    ? AssetImage(
+                                        'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                    : NetworkImage(
+                                        _conversations[idx]
+                                            .receiver
+                                            .avatar['url'],
+                                      ),
+                              ),
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  ChatScreen.routeName,
+                                  arguments:
+                                      _conversations[idx].receiver.username,
+                                );
+                              },
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+              }
+            },
+          ),
+        ],
       ),
     );
   }

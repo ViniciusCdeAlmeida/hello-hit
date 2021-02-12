@@ -5,13 +5,15 @@ part 'conversation_model.g.dart';
 
 @JsonSerializable()
 class Conversation {
-  List<Usuario> members;
-
-  Usuario creator;
+  @JsonKey(name: '_id')
+  String id;
+  Usuario receiver;
+  Usuario sender;
 
   Conversation({
-    this.members,
-    this.creator,
+    this.id,
+    this.receiver,
+    this.sender,
   });
 
   factory Conversation.fromJson(Map<String, dynamic> json) =>

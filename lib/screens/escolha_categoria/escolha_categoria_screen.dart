@@ -22,6 +22,34 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
   }
 
   Future<void> submit() async {
+    print(_currentSelected);
+    // if (!_formKey.currentState.validate()) {
+    //   return;
+    // }
+    // _formKey.currentState.save();
+    // _autenticacaoStore.autenticacaoUsuario(_loginData).then(
+    //   (_) {
+    //     // _autenticacaoStore.autenticacao;
+    //     Navigator.of(context).pushNamed(EscolhaCategoriaScreen.routeName);
+    //   },
+    // ).catchError((onError) {
+    //   showDialog<Null>(
+    //     context: context,
+    //     builder: (ctx) => AlertDialog(
+    //       title: Text(onError),
+    //       content: Text('Your connection is not available.'),
+    //       actions: <Widget>[
+    //         FlatButton(
+    //           onPressed: () {
+    //             Navigator.of(ctx).pop();
+    //           },
+    //           child: Text('OK'),
+    //         )g
+    //       ],
+    //     ),
+    //   );
+    // });
+
     _autenticacaoStore.atualizaCategoriaUsuario(_currentSelected).then(
       (_) {
         Navigator.of(context).pushNamed(FeedScreen.routeName);
