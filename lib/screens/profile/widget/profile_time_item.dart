@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:provider/provider.dart';
 
@@ -194,7 +195,12 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    ChatScreen.routeName,
+                    arguments: widget.usuario.user.username,
+                  );
+                },
                 child: IconRow(
                   icon: Icons.question_answer,
                   width: 38,
