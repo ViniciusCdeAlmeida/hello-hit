@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/comentario_model.dart';
+import 'package:hellohit/models/conversation_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/comentario_post_store.dart';
 import 'package:hellohit/providers/stores/post_store.dart';
-import 'package:hellohit/screens/comentario_post/widget/comentario_post_item.dart';
 import 'package:provider/provider.dart';
 import 'package:hellohit/models/post_model.dart';
 
@@ -19,10 +19,11 @@ class ComentarioPostScreen extends StatefulWidget {
 
 class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
   ComentarioPostStore _comentarioStore;
-  AutenticacaoStore _usuarioStore;
+  AutenticacaoStore _autenticacaoStore;
   PostStore _postStore;
   String idArgs;
   List<Comentario> _comentarios;
+  List<Conversation> _conversations;
 
   var _comentario = Comentario(
     text: '',
@@ -61,59 +62,78 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context).settings.arguments.toString());
     idArgs = ModalRoute.of(context).settings.arguments;
     _comentario.id = idArgs;
-    print(_comentario.id);
-    print(idArgs);
-    print(_comentario);
+    _comentarios = _comentarioStore.carreiras;
+
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _conversations = _autenticacaoStore.conversations;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comments'),
         actions: [
-          IconButton(
+          /*IconButton(
             icon: Icon(
               Icons.send,
               color: Colors.black,
             ),
             onPressed: () {},
-          )
+          )*/
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: Observer(
-                builder: (_) {
-                  switch (_comentarioStore.comentarioState) {
-                    case ComentarioPostState.inicial:
-                      return Container();
-                    case ComentarioPostState.carregando:
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    case ComentarioPostState.carregado:
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: _comentarios.length,
-                          itemBuilder: (_, idx) => Column(
-                            children: [
-                              ListTile(
-                                title: Text(_comentarios[idx].text),
-                                onTap: () {},
-                              ),
-                            ],
+            child: ListView(
+              children: [
+                Observer(
+                  builder: (_) {
+                    switch (_autenticacaoStore.autenticacaoState) {
+                      case AutenticacaoState.inicial:
+                      case AutenticacaoState.carregando:
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.white,
+                            ),
                           ),
-                        ),
-                      );
-                  }
-                },
-              ),
+                        );
+                      case AutenticacaoState.carregado:
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _comentarios.length,
+                            itemBuilder: (_, idx) => Column(
+                              children: [
+                                ListTile(
+                                  title: Text(_comentarios[idx].text),
+                                  /*leading: CircleAvatar(
+                                      backgroundImage: _conversations[idx]
+                                                  .receiver
+                                                  .avatar ==
+                                              null
+                                          ? AssetImage(
+                                              'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                          : NetworkImage(
+                                              _conversations[idx]
+                                                  .receiver
+                                                  .avatar['url'],
+                                            ),
+                                    ),*/
+                                  onTap: () {},
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
           TextFormField(

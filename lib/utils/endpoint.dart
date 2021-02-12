@@ -33,10 +33,14 @@ class Endpoint {
     await getConexaoPrefs().get('posts/$id');
   }
 
+  static Future getMessages() async => await getConexaoPrefs().get('users');
+
+  static Future getUsuarios() async => await getConexaoPrefs().get('users');
+
   static Future postComentarioPost(String id, Comentario comentario) async {
     FormData formData = FormData.fromMap(
       {
-        "body": comentario.text,
+        "text": comentario.text,
       },
     );
     return await getConexaoPrefs().post('posts/$id/comments', data: comentario);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
 import 'package:hellohit/widgets/acoes.dart';
@@ -270,11 +271,18 @@ class _PostCardState extends State<PostCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
-                      child: ImageIcon(
-                        AssetImage(
-                            'assets/images/perfil_assets/comentario_inativo.png'),
-                        color: Colors.grey,
-                        size: 20,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                            ComentarioPostScreen.routeName,
+                            arguments: widget.post.id,
+                          );
+                        },
+                        icon: Icon(
+                          Icons.comment_sharp,
+                          color: Colors.grey,
+                          size: 30,
+                        ),
                       ),
                     ),
                     // Padding(

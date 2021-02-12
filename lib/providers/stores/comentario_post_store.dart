@@ -105,9 +105,12 @@ abstract class _ComentarioPostStore with Store {
   Future<Comentario> fazerComentario(String id, Comentario post) async {
     req = true;
     try {
-      _comentarioFuture = ObservableFuture(
-        _comentarioPostController.comentarioPost(id, post),
-      );
+      _comentarioFuture =
+          ObservableFuture(_comentarioPostController.comentarioPost(id, post));
+
+      _comentariosFuture =
+          ObservableFuture(_comentarioPostController.getAllComentariosPost(id));
+
       _comentario = await _comentarioFuture.whenComplete(() => req = false);
     } catch (e) {
       throw e;
