@@ -25,7 +25,7 @@ class ProfileTimeSearchItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  time.user.full_name,
+                  time.user.fullName,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 // Text(time.nomeOrganizacao),

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:hellohit/providers/stores/postagem_store.dart';
 import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_screen.dart';
@@ -30,6 +31,7 @@ class _PostCardState extends State<PostCard> {
   var now = DateTime.now();
   PostagemStore _postStore;
   AutenticacaoStore _autenticacaoStore;
+  FeedStore _feedStore;
 
   void _actionButtons(Post post, Acoes acoes) {
     switch (acoes) {
@@ -38,11 +40,35 @@ class _PostCardState extends State<PostCard> {
         //     .push(MaterialPageRoute(builder: (context) => MoorDbViewer(db)));
         break;
       case Acoes.removerPost:
-        // Navigator.of(context).pushNamed(BensInventariadosScreen.routeName);
+        showAlertDialogRemove(context, post);
         break;
       case Acoes.denunciarPost:
         break;
     }
+  }
+
+  showAlertDialogRemove(BuildContext context, Post post) {
+    AlertDialog alert = AlertDialog(
+      title: Text('Are you sure?'),
+      content: Text('This action will delete your post.'),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () async {
+            await _postStore
+                .removerPostagem(post.id)
+                .then((_) => _feedStore.updateFeed(post.id));
+            Navigator.of(context).pop();
+          },
+          child: Text('OK'),
+        )
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   Future<void> makeHitPost() async {
@@ -57,6 +83,7 @@ class _PostCardState extends State<PostCard> {
   Widget build(BuildContext context) {
     _postStore = Provider.of<PostagemStore>(context);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
+    _feedStore = Provider.of<FeedStore>(context);
     final difference = now.difference(widget.post.createdAt);
     var timeAgo = timeago.format(now.subtract(difference), locale: 'en');
     return Card(
@@ -202,7 +229,7 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
           Container(
-            height: 300,
+            height: 350,
             color: Colors.grey[300],
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
@@ -211,7 +238,7 @@ class _PostCardState extends State<PostCard> {
                     .toString()
                     .replaceAll(RegExp(r'localhost'), '192.168.15.7')
                     .toString(),
-                fit: BoxFit.fill,
+                fit: BoxFit.scaleDown,
                 cacheHeight: 1080,
                 cacheWidth: 1080,
               ),
@@ -246,7 +273,7 @@ class _PostCardState extends State<PostCard> {
                                     0, _autenticacaoStore.usuarioLogado.id);
                                 var snackBar = SnackBar(
                                     content: Text(
-                                        'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.full_name : widget.post.user.username}'));
+                                        'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.fullName : widget.post.user.username}'));
                                 Scaffold.of(context).showSnackBar(snackBar);
                               }
                               makeHitPost();
@@ -302,13 +329,13 @@ class _PostCardState extends State<PostCard> {
                   ],
                 ),
                 Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: Icon(
-                    Icons.bookmark_border,
-                    color: Colors.orange,
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(right: 15.0),
+                //   child: Icon(
+                //     Icons.bookmark_border,
+                //     color: Colors.orange,
+                //   ),
+                // ),
               ],
             ),
           ),

@@ -13,7 +13,6 @@ class FeedController {
       Response res = await Endpoint.getPosts();
       return res.data.map<Post>((content) {
         var post = Post.fromJson(content);
-        post.user.full_name = content['user']['fullName'];
         return post;
       }).toList() as List<Post>;
     } catch (e) {

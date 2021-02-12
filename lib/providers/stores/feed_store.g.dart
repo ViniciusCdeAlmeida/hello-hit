@@ -75,6 +75,19 @@ mixin _$FeedStore on _FeedStore, Store {
     return _$feedListAsyncAction.run(() => super.feedList());
   }
 
+  final _$_FeedStoreActionController = ActionController(name: '_FeedStore');
+
+  @override
+  void updateFeed(String id) {
+    final _$actionInfo =
+        _$_FeedStoreActionController.startAction(name: '_FeedStore.updateFeed');
+    try {
+      return super.updateFeed(id);
+    } finally {
+      _$_FeedStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

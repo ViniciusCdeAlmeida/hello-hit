@@ -28,7 +28,6 @@ class ProfileController {
     try {
       Response resProfile = await Endpoint.getProfileTime(id);
       var temp = ProfileTime.fromJson(resProfile.data);
-      temp.user.full_name = resProfile.data['user']['fullName'];
       temp.openOpportunities ??= [];
 
       temp.posts = await _getUsuarioPosts(temp.user.id);
@@ -44,7 +43,6 @@ class ProfileController {
 
       return resProfilePosts.data.map<Post>((content) {
         var post = Post.fromJson(content);
-        post.user.full_name = content['user']['fullName'];
         return post;
       }).toList() as List<Post>;
     } catch (e) {
@@ -56,13 +54,11 @@ class ProfileController {
     try {
       Response res = await Endpoint.getProfileTimeScreen(id);
       var temp = ProfileTime.fromJson(res.data[0]);
-      temp.user.full_name = res.data[0]['user']['fullName'];
       temp.openOpportunities ??= [];
 
       Response resProfilePosts = await Endpoint.getPostsUsuario(temp.id);
       temp.posts = resProfilePosts.data.map<Post>((content) {
         var post = Post.fromJson(content);
-        post.user.full_name = content['user']['fullName'];
         return post;
       }).toList() as List<Post>;
       return temp;
@@ -87,7 +83,6 @@ class ProfileController {
     try {
       Response res = await Endpoint.getProfileUsuario(id);
       var temp = Profile.fromJson(res.data);
-      temp.user.full_name = res.data['user']['fullName'];
       temp.posts = await _getUsuarioPosts(temp.user.id);
       return temp;
     } catch (e) {
@@ -99,7 +94,6 @@ class ProfileController {
     try {
       Response resP = await Endpoint.getProfileUsuario(id);
       var temp = Profile.fromJson(resP.data);
-      temp.user.full_name = resP.data['user']['fullName'];
       // Response resP = await Endpoint.getProfileUsuario(id);
       return temp;
     } catch (e) {

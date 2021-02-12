@@ -90,7 +90,9 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(
-                                widget.usuarioImagem == null ? 0.0 : 0.3),
+                                widget.usuario.user.avatarUrl == null
+                                    ? 0.0
+                                    : 0.3),
                             spreadRadius: 2,
                             blurRadius: 5,
                             offset: Offset(0, 3),
@@ -100,12 +102,13 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                           Radius.circular(4),
                         ),
                         border: Border.all(
-                          width: widget.usuarioImagem == null ? 0.0 : 3.0,
+                          width:
+                              widget.usuario.user.avatarUrl == null ? 0.0 : 3.0,
                           color: Colors.grey[100],
                         ),
                       ),
                       child: ClipRRect(
-                        child: widget.usuarioImagem == null
+                        child: widget.usuario.user.avatarUrl == null
                             ? Image.asset(
                                 'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
                                 fit: BoxFit.fill,
@@ -162,7 +165,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ],
             ),
           ),
-          Text(widget.usuario.user.full_name),
+          Text(widget.usuario.user.fullName),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -181,7 +184,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                       widget.usuario.hits.insert(0, widget.usuario.user.id);
                       var snackBar = SnackBar(
                           content: Text(
-                              'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
+                              'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                     makeHitTime();
@@ -250,7 +253,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                       widget.usuario.fans.insert(0, widget.usuario.user.id);
                       var snackBar = SnackBar(
                           content: Text(
-                              'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
+                              'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                     makeFanTime();
@@ -324,26 +327,26 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                         ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 18.0),
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      'BUILD YOUR TEAM',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    height: 50,
-                    minWidth: 240,
-                    color: Colors.orange[800],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 18.0),
+                //   child: FlatButton(
+                //     onPressed: () {},
+                //     child: Text(
+                //       'BUILD YOUR TEAM',
+                //       style: TextStyle(color: Colors.white, fontSize: 20),
+                //     ),
+                //     height: 50,
+                //     minWidth: 240,
+                //     color: Colors.orange[800],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 15.0,
                     top: 10.0,
                     bottom: 10.0,
                   ),
-                  child: Text('BE LIKE ${widget.usuario.user.full_name} TEAM'),
+                  child: Text('BE LIKE ${widget.usuario.user.fullName} TEAM'),
                 ),
                 Divider(
                   thickness: 1,

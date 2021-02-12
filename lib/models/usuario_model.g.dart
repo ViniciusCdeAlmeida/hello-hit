@@ -9,14 +9,14 @@ part of 'usuario_model.dart';
 Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
   return Usuario(
     id: json['_id'] as String,
-    full_name: json['full_name'] as String,
+    fullName: json['fullName'] as String,
     hits: json['hits'] as int,
     fans: json['fans'] as int,
     skills: json['skills'] as List,
     email: json['email'] as String,
     userType: json['userType'] as String,
     username: json['username'] as String,
-    signature_status: json['signature_status'] as String,
+    signatureStatus: json['signatureStatus'] as String,
     token: json['token'] as String,
     avatar: json['avatar'],
     avatarImg: json['avatarImg'] as String,
@@ -33,14 +33,14 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       '_id': instance.id,
-      'full_name': instance.full_name,
+      'fullName': instance.fullName,
       'hits': instance.hits,
       'fans': instance.fans,
       'skills': instance.skills,
       'email': instance.email,
       'userType': instance.userType,
       'username': instance.username,
-      'signature_status': instance.signature_status,
+      'signatureStatus': instance.signatureStatus,
       'token': instance.token,
       'avatar': instance.avatar,
       'avatarImg': instance.avatarImg,

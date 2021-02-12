@@ -12,7 +12,7 @@ class MarketplaceBanner extends StatelessWidget {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(
-          top: 10.0,
+          // top: 10.0,
           bottom: 10.0,
         ),
         height: 200,
@@ -50,10 +50,12 @@ class MarketplaceBanner extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               color: Theme.of(context).primaryColor,
-              onPressed: () => usuario.userType == 'TEAM'
-                  ? Navigator.of(context)
-                      .pushNamed(OportunidadeCriacaoScreen.routeName)
-                  : showAlertDialog(context),
+              onPressed: () =>
+                  // usuario.userType == 'TEAM'
+                  //     ? Navigator.of(context)
+                  //         .pushNamed(OportunidadeCriacaoScreen.routeName)
+                  // :
+                  showAlertDialog(context),
               // icon: Icon(Icons.),
               child: Text(
                 'POST A JOB - AS LOW AS 199/MO',
@@ -75,8 +77,8 @@ class MarketplaceBanner extends StatelessWidget {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Only Team'),
-      content: Text('Be a Team to access'),
+      title: Text('Coming soon'),
+      content: Text('Not available yet.'),
       actions: [
         okButton,
       ],

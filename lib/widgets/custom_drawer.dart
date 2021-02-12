@@ -41,7 +41,7 @@ class CustomDrawer extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  usuario.full_name,
+                                  usuario.fullName,
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

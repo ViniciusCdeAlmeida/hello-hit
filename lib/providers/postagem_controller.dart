@@ -16,6 +16,14 @@ class PostagemController {
     }
   }
 
+  Future<void> removePost(String id) async {
+    try {
+      await Endpoint.deletePost(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<Post> getAllPosts() async {
     try {
       Response res = await Endpoint.getPosts();

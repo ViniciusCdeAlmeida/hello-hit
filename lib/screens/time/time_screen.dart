@@ -97,11 +97,12 @@ class _TimeScreenState extends State<TimeScreen> {
                               ),
                               color: Theme.of(context).primaryColor,
                               onPressed: () =>
-                                  _autenticacaoStore.usuarioLogado.userType ==
-                                          'TEAM'
-                                      ? Navigator.of(context).pushNamed(
-                                          TelaExplicacaoTimeScreen.routeName)
-                                      : showAlertDialog(context),
+                                  // _autenticacaoStore.usuarioLogado.userType ==
+                                  //         'TEAM'
+                                  //     ? Navigator.of(context).pushNamed(
+                                  //         TelaExplicacaoTimeScreen.routeName)
+                                  //     :
+                                  showAlertDialog(context),
                               child: Text(
                                 'CREATE TEAM',
                                 style: TextStyle(
@@ -206,8 +207,10 @@ class _TimeScreenState extends State<TimeScreen> {
     );
 
     AlertDialog alert = AlertDialog(
-      title: Text('Only Team'),
-      content: Text('Be a Team to access'),
+      // title: Text('Only Team'),
+      // content: Text('Be a Team to access'),
+      title: Text('Coming soon'),
+      content: Text('Not available yet.'),
       actions: [
         okButton,
       ],

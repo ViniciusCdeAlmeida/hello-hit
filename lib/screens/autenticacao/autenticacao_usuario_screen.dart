@@ -48,7 +48,6 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           title: Text(onError),
-          content: Text('Your connection is not available.'),
           actions: <Widget>[
             FlatButton(
               onPressed: () {

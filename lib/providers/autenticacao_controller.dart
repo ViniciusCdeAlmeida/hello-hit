@@ -13,7 +13,7 @@ class AutenticacaoController {
           .timeout(Duration(seconds: 40));
       var existeCategoria = res.data['profile']['categories'] as List;
       var usuarioRecebido = Usuario.fromJson(res.data);
-      usuarioRecebido.id = res.data['_id'];
+      usuarioRecebido.fullName = res.data['full_name'];
       usuarioRecebido.avatarImg = res.data['avatar'];
       existeCategoria.length == 0
           ? usuarioRecebido.existeCategoria = false

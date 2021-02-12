@@ -55,4 +55,10 @@ abstract class _FeedStore with Store {
       throw e;
     }
   }
+
+  @action
+  void updateFeed(String id) {
+    final idx = _feedObservable.indexWhere((e) => e.id == id);
+    _feedObservable.removeAt(idx);
+  }
 }
