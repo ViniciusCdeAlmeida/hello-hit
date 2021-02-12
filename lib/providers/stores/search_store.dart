@@ -28,7 +28,7 @@ abstract class _SearchStore with Store {
   ObservableList<Profile> _talentosObservable = ObservableList<Profile>();
 
   @observable
-  ObservableFuture<List> _searchFuture;
+  ObservableFuture _searchFuture;
 
   // @observable
   // ObservableFuture<List<ProfileTime>> _timesFuture;
@@ -64,7 +64,8 @@ abstract class _SearchStore with Store {
     try {
       _searchFuture =
           ObservableFuture(_searchController.getTalentoSearch(data));
-      _talentosObservable = (await _searchFuture).asObservable();
+      _talentosObservable =
+          (await _searchFuture as List<Profile>).asObservable();
     } catch (e) {
       throw e;
     }
@@ -74,7 +75,8 @@ abstract class _SearchStore with Store {
   Future<void> getTimes(Search data) async {
     try {
       _searchFuture = ObservableFuture(_searchController.getTimeSearch(data));
-      _timesObservable = (await _searchFuture).asObservable();
+      _timesObservable =
+          (await _searchFuture as List<ProfileTime>).asObservable();
     } catch (e) {
       throw e;
     }

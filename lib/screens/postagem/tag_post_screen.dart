@@ -113,7 +113,7 @@ class _TagPostScreenState extends State<TagPostScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Text(
-                        _usuarioLogado.full_name,
+                        _usuarioLogado.fullName,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 13,

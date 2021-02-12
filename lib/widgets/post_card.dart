@@ -272,7 +272,7 @@ class _PostCardState extends State<PostCard> {
                                     0, _autenticacaoStore.usuarioLogado.id);
                                 var snackBar = SnackBar(
                                     content: Text(
-                                        'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.full_name : widget.post.user.username}'));
+                                        'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.fullName : widget.post.user.username}'));
                                 Scaffold.of(context).showSnackBar(snackBar);
                               }
                               makeHitPost();

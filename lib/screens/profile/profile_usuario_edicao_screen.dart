@@ -262,7 +262,7 @@ class _ProfileUsuarioEdicaoScreenState
                                                       children: [
                                                         TextSpan(
                                                           text:
-                                                              '${_profileAtual.user.full_name} / ',
+                                                              '${_profileAtual.user.fullName} / ',
                                                           style: TextStyle(
                                                             color: Colors
                                                                 .blue[600],
@@ -383,7 +383,7 @@ class _ProfileUsuarioEdicaoScreenState
                                           ),
                                           controller: TextEditingController()
                                             ..text =
-                                                _profileAtual.user.full_name,
+                                                _profileAtual.user.fullName,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:

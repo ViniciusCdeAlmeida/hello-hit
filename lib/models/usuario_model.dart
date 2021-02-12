@@ -6,16 +6,14 @@ part 'usuario_model.g.dart';
 class Usuario {
   @JsonKey(name: '_id')
   String id;
-  // ignore: non_constant_identifier_names
-  String full_name;
+  String fullName;
   int hits;
   int fans;
   List skills;
   String email;
   String userType;
   String username;
-  // ignore: non_constant_identifier_names
-  String signature_status;
+  String signatureStatus;
   String token;
   dynamic avatar;
   String avatarImg;
@@ -28,14 +26,14 @@ class Usuario {
     // ignore: non_constant_identifier_names
     // ignore: non_constant_identifier_names
     this.id,
-    this.full_name,
+    this.fullName,
     this.hits,
     this.fans,
     this.skills,
     this.email,
     this.userType,
     this.username,
-    this.signature_status,
+    this.signatureStatus,
     this.token,
     this.avatar,
     this.avatarImg,

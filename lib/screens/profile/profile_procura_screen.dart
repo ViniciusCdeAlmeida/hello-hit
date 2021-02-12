@@ -773,34 +773,35 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Unleash the power of our premium hiring tool and search engine.',
+                                    // 'Unleash the power of our premium hiring tool and search engine.',
+                                    'Coming Soon',
                                     style: TextStyle(
                                       fontSize: 26,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0),
-                                    child: RaisedButton(
-                                      onPressed: () => Navigator.of(context)
-                                          .pushNamed(TelaExplicacaoTalentoScreen
-                                              .routeName),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      child: Text(
-                                        'SEARCH',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                      color: Colors.deepOrange,
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //       vertical: 15.0),
+                                  //   child: RaisedButton(
+                                  //     onPressed: () => Navigator.of(context)
+                                  //         .pushNamed(TelaExplicacaoTalentoScreen
+                                  //             .routeName),
+                                  //     shape: RoundedRectangleBorder(
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(15.0),
+                                  //     ),
+                                  //     child: Text(
+                                  //       'SEARCH',
+                                  //       style: TextStyle(
+                                  //         color: Colors.white,
+                                  //         fontSize: 12,
+                                  //       ),
+                                  //     ),
+                                  //     color: Colors.deepOrange,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -855,6 +856,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: _searchStore.talentos.length,
                           itemBuilder: (_, idx) => Column(
                             children: [
@@ -873,6 +875,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: _searchStore.times.length,
                           itemBuilder: (_, idx) => Column(
                             children: [

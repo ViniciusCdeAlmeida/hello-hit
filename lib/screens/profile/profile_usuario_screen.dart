@@ -57,7 +57,7 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
                         ),
                         floating: false,
                         centerTitle: true,
-                        title: Text(_profileStore.usuario.user.full_name),
+                        title: Text(_profileStore.usuario.user.fullName),
                       ),
                       SliverList(
                         delegate: SliverChildListDelegate([

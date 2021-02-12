@@ -266,7 +266,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                                     children: [
                                                       TextSpan(
                                                         text:
-                                                            '${_profileAtual.user.full_name} / ',
+                                                            '${_profileAtual.user.fullName} / ',
                                                         style: TextStyle(
                                                           color:
                                                               Colors.blue[600],
@@ -473,9 +473,9 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                           ),
                                         ),
                                         controller: TextEditingController()
-                                          ..text = _profileAtual.user.full_name,
-                                        onChanged: (value) => _profileAtual
-                                            .user.full_name = value,
+                                          ..text = _profileAtual.user.fullName,
+                                        onChanged: (value) =>
+                                            _profileAtual.user.fullName = value,
                                       ),
                                     ),
                                     Padding(

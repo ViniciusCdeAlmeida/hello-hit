@@ -54,32 +54,32 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                   color: Colors.grey[200],
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                // Text('Numero'),
-                                // Text('Nome'),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                // Text('Numero'),
-                                // Text('Nome'),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                // Text('Numero'),
-                                // Text('Nome'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //     children: [
+                      //       Column(
+                      //         children: [
+                      //           // Text('Numero'),
+                      //           // Text('Nome'),
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           // Text('Numero'),
+                      //           // Text('Nome'),
+                      //         ],
+                      //       ),
+                      //       Column(
+                      //         children: [
+                      //           // Text('Numero'),
+                      //           // Text('Nome'),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       MarketplaceBanner(deviceSize, usuario: usuario),
                       MaketplaceDivider(deviceSize)
                     ],

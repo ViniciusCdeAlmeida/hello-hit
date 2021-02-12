@@ -169,7 +169,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 18.0),
                         child: Text(
-                          'Team: ${_autenticacaoStore.usuarioLogado.full_name}',
+                          'Team: ${_autenticacaoStore.usuarioLogado.fullName}',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,

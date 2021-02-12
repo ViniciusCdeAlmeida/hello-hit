@@ -65,13 +65,13 @@ mixin _$SearchStore on _SearchStore, Store {
   final _$_searchFutureAtom = Atom(name: '_SearchStore._searchFuture');
 
   @override
-  ObservableFuture<List<dynamic>> get _searchFuture {
+  ObservableFuture<dynamic> get _searchFuture {
     _$_searchFutureAtom.reportRead();
     return super._searchFuture;
   }
 
   @override
-  set _searchFuture(ObservableFuture<List<dynamic>> value) {
+  set _searchFuture(ObservableFuture<dynamic> value) {
     _$_searchFutureAtom.reportWrite(value, super._searchFuture, () {
       super._searchFuture = value;
     });

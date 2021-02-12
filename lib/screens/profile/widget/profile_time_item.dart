@@ -163,7 +163,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ],
             ),
           ),
-          Text(widget.usuario.user.full_name),
+          Text(widget.usuario.user.fullName),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -182,7 +182,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                       widget.usuario.hits.insert(0, widget.usuario.user.id);
                       var snackBar = SnackBar(
                           content: Text(
-                              'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
+                              'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                     makeHitTime();
@@ -229,7 +229,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                       widget.usuario.fans.insert(0, widget.usuario.user.id);
                       var snackBar = SnackBar(
                           content: Text(
-                              'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.full_name : widget.usuario.user.username}'));
+                              'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
                       Scaffold.of(context).showSnackBar(snackBar);
                     }
                     makeFanTime();
@@ -322,7 +322,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
                     top: 10.0,
                     bottom: 10.0,
                   ),
-                  child: Text('BE LIKE ${widget.usuario.user.full_name} TEAM'),
+                  child: Text('BE LIKE ${widget.usuario.user.fullName} TEAM'),
                 ),
                 Divider(
                   thickness: 1,
