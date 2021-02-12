@@ -13,6 +13,7 @@ import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ProfileTimeItem extends StatefulWidget {
   ProfileTime usuario;
@@ -196,6 +197,23 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
               GestureDetector(
                 onTap: () {
+                  Socket socket = io(
+                      'http://developer.api.hellohit.co',
+                      OptionBuilder()
+                          .setTransports(
+                              ['websocket']) // for Flutter or Dart VM
+                          .disableAutoConnect() // disable auto-connection
+                          .setExtraHeaders({'foo': 'bar'}) // optional
+                          .build());
+                  socket.connect();
+
+                  var conversation = {
+                    "receiver": widget.usuario.user.id,
+                    "sender": _autenticacaoStore.usuarioLogado.id,
+                  };
+
+                  socket.emit('new_chat', conversation);
+
                   Navigator.of(context).pushNamed(
                     ChatScreen.routeName,
                     arguments: widget.usuario.user.username,

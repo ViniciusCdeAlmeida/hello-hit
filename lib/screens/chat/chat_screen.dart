@@ -18,8 +18,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   AutenticacaoStore _autenticacaoStore;
-  Conversation _conversation;
-  List<Usuario> _usuarios;
+
+  String idUsuario;
   String idArgs;
   String _textMessage;
 
@@ -32,13 +32,18 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void didChangeDependencies() {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+    idUsuario = _autenticacaoStore.usuarioLogado.id;
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
+    _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+    idUsuario = _autenticacaoStore.usuarioLogado.id;
     idArgs = ModalRoute.of(context).settings.arguments;
-    //_conversation = _autenticacaoStore.print(idArgs);
+
+    print('Usuario Logado ' + idUsuario);
+    print("Id conversa " + idArgs);
 
     var caixaMensagem = Container(
       padding: EdgeInsets.all(8),
@@ -86,23 +91,18 @@ class _ChatScreenState extends State<ChatScreen> {
                       .build());
               socket.connect();
 
-              /*var message = {
-                "conversation": idconversation,
-                "receiver": idreceiver,
-                "sender": idsender,
-                "text": text
-              };*/
-
               /*var conversation = {
                 "receiver": _usuarios[idx].id,
                 "sender": _autenticacaoStore.usuarioLogado.id,
               };*/
 
-              var message = {};
+              var message = {
+                'author': idUsuario,
+                'conversation': '_conversation.id',
+                'text': 'Olá'
+              };
 
               socket.emit('new_message', message);
-
-              print('ENVIANDO MENSAGEM');
             },
           ),
         ],
@@ -161,7 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Text(idArgs),
+        title: Text('idArgs'),
         centerTitle: true,
       ),
       body: Container(

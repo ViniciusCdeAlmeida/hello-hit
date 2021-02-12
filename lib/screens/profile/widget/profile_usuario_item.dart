@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:provider/provider.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ProfileUsuarioItem extends StatefulWidget {
   final Profile usuario;
@@ -139,11 +141,35 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 titulo: 'Hits',
               ),
             ),
-            IconRow(
-              icon: Icons.question_answer,
-              width: 38,
-              height: 38,
-              titulo: 'Inbox',
+            GestureDetector(
+              onTap: () {
+                Socket socket = io(
+                    'http://developer.api.hellohit.co',
+                    OptionBuilder()
+                        .setTransports(['websocket']) // for Flutter or Dart VM
+                        .disableAutoConnect() // disable auto-connection
+                        .setExtraHeaders({'foo': 'bar'}) // optional
+                        .build());
+                socket.connect();
+
+                var conversation = {
+                  "receiver": widget.usuario.user.id,
+                  "sender": _autenticacaoStore.usuarioLogado.id,
+                };
+
+                socket.emit('new_chat', conversation);
+
+                Navigator.of(context).pushNamed(
+                  ChatScreen.routeName,
+                  arguments: widget.usuario.user.username,
+                );
+              },
+              child: IconRow(
+                icon: Icons.question_answer,
+                width: 38,
+                height: 38,
+                titulo: 'Inbox',
+              ),
             ),
             GestureDetector(
               onTap: () {},

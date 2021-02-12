@@ -115,8 +115,11 @@ class _ConversasScreenState extends State<ConversasScreen> {
                               onTap: () {
                                 Navigator.of(context).pushNamed(
                                   ChatScreen.routeName,
-                                  arguments:
-                                      _conversations[idx].receiver.username,
+                                  arguments: <Conversation>,
+                                      <Conversation>{
+                                    _conversations[idx].receiver.username,
+                                    _conversations[idx],
+                                  },
                                 );
                               },
                             ),
