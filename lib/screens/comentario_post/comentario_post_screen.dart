@@ -20,10 +20,8 @@ class ComentarioPostScreen extends StatefulWidget {
 class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
   ComentarioPostStore _comentarioStore;
   AutenticacaoStore _autenticacaoStore;
-  PostStore _postStore;
   String idArgs;
   List<Comentario> _comentarios;
-  List<Conversation> _conversations;
 
   var _comentario = Comentario(
     text: '',
@@ -67,7 +65,6 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
     _comentarios = _comentarioStore.carreiras;
 
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
-    _conversations = _autenticacaoStore.conversations;
 
     return Scaffold(
       appBar: AppBar(
