@@ -61,6 +61,14 @@ mixin _$PostagemStore on _PostagemStore, Store {
     return _$fazerPostagemAsyncAction.run(() => super.fazerPostagem(post));
   }
 
+  final _$removerPostagemAsyncAction =
+      AsyncAction('_PostagemStore.removerPostagem');
+
+  @override
+  Future<void> removerPostagem(String id) {
+    return _$removerPostagemAsyncAction.run(() => super.removerPostagem(id));
+  }
+
   final _$makeHitPostAsyncAction = AsyncAction('_PostagemStore.makeHitPost');
 
   @override

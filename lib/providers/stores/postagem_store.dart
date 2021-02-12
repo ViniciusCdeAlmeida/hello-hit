@@ -1,5 +1,6 @@
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/providers/postagem_controller.dart';
+import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:mobx/mobx.dart';
 
 part 'postagem_store.g.dart';
@@ -14,7 +15,8 @@ enum PostagemState {
 
 abstract class _PostagemStore with Store {
   final PostagemController _postagemController;
-  _PostagemStore(this._postagemController);
+  final FeedStore _feedStore;
+  _PostagemStore(this._postagemController, this._feedStore);
 
   @observable
   ObservableFuture<Post> _postagemFuture;
@@ -63,6 +65,16 @@ abstract class _PostagemStore with Store {
         _postagemController.makePost(post),
       );
       _postagem = await _postagemFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  // ignore: missing_return
+  Future<void> removerPostagem(String id) async {
+    try {
+      await _postagemController.removePost(id);
     } catch (e) {
       throw e;
     }

@@ -16,8 +16,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    // ..options.baseUrl = "http://192.168.15.7:3000/"
-    ..options.baseUrl = "http://developer.api.hellohit.co/"
+    ..options.baseUrl = "http://192.168.15.7:3000/"
+    // ..options.baseUrl = "http://developer.api.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -154,6 +154,10 @@ class Endpoint {
 
   static Future putHitPosts(String id) async {
     return await getConexaoPrefs().post('posts/$id');
+  }
+
+  static Future deletePost(String id) async {
+    return await getConexaoPrefs().delete('posts/$id');
   }
 
   static Future makePayment(String pm, String priceId) async {
