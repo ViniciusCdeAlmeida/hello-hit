@@ -27,13 +27,16 @@ abstract class _ProfileStore with Store {
   File image;
 
   @observable
+  File imageBanner;
+
+  @observable
   bool saveProfile = false;
 
   @observable
   String imageAvatar;
 
   @observable
-  File imageCover;
+  String imageCover;
 
   @observable
   String imageAvatarCover;
@@ -210,7 +213,7 @@ abstract class _ProfileStore with Store {
     saveProfile = true;
     try {
       await _profileController
-          .atualizarTimeProfile(profile, imageAvatar)
+          .atualizarTimeProfile(profile, imageAvatar, imageCover)
           .whenComplete(() => saveProfile = false);
     } catch (e) {
       throw e;

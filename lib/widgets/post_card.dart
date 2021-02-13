@@ -173,10 +173,10 @@ class _PostCardState extends State<PostCard> {
                           },
                           offset: Offset(0, 100),
                           itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
-                            PopupMenuItem<Acoes>(
-                              child: PopupMenuCustom('Edit', Icons.edit),
-                              value: Acoes.editarPost,
-                            ),
+                            // PopupMenuItem<Acoes>(
+                            //   child: PopupMenuCustom('Edit', Icons.edit),
+                            //   value: Acoes.editarPost,
+                            // ),
                             const PopupMenuDivider(),
                             PopupMenuItem<Acoes>(
                               child: PopupMenuCustom(
@@ -234,10 +234,10 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url']
-                    .toString()
-                    .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                    .toString(),
+                widget.post.file['url'],
+                // .toString()
+                // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
+                // .toString(),
                 fit: BoxFit.scaleDown,
                 cacheHeight: 1080,
                 cacheWidth: 1080,

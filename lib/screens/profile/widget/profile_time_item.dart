@@ -465,45 +465,45 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
             ),
           ),
-          Divider(
-            thickness: 1,
-            color: Colors.grey[300],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text('SKILLS'),
-              ],
-            ),
-          ),
-          if (widget.usuario.skills.length > 0)
-            GridView.custom(
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 30,
-                childAspectRatio: (5 / 2),
-                mainAxisSpacing: 10,
-              ),
-              childrenDelegate: SliverChildListDelegate(
-                widget.usuario.skills
-                    .map((skill) => UsuarioSkills(skill: skill.description))
-                    .toList(),
-              ),
-            )
-          else
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: Text(
-                  'No Skills yet',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
+          // Divider(
+          //   thickness: 1,
+          //   color: Colors.grey[300],
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Row(
+          //     children: [
+          //       Text('SKILLS'),
+          //     ],
+          //   ),
+          // ),
+          // if (widget.usuario.skills.length > 0)
+          //   GridView.custom(
+          //     padding: const EdgeInsets.all(10),
+          //     shrinkWrap: true,
+          //     physics: NeverScrollableScrollPhysics(),
+          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 4,
+          //       crossAxisSpacing: 30,
+          //       childAspectRatio: (5 / 2),
+          //       mainAxisSpacing: 10,
+          //     ),
+          //     childrenDelegate: SliverChildListDelegate(
+          //       widget.usuario.skills
+          //           .map((skill) => UsuarioSkills(skill: skill.description))
+          //           .toList(),
+          //     ),
+          //   )
+          // else
+          //   Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Center(
+          //       child: Text(
+          //         'No Skills yet',
+          //         style: TextStyle(fontSize: 16),
+          //       ),
+          //     ),
+          //   ),
           Divider(
             thickness: 1,
             color: Colors.grey[300],

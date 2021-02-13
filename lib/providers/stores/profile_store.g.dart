@@ -52,6 +52,21 @@ mixin _$ProfileStore on _ProfileStore, Store {
     });
   }
 
+  final _$imageBannerAtom = Atom(name: '_ProfileStore.imageBanner');
+
+  @override
+  File get imageBanner {
+    _$imageBannerAtom.reportRead();
+    return super.imageBanner;
+  }
+
+  @override
+  set imageBanner(File value) {
+    _$imageBannerAtom.reportWrite(value, super.imageBanner, () {
+      super.imageBanner = value;
+    });
+  }
+
   final _$saveProfileAtom = Atom(name: '_ProfileStore.saveProfile');
 
   @override
@@ -85,13 +100,13 @@ mixin _$ProfileStore on _ProfileStore, Store {
   final _$imageCoverAtom = Atom(name: '_ProfileStore.imageCover');
 
   @override
-  File get imageCover {
+  String get imageCover {
     _$imageCoverAtom.reportRead();
     return super.imageCover;
   }
 
   @override
-  set imageCover(File value) {
+  set imageCover(String value) {
     _$imageCoverAtom.reportWrite(value, super.imageCover, () {
       super.imageCover = value;
     });
@@ -367,6 +382,7 @@ mixin _$ProfileStore on _ProfileStore, Store {
   String toString() {
     return '''
 image: ${image},
+imageBanner: ${imageBanner},
 saveProfile: ${saveProfile},
 imageAvatar: ${imageAvatar},
 imageCover: ${imageCover},

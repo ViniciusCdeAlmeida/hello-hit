@@ -23,8 +23,8 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
   final _formProfileTime = GlobalKey<FormState>();
   bool _carregado = false;
   String idArgs;
-  // File _photoImage;
-  // File _coverImage;
+  File _photoImage;
+  File _coverImage;
   // Uint8List _coverImage2;
   ProfileStore _profileStore;
   ProfileTime _profileAtual;
@@ -56,23 +56,20 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
     _profileStore.imageAvatar = null;
   }
 
-  // Future getCoverImage() async {
-  //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
+  Future getCoverImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       _coverImage2 = File(pickedFile.path).readAsBytesSync();
-  //     } else {
-  //       print('No image selected.');
-  //     }
-  //   });
-  // }
+    if (pickedFile != null) {
+      _profileStore.imageBanner = File(pickedFile.path);
+      _profileStore.imageCover = pickedFile.path;
+    } else {
+      print('No image selected.');
+    }
+  }
 
-  // void deleteImage() {
-  //   setState(() {
-  //     _coverImage = null;
-  //   });
-  // }
+  void deleteImageCover() {
+    _profileStore.imageCover = null;
+  }
 
   Future<void> _saveForm() async {
     _profileAtual.skills
@@ -295,75 +292,6 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     ),
                                   ],
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(
-                                //       vertical: 20.0),
-                                //   child: Column(
-                                //     children: [
-                                //       Row(
-                                //         mainAxisAlignment:
-                                //             MainAxisAlignment.center,
-                                //         children: [
-                                //           Container(
-                                //             height: 100,
-                                //             width: 90,
-                                //             decoration: BoxDecoration(
-                                //               image: _coverImage2 == null
-                                //                   ? null
-                                //                   : DecorationImage(
-                                //                       image: MemoryImage(
-                                //                           _coverImage2),
-                                //                     ),
-                                //             ),
-                                //           ),
-                                //           Container(
-                                //             width: 200,
-                                //             child: Padding(
-                                //               padding: const EdgeInsets.only(
-                                //                 left: 8.0,
-                                //               ),
-                                //               child: Column(
-                                //                 crossAxisAlignment:
-                                //                     CrossAxisAlignment.start,
-                                //                 children: [
-                                //                   FlatButton(
-                                //                     color: Color(0xFFE0651F),
-                                //                     onPressed: getCoverImage,
-                                //                     child: Text(
-                                //                       'Upload new Cover',
-                                //                       style: TextStyle(
-                                //                         fontWeight:
-                                //                             FontWeight.bold,
-                                //                         color: Colors.white,
-                                //                       ),
-                                //                     ),
-                                //                   ),
-                                //                   Padding(
-                                //                     padding:
-                                //                         const EdgeInsets.only(
-                                //                             left: 0.0),
-                                //                     child: FlatButton(
-                                //                       color: Colors.grey,
-                                //                       onPressed: deleteImage,
-                                //                       child: Text(
-                                //                         'Delete',
-                                //                         style: TextStyle(
-                                //                           fontWeight:
-                                //                               FontWeight.bold,
-                                //                           color: Colors.white,
-                                //                         ),
-                                //                       ),
-                                //                     ),
-                                //                   )
-                                //                 ],
-                                //               ),
-                                //             ),
-                                //           )
-                                //         ],
-                                //       ),
-                                //     ],
-                                //   ),
-                                // ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 20.0),
@@ -376,12 +304,79 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                           CircleAvatar(
                                             radius: 45.0,
                                             backgroundColor: Colors.white,
-                                            backgroundImage:
-                                                _profileStore.imageAvatar ==
-                                                        null
-                                                    ? null
-                                                    : FileImage(
-                                                        _profileStore.image),
+                                            backgroundImage: _profileStore
+                                                        .imageAvatarCover ==
+                                                    null
+                                                ? null
+                                                : FileImage(
+                                                    _profileStore.imageBanner),
+                                          ),
+                                          Container(
+                                            width: 200,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                left: 8.0,
+                                              ),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  FlatButton(
+                                                    color: Color(0xFFE0651F),
+                                                    onPressed: getCoverImage,
+                                                    child: Text(
+                                                      'Upload new Cover',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 0.0),
+                                                    child: FlatButton(
+                                                      color: Colors.grey,
+                                                      onPressed: deleteImage,
+                                                      child: Text(
+                                                        'Delete',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 45.0,
+                                            backgroundColor: Colors.white,
+                                            backgroundImage: _profileStore
+                                                        .imageAvatar ==
+                                                    null
+                                                ? null
+                                                : FileImage(
+                                                    _profileStore.imageBanner),
                                           ),
                                           Container(
                                             width: 200,

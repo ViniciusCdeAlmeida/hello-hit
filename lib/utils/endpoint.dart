@@ -16,8 +16,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.7:3000/"
-    // ..options.baseUrl = "http://developer.api.hellohit.co/"
+    // ..options.baseUrl = "http://192.168.15.7:3000/"
+    ..options.baseUrl = "http://developer.api.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -132,6 +132,14 @@ class Endpoint {
         FormData.fromMap({"file": await MultipartFile.fromFile(image)});
 
     return await getConexaoPrefs().put('myuser', data: formData);
+  }
+
+  static Future putImagemBannerTime(String image, String id) async {
+    FormData formData =
+        FormData.fromMap({"file": await MultipartFile.fromFile(image)});
+
+    return await getConexaoPrefs()
+        .put('profilesTeam/banner/$id', data: formData);
   }
 
   static Future patchProfileUsuario(Profile profile) async =>

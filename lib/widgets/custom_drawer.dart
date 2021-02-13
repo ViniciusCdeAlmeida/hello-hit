@@ -6,6 +6,7 @@ import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/conversas/conversas_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -40,13 +41,13 @@ class CustomDrawer extends StatelessWidget {
                             width: 80,
                             child: Column(
                               children: [
-                                Text(
-                                  usuario.fullName,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                // Text(
+                                //   usuario.fullName,
+                                //   style: TextStyle(
+                                //     fontSize: 18,
+                                //     fontWeight: FontWeight.bold,
+                                //   ),
+                                // ),
                                 Text(
                                   usuario.username,
                                   style: TextStyle(
@@ -181,7 +182,8 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                     title: const Text('Turn Pro'),
-                    onTap: () {},
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(TelaExplicacaoProItem.routeName),
                   ),
             ListTile(
               enabled: false,

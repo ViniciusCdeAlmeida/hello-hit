@@ -15,10 +15,13 @@ class ProfileController {
     }
   }
 
-  Future<void> atualizarTimeProfile(ProfileTime profile, String image) async {
+  Future<void> atualizarTimeProfile(
+      ProfileTime profile, String image, String imageBanner) async {
     try {
       await Endpoint.patchProfileTime(profile);
       if (image != null) await Endpoint.putImagem(image);
+      // if (imageBanner != null)
+      //   await Endpoint.putImagemBannerTime(imageBanner, profile.id);
     } catch (e) {
       throw e;
     }
