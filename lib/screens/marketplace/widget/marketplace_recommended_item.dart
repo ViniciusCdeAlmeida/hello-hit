@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 
 class MarketplaceRecommendedItem extends StatelessWidget {
-  final Carreira carreira;
+  final Oportunidade carreira;
   MarketplaceRecommendedItem(this.carreira);
 
   @override
@@ -20,7 +20,7 @@ class MarketplaceRecommendedItem extends StatelessWidget {
             const Radius.circular(10),
           ),
           child: Image.network(
-            carreira.banner,
+            carreira.imageUrl,
             height: 50,
             fit: BoxFit.contain,
           ),

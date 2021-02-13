@@ -18,7 +18,7 @@ class _MarketplaceViewallScreenState extends State<MarketplaceViewallScreen> {
   @override
   void didChangeDependencies() {
     _maketplaceStore = Provider.of<MarketplaceStore>(context);
-    _maketplaceStore.seed();
+    _maketplaceStore.oportunidadeList();
     super.didChangeDependencies();
   }
 
@@ -45,9 +45,7 @@ class _MarketplaceViewallScreenState extends State<MarketplaceViewallScreen> {
                   builder: (_) {
                     switch (_maketplaceStore.marketplaceState) {
                       case MarketplaceState.inicial:
-                        return Center(
-                          child: Text('vazio'),
-                        );
+                        return Container();
                       case MarketplaceState.carregando:
                         return Center(
                           child: CircularProgressIndicator(),

@@ -1,10 +1,16 @@
-import 'package:hellohit/models/carreira_model.dart';
-import 'package:hellohit/providers/marketplace_controller.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
+import 'package:hellohit/providers/oportunidade_controller.dart';
 import 'package:mobx/mobx.dart';
 
 part 'marketplace_store.g.dart';
 
 class MarketplaceStore = _MarketplaceStore with _$MarketplaceStore;
+
+enum MarketplaceListState {
+  inicial,
+  carregando,
+  carregado,
+}
 
 enum MarketplaceState {
   inicial,
@@ -13,8 +19,8 @@ enum MarketplaceState {
 }
 
 abstract class _MarketplaceStore with Store {
-  final MarketPlaceController _marketPlaceController;
-  _MarketplaceStore(this._marketPlaceController);
+  final OportunidadeController _oportunidadeController;
+  _MarketplaceStore(this._oportunidadeController);
 
   int qtdeCarreiras = 0;
 
@@ -24,61 +30,98 @@ abstract class _MarketplaceStore with Store {
   final int perPage = 4;
 
   @observable
-  ObservableList<Carreira> _carreiraObservable = ObservableList<Carreira>();
+  ObservableList<Oportunidade> _carreiraObservable =
+      ObservableList<Oportunidade>();
 
   @observable
-  ObservableList<Carreira> _carreiraItens = ObservableList<Carreira>();
+  ObservableList<Oportunidade> _carreiraItens = ObservableList<Oportunidade>();
 
   @observable
-  ObservableFuture<List<Carreira>> _carreiraFuture;
+  ObservableFuture<List<Oportunidade>> _carreiraFuture;
 
   @observable
-  Carreira _carreiraOportunidade;
+  Oportunidade _carreiraOportunidade;
+
+  @observable
+  ObservableFuture<Oportunidade> _carreiraOportunidadeFuture;
 
   @computed
-  List<Carreira> get carreiras {
+  List<Oportunidade> get carreiras {
     return [..._carreiraItens];
   }
 
   @computed
-  List<Carreira> get carreirasOriginal {
+  List<Oportunidade> get carreirasOriginal {
     return [..._carreiraObservable];
   }
 
   @computed
-  Carreira get carreira {
+  Oportunidade get carreira {
     return _carreiraOportunidade;
   }
 
   @computed
   // ignore: missing_return
-  MarketplaceState get marketplaceState {
+  MarketplaceListState get marketplaceListState {
     if ((_carreiraFuture == null ||
         _carreiraFuture.status == FutureStatus.rejected)) {
-      return MarketplaceState.inicial;
+      return MarketplaceListState.inicial;
     }
 
     if (_carreiraFuture.status == FutureStatus.pending) {
-      return MarketplaceState.carregando;
+      return MarketplaceListState.carregando;
     }
 
     if (_carreiraFuture.status == FutureStatus.fulfilled)
+      return MarketplaceListState.carregado;
+  }
+
+  @computed
+  // ignore: missing_return
+  MarketplaceState get marketplaceState {
+    if ((_carreiraOportunidadeFuture == null ||
+        _carreiraOportunidadeFuture.status == FutureStatus.rejected)) {
+      return MarketplaceState.inicial;
+    }
+
+    if (_carreiraOportunidadeFuture.status == FutureStatus.pending) {
+      return MarketplaceState.carregando;
+    }
+
+    if (_carreiraOportunidadeFuture.status == FutureStatus.fulfilled)
       return MarketplaceState.carregado;
   }
 
   @action
-  Future<void> seed() async {
+  Future oportunidadeList() async {
     try {
-      _carreiraFuture = ObservableFuture(
-        _marketPlaceController.seed(),
-      );
-      _carreiraObservable = (await _carreiraFuture).asObservable();
+      _carreiraFuture =
+          ObservableFuture(_oportunidadeController.getOportunidadeList());
+      _carreiraItens = (await _carreiraFuture).asObservable();
     } catch (e) {
       throw e;
     }
-    _carreiraItens
-        .addAll(_carreiraObservable.getRange(present, present + perPage));
-    present = present + perPage;
+  }
+
+  @action
+  Future getOportunidade(String id) async {
+    try {
+      _carreiraOportunidadeFuture =
+          ObservableFuture(_oportunidadeController.getOportunidade(id));
+      _carreiraOportunidade = await _carreiraOportunidadeFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  Future hitOportunidade(Map dados) async {
+    try {
+      _oportunidadeController.patchHitOportunidade(
+          _carreiraOportunidade.id, dados);
+    } catch (e) {
+      throw e;
+    }
   }
 
   @action
@@ -96,24 +139,11 @@ abstract class _MarketplaceStore with Store {
 
   @action
   void loadCarreira(int id) {
-    _carreiraOportunidade =
-        _carreiraObservable.firstWhere((element) => element.id == id);
+    // _carreiraOportunidade =
+    //     _carreiraObservable.firstWhere((element) => element.id == id);
   }
 
-  // @action
-  // Future login(String usuario, String senha) async {
-  //   logando = true;
-  //   try {
-  //     _loginFuture = ObservableFuture(
-  //       _autenticacao.login(
-  //         userName: usuario,
-  //         password: senha,
-  //         offline: _loginOffline,
-  //       ),
-  //     );
-  //     _usuarioLogado = await _loginFuture.whenComplete(() => logando = false);
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
+  List<Oportunidade> loadUserCarreiras() {
+    return [..._carreiraObservable];
+  }
 }

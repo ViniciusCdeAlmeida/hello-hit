@@ -1,28 +1,16 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:dio/dio.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
+import 'package:hellohit/utils/endpoint.dart';
 
 class MarketPlaceController {
-  List<Carreira> carreira;
-
-  Future<List<Carreira>> seed() async {
-    ByteData data =
-        await rootBundle.load('assets/resources/marketplace_seed.json');
-    var json = jsonDecode(utf8.decode(data.buffer.asUint8List()));
-    carreira = List<Carreira>.from(
-      (json['objects'] as List).map(
-        (item) => Carreira(
-          id: item['id'],
-          banner: item['banner'],
-          categoria: item['categoria'],
-          descricao: item['descricao'],
-          imagem: item['imagem'],
-          nomeOrganizacao: item['nomeOrganizacao'],
-          video: item['video'],
-        ),
-      ),
-    );
-    return carreira;
+  Future<List<Oportunidade>> getOportunidade() async {
+    try {
+      Response res = await Endpoint.getOportunidadesList();
+      return res.data
+          .map<Oportunidade>((content) => Oportunidade.fromJson(content))
+          .toList() as List<Oportunidade>;
+    } catch (e) {
+      throw e;
+    }
   }
 }

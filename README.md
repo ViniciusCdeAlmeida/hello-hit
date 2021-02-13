@@ -4,6 +4,30 @@ Hello hit is a social network focused on professional promotion,
 financing, sponsorship, promotion of events, exchange of experiences and
 integration with educational institutions and companies wishing to generate
 Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
+Hello hit is a social network focused on professional promotion,
+financing, sponsorship, promotion of events, exchange of experiences and
+integration with educational institutions and companies wishing to generate
+Professional opportunities, Study Athletes and artists..
 
 1.1. Theme
     Mobile App Development and Hello Hit Web Platform.
