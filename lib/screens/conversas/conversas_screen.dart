@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/models/conversation_model.dart';
+import 'package:hellohit/providers/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/lista_usuarios/lista_usuarios_screen.dart';
 import 'package:provider/provider.dart';
@@ -112,11 +114,14 @@ class _ConversasScreenState extends State<ConversasScreen> {
                               ),
                               onTap: () {
                                 Navigator.of(context).pushNamed(
-                                  ChatScreen.routeName,
-                                  arguments:
-                                      //_conversations[idx].receiver.username,
-                                      _conversations[idx],
-                                );
+                                    ChatScreen.routeName,
+                                    arguments: {
+                                      _conversations[idx].receiver.username,
+                                      _conversations[idx].id,
+                                    }
+                                    //_conversations[idx].receiver.username,
+                                    //_conversations[idx],
+                                    );
                               },
                             ),
                         ],

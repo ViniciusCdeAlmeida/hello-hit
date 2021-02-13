@@ -9,26 +9,34 @@ part of 'marketplace_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MarketplaceStore on _MarketplaceStore, Store {
-  Computed<List<Carreira>> _$carreirasComputed;
+  Computed<List<Oportunidade>> _$carreirasComputed;
 
   @override
-  List<Carreira> get carreiras =>
-      (_$carreirasComputed ??= Computed<List<Carreira>>(() => super.carreiras,
+  List<Oportunidade> get carreiras => (_$carreirasComputed ??=
+          Computed<List<Oportunidade>>(() => super.carreiras,
               name: '_MarketplaceStore.carreiras'))
-          .value;
-  Computed<List<Carreira>> _$carreirasOriginalComputed;
+      .value;
+  Computed<List<Oportunidade>> _$carreirasOriginalComputed;
 
   @override
-  List<Carreira> get carreirasOriginal => (_$carreirasOriginalComputed ??=
-          Computed<List<Carreira>>(() => super.carreirasOriginal,
+  List<Oportunidade> get carreirasOriginal => (_$carreirasOriginalComputed ??=
+          Computed<List<Oportunidade>>(() => super.carreirasOriginal,
               name: '_MarketplaceStore.carreirasOriginal'))
       .value;
-  Computed<Carreira> _$carreiraComputed;
+  Computed<Oportunidade> _$carreiraComputed;
 
   @override
-  Carreira get carreira =>
-      (_$carreiraComputed ??= Computed<Carreira>(() => super.carreira,
+  Oportunidade get carreira =>
+      (_$carreiraComputed ??= Computed<Oportunidade>(() => super.carreira,
               name: '_MarketplaceStore.carreira'))
+          .value;
+  Computed<MarketplaceListState> _$marketplaceListStateComputed;
+
+  @override
+  MarketplaceListState get marketplaceListState =>
+      (_$marketplaceListStateComputed ??= Computed<MarketplaceListState>(
+              () => super.marketplaceListState,
+              name: '_MarketplaceStore.marketplaceListState'))
           .value;
   Computed<MarketplaceState> _$marketplaceStateComputed;
 
@@ -57,13 +65,13 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
       Atom(name: '_MarketplaceStore._carreiraObservable');
 
   @override
-  ObservableList<Carreira> get _carreiraObservable {
+  ObservableList<Oportunidade> get _carreiraObservable {
     _$_carreiraObservableAtom.reportRead();
     return super._carreiraObservable;
   }
 
   @override
-  set _carreiraObservable(ObservableList<Carreira> value) {
+  set _carreiraObservable(ObservableList<Oportunidade> value) {
     _$_carreiraObservableAtom.reportWrite(value, super._carreiraObservable, () {
       super._carreiraObservable = value;
     });
@@ -72,13 +80,13 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
   final _$_carreiraItensAtom = Atom(name: '_MarketplaceStore._carreiraItens');
 
   @override
-  ObservableList<Carreira> get _carreiraItens {
+  ObservableList<Oportunidade> get _carreiraItens {
     _$_carreiraItensAtom.reportRead();
     return super._carreiraItens;
   }
 
   @override
-  set _carreiraItens(ObservableList<Carreira> value) {
+  set _carreiraItens(ObservableList<Oportunidade> value) {
     _$_carreiraItensAtom.reportWrite(value, super._carreiraItens, () {
       super._carreiraItens = value;
     });
@@ -87,13 +95,13 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
   final _$_carreiraFutureAtom = Atom(name: '_MarketplaceStore._carreiraFuture');
 
   @override
-  ObservableFuture<List<Carreira>> get _carreiraFuture {
+  ObservableFuture<List<Oportunidade>> get _carreiraFuture {
     _$_carreiraFutureAtom.reportRead();
     return super._carreiraFuture;
   }
 
   @override
-  set _carreiraFuture(ObservableFuture<List<Carreira>> value) {
+  set _carreiraFuture(ObservableFuture<List<Oportunidade>> value) {
     _$_carreiraFutureAtom.reportWrite(value, super._carreiraFuture, () {
       super._carreiraFuture = value;
     });
@@ -103,24 +111,58 @@ mixin _$MarketplaceStore on _MarketplaceStore, Store {
       Atom(name: '_MarketplaceStore._carreiraOportunidade');
 
   @override
-  Carreira get _carreiraOportunidade {
+  Oportunidade get _carreiraOportunidade {
     _$_carreiraOportunidadeAtom.reportRead();
     return super._carreiraOportunidade;
   }
 
   @override
-  set _carreiraOportunidade(Carreira value) {
+  set _carreiraOportunidade(Oportunidade value) {
     _$_carreiraOportunidadeAtom.reportWrite(value, super._carreiraOportunidade,
         () {
       super._carreiraOportunidade = value;
     });
   }
 
-  final _$seedAsyncAction = AsyncAction('_MarketplaceStore.seed');
+  final _$_carreiraOportunidadeFutureAtom =
+      Atom(name: '_MarketplaceStore._carreiraOportunidadeFuture');
 
   @override
-  Future<void> seed() {
-    return _$seedAsyncAction.run(() => super.seed());
+  ObservableFuture<Oportunidade> get _carreiraOportunidadeFuture {
+    _$_carreiraOportunidadeFutureAtom.reportRead();
+    return super._carreiraOportunidadeFuture;
+  }
+
+  @override
+  set _carreiraOportunidadeFuture(ObservableFuture<Oportunidade> value) {
+    _$_carreiraOportunidadeFutureAtom
+        .reportWrite(value, super._carreiraOportunidadeFuture, () {
+      super._carreiraOportunidadeFuture = value;
+    });
+  }
+
+  final _$oportunidadeListAsyncAction =
+      AsyncAction('_MarketplaceStore.oportunidadeList');
+
+  @override
+  Future<dynamic> oportunidadeList() {
+    return _$oportunidadeListAsyncAction.run(() => super.oportunidadeList());
+  }
+
+  final _$getOportunidadeAsyncAction =
+      AsyncAction('_MarketplaceStore.getOportunidade');
+
+  @override
+  Future<dynamic> getOportunidade(String id) {
+    return _$getOportunidadeAsyncAction.run(() => super.getOportunidade(id));
+  }
+
+  final _$hitOportunidadeAsyncAction =
+      AsyncAction('_MarketplaceStore.hitOportunidade');
+
+  @override
+  Future<dynamic> hitOportunidade(Map<dynamic, dynamic> dados) {
+    return _$hitOportunidadeAsyncAction.run(() => super.hitOportunidade(dados));
   }
 
   final _$_MarketplaceStoreActionController =
@@ -155,6 +197,7 @@ present: ${present},
 carreiras: ${carreiras},
 carreirasOriginal: ${carreirasOriginal},
 carreira: ${carreira},
+marketplaceListState: ${marketplaceListState},
 marketplaceState: ${marketplaceState}
     ''';
   }

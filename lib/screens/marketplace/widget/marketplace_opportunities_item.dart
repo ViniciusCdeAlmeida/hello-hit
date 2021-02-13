@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/carreira_model.dart';
+import 'package:hellohit/models/oportunidade_model.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
 
 class MarketplaceOpportunitiesItem extends StatelessWidget {
-  final Carreira carreira;
+  final Oportunidade carreira;
   MarketplaceOpportunitiesItem(this.carreira);
 
   @override
@@ -25,26 +25,31 @@ class MarketplaceOpportunitiesItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  carreira.categoria,
+                  carreira.title,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(carreira.nomeOrganizacao),
-                Text(carreira.nomeOrganizacao),
+                // Text(carreira.nomeOrganizacao),
+                // Text(carreira.nomeOrganizacao),
               ],
             ),
             leading: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              // maxRadius: 30.0,
-              radius: 40.0,
-              child: Image.network(
-                carreira.banner,
-                height: 100,
-                fit: BoxFit.contain,
-              ),
-              // backgroundImage: NetworkImage(
-              //   carreira.banner,
-              // ),
-            ),
+                backgroundColor: Colors.transparent,
+                // maxRadius: 30.0,
+                radius: 40.0,
+                child: Image.asset(
+                    'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                // carreira.imageUrl == null
+                //     ? Image.asset(
+                //         'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                //     : Image.network(
+                //         carreira.imageUrl,
+                //         height: 100,
+                //         fit: BoxFit.contain,
+                //       ),
+                // backgroundImage: NetworkImage(
+                //   carreira.banner,
+                // ),
+                ),
           ),
         ),
       ),
