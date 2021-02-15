@@ -1,6 +1,7 @@
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/providers/oportunidade_controller.dart';
 import 'package:mobx/mobx.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
 
 part 'oportunidade_store.g.dart';
 

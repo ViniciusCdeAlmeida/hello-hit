@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/message_model.dart';
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class MessageController {

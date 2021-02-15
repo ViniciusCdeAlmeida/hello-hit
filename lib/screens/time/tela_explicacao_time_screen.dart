@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
 import 'package:hellohit/models/produtos_pagamento_model.dart';
-import 'package:hellohit/providers/stores/pagamento_store.dart';
+import 'package:hellohit/service/stores/pagamento_store.dart';
 import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

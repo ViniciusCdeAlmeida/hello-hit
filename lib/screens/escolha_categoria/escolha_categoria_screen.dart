@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/categoria_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 

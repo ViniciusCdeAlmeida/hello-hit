@@ -1,12 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/autenticacao_model.dart';
-import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/models/comentario_model.dart';
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/search_model.dart';
+
+import 'package:hellohit/models/index_models.dart';
 
 String _token;
 
@@ -16,8 +10,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    // ..options.baseUrl = "http://192.168.15.7:3000/"
-    ..options.baseUrl = "http://developer.api.hellohit.co/"
+    ..options.baseUrl = "http://192.168.15.4:3000/"
+    // ..options.baseUrl = "http://developer.api.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }

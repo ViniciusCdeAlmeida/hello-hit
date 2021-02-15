@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/marketplace_store.dart';
+import 'package:hellohit/service/stores/marketplace_store.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_banner.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
 

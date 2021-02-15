@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -92,13 +92,13 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                   ChatScreen.routeName,
                                   arguments: _usuarios[idx].username,
                                 );
-                                print(
-                                  'Criador: ' +
-                                      _autenticacaoStore.usuarioLogado.id +
-                                      '\n' +
-                                      'Outro Menmbro: ' +
-                                      _usuarios[idx].id,
-                                );
+                                // print(
+                                //   'Criador: ' +
+                                //       _autenticacaoStore.usuarioLogado.id +
+                                //       '\n' +
+                                //       'Outro Menmbro: ' +
+                                //       _usuarios[idx].id,
+                                // );
                               },
                             ),
                         ],

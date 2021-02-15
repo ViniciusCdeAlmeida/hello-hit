@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/search_model.dart';
-import 'package:hellohit/providers/stores/search_store.dart';
+import 'package:hellohit/service/stores/search_store.dart';
 import 'package:hellohit/screens/profile/widget/profile_talento_search_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_search_item.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_talento_screen.dart';

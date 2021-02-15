@@ -1,24 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
-class PostagemController {
+class PostController {
   Future<Post> makePost(Post post) async {
     try {
       Response res = await Endpoint.postPosts(post);
-      var idUser = res.data['user'];
-      res.data['user'] = {
-        'id': idUser,
-      };
       return Post.fromJson(res.data);
     } catch (e) {
       throw e;
     }
   }
 
-  Future<void> removePost(String id) async {
+  Future<void> makeHitPost(String id, int hitAtual) async {
     try {
-      await Endpoint.deletePost(id);
+      await Endpoint.putHitPosts(id);
     } catch (e) {
       throw e;
     }
@@ -28,14 +24,6 @@ class PostagemController {
     try {
       Response res = await Endpoint.getPosts();
       return Post.fromJson(res.data);
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  Future<void> patchHitPost(String idPerfil) async {
-    try {
-      await Endpoint.patchHitPost(idPerfil);
     } catch (e) {
       throw e;
     }

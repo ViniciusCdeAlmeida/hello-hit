@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/service/stores/postagem_store.dart';
 import 'package:hellohit/screens/postagem/postagem_screen.dart';
 import 'dart:io';
 
@@ -44,7 +44,7 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
   }
 
   void setImagemPostagem() {
-    print(_imagem.path);
+    // print(_imagem.path);
     _postagemStore.postagemImagem(_imagem.path);
     Navigator.of(context).pushNamed(PostagemScreen.routeName);
   }

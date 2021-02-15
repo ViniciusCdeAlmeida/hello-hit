@@ -1,7 +1,7 @@
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/providers/cadastro_controller.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
 
 part 'cadastro_store.g.dart';
 

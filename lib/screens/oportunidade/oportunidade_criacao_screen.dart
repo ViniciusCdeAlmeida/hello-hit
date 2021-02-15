@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +7,8 @@ import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
 import 'package:google_place/google_place.dart';
 import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/oportunidade_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/oportunidade_store.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
@@ -111,7 +110,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
     if (_cor == 4) oportunidade.typeOpportunity = 'Contract';
     expiredAt = selectedDate;
     oportunidade.description = description;
-    print(oportunidade);
+    // print(oportunidade);
 
     // var oportunidade = Oportunidade(title: )
     // _oportunidadeStore.makeOportunidade(oportunidade);
@@ -495,7 +494,7 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                             items: talent,
                             onChanged: (value) {
                               oportunidade.categoria = value;
-                              print(value);
+                              // print(value);
                             },
                           ),
                         ),

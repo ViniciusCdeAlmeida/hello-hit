@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/usuario_model.dart';
 import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';

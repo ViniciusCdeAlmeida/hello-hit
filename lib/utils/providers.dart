@@ -1,31 +1,8 @@
-import 'package:hellohit/providers/autenticacao_controller.dart';
-import 'package:hellohit/providers/cadastro_controller.dart';
-import 'package:hellohit/providers/comentario_post_controller.dart';
-import 'package:hellohit/providers/feed_controller.dart';
-import 'package:hellohit/providers/marketplace_controller.dart';
-import 'package:hellohit/providers/message_controller.dart';
-import 'package:hellohit/providers/oportunidade_controller.dart';
-import 'package:hellohit/providers/pagamento_controller.dart';
-import 'package:hellohit/providers/post_controller.dart';
-import 'package:hellohit/providers/postagem_controller.dart';
-import 'package:hellohit/providers/profile_controller.dart';
-import 'package:hellohit/providers/search_controller.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/cadastro_store.dart';
-import 'package:hellohit/providers/stores/comentario_post_store.dart';
-import 'package:hellohit/providers/stores/edicao_profile_store.dart';
-import 'package:hellohit/providers/stores/feed_store.dart';
-import 'package:hellohit/providers/stores/marketplace_store.dart';
-import 'package:hellohit/providers/stores/oportunidade_store.dart';
-import 'package:hellohit/providers/stores/pagamento_store.dart';
-import 'package:hellohit/providers/stores/post_store.dart';
-import 'package:hellohit/providers/stores/postagem_store.dart';
-import 'package:hellohit/providers/stores/profile_store.dart';
-import 'package:hellohit/providers/stores/search_store.dart';
-import 'package:hellohit/providers/stores/time_store.dart';
-import 'package:hellohit/providers/time_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+
+import 'package:hellohit/service/controllers/index_controllers.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 List<SingleChildWidget> providers() => [
       Provider(

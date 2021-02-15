@@ -1,10 +1,7 @@
-import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/search_model.dart';
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/providers/search_controller.dart';
-
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
 part 'search_store.g.dart';
 
 class SearchStore = _SearchStore with _$SearchStore;

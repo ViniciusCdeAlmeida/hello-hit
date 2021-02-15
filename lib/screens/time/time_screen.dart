@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/time_store.dart';
+import 'package:hellohit/service/stores/time_store.dart';
 import 'package:hellohit/screens/time/tela_explicacao_time_screen.dart';
 import 'package:hellohit/screens/time/widget/times_item.dart';
 

@@ -1,7 +1,8 @@
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/providers/postagem_controller.dart';
-import 'package:hellohit/providers/stores/feed_store.dart';
 import 'package:mobx/mobx.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 part 'postagem_store.g.dart';
 

@@ -1,4 +1,4 @@
-package com.example.hellohit
+package com.phantaventures.hellohit
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/feed_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/feed_store.dart';
 import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';

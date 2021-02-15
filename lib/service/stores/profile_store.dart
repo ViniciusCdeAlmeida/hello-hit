@@ -2,10 +2,8 @@ import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/providers/profile_controller.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
 
 part 'profile_store.g.dart';
 

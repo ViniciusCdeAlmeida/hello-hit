@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/marketplace_store.dart';
+import 'package:hellohit/service/stores/marketplace_store.dart';
 
 class MarketplaceViewallScreen extends StatefulWidget {
   static const routeName = '/marketplaceViewallScreen';

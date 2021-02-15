@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
@@ -7,8 +5,8 @@ import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dar
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';

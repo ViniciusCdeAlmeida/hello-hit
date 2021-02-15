@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/produtos_pagamento_model.dart';
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 // import 'package:stripe_payment/stripe_payment.dart';
 
@@ -13,14 +13,13 @@ class PagamentoController {
               (content) => ProdutosPagamento.fromJson(content))
           .toList() as List<ProdutosPagamento>;
     } catch (e) {
-      print(e);
+      throw e;
     }
   }
 
   Future<void> makeTimePayment(String pm, String priceId) async {
     try {
-      Response res = await Endpoint.makePayment(pm, priceId);
-      print(res);
+      await Endpoint.makePayment(pm, priceId);
     } catch (e) {
       throw e;
     }

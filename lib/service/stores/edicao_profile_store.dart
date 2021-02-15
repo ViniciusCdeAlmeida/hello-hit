@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 
-import 'package:hellohit/models/skill_model.dart';
+import 'package:hellohit/models/index_models.dart';
 
 part 'edicao_profile_store.g.dart';
 

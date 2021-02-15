@@ -1,7 +1,8 @@
 import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
-import 'package:hellohit/models/produtos_pagamento_model.dart';
-import 'package:hellohit/providers/pagamento_controller.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:mobx/mobx.dart';
 
 part 'pagamento_store.g.dart';

@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/autenticacao_model.dart';
-import 'package:hellohit/models/categoria_model.dart';
-import 'package:hellohit/models/conversation_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
+
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class AutenticacaoController {

@@ -1,6 +1,7 @@
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/providers/post_controller.dart';
 import 'package:mobx/mobx.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/controllers/index_controllers.dart';
 
 part 'post_store.g.dart';
 

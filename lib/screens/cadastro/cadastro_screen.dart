@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/providers/stores/cadastro_store.dart';
+import 'package:hellohit/service/stores/cadastro_store.dart';
 import 'package:provider/provider.dart';
 
 class CadastroScreen extends StatefulWidget {

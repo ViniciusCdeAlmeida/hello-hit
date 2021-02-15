@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class ProfileController {

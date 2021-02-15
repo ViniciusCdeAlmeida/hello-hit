@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
-import 'package:hellohit/providers/pagamento_controller.dart';
+import 'package:hellohit/service/controllers/pagamento_controller.dart';
 import 'package:hellohit/utils/endpoint.dart';
 import 'package:provider/provider.dart';
 // import 'package:stripe_sdk/stripe_sdk.dart';
