@@ -520,6 +520,7 @@ class _ProfileUsuarioEdicaoScreenState
                                           style: TextStyle(
                                             fontSize: 15,
                                           ),
+                                          maxLength: 300,
                                           maxLines: 6,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
