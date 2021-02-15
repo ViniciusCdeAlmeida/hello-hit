@@ -1,0 +1,23 @@
+library models;
+
+export 'autenticacao_model.dart';
+export 'avatar_model.dart';
+export 'cadastro_model.dart';
+export 'categoria_model.dart';
+export 'comentario_model.dart';
+export 'conversation_model.dart';
+export 'educacao_model.dart';
+export 'especialidade_model.dart';
+export 'feed_model.dart';
+export 'message_model.dart';
+export 'oportunidade_model.dart';
+export 'post_model.dart';
+export 'preco_pagamento_model.dart';
+export 'produtos_pagamento_model.dart';
+export 'profile_model.dart';
+export 'profile_time_model.dart';
+export 'search_model.dart';
+export 'skill_model.dart';
+export 'slide_model.dart';
+export 'usuario_model.dart';
+export 'work_model.dart';

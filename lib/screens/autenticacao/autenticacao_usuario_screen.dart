@@ -1,8 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/autenticacao_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
 import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
 import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';

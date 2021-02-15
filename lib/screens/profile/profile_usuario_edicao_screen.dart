@@ -6,7 +6,7 @@ import 'package:hellohit/models/educacao_model.dart';
 import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
@@ -520,6 +520,7 @@ class _ProfileUsuarioEdicaoScreenState
                                           style: TextStyle(
                                             fontSize: 15,
                                           ),
+                                          maxLength: 300,
                                           maxLines: 6,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(

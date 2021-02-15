@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/providers/stores/autenticacao_store.dart';
-import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/service/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/postagem_store.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/postagem/widget/tag_post_text_field.dart';
 

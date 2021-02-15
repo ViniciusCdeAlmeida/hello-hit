@@ -9,7 +9,7 @@ import 'package:hellohit/models/historicoJob_model.dart';
 import 'package:hellohit/models/premio_model.dart';
 import 'package:hellohit/models/profile_time_model.dart';
 import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/providers/stores/profile_store.dart';
+import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 
 class ProfileTimeEdicaoScreen extends StatefulWidget {

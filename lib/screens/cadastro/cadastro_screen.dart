@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/providers/stores/cadastro_store.dart';
+import 'package:hellohit/service/stores/cadastro_store.dart';
 import 'package:provider/provider.dart';
 
 class CadastroScreen extends StatefulWidget {
@@ -311,61 +311,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           vertical: 10.0,
                         ),
                         child: FormField(
-                          onSaved: (value) => _cadastroUsuario.gender = value,
-                          builder: (FormFieldState state) {
-                            return InputDecorator(
-                              decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20, 16, 20, 16),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.deepOrange,
-                                    width: 2.0,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  borderSide: BorderSide(
-                                    color: Colors.deepOrange,
-                                    width: 2.0,
-                                  ),
-                                ),
-                                labelStyle: TextStyle(color: Colors.deepOrange),
-                                labelText: 'Gender',
-                                fillColor: Colors.deepOrange,
-                                focusColor: Colors.deepOrange,
-                                hoverColor: Colors.deepOrange,
-                              ),
-                              isEmpty: _currentSelectedGender == '',
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: _currentSelectedGender,
-                                  isDense: true,
-                                  onChanged: (String newValue) {
-                                    setState(() {
-                                      _currentSelectedGender = newValue;
-                                      state.didChange(newValue);
-                                    });
-                                  },
-                                  items: _gender.map((String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 50.0,
-                          vertical: 10.0,
-                        ),
-                        child: FormField(
                           validator: (value) {
                             if (value == null) {
                               return 'Choose one';
@@ -423,6 +368,64 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           },
                         ),
                       ),
+                      if (_currentSelectedUserType != null &&
+                          _currentSelectedUserType.contains('Talent or Fan'))
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 50.0,
+                            vertical: 10.0,
+                          ),
+                          child: FormField(
+                            onSaved: (value) => _cadastroUsuario.gender = value,
+                            builder: (FormFieldState state) {
+                              return InputDecorator(
+                                decoration: InputDecoration(
+                                  contentPadding:
+                                      EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.deepOrange,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                    borderSide: BorderSide(
+                                      color: Colors.deepOrange,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  labelStyle:
+                                      TextStyle(color: Colors.deepOrange),
+                                  labelText: 'Gender',
+                                  fillColor: Colors.deepOrange,
+                                  focusColor: Colors.deepOrange,
+                                  hoverColor: Colors.deepOrange,
+                                ),
+                                isEmpty: _currentSelectedGender == '',
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: _currentSelectedGender,
+                                    isDense: true,
+                                    onChanged: (String newValue) {
+                                      setState(() {
+                                        _currentSelectedGender = newValue;
+                                        state.didChange(newValue);
+                                      });
+                                    },
+                                    items: _gender.map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       Padding(
                         padding: const EdgeInsets.only(
                           right: 50.0,

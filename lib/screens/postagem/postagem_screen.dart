@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/providers/stores/postagem_store.dart';
+import 'package:hellohit/service/stores/postagem_store.dart';
 import 'package:hellohit/screens/postagem/tag_post_screen.dart';
 
 class PostagemScreen extends StatefulWidget {
