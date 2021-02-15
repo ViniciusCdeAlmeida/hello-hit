@@ -571,6 +571,8 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                           fontSize: 15,
                                         ),
                                         maxLines: 6,
+                                        maxLength: 500,
+                                        maxLengthEnforced: true,
                                         decoration: InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
@@ -593,7 +595,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                               'Brief description for your profile. URLs are hyperlinked.',
                                           contentPadding: EdgeInsets.fromLTRB(
                                               32, 16, 32, 16),
-                                          labelText: "Bio",
+                                          labelText: 'Bio',
                                           labelStyle: TextStyle(
                                               color: Color(0xFFE0651F)),
                                           hintStyle: TextStyle(

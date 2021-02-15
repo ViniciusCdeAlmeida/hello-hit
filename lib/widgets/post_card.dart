@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/service/stores/feed_store.dart';
 import 'package:hellohit/service/stores/postagem_store.dart';
@@ -34,8 +35,10 @@ class _PostCardState extends State<PostCard> {
   void _actionButtons(Post post, Acoes acoes) {
     switch (acoes) {
       case Acoes.editarPost:
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => MoorDbViewer(db)));
+        Navigator.of(context).pushNamed(
+          PostagemCameraScreen.routeName,
+          arguments: widget.post.id,
+        );
         break;
       case Acoes.removerPost:
         showAlertDialogRemove(context, post);
@@ -52,13 +55,19 @@ class _PostCardState extends State<PostCard> {
       actions: <Widget>[
         FlatButton(
           onPressed: () async {
+            Navigator.of(context).pop();
+          },
+          child: Text('Cancel'),
+        ),
+        FlatButton(
+          onPressed: () async {
             await _postStore
                 .removerPostagem(post.id)
                 .then((_) => _feedStore.updateFeed(post.id));
             Navigator.of(context).pop();
           },
           child: Text('OK'),
-        )
+        ),
       ],
     );
     showDialog(
@@ -171,10 +180,10 @@ class _PostCardState extends State<PostCard> {
                           },
                           offset: Offset(0, 100),
                           itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
-                            // PopupMenuItem<Acoes>(
-                            //   child: PopupMenuCustom('Edit', Icons.edit),
-                            //   value: Acoes.editarPost,
-                            // ),
+                            PopupMenuItem<Acoes>(
+                              child: PopupMenuCustom('Edit', Icons.edit),
+                              value: Acoes.editarPost,
+                            ),
                             const PopupMenuDivider(),
                             PopupMenuItem<Acoes>(
                               child: PopupMenuCustom(

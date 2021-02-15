@@ -33,6 +33,15 @@ class PostagemController {
     }
   }
 
+  Future<Post> getPost(String id) async {
+    try {
+      Response res = await Endpoint.getPost(id);
+      return Post.fromJson(res.data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<void> patchHitPost(String idPerfil) async {
     try {
       await Endpoint.patchHitPost(idPerfil);

@@ -77,9 +77,6 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => PostagemStore(
           PostagemController(),
-          FeedStore(
-            FeedController(),
-          ),
         ),
       ),
       Provider(

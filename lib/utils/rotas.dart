@@ -17,8 +17,7 @@ import 'package:hellohit/screens/oportunidade/oportunidade_criacao_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:hellohit/screens/oportunidade/oportunidade_screen.dart';
 import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
-import 'package:hellohit/screens/postagem/postagem_screen.dart';
-import 'package:hellohit/screens/postagem/tag_post_screen.dart';
+import 'package:hellohit/screens/postagem/postagem_conclusao_screen.dart';
 import 'package:hellohit/screens/profile/profile_membro_screen.dart';
 import 'package:hellohit/screens/profile/profile_procura_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
@@ -60,13 +59,12 @@ Map<String, Widget Function(BuildContext)> rotas() {
     TelaExplicacaoProItem.routeName: (ctx) => TelaExplicacaoProItem(),
     PostagemCameraScreen.routeName: (ctx) => PostagemCameraScreen(),
     EmailConfirmacaoScreen.routeName: (ctx) => EmailConfirmacaoScreen(),
-    PostagemScreen.routeName: (ctx) => PostagemScreen(),
+    PostagemComentarioScreen.routeName: (ctx) => PostagemComentarioScreen(),
     FullPostScreen.routeName: (ctx) => FullPostScreen(),
-    TagPostScreen.routeName: (ctx) => TagPostScreen(),
+    PostagemConclusaoScreen.routeName: (ctx) => PostagemConclusaoScreen(),
     ProfileTimeEdicaoScreen.routeName: (ctx) => ProfileTimeEdicaoScreen(),
     ChatScreen.routeName: (ctx) => ChatScreen(),
     ComentarioPostScreen.routeName: (ctx) => ComentarioPostScreen(),
-    PostagemComentarioScreen.routeName: (ctx) => PostagemComentarioScreen(),
     ConversasScreen.routeName: (ctx) => ConversasScreen(),
     EscolhaCategoriaScreen.routeName: (ctx) => EscolhaCategoriaScreen(),
     ListaUsuarios.routeName: (ctx) => ListaUsuarios(),

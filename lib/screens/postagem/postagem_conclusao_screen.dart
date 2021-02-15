@@ -12,13 +12,14 @@ import 'package:hellohit/service/stores/postagem_store.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:hellohit/screens/postagem/widget/tag_post_text_field.dart';
 
-class TagPostScreen extends StatefulWidget {
-  static const routeName = '/tagPostScreen';
+class PostagemConclusaoScreen extends StatefulWidget {
+  static const routeName = '/PostagemConclusaoScreen';
   @override
-  _TagPostScreenState createState() => _TagPostScreenState();
+  _PostagemConclusaoScreenState createState() =>
+      _PostagemConclusaoScreenState();
 }
 
-class _TagPostScreenState extends State<TagPostScreen> {
+class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
   GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
   PostagemStore _postagemStore;
   AutenticacaoStore _usuarioStore;

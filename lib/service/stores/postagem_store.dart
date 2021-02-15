@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/service/controllers/index_controllers.dart';
 import 'package:hellohit/service/stores/index_stores.dart';
+import 'package:path/path.dart';
 
 part 'postagem_store.g.dart';
 
@@ -16,8 +20,7 @@ enum PostagemState {
 
 abstract class _PostagemStore with Store {
   final PostagemController _postagemController;
-  final FeedStore _feedStore;
-  _PostagemStore(this._postagemController, this._feedStore);
+  _PostagemStore(this._postagemController);
 
   @observable
   ObservableFuture<Post> _postagemFuture;
@@ -25,9 +28,17 @@ abstract class _PostagemStore with Store {
   @observable
   Post _postagem;
 
+  @observable
+  File _postagemImageEdit;
+
   @computed
   Post get postagem {
     return _postagem;
+  }
+
+  @computed
+  File get postagemImagemEdit {
+    return _postagemImageEdit;
   }
 
   void postagemImagem(String imagem) {
@@ -38,6 +49,7 @@ abstract class _PostagemStore with Store {
     _postagem.text = texto;
   }
 
+  @action
   void postagemInicial(Post postInicial) {
     _postagem = postInicial;
   }
@@ -66,6 +78,21 @@ abstract class _PostagemStore with Store {
         _postagemController.makePost(post),
       );
       _postagem = await _postagemFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  // ignore: missing_return
+  Future<Post> buscaPostagem(String id) async {
+    try {
+      _postagemFuture = ObservableFuture(
+        _postagemController.getPost(id),
+      );
+      _postagem = await _postagemFuture;
+      _postagemImageEdit =
+          await DefaultCacheManager().getSingleFile(_postagem.file('url'));
     } catch (e) {
       throw e;
     }

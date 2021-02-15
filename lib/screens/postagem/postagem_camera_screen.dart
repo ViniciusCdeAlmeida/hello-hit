@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/service/stores/postagem_store.dart';
-import 'package:hellohit/screens/postagem/postagem_screen.dart';
+import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +18,8 @@ class PostagemCameraScreen extends StatefulWidget {
 class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
   PostagemStore _postagemStore;
   File _imagem;
+  String idArgs;
+  Stream<FileResponse> fileStream;
   var _postInicial = Post(
     comments: [],
     file: '',
@@ -46,13 +50,17 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
   void setImagemPostagem() {
     // print(_imagem.path);
     _postagemStore.postagemImagem(_imagem.path);
-    Navigator.of(context).pushNamed(PostagemScreen.routeName);
+    Navigator.of(context).pushNamed(PostagemComentarioScreen.routeName);
   }
 
   @override
   void didChangeDependencies() {
     _postagemStore = Provider.of<PostagemStore>(context);
-    _postagemStore.postagemInicial(_postInicial);
+    idArgs = ModalRoute.of(context).settings.arguments;
+    if (idArgs != null) {
+      _postagemStore.buscaPostagem(idArgs);
+    } else
+      _postagemStore.postagemInicial(_postInicial);
     super.didChangeDependencies();
   }
 
@@ -121,22 +129,51 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            children: [
-              _imagem == null
-                  ? Container()
-                  : Image.file(
-                      _imagem,
+      // ignore: missing_return
+      body: Observer(builder: (_) {
+        switch (_postagemStore.postagemState) {
+          case PostagemState.inicial:
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  children: [
+                    _imagem == null
+                        ? Container()
+                        : Image.file(
+                            _imagem,
+                            fit: BoxFit.cover,
+                            height: 370,
+                            cacheHeight: 1080,
+                            cacheWidth: 1080,
+                          ),
+                  ],
+                ),
+              ),
+            );
+          case PostagemState.carregado:
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  children: [
+                    Image.file(
+                      _postagemStore.postagemImagemEdit,
                       fit: BoxFit.cover,
                       height: 370,
+                      cacheHeight: 1080,
+                      cacheWidth: 1080,
                     ),
-            ],
-          ),
-        ),
-      ),
+                  ],
+                ),
+              ),
+            );
+          case PostagemState.carregando:
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+        }
+      }),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.white,

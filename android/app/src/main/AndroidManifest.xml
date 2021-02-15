@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.phantaventures.hellohit">
-   <application
-        android:label="Hello Hit"
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="HelloHit"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

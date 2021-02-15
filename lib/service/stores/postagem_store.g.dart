@@ -61,6 +61,14 @@ mixin _$PostagemStore on _PostagemStore, Store {
     return _$fazerPostagemAsyncAction.run(() => super.fazerPostagem(post));
   }
 
+  final _$buscaPostagemAsyncAction =
+      AsyncAction('_PostagemStore.buscaPostagem');
+
+  @override
+  Future<Post> buscaPostagem(String id) {
+    return _$buscaPostagemAsyncAction.run(() => super.buscaPostagem(id));
+  }
+
   final _$removerPostagemAsyncAction =
       AsyncAction('_PostagemStore.removerPostagem');
 
@@ -74,6 +82,20 @@ mixin _$PostagemStore on _PostagemStore, Store {
   @override
   Future<void> makeHitPost(String idPerfil) {
     return _$makeHitPostAsyncAction.run(() => super.makeHitPost(idPerfil));
+  }
+
+  final _$_PostagemStoreActionController =
+      ActionController(name: '_PostagemStore');
+
+  @override
+  void postagemInicial(Post postInicial) {
+    final _$actionInfo = _$_PostagemStoreActionController.startAction(
+        name: '_PostagemStore.postagemInicial');
+    try {
+      return super.postagemInicial(postInicial);
+    } finally {
+      _$_PostagemStoreActionController.endAction(_$actionInfo);
+    }
   }
 
   @override

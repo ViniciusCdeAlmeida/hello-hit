@@ -11,7 +11,7 @@ void getToken(String token) {
 Dio getConexaoPrefs() {
   Dio dio = Dio()
     ..options.baseUrl = "http://192.168.15.4:3000/"
-    // ..options.baseUrl = "http://developer.api.hellohit.co/"
+    // ..options.baseUrl = "http://api.rancher.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -67,6 +67,9 @@ class Endpoint {
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
   static Future getPosts() async => await getConexaoPrefs().get('posts');
+
+  static Future getPost(String id) async =>
+      await getConexaoPrefs().get('posts/$id');
 
   static Future getChatsUsers() async =>
       await getConexaoPrefs().get('/chats/user');
