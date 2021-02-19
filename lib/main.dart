@@ -1,12 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:hellohit/screens/splash/base_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
-import 'package:socket_io_client/socket_io_client.dart';
+import 'package:path_provider/path_provider.dart' as syspath;
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // var path1 = syspath.StorageDirectory.pictures.toString();
+  // var path2 = syspath.StorageDirectory.pictures;
+  // var path3 = syspath.getApplicationDocumentsDirectory();
+  // var directory = await syspath.getExternalStorageDirectories(
+  //     type: syspath.StorageDirectory.pictures);
+  // final myImagePath = '${directory.first.path}/HelloHit';
+  // Directory dic;
+  // final myImgDir = await Directory(myImagePath).create();
+  // print('object');
   // Socket socket = io(
   //     'http://3.16.49.191:3000',
   //     OptionBuilder()

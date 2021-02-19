@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
+import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +18,13 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 class ProfileTimeItem extends StatefulWidget {
   ProfileTime usuario;
-  final String usuarioImagem;
-  final String usuarioAtual;
-  ProfileTimeItem(this.usuario, this.usuarioImagem, this.usuarioAtual);
+  ProfileTimeItem(this.usuario);
 
   @override
   _ProfileTimeItemState createState() => _ProfileTimeItemState();
 }
 
-class _ProfileTimeItemState extends State<ProfileTimeItem>
-    with SingleTickerProviderStateMixin {
+class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProviderStateMixin {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
   TabController _tabController;
@@ -43,417 +43,470 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
   }
 
   Future<void> makeHitTime() async {
-    await _profileStore.makeHitTime(
-        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
+    await _profileStore.makeHitTime(_autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   Future<void> makeFanTime() async {
-    await _profileStore.makeFanTime(
-        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
+    await _profileStore.makeFanTime(_autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
     _profileStore = Provider.of<ProfileStore>(context);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            width: deviceSize.size.width,
-            height: deviceSize.orientation == Orientation.portrait
-                ? deviceSize.size.height / 2
-                : deviceSize.size.height * 1.3,
-            child: Stack(
-              children: [
-                ClipRRect(
-                    // child: Image.network(
-                    //   usuario.imagem,
-                    //   height: deviceSize.orientation == Orientation.portrait
-                    //       ? deviceSize.size.height / 3
-                    //       : deviceSize.size.height,
-                    //   width: deviceSize.size.width,
-                    //   fit: BoxFit.fill,
-                    // ),
-                    ),
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: deviceSize.orientation == Orientation.portrait
-                          ? deviceSize.size.height / 4.6
-                          : deviceSize.size.height / 1.2,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(
-                                widget.usuario.user.avatarUrl == null
-                                    ? 0.0
-                                    : 0.3),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        border: Border.all(
-                          width:
-                              widget.usuario.user.avatarUrl == null ? 0.0 : 3.0,
-                          color: Colors.grey[100],
-                        ),
-                      ),
-                      child: ClipRRect(
-                        child: widget.usuario.user.avatarUrl == null
-                            ? Image.asset(
-                                'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
-                                fit: BoxFit.fill,
-                              )
-                            : Image.network(
-                                widget.usuarioImagem,
-                                height: 120,
-                                width: 130,
-                                fit: BoxFit.fill,
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned.fill(
-                  right: deviceSize.orientation == Orientation.portrait
-                      ? deviceSize.size.width / 3.5
-                      : deviceSize.size.width / 2.75,
-                  top: deviceSize.orientation == Orientation.portrait
-                      ? deviceSize.size.height / 8
-                      : deviceSize.size.width / 2.5,
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      height: 18,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.orange[900],
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            Icons.fiber_manual_record,
-                            size: 9.0,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            'TEAM',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Text(widget.usuario.user.fullName),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Column(
+      children: [
+        SizedBox(
+          width: deviceSize.size.width,
+          height: deviceSize.orientation == Orientation.portrait
+              ? deviceSize.size.height / 2
+              : deviceSize.size.height * 1.3,
+          child: Stack(
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (widget.usuario.hits.contains(widget.usuario.user.id)) {
-                      widget.usuario.hitCount -= 1;
-                      widget.usuario.hits.removeWhere(
-                          (element) => element == widget.usuario.user.id);
-                      var snackBar =
-                          SnackBar(content: Text('You removed your hit.'));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    } else {
-                      widget.usuario.hitCount += 1;
-                      widget.usuario.hits.insert(0, widget.usuario.user.id);
-                      var snackBar = SnackBar(
-                          content: Text(
-                              'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    }
-                    makeHitTime();
-                  });
-                },
-                child: IconRow(
-                  texto: widget.usuario.hitCount.toString(),
-                  icon: Icons.star,
-                  width: 60,
-                  height: 60,
-                  titulo: 'Hits',
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Socket socket = io(
-                      'http://developer.api.hellohit.co',
-                      OptionBuilder()
-                          .setTransports(
-                              ['websocket']) // for Flutter or Dart VM
-                          .disableAutoConnect() // disable auto-connection
-                          .setExtraHeaders({'foo': 'bar'}) // optional
-                          .build());
-                  socket.connect();
-
-                  var conversation = {
-                    "receiver": widget.usuario.user.id,
-                    "sender": _autenticacaoStore.usuarioLogado.id,
-                  };
-
-                  socket.emit('new_chat', conversation);
-
-                  Navigator.of(context).pushNamed(
-                    ChatScreen.routeName,
-                    arguments: widget.usuario.user.username,
-                  );
-                },
-                child: IconRow(
-                  icon: Icons.question_answer,
-                  width: 38,
-                  height: 38,
-                  titulo: 'Inbox',
-                ),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: IconRow(
-                  icon: Icons.add,
-                  width: 38,
-                  height: 38,
-                  titulo: 'Insert in your team',
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (widget.usuario.fans.contains(widget.usuario.user.id)) {
-                      widget.usuario.fanCount -= 1;
-                      widget.usuario.fans.removeWhere(
-                          (element) => element == widget.usuario.user.id);
-                      var snackBar =
-                          SnackBar(content: Text('You removed your fan.'));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    } else {
-                      widget.usuario.fanCount += 1;
-                      widget.usuario.fans.insert(0, widget.usuario.user.id);
-                      var snackBar = SnackBar(
-                          content: Text(
-                              'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    }
-                    makeFanTime();
-                  });
-                },
-                child: IconRow(
-                  icon: Icons.person_add_alt_1,
-                  width: 38,
-                  height: 38,
-                  titulo: 'Be Fan',
-                ),
-              ),
-              IconRow(
-                texto: widget.usuario.fanCount.toString(),
-                icon: Icons.flag,
-                width: 60,
-                height: 60,
-                titulo: 'Fans',
-              ),
-            ],
-          ),
-          if (_autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
-                      style: BorderStyle.solid,
-                    ),
-                    borderRadius: BorderRadius.circular(10.0),
+              ClipRRect(),
+              Center(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: deviceSize.orientation == Orientation.portrait
+                        ? deviceSize.size.height / 4.6
+                        : deviceSize.size.height / 1.2,
                   ),
-                  color: Colors.grey[300],
-                  onPressed: () => Navigator.of(context).popAndPushNamed(
-                        ProfileTimeEdicaoScreen.routeName,
-                        arguments: _autenticacaoStore.usuarioLogado.id,
-                      ),
                   child: Container(
-                    width: 100,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(widget.usuario.user.avatarUrl == null ? 0.0 : 0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                      border: Border.all(
+                        width: widget.usuario.user.avatarUrl == null ? 0.0 : 3.0,
+                        color: Colors.grey[100],
+                      ),
+                    ),
+                    child: ClipRRect(
+                      child: widget.usuario.user.avatarUrl == null
+                          ? Image.asset(
+                              'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
+                              fit: BoxFit.fill,
+                            )
+                          : Image.network(
+                              widget.usuario.user.avatarUrl,
+                              // .toString()
+                              // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                              // .toString(),
+                              height: 120,
+                              width: 130,
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                right: deviceSize.orientation == Orientation.portrait
+                    ? deviceSize.size.width / 3.5
+                    : deviceSize.size.width / 2.75,
+                top: deviceSize.orientation == Orientation.portrait
+                    ? deviceSize.size.height / 8
+                    : deviceSize.size.width / 2.5,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    height: 18,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.orange[900],
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(Icons.edit),
-                        Text('Edit Team'),
+                        Icon(
+                          Icons.fiber_manual_record,
+                          size: 9.0,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'TEAM',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                  )),
-            ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 18.0),
-            // child: Text(usuario.mensagem),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 18.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                        // child: Image.network(
-                        //   usuario.avatar,
-                        //   height: deviceSize.orientation == Orientation.portrait
-                        //       ? deviceSize.size.height / 10
-                        //       : deviceSize.size.height / 3.5,
-                        //   width: deviceSize.size.width / 5,
-                        //   fit: BoxFit.fill,
-                        // ),
-                        ),
-                  ],
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 18.0),
-                //   child: FlatButton(
-                //     onPressed: () {},
-                //     child: Text(
-                //       'BUILD YOUR TEAM',
-                //       style: TextStyle(color: Colors.white, fontSize: 20),
-                //     ),
-                //     height: 50,
-                //     minWidth: 240,
-                //     color: Colors.orange[800],
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    top: 10.0,
-                    bottom: 10.0,
-                  ),
-                  child: Text('BE LIKE ${widget.usuario.user.fullName} TEAM'),
-                ),
-                Divider(
-                  thickness: 1,
-                  color: Colors.grey[300],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15.0,
-                    top: 20.0,
-                    right: 15.0,
-                  ),
-                  child: Text(
-                    widget.usuario.bio == ""
-                        ? 'No bio yet.'
-                        : widget.usuario.bio,
-                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-              ],
-            ),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text('OPEN OPPORTUNITIES'),
-              ],
-            ),
-          ),
-          if (widget.usuario.openOpportunities.length > 0)
-            GridView.custom(
-              padding: const EdgeInsets.all(10),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                childAspectRatio: (2.7 / 2),
-                mainAxisSpacing: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (widget.usuario.hits.contains(widget.usuario.user.id)) {
+                    widget.usuario.hitCount -= 1;
+                    widget.usuario.hits.removeWhere((element) => element == widget.usuario.user.id);
+                    var snackBar = SnackBar(content: Text('You removed your hit.'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  } else {
+                    widget.usuario.hitCount += 1;
+                    widget.usuario.hits.insert(0, widget.usuario.user.id);
+                    var snackBar = SnackBar(
+                        content: Text(
+                            'Yay! You Hitted ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
+                  makeHitTime();
+                });
+              },
+              child: IconRow(
+                texto: widget.usuario.hitCount.toString(),
+                icon: Icons.star,
+                width: 60,
+                height: 60,
+                titulo: 'Hits',
               ),
-              childrenDelegate: SliverChildListDelegate(
-                widget.usuario.openOpportunities
-                    .map((oportunidade) => TimeOportunidades(
-                          imagem: oportunidade.imageUrl,
-                          nome: oportunidade.title,
-                        ))
-                    .toList(),
+            ),
+            GestureDetector(
+              onTap: () {
+                Socket socket = io(
+                    'http://developer.api.hellohit.co',
+                    OptionBuilder()
+                        .setTransports(['websocket']) // for Flutter or Dart VM
+                        .disableAutoConnect() // disable auto-connection
+                        .setExtraHeaders({'foo': 'bar'}) // optional
+                        .build());
+                socket.connect();
+
+                var conversation = {
+                  "receiver": widget.usuario.user.id,
+                  "sender": _autenticacaoStore.usuarioLogado.id,
+                };
+
+                socket.emit('new_chat', conversation);
+
+                Navigator.of(context).pushNamed(
+                  ChatScreen.routeName,
+                  arguments: widget.usuario.user.username,
+                );
+              },
+              child: IconRow(
+                icon: Icons.question_answer,
+                width: 38,
+                height: 38,
+                titulo: 'Inbox',
               ),
-            )
-          else
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: IconRow(
+                icon: Icons.add,
+                width: 38,
+                height: 38,
+                titulo: 'Insert in your team',
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (widget.usuario.fans.contains(widget.usuario.user.id)) {
+                    widget.usuario.fanCount -= 1;
+                    widget.usuario.fans.removeWhere((element) => element == widget.usuario.user.id);
+                    var snackBar = SnackBar(content: Text('You removed your fan.'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  } else {
+                    widget.usuario.fanCount += 1;
+                    widget.usuario.fans.insert(0, widget.usuario.user.id);
+                    var snackBar = SnackBar(
+                        content: Text(
+                            'Yay! Now you follow ${widget.usuario.user.username == null ? widget.usuario.user.fullName : widget.usuario.user.username}'));
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
+                  makeFanTime();
+                });
+              },
+              child: IconRow(
+                icon: Icons.person_add_alt_1,
+                width: 38,
+                height: 38,
+                titulo: 'Be Fan',
+              ),
+            ),
+            IconRow(
+              texto: widget.usuario.fanCount.toString(),
+              icon: Icons.flag,
+              width: 60,
+              height: 60,
+              titulo: 'Fans',
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 30.0, bottom: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(widget.usuario.category.description != null ? widget.usuario.category.description : ''),
+              Text(widget.usuario.user.username),
+              Text(widget.usuario.location),
+            ],
+          ),
+        ),
+        if (_autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: FlatButton(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.grey,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                color: Colors.grey[100],
+                onPressed: () => Navigator.of(context).popAndPushNamed(
+                      ProfileTimeEdicaoScreen.routeName,
+                      arguments: _autenticacaoStore.usuarioLogado.id,
+                    ),
+                child: Container(
+                  width: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text('Edit Profile'),
+                    ],
+                  ),
+                )),
+          ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 0.0),
+          child: Text(widget.usuario.personalWebsite),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 18.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  top: 10.0,
+                  bottom: 10.0,
+                ),
+                child: Text('BE LIKE ${widget.usuario.user.fullName} TEAM'),
+              ),
+              // Divider(
+              //   thickness: 1,
+              //   color: Colors.grey[300],
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 15.0,
+                  top: 20.0,
+                  right: 15.0,
+                ),
                 child: Text(
-                  'No Opportunities yet',
+                  widget.usuario.bio == "" ? 'No bio yet.' : widget.usuario.bio,
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-            ),
-          Divider(
-            thickness: 1,
-            color: Colors.grey[300],
+            ],
           ),
-          //MEMBROS
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'OPEN OPPORTUNITIES',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (widget.usuario.openOpportunities.length > 0)
+          GridView.custom(
+            padding: const EdgeInsets.all(10),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 15,
+              childAspectRatio: (2.7 / 2),
+              mainAxisSpacing: 10,
+            ),
+            childrenDelegate: SliverChildListDelegate(
+              widget.usuario.openOpportunities
+                  .map((oportunidade) => TimeOportunidades(
+                        imagem: oportunidade.imageUrl,
+                        nome: oportunidade.title,
+                      ))
+                  .toList(),
+            ),
+          )
+        else
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('TEAM MEMBERS'),
-                if (widget.usuario.members.length > 0)
-                  InkWell(
-                    onTap: () {},
-                    // onTap: () => Navigator.of(context)
-                    //     .pushNamed(ProfileMembroScreen.routeName),
-                    child: Text(
-                        'See all ${widget.usuario.members.length} members'),
-                    // ),
-                  ),
-              ],
+            child: Center(
+              child: Text(
+                'No Opportunities yet',
+                style: TextStyle(fontSize: 16),
+              ),
             ),
           ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        //MEMBROS
 
-          // if (widget.usuario.members.length > 0)
-          //   GridView.extent(
-          //     maxCrossAxisExtent: 50,
-          //     mainAxisSpacing: 10,
-          //     crossAxisSpacing: 10,
-          //     // itemCount:
-          //     //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
-          //     padding: const EdgeInsets.all(10),
-          //     shrinkWrap: true,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     children: widget.usuario.members
-          //         .getRange(
-          //             0,
-          //             widget.usuario.members.length >= 1 &&
-          //                     widget.usuario.members.length <= 8
-          //                 ? widget.usuario.members.length
-          //                 : 14)
-          //         .map(
-          //           ((usuario) => CircleAvatar(
-          //                 backgroundColor: Colors.transparent,
-          //                 backgroundImage: NetworkImage(usuario.avatar),
-          //               )),
-          //         )
-          //         .toList(),
-          //   )
-          // else
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'MY AWARDS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (widget.usuario.awards.length > 0)
+          Container(
+            height: 150,
+            child: GridView.extent(
+              maxCrossAxisExtent: 180,
+              // mainAxisSpacing: 10,
+              // crossAxisSpacing: 10,
+              scrollDirection: Axis.horizontal,
+              // itemCount:
+              //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+              padding: const EdgeInsets.all(10.0),
+              shrinkWrap: true,
+              children: widget.usuario.awards
+                  .getRange(
+                      1,
+                      widget.usuario.awards.length >= 1 && widget.usuario.awards.length <= 21
+                          ? widget.usuario.awards.length
+                          : 22)
+                  .map(
+                    ((award) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (award.awardName != null)
+                              CircleAvatar(
+                                radius: 35,
+                                backgroundColor: Colors.transparent,
+                                backgroundImage:
+                                    AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
+                                // backgroundImage: NetworkImage(memberProfile.avatar['url']
+                                //     .toString()
+                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                                //     .toString()),
+                              ),
+                            if (award.awardName != null)
+                              Text(
+                                award.awardName,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                maxLines: 2,
+                              ),
+                          ],
+                        )),
+                  )
+                  .toList(),
+            ),
+          )
+        else
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                'No Awards yet',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'TEAM MEMBERS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (widget.usuario.members.length > 0)
+          GridView.extent(
+            maxCrossAxisExtent: 50,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            // itemCount:
+            //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+            padding: const EdgeInsets.all(10),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: widget.usuario.membersProfile
+                .getRange(
+                    0,
+                    widget.usuario.membersProfile.length >= 1 && widget.usuario.membersProfile.length <= 21
+                        ? widget.usuario.membersProfile.length
+                        : 22)
+                .map(
+                  ((memberProfile) => CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: NetworkImage(memberProfile.avatar['url']
+                            // .toString()
+                            // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                            // .toString()
+                            ),
+                      )),
+                )
+                .toList(),
+          )
+        else
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
@@ -463,102 +516,94 @@ class _ProfileTimeItemState extends State<ProfileTimeItem>
               ),
             ),
           ),
-          // Divider(
-          //   thickness: 1,
-          //   color: Colors.grey[300],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Row(
-          //     children: [
-          //       Text('SKILLS'),
-          //     ],
-          //   ),
-          // ),
-          // if (widget.usuario.skills.length > 0)
-          //   GridView.custom(
-          //     padding: const EdgeInsets.all(10),
-          //     shrinkWrap: true,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 4,
-          //       crossAxisSpacing: 30,
-          //       childAspectRatio: (5 / 2),
-          //       mainAxisSpacing: 10,
-          //     ),
-          //     childrenDelegate: SliverChildListDelegate(
-          //       widget.usuario.skills
-          //           .map((skill) => UsuarioSkills(skill: skill.description))
-          //           .toList(),
-          //     ),
-          //   )
-          // else
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Center(
-          //       child: Text(
-          //         'No Skills yet',
-          //         style: TextStyle(fontSize: 16),
-          //       ),
-          //     ),
-          //   ),
-          Divider(
-            thickness: 1,
-            color: Colors.grey[300],
-          ),
-          TabBar(
-            controller: _tabController,
-            tabs: [
-              // Tab(
-              //   icon: const Icon(Icons.apps),
-              // ),
-              Tab(
-                icon: const Icon(Icons.format_list_bulleted),
-              ),
-              Tab(
-                icon: const Icon(Icons.place),
-              ),
-              Tab(
-                icon: const Icon(Icons.person_pin_circle_outlined),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'MY SKILLS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ],
           ),
-          Container(
-            height: MediaQuery.of(context).size.height / 1.5,
-            child: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                GridView.custom(
-                  padding: const EdgeInsets.all(10),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: (3.3 / 2),
-                    mainAxisSpacing: 10,
-                  ),
-                  childrenDelegate: SliverChildListDelegate(
-                    widget.usuario.posts
-                        .map((usuario) =>
-                            UsuarioParente(imagem: usuario.file['url']))
-                        .toList(),
-                  ),
-                ),
-                Container(
-                  child: Center(
-                    child: Text('No hit posts'),
-                  ),
-                ),
-                Container(
-                  child: Center(
-                    child: Text('No hit posts'),
-                  ),
-                ),
-              ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'No Skills yet',
+              style: TextStyle(fontSize: 16),
             ),
           ),
-        ],
-      ),
+        ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        TabBar(
+          controller: _tabController,
+          tabs: [
+            // Tab(
+            //   icon: const Icon(Icons.apps),
+            // ),
+            Tab(
+              icon: const Icon(Icons.format_list_bulleted),
+            ),
+            Tab(
+              icon: const Icon(Icons.place),
+            ),
+            Tab(
+              icon: const Icon(Icons.person_pin_circle_outlined),
+            ),
+          ],
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height / 1.5,
+          child: TabBarView(
+            controller: _tabController,
+            children: <Widget>[
+              GridView.custom(
+                padding: const EdgeInsets.all(10),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 3,
+                  mainAxisSpacing: 10,
+                ),
+                childrenDelegate: SliverChildListDelegate(
+                  widget.usuario.posts.map((post) => UsuarioParente(post: post)).toList(),
+                ),
+              ),
+              Container(
+                child: Center(
+                  child: Text('No hit posts'),
+                ),
+              ),
+              GridView.custom(
+                padding: const EdgeInsets.all(10),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  crossAxisSpacing: 4,
+                ),
+                childrenDelegate: SliverChildListDelegate(
+                  widget.usuario.fansProfile.map((usuario) => ProfileFanItem(usuario: usuario)).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'package:hellohit/models/index_models.dart';
+
 part 'usuario_model.g.dart';
 
 @JsonSerializable()
@@ -20,6 +22,7 @@ class Usuario {
   DateTime createdAt;
   DateTime updatedAt;
   bool existeCategoria;
+  Categoria categoria;
   String avatarUrl;
 
   Usuario({
@@ -40,6 +43,7 @@ class Usuario {
     this.createdAt,
     this.updatedAt,
     this.existeCategoria,
+    this.categoria,
     this.avatarUrl,
   });
 

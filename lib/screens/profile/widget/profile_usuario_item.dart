@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/profile_model.dart';
+import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
@@ -19,8 +20,7 @@ class ProfileUsuarioItem extends StatefulWidget {
   _ProfileUsuarioItemState createState() => _ProfileUsuarioItemState();
 }
 
-class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
-    with SingleTickerProviderStateMixin {
+class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTickerProviderStateMixin {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
   TabController _tabController;
@@ -39,13 +39,11 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
   }
 
   Future<void> makeHitTalento() async {
-    await _profileStore.makeHitUsuario(
-        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
+    await _profileStore.makeHitUsuario(_autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   Future<void> makeFanTalento() async {
-    await _profileStore.makeFanUsuario(
-        _autenticacaoStore.usuarioLogado.id, widget.usuario.id);
+    await _profileStore.makeFanUsuario(_autenticacaoStore.usuarioLogado.id, widget.usuario.id);
   }
 
   @override
@@ -63,8 +61,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                   maxRadius: 60.0,
                   minRadius: 10.0,
                   backgroundImage: widget.usuario.user.avatarUrl == null
-                      ? AssetImage(
-                          'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                      ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                       : NetworkImage(widget.usuario.user.avatarUrl),
                 ),
               ),
@@ -117,10 +114,8 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 setState(() {
                   if (widget.usuario.hits.contains(widget.usuario.user.id)) {
                     widget.usuario.hitCount -= 1;
-                    widget.usuario.hits.removeWhere(
-                        (element) => element == widget.usuario.user.id);
-                    var snackBar =
-                        SnackBar(content: Text('You removed your hit.'));
+                    widget.usuario.hits.removeWhere((element) => element == widget.usuario.user.id);
+                    var snackBar = SnackBar(content: Text('You removed your hit.'));
                     Scaffold.of(context).showSnackBar(snackBar);
                   } else {
                     widget.usuario.hitCount += 1;
@@ -168,7 +163,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 icon: Icons.question_answer,
                 width: 38,
                 height: 38,
-                titulo: 'Inbox',
+                titulo: 'Hit Chat',
               ),
             ),
             GestureDetector(
@@ -177,7 +172,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 icon: Icons.plus_one,
                 width: 38,
                 height: 38,
-                titulo: 'Insert in your team',
+                titulo: 'Invite to team',
               ),
             ),
             GestureDetector(
@@ -185,10 +180,8 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 setState(() {
                   if (widget.usuario.fans.contains(widget.usuario.user.id)) {
                     widget.usuario.fansCount -= 1;
-                    widget.usuario.fans.removeWhere(
-                        (element) => element == widget.usuario.user.id);
-                    var snackBar =
-                        SnackBar(content: Text('You removed your fan.'));
+                    widget.usuario.fans.removeWhere((element) => element == widget.usuario.user.id);
+                    var snackBar = SnackBar(content: Text('You removed your fan.'));
                     Scaffold.of(context).showSnackBar(snackBar);
                   } else {
                     widget.usuario.fansCount += 1;
@@ -209,7 +202,6 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
               ),
             ),
             IconRow(
-              // texto: widget.usuario..toString(),
               texto: widget.usuario.fansCount.toString(),
               icon: Icons.flag,
               width: 60,
@@ -218,37 +210,85 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
             ),
           ],
         ),
+        Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+            bottom: 15.0,
+            right: 20.0,
+            left: 20.0,
+          ),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 100,
+                  child: Text(widget.usuario.category.description),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  // width: 100,
+                  child: Text(widget.usuario.user.username),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: 100,
+                    child: Text(widget.usuario.location == null ? '' : widget.usuario.location),
+                  )),
+            ],
+          ),
+        ),
         if (_autenticacaoStore.usuarioLogado.id == widget.usuario.user.id)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: FlatButton(
-              color: Colors.orange[700],
-              onPressed: () => Navigator.of(context).popAndPushNamed(
-                ProfileUsuarioEdicaoScreen.routeName,
-                arguments: _autenticacaoStore.usuarioLogado.id,
-              ),
-              child: Text(
-                'Edit Profile',
-                style: TextStyle(
-                  color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.grey,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
                 ),
-              ),
-            ),
+                color: Colors.grey[100],
+                onPressed: () => Navigator.of(context).popAndPushNamed(
+                      ProfileUsuarioEdicaoScreen.routeName,
+                      arguments: _autenticacaoStore.usuarioLogado.id,
+                    ),
+                child: Container(
+                  width: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text('Edit Profile'),
+                    ],
+                  ),
+                )),
           ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 8.0),
           child: Text(
-            widget.usuario.bio == "" || widget.usuario.bio == null
-                ? 'No bio yet.'
-                : widget.usuario.bio,
+            widget.usuario.bio == "" || widget.usuario.bio == null ? 'No bio yet.' : widget.usuario.bio,
             style: TextStyle(fontSize: 16),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('TEAM MEMBER OF'),
+              Icon(Icons.more_horiz),
+              Text(
+                'TEAMS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ],
           ),
         ),
@@ -275,6 +315,141 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
           child: Center(
             child: Text(
               'No Members yet',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        // if (widget.usuario.awards.length > 0)
+        //   Container(
+        //     height: 150,
+        //     child: GridView.extent(
+        //       maxCrossAxisExtent: 180,
+        //       // mainAxisSpacing: 10,
+        //       // crossAxisSpacing: 10,
+        //       scrollDirection: Axis.horizontal,
+        //       // itemCount:
+        //       //     usuario.usuarios.length < 8 ? usuario.usuarios.length : 8,
+        //       padding: const EdgeInsets.all(10.0),
+        //       shrinkWrap: true,
+        //       children: widget.usuario.awards
+        //           .getRange(
+        //               0,
+        //               widget.usuario.awards.length >= 1 && widget.usuario.awards.length <= 21
+        //                   ? widget.usuario.awards.length
+        //                   : 22)
+        //           .map(
+        //             ((award) => Column(
+        //                   mainAxisAlignment: MainAxisAlignment.center,
+        //                   children: [
+        //                     CircleAvatar(
+        //                       radius: 35,
+        //                       backgroundColor: Colors.transparent,
+        //                       backgroundImage:
+        //                           AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
+        //                       // backgroundImage: NetworkImage(memberProfile.avatar['url']
+        //                       //     .toString()
+        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+        //                       //     .toString()),
+        //                     ),
+        //                     Text(
+        //                       'La Liga',
+        //                       overflow: TextOverflow.ellipsis,
+        //                       softWrap: true,
+        //                       maxLines: 2,
+        //                     ),
+        //                   ],
+        //                 )),
+        //           )
+        //           .toList(),
+        //     ),
+        //   )
+        // else
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'MY AWARDS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'Coming Soon',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'MY EXPERIENCE',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'Coming Soon',
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
+        ),
+        Divider(
+          thickness: 1,
+          color: Colors.grey[300],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(Icons.more_horiz),
+              Text(
+                'MY SKILLS',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              'Coming Soon',
               style: TextStyle(fontSize: 16),
             ),
           ),
@@ -374,14 +549,10 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 3,
-                  childAspectRatio: (2 / 2),
                   mainAxisSpacing: 10,
                 ),
                 childrenDelegate: SliverChildListDelegate(
-                  widget.usuario.posts
-                      .map((usuario) =>
-                          UsuarioParente(imagem: usuario.file['url']))
-                      .toList(),
+                  widget.usuario.posts.map((post) => UsuarioParente(post: post)).toList(),
                 ),
               ),
               Container(
@@ -389,11 +560,24 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem>
                   child: Text('No hit posts'),
                 ),
               ),
-              Container(
-                child: Center(
-                  child: Text('No users'),
+              if (widget.usuario.fansProfile.length != 0)
+                GridView.custom(
+                  padding: const EdgeInsets.all(10),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 4,
+                  ),
+                  childrenDelegate: SliverChildListDelegate(
+                    widget.usuario.fansProfile.map((usuario) => ProfileFanItem(usuario: usuario)).toList(),
+                  ),
+                )
+              else
+                Container(
+                  child: Center(
+                    child: Text('No hit posts'),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

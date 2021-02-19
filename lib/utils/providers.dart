@@ -44,11 +44,6 @@ List<SingleChildWidget> providers() => [
         ),
       ),
       Provider(
-        create: (ctx) => PostStore(
-          PostController(),
-        ),
-      ),
-      Provider(
         create: (ctx) => ProfileStore(
           ProfileController(),
         ),
@@ -77,9 +72,6 @@ List<SingleChildWidget> providers() => [
       Provider(
         create: (ctx) => PostagemStore(
           PostagemController(),
-          FeedStore(
-            FeedController(),
-          ),
         ),
       ),
       Provider(

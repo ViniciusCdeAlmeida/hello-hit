@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
+import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
 import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/service/stores/feed_store.dart';
 import 'package:hellohit/service/stores/postagem_store.dart';
@@ -34,8 +35,10 @@ class _PostCardState extends State<PostCard> {
   void _actionButtons(Post post, Acoes acoes) {
     switch (acoes) {
       case Acoes.editarPost:
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => MoorDbViewer(db)));
+        Navigator.of(context).pushNamed(
+          PostagemCameraScreen.routeName,
+          arguments: widget.post.id,
+        );
         break;
       case Acoes.removerPost:
         showAlertDialogRemove(context, post);
@@ -52,13 +55,17 @@ class _PostCardState extends State<PostCard> {
       actions: <Widget>[
         FlatButton(
           onPressed: () async {
-            await _postStore
-                .removerPostagem(post.id)
-                .then((_) => _feedStore.updateFeed(post.id));
+            Navigator.of(context).pop();
+          },
+          child: Text('Cancel'),
+        ),
+        FlatButton(
+          onPressed: () async {
+            await _postStore.removerPostagem(post.id).then((_) => _feedStore.updateFeed(post.id));
             Navigator.of(context).pop();
           },
           child: Text('OK'),
-        )
+        ),
       ],
     );
     showDialog(
@@ -85,10 +92,10 @@ class _PostCardState extends State<PostCard> {
     final difference = now.difference(widget.post.createdAt);
     var timeAgo = timeago.format(now.subtract(difference), locale: 'en');
     return Card(
-      margin: const EdgeInsets.all(10),
-      elevation: 3,
+      margin: const EdgeInsets.only(top: 0),
+      elevation: 0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: Column(
         children: [
@@ -100,19 +107,19 @@ class _PostCardState extends State<PostCard> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () => widget.post.user.userType == 'TEAM'
-                          ? Navigator.of(context).pushNamed(
-                              ProfileTimeScreen.routeName,
-                              arguments: widget.post.user.id)
-                          : Navigator.of(context).pushNamed(
-                              ProfileUsuarioScreen.routeName,
-                              arguments: widget.post.user.id),
+                          ? Navigator.of(context).pushNamed(ProfileTimeScreen.routeName, arguments: widget.post.user.id)
+                          : Navigator.of(context)
+                              .pushNamed(ProfileUsuarioScreen.routeName, arguments: widget.post.user.id),
                       child: CircleAvatar(
                           backgroundColor: Colors.transparent,
                           radius: 20.0,
                           backgroundImage: widget.post.user.avatar == null
-                              ? AssetImage(
-                                  'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                              : NetworkImage(widget.post.user.avatar['url'])
+                              ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                              : NetworkImage(
+                                  widget.post.user.avatar['url'],
+                                )
+                          // .toString()
+                          // .replaceAll(RegExp(r'localhost'), '192.168.15.4'))
                           // .toString()
                           // .replaceAll(
                           //     RegExp(r'localhost'), '192.168.15.7')
@@ -148,8 +155,7 @@ class _PostCardState extends State<PostCard> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(bottom: 3.0, right: 10.0),
+                        padding: const EdgeInsets.only(bottom: 3.0, right: 10.0),
                         child: Text(
                           timeAgo,
                           style: TextStyle(
@@ -159,8 +165,7 @@ class _PostCardState extends State<PostCard> {
                           ),
                         ),
                       ),
-                      if (widget.post.user.id ==
-                          _autenticacaoStore.usuarioLogado.id)
+                      if (widget.post.user.id == _autenticacaoStore.usuarioLogado.id)
                         PopupMenuButton<Acoes>(
                           icon: Icon(
                             Icons.more_horiz,
@@ -171,14 +176,13 @@ class _PostCardState extends State<PostCard> {
                           },
                           offset: Offset(0, 100),
                           itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
-                            // PopupMenuItem<Acoes>(
-                            //   child: PopupMenuCustom('Edit', Icons.edit),
-                            //   value: Acoes.editarPost,
-                            // ),
+                            PopupMenuItem<Acoes>(
+                              child: PopupMenuCustom('Edit', Icons.edit),
+                              value: Acoes.editarPost,
+                            ),
                             const PopupMenuDivider(),
                             PopupMenuItem<Acoes>(
-                              child: PopupMenuCustom(
-                                  'Remove', Icons.highlight_remove),
+                              child: PopupMenuCustom('Remove', Icons.highlight_remove),
                               value: Acoes.removerPost,
                             ),
                             // const PopupMenuDivider(),
@@ -201,13 +205,9 @@ class _PostCardState extends State<PostCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.post.team != null && widget.post.team.isNotEmpty)
-                    Text(widget.post.team),
-                  if (widget.post.event != null && widget.post.event.isNotEmpty)
-                    Text(widget.post.event),
-                  if (widget.post.location != null &&
-                      widget.post.location.isNotEmpty)
-                    Text(widget.post.location),
+                  if (widget.post.team != null && widget.post.team.isNotEmpty) Text(widget.post.team),
+                  if (widget.post.event != null && widget.post.event.isNotEmpty) Text(widget.post.event),
+                  if (widget.post.location != null && widget.post.location.isNotEmpty) Text(widget.post.location),
                 ],
               ),
             ),
@@ -233,10 +233,8 @@ class _PostCardState extends State<PostCard> {
             child: ClipRRect(
               child: Image.network(
                 widget.post.file['url'],
-                // .toString()
-                // .replaceAll(RegExp(r'localhost'), '192.168.15.7')
-                // .toString(),
-                fit: BoxFit.scaleDown,
+                // .toString().replaceAll(RegExp(r'localhost'), '192.168.15.4').toString(),
+                fit: BoxFit.fill,
                 cacheHeight: 1080,
                 cacheWidth: 1080,
               ),
@@ -254,21 +252,16 @@ class _PostCardState extends State<PostCard> {
                       child: IconButton(
                         onPressed: () {
                           setState(() {
-                            if (widget.post.user.id !=
-                                _autenticacaoStore.usuarioLogado.id) {
-                              if (widget.post.hits.contains(
-                                  _autenticacaoStore.usuarioLogado.id)) {
+                            if (widget.post.user.id != _autenticacaoStore.usuarioLogado.id) {
+                              if (widget.post.hits.contains(_autenticacaoStore.usuarioLogado.id)) {
                                 widget.post.hitCount -= 1;
-                                widget.post.hits.removeWhere((element) =>
-                                    element ==
-                                    _autenticacaoStore.usuarioLogado.id);
-                                var snackBar = SnackBar(
-                                    content: Text('You removed your hit.'));
+                                widget.post.hits
+                                    .removeWhere((element) => element == _autenticacaoStore.usuarioLogado.id);
+                                var snackBar = SnackBar(content: Text('You removed your hit.'));
                                 Scaffold.of(context).showSnackBar(snackBar);
                               } else {
                                 widget.post.hitCount += 1;
-                                widget.post.hits.insert(
-                                    0, _autenticacaoStore.usuarioLogado.id);
+                                widget.post.hits.insert(0, _autenticacaoStore.usuarioLogado.id);
                                 var snackBar = SnackBar(
                                     content: Text(
                                         'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.fullName : widget.post.user.username}'));
@@ -277,8 +270,7 @@ class _PostCardState extends State<PostCard> {
                               makeHitPost();
                             } else {
                               var snackBar = SnackBar(
-                                content: Text(
-                                    'A post owner cannot give a hit to himself.'),
+                                content: Text('A post owner cannot give a hit to himself.'),
                               );
                               Scaffold.of(context).showSnackBar(snackBar);
                             }
@@ -286,8 +278,7 @@ class _PostCardState extends State<PostCard> {
                         },
                         icon: Icon(
                           Icons.star,
-                          color: widget.post.hits
-                                  .contains(_autenticacaoStore.usuarioLogado.id)
+                          color: widget.post.hits.contains(_autenticacaoStore.usuarioLogado.id)
                               ? Colors.orange
                               : Colors.grey,
                           size: 30,
@@ -367,10 +358,12 @@ class _PostCardState extends State<PostCard> {
             ),
             child: Row(
               children: [
-                InkWell(
-                  onTap: () {},
-                  child:
-                      Text('View all ${widget.post.comments.length} comments'),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed(
+                    ComentarioPostScreen.routeName,
+                    arguments: widget.post.id,
+                  ),
+                  child: Text('View all ${widget.post.comments.length} comments'),
                 ),
               ],
             ),

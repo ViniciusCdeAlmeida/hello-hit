@@ -47,7 +47,13 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
         ?.map(
             (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  );
+    fansProfile: (json['fansProfile'] as List)
+        ?.map((e) =>
+            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  )..category = json['category'] == null
+      ? null
+      : Categoria.fromJson(json['category'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
@@ -56,6 +62,7 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'skills': instance.skills,
       'experiences': instance.experiences,
       'categories': instance.categories,
+      'category': instance.category,
       'hits': instance.hits,
       'teams': instance.teams,
       'fans': instance.fans,
@@ -71,4 +78,5 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'jobHistory': instance.jobHistory,
       'educations': instance.educations,
       'posts': instance.posts,
+      'fansProfile': instance.fansProfile,
     };

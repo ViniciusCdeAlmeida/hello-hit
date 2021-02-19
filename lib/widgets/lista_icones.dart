@@ -24,18 +24,6 @@ class IconRow extends StatelessWidget {
           margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
           width: width / 1.2,
           height: 50,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 7,
-                offset: Offset(0, 3),
-              ),
-            ],
-            color: Colors.white,
-            shape: BoxShape.circle,
-          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -48,6 +36,7 @@ class IconRow extends StatelessWidget {
           ),
         ),
         Container(
+          // width: 70,
           child: Text(titulo),
         ),
       ],

@@ -6,9 +6,9 @@ part 'categoria_model.g.dart';
 class Categoria {
   @JsonKey(name: '_id')
   String id;
-  String name;
-  String description;
-  String imageUrl;
+  String name = '';
+  String description = '';
+  String imageUrl = '';
   Categoria({
     this.id,
     this.name,
@@ -16,8 +16,7 @@ class Categoria {
     this.imageUrl,
   });
 
-  factory Categoria.fromJson(Map<String, dynamic> json) =>
-      _$CategoriaFromJson(json);
+  factory Categoria.fromJson(Map<String, dynamic> json) => _$CategoriaFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoriaToJson(this);
 }

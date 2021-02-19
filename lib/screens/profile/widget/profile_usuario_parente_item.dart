@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
 
 class UsuarioParente extends StatelessWidget {
-  final String imagem;
+  final Post post;
 
   UsuarioParente({
-    this.imagem,
+    this.post,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(
-          const Radius.circular(3),
+      child: GestureDetector(
+        onTap: () => Navigator.of(context).pushNamed(
+          ComentarioPostScreen.routeName,
+          arguments: post.id,
         ),
-        child: Image.network(
-          imagem,
-          height: 10,
-          cacheHeight: 500,
-          cacheWidth: 500,
-          fit: BoxFit.fill,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(
+            const Radius.circular(3),
+          ),
+          child: Image.network(
+            post.file['url'],
+            // .toString()
+            // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+            // .toString(),
+            height: 10,
+            cacheHeight: 500,
+            cacheWidth: 500,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );

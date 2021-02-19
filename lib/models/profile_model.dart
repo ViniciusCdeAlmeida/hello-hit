@@ -1,12 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:hellohit/models/educacao_model.dart';
-import 'package:hellohit/models/historicoJob_model.dart';
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/models/work_model.dart';
+import 'package:hellohit/models/index_models.dart';
 
 part 'profile_model.g.dart';
 
@@ -18,6 +12,7 @@ class Profile {
   List<Skill> skills;
   List experiences;
   List<String> categories;
+  Categoria category;
   List<String> hits;
   List<String> teams;
   List<String> fans;
@@ -33,6 +28,7 @@ class Profile {
   List<HistoricoJob> jobHistory;
   List<Educacao> educations;
   List<Post> posts;
+  List<Usuario> fansProfile = [];
 
   Profile({
     this.id,
@@ -55,10 +51,10 @@ class Profile {
     this.jobHistory,
     this.educations,
     this.posts,
+    this.fansProfile,
   });
 
-  factory Profile.fromJson(Map<String, dynamic> json) =>
-      _$ProfileFromJson(json);
+  factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }

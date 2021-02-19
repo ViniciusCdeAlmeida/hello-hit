@@ -10,8 +10,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.4:3000/"
-    // ..options.baseUrl = "http://developer.api.hellohit.co/"
+    // ..options.baseUrl = "http://192.168.15.4:3000/"
+    ..options.baseUrl = "http://api.rancher.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -30,6 +30,12 @@ class Endpoint {
   static Future getMessages() async => await getConexaoPrefs().get('users');
 
   static Future getUsuarios() async => await getConexaoPrefs().get('users');
+
+  static Future getCategoria(String id) async =>
+      await getConexaoPrefs().get('categories/$id');
+
+  static Future getUsuariosById(String id) async =>
+      await getConexaoPrefs().get('users/$id');
 
   static Future postComentarioPost(String id, Comentario comentario) async {
     FormData formData = FormData.fromMap(
@@ -50,7 +56,7 @@ class Endpoint {
       await getConexaoPrefs().post('opportunities', data: oportunidade);
 
   static Future getCategorias() async =>
-      await getConexaoPrefs().get('categories');
+      await getConexaoPrefs().get('categories?page=1&limit=1000');
 
   static Future patchCategoriaUsuario(String id) async {
     await getConexaoPrefs().patch('profiles/categories/update', data: {
@@ -66,7 +72,12 @@ class Endpoint {
 
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
-  static Future getPosts() async => await getConexaoPrefs().get('posts');
+  // static Future getPosts() async => await getConexaoPrefs().get('posts');
+  static Future getPosts(int page, int limit) async =>
+      await getConexaoPrefs().get('posts?page=$page&limit=$limit');
+
+  static Future getPost(String id) async =>
+      await getConexaoPrefs().get('posts/$id');
 
   static Future getChatsUsers() async =>
       await getConexaoPrefs().get('/chats/user');
@@ -88,8 +99,8 @@ class Endpoint {
   static Future getProfileTimeScreen(String id) async =>
       await getConexaoPrefs().get('profilesTeam/$id');
 
-  static Future getAllProfileTime() async =>
-      await getConexaoPrefs().get('profilesTeam');
+  static Future getAllProfileTime(int page, int limit) async =>
+      await getConexaoPrefs().get('profilesTeam?page=$page&limit=$limit');
 
   static Future patchHitTime(String idUsuario, String idPerfil) async =>
       await getConexaoPrefs()

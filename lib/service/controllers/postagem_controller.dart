@@ -24,9 +24,9 @@ class PostagemController {
     }
   }
 
-  Future<Post> getAllPosts() async {
+  Future<Post> getPost(String id) async {
     try {
-      Response res = await Endpoint.getPosts();
+      Response res = await Endpoint.getPost(id);
       return Post.fromJson(res.data);
     } catch (e) {
       throw e;

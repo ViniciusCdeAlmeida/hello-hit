@@ -21,3 +21,5 @@ export 'skill_model.dart';
 export 'slide_model.dart';
 export 'usuario_model.dart';
 export 'work_model.dart';
+export 'premio_model.dart';
+export 'historicoJob_model.dart';

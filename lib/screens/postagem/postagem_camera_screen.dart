@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/service/stores/postagem_store.dart';
-import 'package:hellohit/screens/postagem/postagem_screen.dart';
+import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -14,8 +16,11 @@ class PostagemCameraScreen extends StatefulWidget {
 }
 
 class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKeyPostagem = GlobalKey<ScaffoldState>();
   PostagemStore _postagemStore;
   File _imagem;
+  String idArgs;
+  Stream<FileResponse> fileStream;
   var _postInicial = Post(
     comments: [],
     file: '',
@@ -31,28 +36,51 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
     if (daCamera) {
       var _camera = await picker.getImage(source: ImageSource.camera);
       //camera
-      imagemSelecionada = File(_camera.path);
+      if (idArgs != null) {
+        // var date = DateTime.now();
+        // var tempImg = await File(_camera.path).rename(
+        //     'IMG_${date.year}${date.month}${date.day}_${date.hour}${date.minute}${date.second}_${date.millisecond}');
+
+        _postagemStore.postagemImageEdit(File(_camera.path));
+      } else
+        _postagemStore.postagemImage(File(_camera.path));
     } else {
       var _galeria = await picker.getImage(source: ImageSource.gallery);
       //galeria
       imagemSelecionada = File(_galeria.path);
     }
-
-    setState(() {
-      _imagem = imagemSelecionada;
-    });
+// _postagemImage= imagemSelecionada;
+    // _postagemStore.postagemImageEdit(imagemSelecionada);
   }
 
   void setImagemPostagem() {
     // print(_imagem.path);
-    _postagemStore.postagemImagem(_imagem.path);
-    Navigator.of(context).pushNamed(PostagemScreen.routeName);
+    if (_postagemStore.postagemImagemEdit == null && _postagemStore.postagemImageNew == null) {
+      var snackBar = SnackBar(content: Text('Please insert a photo or video.'));
+      _scaffoldKeyPostagem.currentState.showSnackBar(snackBar);
+    } else {
+      if (idArgs == null) {
+        _postagemStore.postagemImagem(_postagemStore.postagemImageNew.path);
+      }
+      if (_postagemStore.postagemImageNew != null || _postagemStore.postagemImagemEdit != null)
+        Navigator.of(context).pushNamed(PostagemComentarioScreen.routeName);
+    }
+  }
+
+  @override
+  void dispose() {
+    _postagemStore.clean();
+    super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     _postagemStore = Provider.of<PostagemStore>(context);
-    _postagemStore.postagemInicial(_postInicial);
+    idArgs = ModalRoute.of(context).settings.arguments;
+    if (idArgs != null) {
+      _postagemStore.buscaPostagem(idArgs);
+    } else
+      _postagemStore.postagemInicial(_postInicial);
     super.didChangeDependencies();
   }
 
@@ -75,13 +103,14 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
     );
 
     return Scaffold(
+      key: _scaffoldKeyPostagem,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
+          onTap: () => Navigator.of(context).pop(),
           child: Padding(
-            padding: EdgeInsets.only(left: 10, top: 20),
+            padding: EdgeInsets.only(left: 5, top: 20),
             child: const Text(
               'Cancel',
               style: TextStyle(
@@ -121,22 +150,61 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(
-            children: [
-              _imagem == null
-                  ? Container()
-                  : Image.file(
-                      _imagem,
-                      fit: BoxFit.cover,
-                      height: 370,
-                    ),
-            ],
-          ),
-        ),
-      ),
+      // ignore: missing_return
+      body: Observer(builder: (_) {
+        switch (_postagemStore.postagemState) {
+          case PostagemState.inicial:
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  children: [
+                    _postagemStore.postagemImageNew == null
+                        ? Container()
+                        : Image.file(
+                            _postagemStore.postagemImageNew,
+                            fit: BoxFit.cover,
+                            height: 370,
+                            cacheHeight: 1080,
+                            cacheWidth: 1080,
+                          ),
+                  ],
+                ),
+              ),
+            );
+          case PostagemState.carregado:
+            return Container(
+              color: Colors.white,
+              child: Center(
+                child: Column(
+                  children: [
+                    idArgs == null
+                        ? _postagemStore.postagemImageNew == null
+                            ? Container()
+                            : Image.file(
+                                _postagemStore.postagemImageNew,
+                                fit: BoxFit.cover,
+                                height: 370,
+                                cacheHeight: 1080,
+                                cacheWidth: 1080,
+                              )
+                        : Image.file(
+                            _postagemStore.postagemImagemEdit,
+                            fit: BoxFit.cover,
+                            height: 370,
+                            cacheHeight: 1080,
+                            cacheWidth: 1080,
+                          ),
+                  ],
+                ),
+              ),
+            );
+          case PostagemState.carregando:
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+        }
+      }),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
         color: Colors.white,

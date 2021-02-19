@@ -25,6 +25,7 @@ class _FeedScreenState extends State<FeedScreen> {
   AutenticacaoStore _autenticacaoStore;
   int id;
   Usuario _usuario;
+  ScrollController scrollController = ScrollController();
 
   @override
   void didChangeDependencies() {
@@ -32,6 +33,11 @@ class _FeedScreenState extends State<FeedScreen> {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _feedStore.feedList();
     _usuario = _autenticacaoStore.usuarioLogado;
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels != 0) _feedStore.feedListPagination();
+      }
+    });
     super.didChangeDependencies();
   }
 
@@ -78,8 +84,7 @@ class _FeedScreenState extends State<FeedScreen> {
               height: 40,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
+                  image: AssetImage('assets/images/oportunidades_assets/icone_destaque_oport_recom.png'),
                 ),
               ),
             ),
@@ -118,20 +123,18 @@ class _FeedScreenState extends State<FeedScreen> {
               break;
             case 4:
               _usuario.userType == 'TEAM'
-                  ? Navigator.of(context).pushNamed(ProfileTimeScreen.routeName,
-                      arguments: _usuario.id)
-                  : Navigator.of(context).pushNamed(
-                      ProfileUsuarioScreen.routeName,
-                      arguments: _usuario.id);
+                  ? Navigator.of(context).pushNamed(ProfileTimeScreen.routeName, arguments: _usuario.id)
+                  : Navigator.of(context).pushNamed(ProfileUsuarioScreen.routeName, arguments: _usuario.id);
               break;
           }
         },
       ),
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.white,
       drawer: CustomDrawer(usuario: _usuario),
       body: RefreshIndicator(
         onRefresh: atualizarFeed,
         child: CustomScrollView(
+          controller: scrollController,
           slivers: [
             SliverAppBar(
               pinned: true,
@@ -147,69 +150,68 @@ class _FeedScreenState extends State<FeedScreen> {
               actions: [
                 IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () => Navigator.of(context)
-                      .pushNamed(ProfileProcuraScreen.routeName),
+                  onPressed: () => Navigator.of(context).pushNamed(ProfileProcuraScreen.routeName),
                 ),
               ],
               centerTitle: true,
               automaticallyImplyLeading: false,
               leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: ImageIcon(
-                      AssetImage(
-                          'assets/images/perfil_post_assets/Icon_menu.png'),
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                  );
-                },
+                builder: (BuildContext context) => IconButton(
+                  icon: ImageIcon(
+                    AssetImage('assets/images/perfil_post_assets/Icon_menu.png'),
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
               ),
               elevation: 0,
             ),
             SliverList(
-                delegate: SliverChildListDelegate([
-              Observer(
-                // ignore: missing_return
-                builder: (_) {
-                  switch (_feedStore.feedState) {
-                    case FeedState.inicial:
-                    case FeedState.carregando:
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                          ),
-                        ),
-                      );
-                    case FeedState.carregado:
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: _feedStore.feed.length,
-                          itemBuilder: (_, idx) => Column(
-                            children: [
-                              Observer(
-                                builder: (_) {
-                                  return PostCard(
-                                    post: _feedStore.feed[idx],
-                                  );
-                                },
+              delegate: SliverChildListDelegate(
+                [
+                  Observer(
+                    // ignore: missing_return
+                    builder: (_) {
+                      switch (_feedStore.feedState) {
+                        case FeedState.inicial:
+                          return Container();
+                        case FeedState.carregando:
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.white,
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                  }
-                },
+                            ),
+                          );
+                        case FeedState.carregado:
+                          return Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: _feedStore.feed.length,
+                              itemBuilder: (_, idx) => Column(
+                                children: [
+                                  Observer(
+                                    builder: (_) => PostCard(
+                                      post: _feedStore.feed[idx],
+                                    ),
+                                  ),
+                                  Divider(),
+                                ],
+                              ),
+                            ),
+                          );
+                      }
+                    },
+                  ),
+                ],
               ),
-            ])),
+            ),
           ],
         ),
       ),
