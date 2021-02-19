@@ -70,6 +70,49 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
 
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
 
+    var caixaMensagem = Container(
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: 8),
+              child: TextField(
+                //controller: _controllerMensagem,
+                //onSaved: (value) => _comentario.text = value,
+                onChanged: (text) => _comentario.text = text,
+                autofocus: true,
+                keyboardType: TextInputType.text,
+                style: TextStyle(fontSize: 15),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.fromLTRB(25, 8, 25, 8),
+                  hintText: "Comments",
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                  /*prefixIcon: IconButton(
+                    icon: Icon(Icons.camera_alt),
+                    onPressed: _enviarFoto,
+                  ),*/
+                ),
+              ),
+            ),
+          ),
+          FloatingActionButton(
+            backgroundColor: Colors.orange[700],
+            child: Icon(
+              Icons.send,
+              color: Colors.white,
+            ),
+            mini: true,
+            onPressed: submit,
+          )
+        ],
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Comments'),
@@ -137,53 +180,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
               ],
             ),
           ),
-          TextFormField(
-            onSaved: (value) => _comentario.text = value,
-            onChanged: (text) => _comentario.text = text,
-            textAlignVertical: TextAlignVertical.center,
-            cursorColor: Colors.white,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25.0),
-                borderSide: BorderSide(
-                  color: Colors.white,
-                  width: 2.0,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25.0),
-                borderSide: BorderSide(
-                  color: Colors.orange[700],
-                  width: 2.0,
-                ),
-              ),
-              labelStyle: TextStyle(color: Colors.black),
-              labelText: 'Comment',
-              fillColor: Colors.white,
-              focusColor: Colors.white,
-              hoverColor: Colors.white,
-            ),
-          ),
-          Observer(
-            builder: (_) => _comentarioStore.req
-                ? Center(
-                    child: CircularProgressIndicator(
-                    backgroundColor: Colors.orange[700],
-                  ))
-                : FloatingActionButton(
-                    backgroundColor: Colors.orange[700],
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                    ),
-                    mini: true,
-                    onPressed: submit,
-                  ),
-          )
+          caixaMensagem,
         ],
       ),
     );
