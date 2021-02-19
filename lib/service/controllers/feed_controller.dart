@@ -15,7 +15,7 @@ class FeedController {
     try {
       Response res;
       if (paginaAtual == 0 || newSearch) {
-        res = await Endpoint.getPosts(paginaInicial, 4).timeout(Duration(seconds: 5));
+        res = await Endpoint.getPosts(paginaInicial, 4).timeout(Duration(seconds: 40));
         paginaAtual = res.data['currentPage'];
         paginaTotal = res.data['totalPages'];
         paginaAtual = paginaAtual + 1;

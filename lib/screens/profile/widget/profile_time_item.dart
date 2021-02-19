@@ -259,7 +259,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(widget.usuario.category.description),
+              Text(widget.usuario.category.description != null ? widget.usuario.category.description : ''),
               Text(widget.usuario.user.username),
               Text(widget.usuario.location),
             ],

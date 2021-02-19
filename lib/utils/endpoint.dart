@@ -50,7 +50,7 @@ class Endpoint {
   static Future postOportunidade(Oportunidade oportunidade) async =>
       await getConexaoPrefs().post('opportunities', data: oportunidade);
 
-  static Future getCategorias() async => await getConexaoPrefs().get('categories');
+  static Future getCategorias() async => await getConexaoPrefs().get('categories?page=1&limit=1000');
 
   static Future patchCategoriaUsuario(String id) async {
     await getConexaoPrefs().patch('profiles/categories/update', data: {
@@ -85,7 +85,8 @@ class Endpoint {
 
   static Future getProfileTimeScreen(String id) async => await getConexaoPrefs().get('profilesTeam/$id');
 
-  static Future getAllProfileTime() async => await getConexaoPrefs().get('profilesTeam');
+  static Future getAllProfileTime(int page, int limit) async =>
+      await getConexaoPrefs().get('profilesTeam?page=$page&limit=$limit');
 
   static Future patchHitTime(String idUsuario, String idPerfil) async =>
       await getConexaoPrefs().patch('profilesTeam/hit/$idPerfil', data: {'id': idUsuario});

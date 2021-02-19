@@ -7,8 +7,7 @@ import 'package:hellohit/utils/endpoint.dart';
 class AutenticacaoController {
   Future<Usuario> autenticacaoUsuario(Autenticacao usuario) async {
     try {
-      Response res = await Endpoint.postAutenticacaoUsuario(usuario)
-          .timeout(Duration(seconds: 40));
+      Response res = await Endpoint.postAutenticacaoUsuario(usuario).timeout(Duration(seconds: 40));
       var existeCategoria = res.data['profile']['categories'] as List;
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.fullName = res.data['full_name'];
@@ -36,11 +35,8 @@ class AutenticacaoController {
 
   Future<List<Usuario>> getUsuarios() async {
     try {
-      Response res =
-          await Endpoint.getUsuarios().timeout(Duration(seconds: 40));
-      return res.data
-          .map<Usuario>((content) => Usuario.fromJson(content))
-          .toList() as List<Usuario>;
+      Response res = await Endpoint.getUsuarios().timeout(Duration(seconds: 40));
+      return res.data.map<Usuario>((content) => Usuario.fromJson(content)).toList() as List<Usuario>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];
@@ -71,11 +67,8 @@ class AutenticacaoController {
 
   Future<List<Conversation>> getConversationList() async {
     try {
-      Response res =
-          await Endpoint.getChatsUsers().timeout(Duration(seconds: 40));
-      return res.data
-          .map<Conversation>((content) => Conversation.fromJson(content))
-          .toList() as List<Conversation>;
+      Response res = await Endpoint.getChatsUsers().timeout(Duration(seconds: 40));
+      return res.data.map<Conversation>((content) => Conversation.fromJson(content)).toList() as List<Conversation>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];
@@ -90,11 +83,9 @@ class AutenticacaoController {
 
   Future<List<Categoria>> getCategorias() async {
     try {
-      Response res =
-          await Endpoint.getCategorias().timeout(Duration(seconds: 40));
-      return res.data
-          .map<Categoria>((content) => Categoria.fromJson(content))
-          .toList() as List<Categoria>;
+      Response res = await Endpoint.getCategorias().timeout(Duration(seconds: 40));
+      return res.data['categories'].map<Categoria>((content) => Categoria.fromJson(content)).toList()
+          as List<Categoria>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];

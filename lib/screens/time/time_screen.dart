@@ -16,12 +16,18 @@ class TimeScreen extends StatefulWidget {
 class _TimeScreenState extends State<TimeScreen> {
   TimeStore _timeStore;
   AutenticacaoStore _autenticacaoStore;
+  ScrollController scrollController = ScrollController();
 
   @override
   void didChangeDependencies() {
     _timeStore = Provider.of<TimeStore>(context);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _timeStore.getTeams();
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels != 0) _timeStore.getTeamsPagination();
+      }
+    });
     super.didChangeDependencies();
   }
 
@@ -46,6 +52,7 @@ class _TimeScreenState extends State<TimeScreen> {
         centerTitle: true,
       ),
       body: ListView(
+        controller: scrollController,
         shrinkWrap: true,
         children: [
           Column(
@@ -64,8 +71,7 @@ class _TimeScreenState extends State<TimeScreen> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: AssetImage(
-                                'assets/images/oportunidades_assets/box_encontrar_oportunidades.png'),
+                            image: AssetImage('assets/images/oportunidades_assets/box_encontrar_oportunidades.png'),
                           ),
                         ),
                         width: deviceSize.width,

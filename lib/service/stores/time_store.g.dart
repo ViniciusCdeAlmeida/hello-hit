@@ -76,6 +76,15 @@ mixin _$TimeStore on _TimeStore, Store {
     return _$getTeamsAsyncAction.run(() => super.getTeams());
   }
 
+  final _$getTeamsPaginationAsyncAction =
+      AsyncAction('_TimeStore.getTeamsPagination');
+
+  @override
+  Future<dynamic> getTeamsPagination() {
+    return _$getTeamsPaginationAsyncAction
+        .run(() => super.getTeamsPagination());
+  }
+
   @override
   String toString() {
     return '''

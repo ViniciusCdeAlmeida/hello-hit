@@ -303,6 +303,14 @@ mixin _$ProfileStore on _ProfileStore, Store {
         .run(() => super.loadUsuarioProfile(id));
   }
 
+  final _$loadTimeProfileAsyncAction =
+      AsyncAction('_ProfileStore.loadTimeProfile');
+
+  @override
+  Future<dynamic> loadTimeProfile(String id) {
+    return _$loadTimeProfileAsyncAction.run(() => super.loadTimeProfile(id));
+  }
+
   final _$loadTimeProfileEditAsyncAction =
       AsyncAction('_ProfileStore.loadTimeProfileEdit');
 

@@ -4,6 +4,7 @@ import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class ProfileController {
+  int paginaTimeAtual = 0, paginaTimeInicial = 1, paginaTimeTotal;
   Future<void> atualizarUsuarioProfile(Profile profile, String image) async {
     try {
       await Endpoint.patchProfileUsuario(profile).timeout(Duration(seconds: 40));
@@ -48,7 +49,10 @@ class ProfileController {
       temp.fansProfile = [];
       temp.membersProfile = [];
       temp.posts = await _getUsuarioPosts(temp.user.id);
-      temp.category = await _getCategoria(temp.categories.first);
+      if (temp.categories.isNotEmpty)
+        temp.category = await _getCategoria(temp.categories.first);
+      else
+        temp.category = Categoria();
       await Future.forEach(
         temp.fans,
         (id) => _getSeguidoresProfile(id).then((value) => temp.fansProfile.add(value)),
@@ -102,11 +106,23 @@ class ProfileController {
     }
   }
 
-  Future<List<ProfileTime>> getAllTimeProfile() async {
+  Future<List<ProfileTime>> getAllTimeProfile({bool newSearch}) async {
     try {
-      Response res = await Endpoint.getAllProfileTime();
-
-      return res.data.map<ProfileTime>((content) => ProfileTime.fromJson(content)).toList() as List<ProfileTime>;
+      Response res;
+      if (paginaTimeAtual == 0 || newSearch) {
+        res = await Endpoint.getAllProfileTime(paginaTimeInicial, 10).timeout(Duration(seconds: 40));
+        paginaTimeAtual = res.data['currentPage'];
+        paginaTimeTotal = res.data['totalPages'];
+        paginaTimeAtual = paginaTimeAtual + 1;
+      } else if (paginaTimeAtual <= paginaTimeTotal) {
+        res = await await Endpoint.getAllProfileTime(paginaTimeAtual, 10).timeout(Duration(seconds: 40));
+        paginaTimeTotal = res.data['totalPages'];
+        paginaTimeAtual = paginaTimeAtual + 1;
+      }
+      return res != null
+          ? res.data['profiles'].map<ProfileTime>((content) => ProfileTime.fromJson(content)).toList()
+              as List<ProfileTime>
+          : Future.value();
     } catch (e) {
       throw e;
     }
