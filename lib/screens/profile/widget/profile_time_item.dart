@@ -96,10 +96,10 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                               fit: BoxFit.fill,
                             )
                           : Image.network(
-                              widget.usuario.user.avatarUrl
-                                  .toString()
-                                  .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                                  .toString(),
+                              widget.usuario.user.avatarUrl,
+                              // .toString()
+                              // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                              // .toString(),
                               height: 120,
                               width: 130,
                               fit: BoxFit.fill,
@@ -498,9 +498,10 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                   ((memberProfile) => CircleAvatar(
                         backgroundColor: Colors.transparent,
                         backgroundImage: NetworkImage(memberProfile.avatar['url']
-                            .toString()
-                            .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                            .toString()),
+                            // .toString()
+                            // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                            // .toString()
+                            ),
                       )),
                 )
                 .toList(),

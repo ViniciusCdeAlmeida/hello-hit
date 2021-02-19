@@ -10,8 +10,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.4:3000/"
-    // ..options.baseUrl = "http://api.rancher.hellohit.co/"
+    // ..options.baseUrl = "http://192.168.15.4:3000/"
+    ..options.baseUrl = "http://api.rancher.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }

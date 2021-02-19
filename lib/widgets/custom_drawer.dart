@@ -95,9 +95,10 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               radius: 40.0,
                               backgroundImage: widget.usuario.avatar != null
                                   ? NetworkImage(widget.usuario.avatar
-                                      .toString()
-                                      .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                                      .toString())
+                                      // .toString()
+                                      // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                                      // .toString(),
+                                      )
                                   : AssetImage(
                                       'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
                                     ),

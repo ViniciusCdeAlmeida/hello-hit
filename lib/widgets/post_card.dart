@@ -115,9 +115,11 @@ class _PostCardState extends State<PostCard> {
                           radius: 20.0,
                           backgroundImage: widget.post.user.avatar == null
                               ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                              : NetworkImage(widget.post.user.avatar['url']
-                                  .toString()
-                                  .replaceAll(RegExp(r'localhost'), '192.168.15.4'))
+                              : NetworkImage(
+                                  widget.post.user.avatar['url'],
+                                )
+                          // .toString()
+                          // .replaceAll(RegExp(r'localhost'), '192.168.15.4'))
                           // .toString()
                           // .replaceAll(
                           //     RegExp(r'localhost'), '192.168.15.7')
@@ -230,7 +232,8 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.4').toString(),
+                widget.post.file['url'],
+                // .toString().replaceAll(RegExp(r'localhost'), '192.168.15.4').toString(),
                 fit: BoxFit.fill,
                 cacheHeight: 1080,
                 cacheWidth: 1080,
