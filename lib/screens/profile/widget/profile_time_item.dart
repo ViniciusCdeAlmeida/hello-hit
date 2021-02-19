@@ -415,7 +415,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
               shrinkWrap: true,
               children: widget.usuario.awards
                   .getRange(
-                      0,
+                      1,
                       widget.usuario.awards.length >= 1 && widget.usuario.awards.length <= 21
                           ? widget.usuario.awards.length
                           : 22)
@@ -423,22 +423,24 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                     ((award) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage:
-                                  AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
-                              // backgroundImage: NetworkImage(memberProfile.avatar['url']
-                              //     .toString()
-                              //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                              //     .toString()),
-                            ),
-                            Text(
-                              'La Liga',
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              maxLines: 2,
-                            ),
+                            if (award.awardName != null)
+                              CircleAvatar(
+                                radius: 35,
+                                backgroundColor: Colors.transparent,
+                                backgroundImage:
+                                    AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
+                                // backgroundImage: NetworkImage(memberProfile.avatar['url']
+                                //     .toString()
+                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                                //     .toString()),
+                              ),
+                            if (award.awardName != null)
+                              Text(
+                                award.awardName,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: true,
+                                maxLines: 2,
+                              ),
                           ],
                         )),
                   )

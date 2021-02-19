@@ -180,7 +180,10 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          ImageIcon(
+                                            AssetImage('assets/images/icons/bookmark.png'),
+                                            color: Colors.deepOrange,
+                                          ),
                                           Text(
                                             'Bookmarks',
                                             style: TextStyle(
@@ -218,7 +221,14 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          Container(
+                                            height: 15,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage('assets/images/perfil_assets/Selo_Perfil_Pro.png'),
+                                              ),
+                                            ),
+                                          ),
                                           Text(
                                             'Turn Pro',
                                             style: TextStyle(
@@ -256,7 +266,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          ImageIcon(
+                                            AssetImage('assets/images/icons/rating.png'),
+                                            color: Colors.black,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'My Teams',
                                             style: TextStyle(
@@ -294,7 +308,10 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          Icon(
+                                            Icons.notifications,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'Notification',
                                             style: TextStyle(
@@ -332,7 +349,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          ImageIcon(
+                                            AssetImage('assets/images/icons/job-opportunities.png'),
+                                            color: Colors.black,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'Opportunities',
                                             style: TextStyle(
@@ -370,7 +391,19 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          Container(
+                                            height: 37,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage('assets/images/icons/versus.png'),
+                                              ),
+                                            ),
+                                          ),
+                                          // ImageIcon(
+                                          //   AssetImage('assets/images/icons/versus.png'),
+                                          //   color: Colors.yellow,
+                                          //   size: 37,
+                                          // ),
                                           Text(
                                             'Battle Rounds',
                                             style: TextStyle(
@@ -416,7 +449,10 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          Icon(
+                                            Icons.edit,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'Edit Profile',
                                             style: TextStyle(
@@ -454,7 +490,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          ImageIcon(
+                                            AssetImage('assets/images/icons/card.png'),
+                                            color: Colors.black,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'HelloHit Pay',
                                             style: TextStyle(
@@ -492,7 +532,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          ImageIcon(
+                                            AssetImage('assets/images/icons/bar-chart.png'),
+                                            color: Colors.black,
+                                            size: 37,
+                                          ),
                                           Text(
                                             'Statistics',
                                             style: TextStyle(
@@ -530,7 +574,14 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Icon(Icons.ac_unit),
+                                          Container(
+                                            height: 37,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage('assets/images/icons/live.png'),
+                                              ),
+                                            ),
+                                          ),
                                           Text(
                                             'Talents Show',
                                             style: TextStyle(
@@ -566,7 +617,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               ListTile(
                                 title: Row(
                                   children: [
-                                    Icon(Icons.chat),
+                                    ImageIcon(
+                                      AssetImage('assets/images/icons/help.png'),
+                                      color: Colors.black,
+                                      size: 37,
+                                    ),
                                     Text(
                                       'Help & Support',
                                       style: TextStyle(
@@ -596,10 +651,108 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                 // width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   children: [
-                                    cardDrawer(titulo: 'Help Center'),
-                                    cardDrawer(titulo: 'Support Inbox'),
-                                    cardDrawer(titulo: 'Report a problem'),
-                                    cardDrawer(titulo: 'Terms & Policies'),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              ImageIcon(
+                                                AssetImage('assets/images/icons/support (1).png'),
+                                                color: Colors.black,
+                                                size: 37,
+                                              ),
+                                              Text(
+                                                'Help Center',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Support Inbox',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Report a problem',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              ImageIcon(
+                                                AssetImage('assets/images/icons/terms-and-conditions.png'),
+                                                color: Colors.black,
+                                                size: 37,
+                                              ),
+                                              Text(
+                                                'Terms & Policies',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -614,7 +767,10 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               ListTile(
                                 title: Row(
                                   children: [
-                                    Icon(Icons.chat),
+                                    Icon(
+                                      Icons.settings,
+                                      size: 37,
+                                    ),
                                     Text(
                                       'Settings & Privacy',
                                       style: TextStyle(
@@ -644,9 +800,86 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                 // width: MediaQuery.of(context).size.width,
                                 child: Column(
                                   children: [
-                                    cardDrawer(titulo: 'Settings'),
-                                    cardDrawer(titulo: 'Private Shortcuts'),
-                                    cardDrawer(titulo: 'App Language'),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(Icons.account_circle, size: 37),
+                                              Text(
+                                                'Settings',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              ImageIcon(
+                                                AssetImage('assets/images/icons/user (1).png'),
+                                                color: Colors.grey[800],
+                                                size: 37,
+                                              ),
+                                              Text(
+                                                'Private Shortcuts',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Card(
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5.0),
+                                        ),
+                                        child: ListTile(
+                                          title: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              ImageIcon(
+                                                AssetImage('assets/images/icons/language.png'),
+                                                color: Colors.black,
+                                                size: 37,
+                                              ),
+                                              Text(
+                                                'App Language',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -665,7 +898,11 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                   child: ListTile(
                     title: Row(
                       children: [
-                        Icon(Icons.exit_to_app),
+                        ImageIcon(
+                          AssetImage('assets/images/icons/arrow.png'),
+                          // color: Colors.grey,
+                          size: 37,
+                        ),
                         Text(
                           'Logout',
                           style: TextStyle(
