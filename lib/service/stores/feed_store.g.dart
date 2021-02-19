@@ -75,6 +75,15 @@ mixin _$FeedStore on _FeedStore, Store {
     return _$feedListAsyncAction.run(() => super.feedList());
   }
 
+  final _$feedListPaginationAsyncAction =
+      AsyncAction('_FeedStore.feedListPagination');
+
+  @override
+  Future<dynamic> feedListPagination() {
+    return _$feedListPaginationAsyncAction
+        .run(() => super.feedListPagination());
+  }
+
   final _$_FeedStoreActionController = ActionController(name: '_FeedStore');
 
   @override

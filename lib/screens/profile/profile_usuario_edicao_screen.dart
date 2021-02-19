@@ -15,12 +15,10 @@ import 'package:provider/provider.dart';
 class ProfileUsuarioEdicaoScreen extends StatefulWidget {
   static const routeName = '/profileUsuarioEdicaoScreen';
   @override
-  _ProfileUsuarioEdicaoScreenState createState() =>
-      _ProfileUsuarioEdicaoScreenState();
+  _ProfileUsuarioEdicaoScreenState createState() => _ProfileUsuarioEdicaoScreenState();
 }
 
-class _ProfileUsuarioEdicaoScreenState
-    extends State<ProfileUsuarioEdicaoScreen> {
+class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen> {
   final _formProfileUsuario = GlobalKey<FormState>();
   String idArgs;
   bool _carregado = false;
@@ -39,7 +37,7 @@ class _ProfileUsuarioEdicaoScreenState
   void didChangeDependencies() {
     idArgs = ModalRoute.of(context).settings.arguments;
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
-    _profileStore.loadUsuarioProfile(idArgs);
+    _profileStore.loadUsuarioProfileEdit(idArgs);
     _profileAtual = _profileStore.usuario;
     super.didChangeDependencies();
   }
@@ -60,12 +58,9 @@ class _ProfileUsuarioEdicaoScreenState
   }
 
   Future<void> _saveForm() async {
-    _profileAtual.skills
-        .replaceRange(0, _profileAtual.skills.length, skillList);
-    _profileAtual.educations
-        .replaceRange(0, _profileAtual.educations.length, educationList);
-    _profileAtual.jobHistory
-        .replaceRange(0, _profileAtual.jobHistory.length, jobHistoryList);
+    _profileAtual.skills.replaceRange(0, _profileAtual.skills.length, skillList);
+    _profileAtual.educations.replaceRange(0, _profileAtual.educations.length, educationList);
+    _profileAtual.jobHistory.replaceRange(0, _profileAtual.jobHistory.length, jobHistoryList);
     _profileAtual.skills.clear();
 
     _profileStore
@@ -111,15 +106,10 @@ class _ProfileUsuarioEdicaoScreenState
 
   void dadosCarregados() {
     if (!_carregado) {
-      skillList = _profileStore.usuario.skills.length == 0
-          ? [Skill()]
-          : _profileStore.usuario.skills;
-      jobHistoryList = _profileStore.usuario.jobHistory.length == 0
-          ? [HistoricoJob()]
-          : _profileStore.usuario.jobHistory;
-      educationList = _profileStore.usuario.educations.length == 0
-          ? [Educacao()]
-          : _profileStore.usuario.educations;
+      skillList = _profileStore.usuario.skills.length == 0 ? [Skill()] : _profileStore.usuario.skills;
+      jobHistoryList =
+          _profileStore.usuario.jobHistory.length == 0 ? [HistoricoJob()] : _profileStore.usuario.jobHistory;
+      educationList = _profileStore.usuario.educations.length == 0 ? [Educacao()] : _profileStore.usuario.educations;
     }
   }
 
@@ -169,19 +159,15 @@ class _ProfileUsuarioEdicaoScreenState
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 30.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 30.0),
                                     child: Center(
                                       child: InkWell(
-                                        onTap: () => Navigator.of(context)
-                                            .pushNamed(TelaExplicacaoProItem
-                                                .routeName),
+                                        onTap: () => Navigator.of(context).pushNamed(TelaExplicacaoProItem.routeName),
                                         child: Container(
                                           width: 300,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
+                                            borderRadius: const BorderRadius.all(
                                               Radius.circular(1),
                                             ),
                                             border: Border.all(
@@ -189,8 +175,7 @@ class _ProfileUsuarioEdicaoScreenState
                                             ),
                                           ),
                                           child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               RichText(
                                                 text: TextSpan(
@@ -205,10 +190,8 @@ class _ProfileUsuarioEdicaoScreenState
                                                     TextSpan(
                                                       text: 'Pro',
                                                       style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            Color(0xFFE0651F),
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Color(0xFFE0651F),
                                                         fontSize: 16,
                                                       ),
                                                     ),
@@ -232,50 +215,40 @@ class _ProfileUsuarioEdicaoScreenState
                                   Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           CircleAvatar(
                                             radius: 20.0,
-                                            child: _profileAtual.user.avatar ==
-                                                    null
+                                            child: _profileAtual.user.avatar == null
                                                 ? Image.asset(
                                                     'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                                 : Image.network(
-                                                    _profileAtual
-                                                        .user.avatar.url,
+                                                    _profileAtual.user.avatar.url,
                                                   ),
                                           ),
                                           Container(
                                             width: 200,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8.0),
+                                              padding: const EdgeInsets.only(left: 8.0),
                                               child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   RichText(
                                                     text: TextSpan(
                                                       children: [
                                                         TextSpan(
-                                                          text:
-                                                              '${_profileAtual.user.fullName} / ',
+                                                          text: '${_profileAtual.user.fullName} / ',
                                                           style: TextStyle(
-                                                            color: Colors
-                                                                .blue[600],
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            color: Colors.blue[600],
+                                                            fontWeight: FontWeight.bold,
                                                             fontSize: 15,
                                                           ),
                                                         ),
                                                         TextSpan(
                                                           text: 'Edit Profile',
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            fontWeight: FontWeight.bold,
                                                             color: Colors.black,
                                                             fontSize: 15,
                                                           ),
@@ -284,14 +257,11 @@ class _ProfileUsuarioEdicaoScreenState
                                                     ),
                                                   ),
                                                   Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 4.0),
+                                                    padding: const EdgeInsets.only(left: 4.0),
                                                     child: Text(
                                                       'Set up your Dribble presence and hiring needs',
                                                       style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                        fontWeight: FontWeight.bold,
                                                         color: Colors.grey,
                                                         fontSize: 15,
                                                       ),
@@ -306,32 +276,25 @@ class _ProfileUsuarioEdicaoScreenState
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0),
+                                    padding: const EdgeInsets.symmetric(vertical: 20.0),
                                     child: Column(
                                       children: [
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             CircleAvatar(
                                               radius: 45.0,
                                               backgroundColor: Colors.white,
-                                              backgroundImage:
-                                                  _profileStore.imageAvatar ==
-                                                          null
-                                                      ? null
-                                                      : FileImage(
-                                                          _profileStore.image),
+                                              backgroundImage: _profileStore.imageAvatar == null
+                                                  ? null
+                                                  : FileImage(_profileStore.image),
                                             ),
                                             Container(
                                               width: 200,
                                               child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
+                                                padding: const EdgeInsets.only(left: 8.0),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     FlatButton(
                                                       color: Color(0xFFE0651F),
@@ -339,24 +302,20 @@ class _ProfileUsuarioEdicaoScreenState
                                                       child: Text(
                                                         'Upload new picture',
                                                         style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
+                                                          fontWeight: FontWeight.bold,
                                                           color: Colors.white,
                                                         ),
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 0.0),
+                                                      padding: const EdgeInsets.only(left: 0.0),
                                                       child: FlatButton(
                                                         color: Colors.grey,
                                                         onPressed: deleteImage,
                                                         child: Text(
                                                           'Delete',
                                                           style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
+                                                            fontWeight: FontWeight.bold,
                                                             color: Colors.white,
                                                           ),
                                                         ),
@@ -374,28 +333,23 @@ class _ProfileUsuarioEdicaoScreenState
                                   Column(
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: TextField(
                                           cursorColor: Color(0xFFE0651F),
                                           style: TextStyle(
                                             fontSize: 15,
                                           ),
-                                          controller: TextEditingController()
-                                            ..text =
-                                                _profileAtual.user.fullName,
+                                          controller: TextEditingController()..text = _profileAtual.user.fullName,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
@@ -404,16 +358,12 @@ class _ProfileUsuarioEdicaoScreenState
                                             helperText:
                                                 'We\'re big on real names araound here, so people know who\'s who',
                                             helperMaxLines: 2,
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                32, 16, 32, 16),
+                                            contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                             labelText: 'Name',
-                                            labelStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
-                                            hintStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
+                                            labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                                            hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32),
+                                              borderRadius: BorderRadius.circular(32),
                                             ),
                                           ),
                                           onChanged: (value) {
@@ -422,8 +372,7 @@ class _ProfileUsuarioEdicaoScreenState
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: TextField(
                                           cursorColor: Color(0xFFE0651F),
                                           style: TextStyle(
@@ -431,43 +380,35 @@ class _ProfileUsuarioEdicaoScreenState
                                           ),
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                32, 16, 32, 16),
+                                            contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                             labelText: 'Location',
-                                            labelStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
-                                            hintStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
+                                            labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                                            hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32),
+                                              borderRadius: BorderRadius.circular(32),
                                             ),
                                           ),
-                                          controller: TextEditingController()
-                                            ..text = _profileAtual.location,
+                                          controller: TextEditingController()..text = _profileAtual.location,
                                           onChanged: (value) {
                                             _profileAtual.location = value;
                                           },
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: TextField(
                                           cursorColor: Color(0xFFE0651F),
                                           style: TextStyle(
@@ -475,46 +416,35 @@ class _ProfileUsuarioEdicaoScreenState
                                           ),
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                32, 16, 32, 16),
-                                            labelText:
-                                                'Personal website (optional)',
-                                            labelStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
-                                            hintStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
+                                            contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                            labelText: 'Personal website (optional)',
+                                            labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                                            hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32),
+                                              borderRadius: BorderRadius.circular(32),
                                             ),
                                           ),
-                                          controller: TextEditingController()
-                                            ..text =
-                                                _profileAtual.personalWebsite,
+                                          controller: TextEditingController()..text = _profileAtual.personalWebsite,
                                           onChanged: (value) {
-                                            _profileAtual.personalWebsite =
-                                                value;
+                                            _profileAtual.personalWebsite = value;
                                           },
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
+                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
                                         child: TextField(
                                           cursorColor: Color(0xFFE0651F),
                                           style: TextStyle(
@@ -524,37 +454,29 @@ class _ProfileUsuarioEdicaoScreenState
                                           maxLines: 6,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
+                                              borderRadius: BorderRadius.circular(25.0),
                                               borderSide: BorderSide(
                                                 color: Color(0xFFE0651F),
                                                 width: 1.0,
                                               ),
                                             ),
-                                            helperText:
-                                                'Brief description for your profile. URLs are hyperlinked.',
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                32, 16, 32, 16),
+                                            helperText: 'Brief description for your profile. URLs are hyperlinked.',
+                                            contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                             labelText: 'Bio',
-                                            labelStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
-                                            hintStyle: TextStyle(
-                                                color: Color(0xFFE0651F)),
+                                            labelStyle: TextStyle(color: Color(0xFFE0651F)),
+                                            hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                             border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(32),
+                                              borderRadius: BorderRadius.circular(32),
                                             ),
                                           ),
-                                          controller: TextEditingController()
-                                            ..text = _profileAtual.bio,
+                                          controller: TextEditingController()..text = _profileAtual.bio,
                                           onChanged: (value) {
                                             _profileAtual.bio = value;
                                           },
@@ -677,8 +599,7 @@ class _ProfileUsuarioEdicaoScreenState
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
-                                              text:
-                                                  'Get your profle ready by setting your work preferences.',
+                                              text: 'Get your profle ready by setting your work preferences.',
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold,
@@ -702,8 +623,7 @@ class _ProfileUsuarioEdicaoScreenState
                                               ),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  ') any one will be able to message you about work opportunities.',
+                                              text: ') any one will be able to message you about work opportunities.',
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 14,
@@ -715,8 +635,7 @@ class _ProfileUsuarioEdicaoScreenState
                                     ),
                                   ),
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
@@ -774,8 +693,7 @@ class _ProfileUsuarioEdicaoScreenState
                                   ),
                                   !_profileStore.saveProfile
                                       ? Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 20.0),
+                                          padding: const EdgeInsets.symmetric(vertical: 20.0),
                                           child: Center(
                                             child: FlatButton(
                                               minWidth: 250,
@@ -976,15 +894,9 @@ class _EducationTextFieldState extends State<EducationTextField> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _degreeController.text =
-          _ProfileUsuarioEdicaoScreenState.educationList[widget.index].degree ??
-              '';
-      _schoolNameController.text = _ProfileUsuarioEdicaoScreenState
-              .educationList[widget.index].schoolName ??
-          '';
-      _yearsController.text = _ProfileUsuarioEdicaoScreenState
-              .educationList[widget.index].graduationYear ??
-          '';
+      _degreeController.text = _ProfileUsuarioEdicaoScreenState.educationList[widget.index].degree ?? '';
+      _schoolNameController.text = _ProfileUsuarioEdicaoScreenState.educationList[widget.index].schoolName ?? '';
+      _yearsController.text = _ProfileUsuarioEdicaoScreenState.educationList[widget.index].graduationYear ?? '';
     });
 
     return Column(
@@ -1020,8 +932,7 @@ class _EducationTextFieldState extends State<EducationTextField> {
               ),
             ),
             controller: _degreeController,
-            onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                .educationList[widget.index].degree = value,
+            onChanged: (value) => _ProfileUsuarioEdicaoScreenState.educationList[widget.index].degree = value,
           ),
         ),
         Padding(
@@ -1056,8 +967,7 @@ class _EducationTextFieldState extends State<EducationTextField> {
               ),
             ),
             controller: _schoolNameController,
-            onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                .educationList[widget.index].schoolName = value,
+            onChanged: (value) => _ProfileUsuarioEdicaoScreenState.educationList[widget.index].schoolName = value,
           ),
         ),
         Row(
@@ -1102,9 +1012,8 @@ class _EducationTextFieldState extends State<EducationTextField> {
                     ),
                   ),
                   controller: _yearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                      .educationList[widget.index]
-                      .graduationYear = int.parse(value),
+                  onChanged: (value) =>
+                      _ProfileUsuarioEdicaoScreenState.educationList[widget.index].graduationYear = int.parse(value),
                 ),
               ),
             ),
@@ -1157,24 +1066,12 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _roleController.text =
-          _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].role ??
-              '';
-      _companyController.text = _ProfileUsuarioEdicaoScreenState
-              .jobHistoryList[widget.index].company ??
-          '';
-      _toYearsController.text = _ProfileUsuarioEdicaoScreenState
-              .jobHistoryList[widget.index].toYear ??
-          '';
-      _toMonthController.text = _ProfileUsuarioEdicaoScreenState
-              .jobHistoryList[widget.index].toMonth ??
-          '';
-      _fromMonthController.text = _ProfileUsuarioEdicaoScreenState
-              .jobHistoryList[widget.index].fromMonth ??
-          '';
-      _fromYearsController.text = _ProfileUsuarioEdicaoScreenState
-              .jobHistoryList[widget.index].fromYear ??
-          '';
+      _roleController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].role ?? '';
+      _companyController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].company ?? '';
+      _toYearsController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toYear ?? '';
+      _toMonthController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toMonth ?? '';
+      _fromMonthController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromMonth ?? '';
+      _fromYearsController.text = _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromYear ?? '';
     });
 
     return Column(
@@ -1210,8 +1107,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
               ),
             ),
             controller: _roleController,
-            onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                .jobHistoryList[widget.index].role = value,
+            onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].role = value,
           ),
         ),
         Padding(
@@ -1246,8 +1142,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
               ),
             ),
             controller: _companyController,
-            onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                .jobHistoryList[widget.index].company = value,
+            onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].company = value,
           ),
         ),
         Padding(
@@ -1298,8 +1193,8 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                       ),
                     ),
                     controller: _fromMonthController,
-                    onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                        .jobHistoryList[widget.index].fromMonth = value,
+                    onChanged: (value) =>
+                        _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromMonth = value,
                   ),
                 ),
               ),
@@ -1344,8 +1239,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                     ),
                   ),
                   controller: _fromYearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                      .jobHistoryList[widget.index].fromYear = value,
+                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromYear = value,
                 ),
               ),
             ),
@@ -1399,8 +1293,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                       ),
                     ),
                     controller: _toMonthController,
-                    onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                        .jobHistoryList[widget.index].toMonth = value,
+                    onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toMonth = value,
                   ),
                 ),
               ),
@@ -1445,8 +1338,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                     ),
                   ),
                   controller: _toYearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                      .jobHistoryList[widget.index].toYear = value,
+                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toYear = value,
                 ),
               ),
             ),
@@ -1487,11 +1379,8 @@ class _SkillsTextFieldState extends State<SkillsTextField> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _yearsController.text = _ProfileUsuarioEdicaoScreenState
-              .skillList[widget.index].description ??
-          '';
-      _skillController.text =
-          _ProfileUsuarioEdicaoScreenState.skillList[widget.index].title ?? '';
+      _yearsController.text = _ProfileUsuarioEdicaoScreenState.skillList[widget.index].description ?? '';
+      _skillController.text = _ProfileUsuarioEdicaoScreenState.skillList[widget.index].title ?? '';
     });
 
     return Column(
@@ -1527,8 +1416,7 @@ class _SkillsTextFieldState extends State<SkillsTextField> {
               ),
             ),
             controller: _skillController,
-            onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                .skillList[widget.index].title = value,
+            onChanged: (value) => _ProfileUsuarioEdicaoScreenState.skillList[widget.index].title = value,
           ),
         ),
         Row(
@@ -1573,8 +1461,7 @@ class _SkillsTextFieldState extends State<SkillsTextField> {
                     ),
                   ),
                   controller: _yearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState
-                      .skillList[widget.index].description = value,
+                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState.skillList[widget.index].description = value,
                 ),
               ),
             ),

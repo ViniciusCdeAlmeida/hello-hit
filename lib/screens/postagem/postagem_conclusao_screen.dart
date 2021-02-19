@@ -15,8 +15,7 @@ import 'package:hellohit/screens/postagem/widget/tag_post_text_field.dart';
 class PostagemConclusaoScreen extends StatefulWidget {
   static const routeName = '/PostagemConclusaoScreen';
   @override
-  _PostagemConclusaoScreenState createState() =>
-      _PostagemConclusaoScreenState();
+  _PostagemConclusaoScreenState createState() => _PostagemConclusaoScreenState();
 }
 
 class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
@@ -46,12 +45,12 @@ class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
     _postagem.event = _eventController.text;
     _postagem.team = _teamController.text;
 
-    await _postagemStore
-        .fazerPostagem(_postagem)
-        .then(
-          (_) => Navigator.of(context).pushNamed(FeedScreen.routeName),
-        )
-        .catchError((onError) {
+    await _postagemStore.fazerPostagem(_postagem).then(
+      (_) {
+        Navigator.of(context).popAndPushNamed(FeedScreen.routeName);
+        _postagemStore.clean();
+      },
+    ).catchError((onError) {
       showDialog<Null>(
         context: context,
         builder: (ctx) => AlertDialog(
@@ -188,8 +187,7 @@ class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
                                 ),
                                 border: InputBorder.none,
                                 isDense: true,
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 2),
+                                contentPadding: const EdgeInsets.symmetric(vertical: 2),
                                 counterText: '',
                               ),
                               controller: _teamController,
@@ -314,8 +312,7 @@ class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
                                   return Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
                                       children: [
                                         RaisedButton(
                                           child: const Text(
@@ -328,8 +325,7 @@ class _PostagemConclusaoScreenState extends State<PostagemConclusaoScreen> {
                                           onPressed: submit,
                                           color: Colors.white,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(10),
                                           ),
                                         ),
                                       ],

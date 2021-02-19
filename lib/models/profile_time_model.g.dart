@@ -30,10 +30,6 @@ ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
             e == null ? null : Premio.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     bio: json['bio'] as String,
-    posts: (json['posts'] as List)
-        ?.map(
-            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     location: json['location'] as String,
     personalWebsite: json['personalWebsite'] as String,
     workAvailability: json['workAvailability'] == null
@@ -53,6 +49,21 @@ ProfileTime _$ProfileTimeFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Educacao.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    posts: (json['posts'] as List)
+        ?.map(
+            (e) => e == null ? null : Post.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    fansProfile: (json['fansProfile'] as List)
+        ?.map((e) =>
+            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    membersProfile: (json['membersProfile'] as List)
+        ?.map((e) =>
+            e == null ? null : Usuario.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    category: json['category'] == null
+        ? null
+        : Categoria.fromJson(json['category'] as Map<String, dynamic>),
   );
 }
 
@@ -81,4 +92,7 @@ Map<String, dynamic> _$ProfileTimeToJson(ProfileTime instance) =>
       'jobHistory': instance.jobHistory,
       'educations': instance.educations,
       'posts': instance.posts,
+      'fansProfile': instance.fansProfile,
+      'membersProfile': instance.membersProfile,
+      'category': instance.category,
     };

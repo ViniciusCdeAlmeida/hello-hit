@@ -14,8 +14,8 @@ enum PostState {
 }
 
 abstract class _PostStore with Store {
-  final PostController _postController;
-  _PostStore(this._postController);
+  // final PostController _postController;
+  _PostStore();
 
   @observable
   ObservableList<Post> _postsObservable = ObservableList<Post>();
@@ -39,8 +39,7 @@ abstract class _PostStore with Store {
       return PostState.carregando;
     }
 
-    if (_postFuture.status == FutureStatus.fulfilled)
-      return PostState.carregado;
+    if (_postFuture.status == FutureStatus.fulfilled) return PostState.carregado;
   }
 
   @action

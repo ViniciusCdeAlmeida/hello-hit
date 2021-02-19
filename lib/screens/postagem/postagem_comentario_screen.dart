@@ -109,6 +109,7 @@ class _PostagemComentarioScreenState extends State<PostagemComentarioScreen> {
                               maxLengthEnforced: true,
                               maxLength: 300,
                               maxLines: 50,
+                              initialValue: _postagemStore.postagem.text,
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.only(
                                   top: 5,

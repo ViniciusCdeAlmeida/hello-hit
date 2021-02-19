@@ -44,11 +44,6 @@ List<SingleChildWidget> providers() => [
         ),
       ),
       Provider(
-        create: (ctx) => PostStore(
-          PostController(),
-        ),
-      ),
-      Provider(
         create: (ctx) => ProfileStore(
           ProfileController(),
         ),

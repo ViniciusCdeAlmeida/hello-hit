@@ -16,6 +16,7 @@ class PostagemCameraScreen extends StatefulWidget {
 }
 
 class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKeyPostagem = GlobalKey<ScaffoldState>();
   PostagemStore _postagemStore;
   File _imagem;
   String idArgs;
@@ -35,22 +36,41 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
     if (daCamera) {
       var _camera = await picker.getImage(source: ImageSource.camera);
       //camera
-      imagemSelecionada = File(_camera.path);
+      if (idArgs != null) {
+        // var date = DateTime.now();
+        // var tempImg = await File(_camera.path).rename(
+        //     'IMG_${date.year}${date.month}${date.day}_${date.hour}${date.minute}${date.second}_${date.millisecond}');
+
+        _postagemStore.postagemImageEdit(File(_camera.path));
+      } else
+        _postagemStore.postagemImage(File(_camera.path));
     } else {
       var _galeria = await picker.getImage(source: ImageSource.gallery);
       //galeria
       imagemSelecionada = File(_galeria.path);
     }
-
-    setState(() {
-      _imagem = imagemSelecionada;
-    });
+// _postagemImage= imagemSelecionada;
+    // _postagemStore.postagemImageEdit(imagemSelecionada);
   }
 
   void setImagemPostagem() {
     // print(_imagem.path);
-    _postagemStore.postagemImagem(_imagem.path);
-    Navigator.of(context).pushNamed(PostagemComentarioScreen.routeName);
+    if (_postagemStore.postagemImagemEdit == null && _postagemStore.postagemImageNew == null) {
+      var snackBar = SnackBar(content: Text('Please insert a photo or video.'));
+      _scaffoldKeyPostagem.currentState.showSnackBar(snackBar);
+    } else {
+      if (idArgs == null) {
+        _postagemStore.postagemImagem(_postagemStore.postagemImageNew.path);
+      }
+      if (_postagemStore.postagemImageNew != null || _postagemStore.postagemImagemEdit != null)
+        Navigator.of(context).pushNamed(PostagemComentarioScreen.routeName);
+    }
+  }
+
+  @override
+  void dispose() {
+    _postagemStore.clean();
+    super.dispose();
   }
 
   @override
@@ -83,13 +103,14 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
     );
 
     return Scaffold(
+      key: _scaffoldKeyPostagem,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
+          onTap: () => Navigator.of(context).pop(),
           child: Padding(
-            padding: EdgeInsets.only(left: 10, top: 20),
+            padding: EdgeInsets.only(left: 5, top: 20),
             child: const Text(
               'Cancel',
               style: TextStyle(
@@ -138,10 +159,10 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    _imagem == null
+                    _postagemStore.postagemImageNew == null
                         ? Container()
                         : Image.file(
-                            _imagem,
+                            _postagemStore.postagemImageNew,
                             fit: BoxFit.cover,
                             height: 370,
                             cacheHeight: 1080,
@@ -157,13 +178,23 @@ class _PostagemCameraScreenState extends State<PostagemCameraScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    Image.file(
-                      _postagemStore.postagemImagemEdit,
-                      fit: BoxFit.cover,
-                      height: 370,
-                      cacheHeight: 1080,
-                      cacheWidth: 1080,
-                    ),
+                    idArgs == null
+                        ? _postagemStore.postagemImageNew == null
+                            ? Container()
+                            : Image.file(
+                                _postagemStore.postagemImageNew,
+                                fit: BoxFit.cover,
+                                height: 370,
+                                cacheHeight: 1080,
+                                cacheWidth: 1080,
+                              )
+                        : Image.file(
+                            _postagemStore.postagemImagemEdit,
+                            fit: BoxFit.cover,
+                            height: 370,
+                            cacheHeight: 1080,
+                            cacheWidth: 1080,
+                          ),
                   ],
                 ),
               ),

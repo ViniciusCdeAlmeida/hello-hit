@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_membro_item.dart';
 
 class ProfileMembroScreen extends StatefulWidget {

@@ -68,8 +68,6 @@ class _ProfileTimeScreenState extends State<ProfileTimeScreen> {
                         Observer(
                           builder: (_) => ProfileTimeItem(
                             _profileStore.usuarioTime,
-                            imagem,
-                            idArgs,
                           ),
                         ),
                       ]),

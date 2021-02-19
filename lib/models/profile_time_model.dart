@@ -1,12 +1,6 @@
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/models/work_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:hellohit/models/educacao_model.dart';
-import 'package:hellohit/models/historicoJob_model.dart';
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/models/premio_model.dart';
-import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
+
+import 'package:hellohit/models/index_models.dart';
 
 part 'profile_time_model.g.dart';
 
@@ -36,6 +30,9 @@ class ProfileTime {
   List<HistoricoJob> jobHistory;
   List<Educacao> educations;
   List<Post> posts;
+  List<Usuario> fansProfile = [];
+  List<Usuario> membersProfile = [];
+  Categoria category;
 
   ProfileTime({
     this.id,
@@ -52,7 +49,6 @@ class ProfileTime {
     this.members,
     this.awards,
     this.bio,
-    this.posts,
     this.location,
     this.personalWebsite,
     this.workAvailability,
@@ -61,10 +57,13 @@ class ProfileTime {
     this.openOpportunities,
     this.jobHistory,
     this.educations,
+    this.posts,
+    this.fansProfile,
+    this.membersProfile,
+    this.category,
   });
 
-  factory ProfileTime.fromJson(Map<String, dynamic> json) =>
-      _$ProfileTimeFromJson(json);
+  factory ProfileTime.fromJson(Map<String, dynamic> json) => _$ProfileTimeFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileTimeToJson(this);
 }

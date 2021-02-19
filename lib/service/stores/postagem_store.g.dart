@@ -15,6 +15,20 @@ mixin _$PostagemStore on _PostagemStore, Store {
   Post get postagem => (_$postagemComputed ??=
           Computed<Post>(() => super.postagem, name: '_PostagemStore.postagem'))
       .value;
+  Computed<File> _$postagemImagemEditComputed;
+
+  @override
+  File get postagemImagemEdit => (_$postagemImagemEditComputed ??=
+          Computed<File>(() => super.postagemImagemEdit,
+              name: '_PostagemStore.postagemImagemEdit'))
+      .value;
+  Computed<File> _$postagemImageNewComputed;
+
+  @override
+  File get postagemImageNew => (_$postagemImageNewComputed ??= Computed<File>(
+          () => super.postagemImageNew,
+          name: '_PostagemStore.postagemImageNew'))
+      .value;
   Computed<PostagemState> _$postagemStateComputed;
 
   @override
@@ -50,6 +64,37 @@ mixin _$PostagemStore on _PostagemStore, Store {
   set _postagem(Post value) {
     _$_postagemAtom.reportWrite(value, super._postagem, () {
       super._postagem = value;
+    });
+  }
+
+  final _$_postagemImageAtom = Atom(name: '_PostagemStore._postagemImage');
+
+  @override
+  File get _postagemImage {
+    _$_postagemImageAtom.reportRead();
+    return super._postagemImage;
+  }
+
+  @override
+  set _postagemImage(File value) {
+    _$_postagemImageAtom.reportWrite(value, super._postagemImage, () {
+      super._postagemImage = value;
+    });
+  }
+
+  final _$_postagemImageEditAtom =
+      Atom(name: '_PostagemStore._postagemImageEdit');
+
+  @override
+  File get _postagemImageEdit {
+    _$_postagemImageEditAtom.reportRead();
+    return super._postagemImageEdit;
+  }
+
+  @override
+  set _postagemImageEdit(File value) {
+    _$_postagemImageEditAtom.reportWrite(value, super._postagemImageEdit, () {
+      super._postagemImageEdit = value;
     });
   }
 
@@ -99,9 +144,44 @@ mixin _$PostagemStore on _PostagemStore, Store {
   }
 
   @override
+  void postagemImage(File image) {
+    final _$actionInfo = _$_PostagemStoreActionController.startAction(
+        name: '_PostagemStore.postagemImage');
+    try {
+      return super.postagemImage(image);
+    } finally {
+      _$_PostagemStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void postagemImageEdit(File image) {
+    final _$actionInfo = _$_PostagemStoreActionController.startAction(
+        name: '_PostagemStore.postagemImageEdit');
+    try {
+      return super.postagemImageEdit(image);
+    } finally {
+      _$_PostagemStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clean() {
+    final _$actionInfo = _$_PostagemStoreActionController.startAction(
+        name: '_PostagemStore.clean');
+    try {
+      return super.clean();
+    } finally {
+      _$_PostagemStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 postagem: ${postagem},
+postagemImagemEdit: ${postagemImagemEdit},
+postagemImageNew: ${postagemImageNew},
 postagemState: ${postagemState}
     ''';
   }

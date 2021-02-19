@@ -76,8 +76,7 @@ abstract class _ProfileStore with Store {
   @computed
   // ignore: missing_return
   ProfileState get profilesState {
-    if ((_profileFuture == null ||
-        _profileFuture.status == FutureStatus.rejected)) {
+    if ((_profileFuture == null || _profileFuture.status == FutureStatus.rejected)) {
       return ProfileState.inicial;
     }
 
@@ -85,15 +84,13 @@ abstract class _ProfileStore with Store {
       return ProfileState.carregando;
     }
 
-    if (_profileFuture.status == FutureStatus.fulfilled)
-      return ProfileState.carregado;
+    if (_profileFuture.status == FutureStatus.fulfilled) return ProfileState.carregado;
   }
 
   @computed
   // ignore: missing_return
   ProfileState get profilesTimeState {
-    if ((_profileTimeFuture == null ||
-        _profileTimeFuture.status == FutureStatus.rejected)) {
+    if ((_profileTimeFuture == null || _profileTimeFuture.status == FutureStatus.rejected)) {
       return ProfileState.inicial;
     }
 
@@ -101,8 +98,7 @@ abstract class _ProfileStore with Store {
       return ProfileState.carregando;
     }
 
-    if (_profileTimeFuture.status == FutureStatus.fulfilled)
-      return ProfileState.carregado;
+    if (_profileTimeFuture.status == FutureStatus.fulfilled) return ProfileState.carregado;
   }
 
   @action
@@ -167,6 +163,18 @@ abstract class _ProfileStore with Store {
   }
 
   @action
+  Future loadUsuarioProfileEdit(String id) async {
+    try {
+      _profileFuture = ObservableFuture(
+        _profileController.getUsuarioProfileEdit(id),
+      );
+      _profileObservable = await _profileFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
   Future loadUsuarioProfile(String id) async {
     try {
       _profileFuture = ObservableFuture(
@@ -190,6 +198,18 @@ abstract class _ProfileStore with Store {
     }
   }
 
+  @action
+  Future loadTimeProfileEdit(String id) async {
+    try {
+      _profileTimeFuture = ObservableFuture(
+        _profileController.getTimeProfileEdit(id),
+      );
+      _profileTimeObservable = await _profileTimeFuture;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   void limparSkills() {
     skills.clear();
   }
@@ -198,9 +218,7 @@ abstract class _ProfileStore with Store {
   Future<void> saveUsuarioProfile(Profile profile, String image) async {
     saveProfile = true;
     try {
-      await _profileController
-          .atualizarUsuarioProfile(profile, image)
-          .whenComplete(() => saveProfile = false);
+      await _profileController.atualizarUsuarioProfile(profile, image).whenComplete(() => saveProfile = false);
     } catch (e) {
       throw e;
     }

@@ -13,9 +13,13 @@ class AutenticacaoController {
       var usuarioRecebido = Usuario.fromJson(res.data);
       usuarioRecebido.fullName = res.data['full_name'];
       usuarioRecebido.avatarImg = res.data['avatar'];
-      existeCategoria.length == 0
-          ? usuarioRecebido.existeCategoria = false
-          : usuarioRecebido.existeCategoria = true;
+      if (existeCategoria.length == 0) {
+        usuarioRecebido.existeCategoria = false;
+      } else {
+        usuarioRecebido.existeCategoria = true;
+        var t = (res.data['profile']['categories'] as List).first;
+        usuarioRecebido.categoria = await _getCategoria(t);
+      }
       getToken(usuarioRecebido.token);
       return usuarioRecebido;
     } on DioError catch (e) {
@@ -37,6 +41,22 @@ class AutenticacaoController {
       return res.data
           .map<Usuario>((content) => Usuario.fromJson(content))
           .toList() as List<Usuario>;
+    } on DioError catch (e) {
+      if (e.response != null)
+        throw e.response.data['message'];
+      else
+        throw 'Check your connection.';
+    } on TimeoutException catch (_) {
+      throw 'Check your connection';
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<Categoria> _getCategoria(String id) async {
+    try {
+      Response resp = await Endpoint.getCategoria(id);
+      return Categoria.fromJson(resp.data);
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];

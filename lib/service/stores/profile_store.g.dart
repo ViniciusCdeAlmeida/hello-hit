@@ -285,6 +285,15 @@ mixin _$ProfileStore on _ProfileStore, Store {
         .run(() => super.makeFanUsuario(idUsuario, idPerfil));
   }
 
+  final _$loadUsuarioProfileEditAsyncAction =
+      AsyncAction('_ProfileStore.loadUsuarioProfileEdit');
+
+  @override
+  Future<dynamic> loadUsuarioProfileEdit(String id) {
+    return _$loadUsuarioProfileEditAsyncAction
+        .run(() => super.loadUsuarioProfileEdit(id));
+  }
+
   final _$loadUsuarioProfileAsyncAction =
       AsyncAction('_ProfileStore.loadUsuarioProfile');
 
@@ -294,12 +303,13 @@ mixin _$ProfileStore on _ProfileStore, Store {
         .run(() => super.loadUsuarioProfile(id));
   }
 
-  final _$loadTimeProfileAsyncAction =
-      AsyncAction('_ProfileStore.loadTimeProfile');
+  final _$loadTimeProfileEditAsyncAction =
+      AsyncAction('_ProfileStore.loadTimeProfileEdit');
 
   @override
-  Future<dynamic> loadTimeProfile(String id) {
-    return _$loadTimeProfileAsyncAction.run(() => super.loadTimeProfile(id));
+  Future<dynamic> loadTimeProfileEdit(String id) {
+    return _$loadTimeProfileEditAsyncAction
+        .run(() => super.loadTimeProfileEdit(id));
   }
 
   final _$saveUsuarioProfileAsyncAction =
