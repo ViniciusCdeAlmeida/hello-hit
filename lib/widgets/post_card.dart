@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -49,12 +50,14 @@ class _PostCardState extends State<PostCard> {
       content: Text('This action will delete your post.'),
       actions: <Widget>[
         FlatButton(
+          key: Key(Keys.feedScreen.deleteCancelPostFeedScreen),
           onPressed: () async {
             Navigator.of(context).pop();
           },
           child: Text('Cancel'),
         ),
         FlatButton(
+          key: Key(Keys.feedScreen.deleteOkPostFeedScreen),
           onPressed: () async {
             await _postStore.removerPostagem(post.id).then((_) => _feedStore.updateFeed(post.id));
             Navigator.of(context).pop();
@@ -159,6 +162,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                       if (widget.post.user.id == _autenticacaoStore.usuarioLogado.id)
                         PopupMenuButton<Acoes>(
+                          key: Key(Keys.feedScreen.actionsFeedScreen),
                           icon: Icon(
                             Icons.more_horiz,
                             color: Colors.black,
@@ -169,11 +173,13 @@ class _PostCardState extends State<PostCard> {
                           offset: Offset(0, 100),
                           itemBuilder: (context) => <PopupMenuEntry<Acoes>>[
                             PopupMenuItem<Acoes>(
+                              key: Key(Keys.feedScreen.editPostFeedScreen),
                               child: PopupMenuCustom('Edit', Icons.edit),
                               value: Acoes.editarPost,
                             ),
                             const PopupMenuDivider(),
                             PopupMenuItem<Acoes>(
+                              key: Key(Keys.feedScreen.deletePostFeedScreen),
                               child: PopupMenuCustom('Remove', Icons.highlight_remove),
                               value: Acoes.removerPost,
                             ),
@@ -241,6 +247,7 @@ class _PostCardState extends State<PostCard> {
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: IconButton(
+                        key: Key('${Keys.feedScreen.makeHitFeedScreen}_${widget.post.id}'),
                         onPressed: () {
                           setState(() {
                             if (widget.post.user.id != _autenticacaoStore.usuarioLogado.id) {
@@ -279,6 +286,7 @@ class _PostCardState extends State<PostCard> {
                     Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: IconButton(
+                        key: Key('${Keys.feedScreen.commentIconFeedScreen}_${widget.post.id}'),
                         onPressed: () {
                           Navigator.of(context).pushNamed(
                             ComentarioPostScreen.routeName,
@@ -350,6 +358,7 @@ class _PostCardState extends State<PostCard> {
             child: Row(
               children: [
                 GestureDetector(
+                  key: Key('${Keys.feedScreen.commentFeedScreen}_${widget.post.id}'),
                   onTap: () => Navigator.of(context).pushNamed(
                     ComentarioPostScreen.routeName,
                     arguments: widget.post.id,

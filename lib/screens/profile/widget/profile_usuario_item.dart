@@ -49,6 +49,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
   @override
   Widget build(BuildContext context) {
     MediaQueryData deviceSize = MediaQuery.of(context);
+    var userName = widget.usuario.user.username;
     return Column(
       children: [
         Stack(
@@ -154,9 +155,9 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
 
                 socket.emit('new_chat', conversation);
 
-                Navigator.of(context).pushNamed(
+                return Navigator.of(context).popAndPushNamed(
                   ChatScreen.routeName,
-                  arguments: widget.usuario.user.username,
+                  arguments: userName,
                 );
               },
               child: IconRow(

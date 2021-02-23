@@ -129,6 +129,7 @@ class _FeedScreenState extends State<FeedScreen> {
       body: RefreshIndicator(
         onRefresh: atualizarFeed,
         child: CustomScrollView(
+          key: Key(Keys.feedScreen.drawerFeedScreen),
           controller: scrollController,
           slivers: [
             SliverAppBar(

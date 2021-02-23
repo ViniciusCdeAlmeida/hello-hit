@@ -26,8 +26,6 @@ class Usuario {
   String avatarUrl;
 
   Usuario({
-    // ignore: non_constant_identifier_names
-    // ignore: non_constant_identifier_names
     this.id,
     this.fullName,
     this.hits,
@@ -47,8 +45,7 @@ class Usuario {
     this.avatarUrl,
   });
 
-  factory Usuario.fromJson(Map<String, dynamic> json) =>
-      _$UsuarioFromJson(json);
+  factory Usuario.fromJson(Map<String, dynamic> json) => _$UsuarioFromJson(json);
 
   Map<String, dynamic> toJson() => _$UsuarioToJson(this);
 }

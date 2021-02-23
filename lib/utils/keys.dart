@@ -42,12 +42,20 @@ class LoginKey {
 class FeedKey {
   const FeedKey();
   String get drawerFeedScreen => 'drawerFeedScreen';
+  String get actionsFeedScreen => 'actionsFeedScreen';
+  String get editPostFeedScreen => 'editPostFeedScreen';
+  String get deletePostFeedScreen => 'deletePostFeedScreen';
+  String get deleteCancelPostFeedScreen => 'deleteCancelPostFeedScreen';
+  String get deleteOkPostFeedScreen => 'deleteOkPostFeedScreen';
   String get searchFeedScreen => 'searchFeedScreen';
   String get homeFeedScreen => 'homeFeedScreen';
   String get teamFeedScreen => 'teamFeedScreen';
   String get makePostFeedScreen => 'makePostFeedScreen';
   String get opportFeedScreen => 'opportFeedScreen';
   String get profileFeedScreen => 'profileFeedScreen';
+  String get makeHitFeedScreen => 'makeHitFeedScreen';
+  String get commentFeedScreen => 'commentFeedScreen';
+  String get commentIconFeedScreen => 'commentIconFeedScreen';
 }
 
 class RegisterKey {

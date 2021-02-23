@@ -56,7 +56,6 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextField(
                 //onChanged: (text) => _text.text = text,
                 onChanged: (texto) => _textMessage,
-                autofocus: true,
                 keyboardType: TextInputType.text,
                 style: TextStyle(fontSize: 20),
                 cursorColor: Colors.orange[700],

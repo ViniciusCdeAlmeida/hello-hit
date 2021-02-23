@@ -78,7 +78,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
                 //controller: _controllerMensagem,
                 //onSaved: (value) => _comentario.text = value,
                 onChanged: (text) => _comentario.text = text,
-                autofocus: true,
+                autofocus: false,
                 keyboardType: TextInputType.text,
                 style: TextStyle(fontSize: 15),
                 decoration: InputDecoration(

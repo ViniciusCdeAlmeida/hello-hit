@@ -21,9 +21,13 @@ Future<void> registerPage() async {
   final finalizeButton = find.byValueKey(Keys.registerScreen.finalizeFormRegister);
   final registerButton = find.byValueKey(Keys.loginScreen.registerLoginButtonLoginScreen);
 
+  final introScreen = find.byValueKey(Keys.introScreen);
+  final emailLogin = find.byValueKey(Keys.loginScreen.emailFormScreen);
+  final passLogin = find.byValueKey(Keys.loginScreen.passwordFormScreen);
+  final loginButton = find.byValueKey(Keys.loginScreen.loginButtonLoginScreen);
+
   setUpAll(() async {
     driver = await FlutterDriver.connect();
-    await driver.requestData('loginPage');
   });
 
   tearDownAll(() async {
@@ -34,14 +38,10 @@ Future<void> registerPage() async {
 
   group('In register Page ->', () {
     test('Register without data', () async {
+      sleep(Duration(seconds: 5));
+      await driver.tap(introScreen);
       await driver.tap(registerButton);
       await driver.tap(finalizeButton);
-      await Process.run(
-        'adb',
-        <String>['shell', 'input', 'keyevent', 'KEYCODE_BACK'],
-        runInShell: true,
-      );
-      sleep(Duration(seconds: 10));
     });
     test('Register without usertype', () async {
       await driver.tap(nameField);
@@ -166,7 +166,7 @@ Future<void> registerPage() async {
       await driver.enterText('1234567a-');
       await driver.scrollIntoView(finalizeButton);
       await driver.tap(finalizeButton);
-      sleep(Duration(minutes: 1));
+      sleep(Duration(seconds: 5));
 
       // await driver.scrollIntoView(finalizeButton);
       // await driver.tap(finalizeButton);

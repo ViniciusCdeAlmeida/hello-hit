@@ -36,9 +36,13 @@ Future<void> drawerPage() async {
   final helloHitPayDrawer = find.byValueKey(Keys.drawer.helloHitPayDrawer);
   final backButtonEditProfileTalent = find.byValueKey(Keys.profileTalent.backButtonEditProfileTalentScreen);
 
+  final introScreen = find.byValueKey(Keys.introScreen);
+  final emailField = find.byValueKey(Keys.loginScreen.emailFormScreen);
+  final passField = find.byValueKey(Keys.loginScreen.passwordFormScreen);
+  final loginButton = find.byValueKey(Keys.loginScreen.loginButtonLoginScreen);
+
   setUpAll(() async {
     driver = await FlutterDriver.connect();
-    await driver.requestData('loginPage');
   });
 
   tearDownAll(() async {
@@ -49,6 +53,13 @@ Future<void> drawerPage() async {
 
   group('In Drawer Page ->', () {
     test('Open drawer and close', () async {
+      sleep(Duration(seconds: 5));
+      await driver.tap(introScreen);
+      await driver.tap(emailField);
+      await driver.enterText('uu@u.com');
+      await driver.tap(passField);
+      await driver.enterText('1234567a-');
+      await driver.tap(loginButton);
       await driver.tap(openDrawer);
       await driver.tap(closeDrawer);
       await driver.tap(openDrawer);

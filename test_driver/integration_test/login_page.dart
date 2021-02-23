@@ -23,7 +23,6 @@ Future<void> loginPage() async {
 
   setUpAll(() async {
     driver = await FlutterDriver.connect();
-    await driver.requestData('loginPage');
   });
 
   tearDownAll(() async {
@@ -69,7 +68,6 @@ Future<void> loginPage() async {
       await driver.tap(passField);
       await driver.enterText('1234567a-');
       await driver.tap(loginButton);
-      sleep(Duration(seconds: 3));
     });
   });
 }
