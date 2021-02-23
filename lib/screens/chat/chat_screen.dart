@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/conversation_model.dart';
-import 'package:hellohit/models/message_model.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chatScreen';
@@ -99,11 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 "sender": _autenticacaoStore.usuarioLogado.id,
               };*/
 
-              var message = {
-                'author': idUsuario,
-                'conversation': '_conversation.id',
-                'text': 'Olá'
-              };
+              var message = {'author': idUsuario, 'conversation': '_conversation.id', 'text': 'Olá'};
 
               socket.emit('new_message', message);
             },

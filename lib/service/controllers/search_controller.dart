@@ -3,7 +3,7 @@ import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 
 class SearchController {
-  Future<List<ProfileTime>> getTimeSearch(Search data) async {
+  Future<List<ProfileTime>> getTimeSearch(Map data) async {
     try {
       Response res = await Endpoint.getTimeSearch(data);
       return res.data.map<ProfileTime>((content) {
@@ -15,7 +15,7 @@ class SearchController {
     }
   }
 
-  Future<List<Profile>> getTalentoSearch(Search data) async {
+  Future<List<Profile>> getTalentoSearch(Map data) async {
     try {
       Response res = await Endpoint.getTalentoSearch(data);
 

@@ -3,14 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/screens/feed/feed_screen.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/models/historicoJob_model.dart';
-import 'package:hellohit/models/premio_model.dart';
-import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/service/stores/profile_store.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 
 class ProfileTimeEdicaoScreen extends StatefulWidget {
@@ -149,7 +147,9 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                   backgroundColor: Colors.transparent,
                   automaticallyImplyLeading: false,
                   leading: IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),

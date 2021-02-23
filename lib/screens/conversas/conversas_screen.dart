@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/conversation_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/screens/chat/chat_screen.dart';
-import 'package:hellohit/screens/lista_usuarios/lista_usuarios_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ConversasScreen extends StatefulWidget {
   static const routeName = "/conversasScreen";
@@ -94,31 +94,21 @@ class _ConversasScreenState extends State<ConversasScreen> {
                       itemCount: _conversations.length,
                       itemBuilder: (_, idx) => Column(
                         children: [
-                          if (_conversations[idx].sender.id ==
-                              _autenticacaoStore.usuarioLogado.id)
+                          if (_conversations[idx].sender.id == _autenticacaoStore.usuarioLogado.id)
                             ListTile(
-                              title:
-                                  Text(_conversations[idx].receiver.username),
+                              title: Text(_conversations[idx].receiver.username),
                               leading: CircleAvatar(
-                                backgroundImage: _conversations[idx]
-                                            .receiver
-                                            .avatar ==
-                                        null
-                                    ? AssetImage(
-                                        'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                backgroundImage: _conversations[idx].receiver.avatar == null
+                                    ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                     : NetworkImage(
-                                        _conversations[idx]
-                                            .receiver
-                                            .avatar['url'],
+                                        _conversations[idx].receiver.avatar['url'],
                                       ),
                               ),
                               onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    ChatScreen.routeName,
-                                    arguments: {
-                                      _conversations[idx].receiver.username,
-                                      _conversations[idx].id,
-                                    }
+                                Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: {
+                                  _conversations[idx].receiver.username,
+                                  _conversations[idx].id,
+                                }
                                     //_conversations[idx].receiver.username,
                                     //_conversations[idx],
                                     );

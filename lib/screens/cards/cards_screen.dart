@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:hellohit/screens/cards/widgets/credit_card.dart';
-import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
 import 'package:hellohit/screens/cards/widgets/list_cards.dart';
+import 'package:hellohit/screens/index_screens.dart';
 
 class CardsScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -45,8 +46,7 @@ class CardsScreen extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AutenticacaoUsuarioScreen(),
+                                              builder: (context) => AutenticacaoUsuarioScreen(),
                                             ),
                                           );
                                         },
@@ -55,8 +55,7 @@ class CardsScreen extends StatelessWidget {
                                   ],
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: Column(
                                     children: [
                                       Text(

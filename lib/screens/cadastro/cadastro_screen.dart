@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/cadastro_model.dart';
-import 'package:hellohit/service/stores/cadastro_store.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class CadastroScreen extends StatefulWidget {
   static const routeName = '/cadastroScreen';
@@ -62,10 +64,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
       return;
     }
     _form.currentState.save();
-    _cadastroStore
-        .cadastroUsuario(_cadastroUsuario)
-        .then((_) => Navigator.of(context).pop())
-        .catchError(
+    _cadastroStore.cadastroUsuario(_cadastroUsuario).then((_) => Navigator.of(context).pop()).catchError(
       (onError) {
         showDialog<Null>(
           context: context,
@@ -95,6 +94,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
+              key: Key(Keys.registerScreen.columnFormRegister),
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
@@ -113,6 +113,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 60,
                           child: TextFormField(
+                            key: Key(Keys.registerScreen.fullnameFormRegister),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Choose one';
@@ -126,8 +127,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             initialValue: null,
                             cursorColor: Colors.deepOrange,
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -164,11 +164,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             ),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_fullNameFocusNode);
+                              FocusScope.of(context).requestFocus(_fullNameFocusNode);
                             },
-                            onSaved: (value) =>
-                                _cadastroUsuario.fullName = value,
+                            onSaved: (value) => _cadastroUsuario.fullName = value,
                           ),
                         ),
                       ),
@@ -180,6 +178,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 60,
                           child: TextFormField(
+                            key: Key(Keys.registerScreen.emailFormRegister),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Choose one';
@@ -193,8 +192,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             textAlignVertical: TextAlignVertical.center,
                             initialValue: null,
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -231,8 +229,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             ),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_emailFocusNode);
+                              FocusScope.of(context).requestFocus(_emailFocusNode);
                             },
                             onSaved: (value) => _cadastroUsuario.email = value,
                           ),
@@ -246,6 +243,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 60,
                           child: TextFormField(
+                            key: Key(Keys.registerScreen.usernameFormRegister),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Choose one';
@@ -259,8 +257,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             textAlignVertical: TextAlignVertical.center,
                             initialValue: null,
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -297,11 +294,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             ),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_usernameFocusNode);
+                              FocusScope.of(context).requestFocus(_usernameFocusNode);
                             },
-                            onSaved: (value) =>
-                                _cadastroUsuario.username = value,
+                            onSaved: (value) => _cadastroUsuario.username = value,
                           ),
                         ),
                       ),
@@ -321,8 +316,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           builder: (FormFieldState state) {
                             return InputDecorator(
                               decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25.0),
                                   borderSide: BorderSide(
@@ -337,8 +331,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                     width: 2.0,
                                   ),
                                 ),
-                                helperText:
-                                    'Choose your user as talent or team',
+                                helperText: 'Choose your user as talent or team',
                                 labelStyle: TextStyle(color: Colors.deepOrange),
                                 labelText: 'User Type',
                                 fillColor: Colors.deepOrange,
@@ -347,6 +340,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                               ),
                               isEmpty: _currentSelectedUserType == '',
                               child: DropdownButtonHideUnderline(
+                                key: Key(Keys.registerScreen.usertypeFormRegister),
                                 child: DropdownButton<String>(
                                   value: _currentSelectedUserType,
                                   isDense: true,
@@ -368,20 +362,19 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           },
                         ),
                       ),
-                      if (_currentSelectedUserType != null &&
-                          _currentSelectedUserType.contains('Talent or Fan'))
+                      if (_currentSelectedUserType != null && _currentSelectedUserType.contains('Talent or Fan'))
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 50.0,
                             vertical: 10.0,
                           ),
                           child: FormField(
+                            key: Key(Keys.registerScreen.genderFormRegister),
                             onSaved: (value) => _cadastroUsuario.gender = value,
                             builder: (FormFieldState state) {
                               return InputDecorator(
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.fromLTRB(20, 16, 20, 16),
+                                  contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(25.0),
                                     borderSide: BorderSide(
@@ -396,8 +389,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                                       width: 2.0,
                                     ),
                                   ),
-                                  labelStyle:
-                                      TextStyle(color: Colors.deepOrange),
+                                  labelStyle: TextStyle(color: Colors.deepOrange),
                                   labelText: 'Gender',
                                   fillColor: Colors.deepOrange,
                                   focusColor: Colors.deepOrange,
@@ -435,6 +427,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 120,
                           child: TextFormField(
+                            key: Key(Keys.registerScreen.passwordFormRegister),
                             validator: (value) {
                               if (value.length < 7) {
                                 return 'Password not correct';
@@ -449,8 +442,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             initialValue: null,
                             obscureText: true,
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -490,13 +482,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             ),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_passwordFocusNode);
+                              FocusScope.of(context).requestFocus(_passwordFocusNode);
                             },
-                            onChanged: (value) =>
-                                _cadastroUsuario.password = value,
-                            onSaved: (value) =>
-                                _cadastroUsuario.password = value,
+                            onChanged: (value) => _cadastroUsuario.password = value,
+                            onSaved: (value) => _cadastroUsuario.password = value,
                           ),
                         ),
                       ),
@@ -508,9 +497,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 65,
                           child: TextFormField(
+                            key: Key(Keys.registerScreen.passwordconfirmFormRegister),
                             validator: (value) {
-                              if (value != _cadastroUsuario.password ||
-                                  value.isEmpty) {
+                              if (value != _cadastroUsuario.password || value.isEmpty) {
                                 return 'Password must be equal';
                               }
                               return null;
@@ -523,8 +512,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             textAlignVertical: TextAlignVertical.center,
                             initialValue: null,
                             decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(20, 16, 20, 16),
+                              contentPadding: EdgeInsets.fromLTRB(20, 16, 20, 16),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                                 borderSide: BorderSide(
@@ -561,11 +549,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             ),
                             textInputAction: TextInputAction.next,
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(_passwordConfirmedFocusNode);
+                              FocusScope.of(context).requestFocus(_passwordConfirmedFocusNode);
                             },
-                            onSaved: (value) =>
-                                _cadastroUsuario.confirmPassword = value,
+                            onSaved: (value) => _cadastroUsuario.confirmPassword = value,
                           ),
                         ),
                       ),
@@ -575,9 +561,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 Padding(
                   padding: const EdgeInsets.all(10),
                 ),
-                Observer(
-                    builder: (_) =>
-                        _cadastroStore.cadastrando ? loading() : showButton()),
+                Observer(builder: (_) => _cadastroStore.cadastrando ? loading() : showButton()),
               ],
             ),
           ),
@@ -592,6 +576,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
   Widget showButton() {
     return RaisedButton(
+      key: Key(Keys.registerScreen.finalizeFormRegister),
       child: Text(
         "Finalize",
         style: TextStyle(

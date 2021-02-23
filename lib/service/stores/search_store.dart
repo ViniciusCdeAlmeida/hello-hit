@@ -43,8 +43,7 @@ abstract class _SearchStore with Store {
   @computed
   // ignore: missing_return
   SearchState get searchState {
-    if ((_searchFuture == null ||
-        _searchFuture.status == FutureStatus.rejected)) {
+    if ((_searchFuture == null || _searchFuture.status == FutureStatus.rejected)) {
       return SearchState.inicial;
     }
 
@@ -52,28 +51,24 @@ abstract class _SearchStore with Store {
       return SearchState.carregando;
     }
 
-    if (_searchFuture.status == FutureStatus.fulfilled)
-      return SearchState.carregado;
+    if (_searchFuture.status == FutureStatus.fulfilled) return SearchState.carregado;
   }
 
   @action
-  Future<void> getTalentos(Search data) async {
+  Future<void> getTalentos(Map data) async {
     try {
-      _searchFuture =
-          ObservableFuture(_searchController.getTalentoSearch(data));
-      _talentosObservable =
-          (await _searchFuture as List<Profile>).asObservable();
+      _searchFuture = ObservableFuture(_searchController.getTalentoSearch(data));
+      _talentosObservable = (await _searchFuture as List<Profile>).asObservable();
     } catch (e) {
       throw e;
     }
   }
 
   @action
-  Future<void> getTimes(Search data) async {
+  Future<void> getTimes(Map data) async {
     try {
       _searchFuture = ObservableFuture(_searchController.getTimeSearch(data));
-      _timesObservable =
-          (await _searchFuture as List<ProfileTime>).asObservable();
+      _timesObservable = (await _searchFuture as List<ProfileTime>).asObservable();
     } catch (e) {
       throw e;
     }

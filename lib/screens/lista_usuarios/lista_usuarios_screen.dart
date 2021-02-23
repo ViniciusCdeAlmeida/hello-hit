@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ListaUsuarios extends StatefulWidget {
   static const routeName = '/listaUsuarios';
@@ -55,14 +56,12 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                       itemCount: _usuarios.length,
                       itemBuilder: (_, idx) => Column(
                         children: [
-                          if (_usuarios[idx].id !=
-                              _autenticacaoStore.usuarioLogado.id)
+                          if (_usuarios[idx].id != _autenticacaoStore.usuarioLogado.id)
                             ListTile(
                               title: Text(_usuarios[idx].username),
                               leading: CircleAvatar(
                                 backgroundImage: _usuarios[idx].avatar == null
-                                    ? AssetImage(
-                                        'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                    ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                     : NetworkImage(
                                         _usuarios[idx].avatar['url'],
                                       ),
@@ -71,12 +70,9 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                 Socket socket = io(
                                     'http://developer.api.hellohit.co',
                                     OptionBuilder()
-                                        .setTransports([
-                                          'websocket'
-                                        ]) // for Flutter or Dart VM
+                                        .setTransports(['websocket']) // for Flutter or Dart VM
                                         .disableAutoConnect() // disable auto-connection
-                                        .setExtraHeaders(
-                                            {'foo': 'bar'}) // optional
+                                        .setExtraHeaders({'foo': 'bar'}) // optional
                                         .build());
                                 socket.connect();
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/categoria_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/screens/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class EscolhaCategoriaScreen extends StatefulWidget {
   static const routeName = '/escolhaCategoriaScreen';
@@ -160,8 +161,7 @@ class _EscolhaCategoriaScreenState extends State<EscolhaCategoriaScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               GestureDetector(
-                onTap: () =>
-                    Navigator.of(context).pushNamed(FeedScreen.routeName),
+                onTap: () => Navigator.of(context).pushNamed(FeedScreen.routeName),
                 child: const Text(
                   'SKIP',
                   style: TextStyle(color: Colors.white),

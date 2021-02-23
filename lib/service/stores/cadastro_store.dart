@@ -39,8 +39,7 @@ abstract class _CadastroStore with Store {
   @computed
   // ignore: missing_return
   CadastroState get marketplaceState {
-    if ((_cadastroFuture == null ||
-        _cadastroFuture.status == FutureStatus.rejected)) {
+    if ((_cadastroFuture == null || _cadastroFuture.status == FutureStatus.rejected)) {
       return CadastroState.inicial;
     }
 
@@ -48,19 +47,15 @@ abstract class _CadastroStore with Store {
       return CadastroState.carregando;
     }
 
-    if (_cadastroFuture.status == FutureStatus.fulfilled)
-      return CadastroState.carregado;
+    if (_cadastroFuture.status == FutureStatus.fulfilled) return CadastroState.carregado;
   }
 
   @action
   // ignore: missing_return
-  Future<Cadastro> cadastroUsuario(Cadastro usuario) async {
+  Future<void> cadastroUsuario(Cadastro usuario) async {
     _cadastrando = true;
     try {
-      await _cadastroController
-          .cadastroUsuario(usuario)
-          .then((_) => _cadastrando = false)
-          .catchError((error) {
+      await _cadastroController.cadastroUsuario(usuario).then((_) => _cadastrando = false).catchError((error) {
         _cadastrando = false;
         throw error;
       });

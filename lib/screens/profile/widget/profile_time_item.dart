@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
@@ -96,10 +94,10 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                               fit: BoxFit.fill,
                             )
                           : Image.network(
-                              widget.usuario.user.avatarUrl,
-                              // .toString()
-                              // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                              // .toString(),
+                              widget.usuario.user.avatarUrl
+                                  .toString()
+                                  .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                  .toString(),
                               height: 120,
                               width: 130,
                               fit: BoxFit.fill,
@@ -431,7 +429,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                                     AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
                                 // backgroundImage: NetworkImage(memberProfile.avatar['url']
                                 //     .toString()
-                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.8')
                                 //     .toString()),
                               ),
                             if (award.awardName != null)
@@ -498,10 +496,9 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                   ((memberProfile) => CircleAvatar(
                         backgroundColor: Colors.transparent,
                         backgroundImage: NetworkImage(memberProfile.avatar['url']
-                            // .toString()
-                            // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                            // .toString()
-                            ),
+                            .toString()
+                            .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                            .toString()),
                       )),
                 )
                 .toList(),

@@ -121,8 +121,7 @@ abstract class _PostagemStore with Store {
         // ignore: missing_return
         _postagemController.getPost(id).then((value) async {
           _postagemImageEdit = await DefaultCacheManager().getSingleFile(
-            value.file['url'],
-            // .toString().replaceAll(RegExp(r'localhost'), '192.168.15.4').toString(),
+            value.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.8').toString(),
           );
           return value;
         }),

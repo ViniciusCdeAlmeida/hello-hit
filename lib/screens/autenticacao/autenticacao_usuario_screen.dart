@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/autenticacao_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/screens/autenticacao/esqueci_senha_screen.dart';
-import 'package:hellohit/screens/cadastro/cadastro_screen.dart';
-import 'package:hellohit/screens/escolha_categoria/escolha_categoria_screen.dart';
-import 'package:hellohit/screens/feed/feed_screen.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class AutenticacaoUsuarioScreen extends StatefulWidget {
   static const routeName = '/autenticacaoUsuarioScreen';
   @override
-  _AutenticacaoUsuarioScreenState createState() =>
-      _AutenticacaoUsuarioScreenState();
+  _AutenticacaoUsuarioScreenState createState() => _AutenticacaoUsuarioScreenState();
 }
 
 class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
@@ -49,6 +47,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
           title: Text(onError),
           actions: <Widget>[
             FlatButton(
+              key: Key(Keys.erroMenssages.erroUserLogin),
               onPressed: () {
                 Navigator.of(ctx).pop();
               },
@@ -83,8 +82,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                           padding: const EdgeInsets.only(top: 50),
                           child: Column(
                             children: [
-                              Image.asset(
-                                  'assets/images/logos/Logo_hellohit_white.png'),
+                              Image.asset('assets/images/logos/Logo_hellohit_white.png'),
                             ],
                           ),
                         ),
@@ -100,34 +98,30 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
                                   child: TextFormField(
-                                    onSaved: (value) =>
-                                        _loginData.email = value,
+                                    key: Key(Keys.loginScreen.emailFormScreen),
+                                    onSaved: (value) => _loginData.email = value,
                                     textAlignVertical: TextAlignVertical.center,
                                     cursorColor: Colors.white,
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
                                     decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                       enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(25.0),
                                         borderSide: BorderSide(
                                           color: Colors.white,
                                           width: 2.0,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
+                                        borderRadius: BorderRadius.circular(25.0),
                                         borderSide: BorderSide(
                                           color: Colors.white,
                                           width: 2.0,
                                         ),
                                       ),
-                                      labelStyle:
-                                          TextStyle(color: Colors.white),
+                                      labelStyle: TextStyle(color: Colors.white),
                                       labelText: 'E-mail',
                                       fillColor: Colors.white,
                                       focusColor: Colors.white,
@@ -136,9 +130,9 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                   ),
                                 ),
                                 TextFormField(
+                                  key: Key(Keys.loginScreen.passwordFormScreen),
                                   obscureText: true,
-                                  onSaved: (value) =>
-                                      _loginData.password = value,
+                                  onSaved: (value) => _loginData.password = value,
                                   autofocus: false,
                                   textAlignVertical: TextAlignVertical.center,
                                   cursorColor: Colors.white,
@@ -146,8 +140,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                     color: Colors.white,
                                   ),
                                   decoration: InputDecoration(
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(32, 16, 32, 16),
+                                    contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(25.0),
                                       borderSide: BorderSide(
@@ -173,28 +166,25 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                   height: 15,
                                 ),
                                 Observer(
-                                  builder: (_) =>
-                                      _autenticacaoStore.autenticando
-                                          ? CircularProgressIndicator()
-                                          : RaisedButton(
-                                              child: const Text('LOGIN'),
-                                              padding: EdgeInsets.fromLTRB(
-                                                  75, 10, 75, 10),
-                                              textColor: Colors.orange[700],
-                                              onPressed: _submit,
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(32),
-                                              ),
-                                            ),
+                                  builder: (_) => _autenticacaoStore.autenticando
+                                      ? CircularProgressIndicator()
+                                      : RaisedButton(
+                                          key: Key(Keys.loginScreen.loginButtonLoginScreen),
+                                          child: const Text('LOGIN'),
+                                          padding: EdgeInsets.fromLTRB(75, 10, 75, 10),
+                                          textColor: Colors.orange[700],
+                                          onPressed: _submit,
+                                          color: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(32),
+                                          ),
+                                        ),
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
                                 InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .pushNamed(EsqueciSenhaScreen.routeName),
+                                  onTap: () => Navigator.of(context).pushNamed(EsqueciSenhaScreen.routeName),
                                   child: Text(
                                     'Forgot my password?',
                                     textAlign: TextAlign.center,
@@ -205,8 +195,7 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                                   height: 20,
                                 ),
                                 InkWell(
-                                  onTap: () => Navigator.of(context)
-                                      .pushNamed(EsqueciSenhaScreen.routeName),
+                                  onTap: () => Navigator.of(context).pushNamed(EsqueciSenhaScreen.routeName),
                                   child: Text(
                                     'Resend confirmation email',
                                     textAlign: TextAlign.center,
@@ -235,10 +224,10 @@ class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
                   Container(
                     width: 200,
                     child: RaisedButton(
+                      key: Key(Keys.loginScreen.registerLoginButtonLoginScreen),
                       child: const Text('REGISTER'),
                       textColor: Colors.white,
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(CadastroScreen.routeName),
+                      onPressed: () => Navigator.of(context).pushNamed(CadastroScreen.routeName),
                       color: Colors.orange[700],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(32),

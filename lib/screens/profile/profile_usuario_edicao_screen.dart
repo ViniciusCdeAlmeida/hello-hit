@@ -2,15 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/educacao_model.dart';
-import 'package:hellohit/models/historicoJob_model.dart';
-import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/models/skill_model.dart';
-import 'package:hellohit/service/stores/profile_store.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ProfileUsuarioEdicaoScreen extends StatefulWidget {
   static const routeName = '/profileUsuarioEdicaoScreen';
@@ -139,6 +137,7 @@ class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen>
                     backgroundColor: Colors.transparent,
                     automaticallyImplyLeading: false,
                     leading: IconButton(
+                      key: Key(Keys.profileTalent.backButtonEditProfileTalentScreen),
                       icon: Icon(Icons.arrow_back_ios),
                       onPressed: () {
                         _profileStore.freelance = false;
@@ -729,13 +728,13 @@ class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen>
   }
 
   List<Widget> _getSkills() {
-    List<Widget> skillsTextFields = [];
+    List<Widget> SkillsTextFieldTalents = [];
     for (int i = 0; i < skillList.length; i++) {
-      skillsTextFields.add(Padding(
+      SkillsTextFieldTalents.add(Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Row(
           children: [
-            Expanded(child: SkillsTextField(i)),
+            Expanded(child: SkillsTextFieldTalent(i)),
             SizedBox(
               width: 16,
             ),
@@ -744,7 +743,7 @@ class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen>
         ),
       ));
     }
-    return skillsTextFields;
+    return SkillsTextFieldTalents;
   }
 
   /// add / remove button
@@ -779,7 +778,7 @@ class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen>
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: Row(
           children: [
-            Expanded(child: JobHistoryTextField(i)),
+            Expanded(child: JobHistoryTextFieldTalent(i)),
             SizedBox(
               width: 16,
             ),
@@ -1026,14 +1025,14 @@ class _EducationTextFieldState extends State<EducationTextField> {
 
 //----------------------------------------//
 
-class JobHistoryTextField extends StatefulWidget {
+class JobHistoryTextFieldTalent extends StatefulWidget {
   final int index;
-  JobHistoryTextField(this.index);
+  JobHistoryTextFieldTalent(this.index);
   @override
-  _JobHistoryTextFieldState createState() => _JobHistoryTextFieldState();
+  _JobHistoryTextFieldTalentState createState() => _JobHistoryTextFieldTalentState();
 }
 
-class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
+class _JobHistoryTextFieldTalentState extends State<JobHistoryTextFieldTalent> {
   TextEditingController _roleController;
   TextEditingController _companyController;
   TextEditingController _toMonthController;
@@ -1351,14 +1350,14 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
 
 // --------------- //
 
-class SkillsTextField extends StatefulWidget {
+class SkillsTextFieldTalent extends StatefulWidget {
   final int index;
-  SkillsTextField(this.index);
+  SkillsTextFieldTalent(this.index);
   @override
-  _SkillsTextFieldState createState() => _SkillsTextFieldState();
+  _SkillsTextFieldTalentState createState() => _SkillsTextFieldTalentState();
 }
 
-class _SkillsTextFieldState extends State<SkillsTextField> {
+class _SkillsTextFieldTalentState extends State<SkillsTextFieldTalent> {
   TextEditingController _skillController;
   TextEditingController _yearsController;
 

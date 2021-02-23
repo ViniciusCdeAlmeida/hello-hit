@@ -1,12 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:hellohit/screens/splash/base_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
-import 'package:path_provider/path_provider.dart' as syspath;
+// import 'package:path_provider/path_provider.dart' as syspath;
 
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized();

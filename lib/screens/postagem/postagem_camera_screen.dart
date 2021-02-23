@@ -1,13 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/service/stores/postagem_store.dart';
-import 'package:hellohit/screens/postagem/postagem_comentario_screen.dart';
-import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class PostagemCameraScreen extends StatefulWidget {
   static const routeName = '/postagemCameraScreen';

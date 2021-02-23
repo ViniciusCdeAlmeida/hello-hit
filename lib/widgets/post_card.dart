@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/feed_store.dart';
-import 'package:hellohit/service/stores/postagem_store.dart';
-import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
-import 'package:hellohit/screens/profile/profile_time_screen.dart';
-import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:hellohit/widgets/acoes.dart';
 import 'package:hellohit/widgets/popup_menu.dart';
-import 'package:provider/provider.dart';
-
-import 'package:timeago/timeago.dart' as timeago;
 
 class PostCard extends StatefulWidget {
   const PostCard({
@@ -111,20 +106,17 @@ class _PostCardState extends State<PostCard> {
                           : Navigator.of(context)
                               .pushNamed(ProfileUsuarioScreen.routeName, arguments: widget.post.user.id),
                       child: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          radius: 20.0,
-                          backgroundImage: widget.post.user.avatar == null
-                              ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
-                              : NetworkImage(
-                                  widget.post.user.avatar['url'],
-                                )
-                          // .toString()
-                          // .replaceAll(RegExp(r'localhost'), '192.168.15.4'))
-                          // .toString()
-                          // .replaceAll(
-                          //     RegExp(r'localhost'), '192.168.15.7')
-                          // .toString(),
-                          ),
+                        backgroundColor: Colors.transparent,
+                        radius: 20.0,
+                        backgroundImage: widget.post.user.avatar == null
+                            ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                            : NetworkImage(
+                                widget.post.user.avatar['url']
+                                    .toString()
+                                    .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                    .toString(),
+                              ),
+                      ),
                     ),
                   ),
                   Column(
@@ -232,8 +224,7 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url'],
-                // .toString().replaceAll(RegExp(r'localhost'), '192.168.15.4').toString(),
+                widget.post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.8').toString(),
                 fit: BoxFit.fill,
                 cacheHeight: 1080,
                 cacheWidth: 1080,

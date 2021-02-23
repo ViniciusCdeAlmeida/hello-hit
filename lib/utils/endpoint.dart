@@ -10,8 +10,8 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    // ..options.baseUrl = "http://192.168.15.4:3000/"
-    ..options.baseUrl = "http://api.rancher.hellohit.co/"
+    ..options.baseUrl = "http://192.168.15.8:3000/"
+    // ..options.baseUrl = "http://api.rancher.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
 }
@@ -75,9 +75,14 @@ class Endpoint {
 
   static Future getTeams() async => await getConexaoPrefs().get('profilesTeam');
 
-  static Future getTimeSearch(Search data) async => await getConexaoPrefs().post('search', data: data);
+  static Future getTimeSearch(Map data) async => await getConexaoPrefs().get('search/', queryParameters: data);
 
-  static Future getTalentoSearch(Search data) async => await getConexaoPrefs().post('search', data: data);
+  static Future getTalentoSearch(Map data) async => await getConexaoPrefs().get('search/', queryParameters: data);
+
+  static Future getTimeSearchAdvanced(Map data) async => await getConexaoPrefs().get('search/', queryParameters: data);
+
+  static Future getTalentoSearchAdvanced(Map data) async =>
+      await getConexaoPrefs().get('search/', queryParameters: data);
 
   static Future getProfileTime(String id) async => await getConexaoPrefs().get('profilesTeam/user/$id');
 

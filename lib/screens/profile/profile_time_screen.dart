@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-
-import 'package:hellohit/service/stores/profile_store.dart';
-import 'package:hellohit/screens/profile/widget/profile_time_item.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/screens/profile/widget/profile_time_item.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ProfileTimeScreen extends StatefulWidget {
   static const routeName = '/profileTimeScreen';

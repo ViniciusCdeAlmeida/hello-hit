@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/feed_store.dart';
-import 'package:hellohit/screens/postagem/postagem_camera_screen.dart';
-import 'package:hellohit/screens/marketplace/marketplace_screen.dart';
-import 'package:hellohit/screens/profile/profile_procura_screen.dart';
-import 'package:hellohit/screens/profile/profile_time_screen.dart';
-import 'package:hellohit/screens/profile/profile_usuario_screen.dart';
-import 'package:hellohit/screens/time/time_screen.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/widgets/post_card.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:hellohit/widgets/custom_drawer.dart';
+import 'package:hellohit/widgets/post_card.dart';
 
 class FeedScreen extends StatefulWidget {
   static const routeName = '/feedScreen';
@@ -161,6 +156,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     AssetImage('assets/images/perfil_post_assets/Icon_menu.png'),
                     color: Colors.black,
                     size: 30,
+                    key: Key(Keys.drawer.openDrawer),
                   ),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();

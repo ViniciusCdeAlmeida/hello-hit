@@ -6,19 +6,16 @@ import 'package:flutter_quill/widgets/controller.dart';
 import 'package:flutter_quill/widgets/editor.dart';
 import 'package:flutter_quill/widgets/toolbar.dart';
 import 'package:google_place/google_place.dart';
-import 'package:hellohit/models/oportunidade_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/oportunidade_store.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:hellohit/screens/oportunidade/oportunidade_pagamento_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class OportunidadeCriacaoScreen extends StatefulWidget {
   static const routeName = '/oportunidadeCriacaoScreen';
   @override
-  _OportunidadeCriacaoScreenState createState() =>
-      _OportunidadeCriacaoScreenState();
+  _OportunidadeCriacaoScreenState createState() => _OportunidadeCriacaoScreenState();
 }
 
 class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
@@ -313,43 +310,31 @@ class _OportunidadeCriacaoScreenState extends State<OportunidadeCriacaoScreen> {
                                             ),
                                             child: Text('Location'),
                                           ),
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              1.5,
+                                          width: MediaQuery.of(context).size.width / 1.5,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 0.1),
+                                          padding: const EdgeInsets.only(bottom: 0.1),
                                           child: Container(
                                             height: 30,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                1.5,
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
+                                            width: MediaQuery.of(context).size.width / 1.5,
+                                            padding: const EdgeInsets.only(left: 5.0),
                                             decoration: BoxDecoration(
                                               color: Colors.grey[300],
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(4),
                                               ),
                                             ),
                                             child: TextFormField(
                                               decoration: InputDecoration(
-                                                hintText:
-                                                    'e.g City, State, or Country',
-                                                contentPadding:
-                                                    const EdgeInsets.only(
+                                                hintText: 'e.g City, State, or Country',
+                                                contentPadding: const EdgeInsets.only(
                                                   top: 5,
                                                   left: 5,
                                                   bottom: 10,
                                                 ),
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                focusedErrorBorder:
-                                                    InputBorder.none,
+                                                focusedErrorBorder: InputBorder.none,
                                               ),
                                               controller: null,
                                               onEditingComplete: () {},

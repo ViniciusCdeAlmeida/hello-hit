@@ -5,8 +5,8 @@ import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
-import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -352,7 +352,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
         //                           AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
         //                       // backgroundImage: NetworkImage(memberProfile.avatar['url']
         //                       //     .toString()
-        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.15.4')
+        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.15.8')
         //                       //     .toString()),
         //                     ),
         //                     Text(
@@ -514,6 +514,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
           ],
         ),
         Container(
+          key: Key(Keys.postCard.commentsPostCard),
           height: MediaQuery.of(context).size.height / 1.5,
           child: TabBarView(
             controller: _tabController,

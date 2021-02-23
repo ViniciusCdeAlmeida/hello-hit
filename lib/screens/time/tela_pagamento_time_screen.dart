@@ -1,17 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
-import 'package:hellohit/service/controllers/pagamento_controller.dart';
-import 'package:hellohit/utils/endpoint.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/service/controllers/index_controllers.dart';
+import 'package:hellohit/utils/endpoint.dart';
 // import 'package:stripe_sdk/stripe_sdk.dart';
 // import 'package:stripe_sdk/stripe_sdk_ui.dart';
 
 class TelaPagamentoTimeScreen extends StatefulWidget {
   static const routeName = '/telaPagamentoTimeScreen';
   @override
-  _TelaPagamentoTimeScreenState createState() =>
-      _TelaPagamentoTimeScreenState();
+  _TelaPagamentoTimeScreenState createState() => _TelaPagamentoTimeScreenState();
 }
 
 // const _returnUrl = 'stripesdk://demo.stripesdk.ezet.io';
@@ -33,8 +33,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
 
   @override
   void didChangeDependencies() {
-    _pagamentoController =
-        Provider.of<PagamentoController>(context, listen: false);
+    _pagamentoController = Provider.of<PagamentoController>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -181,9 +180,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                                     children: [
                                       TextSpan(
                                         text: 'Team (Small) ',
-                                        style: TextStyle(
-                                            color: Colors.blue[300],
-                                            fontWeight: FontWeight.bold),
+                                        style: TextStyle(color: Colors.blue[300], fontWeight: FontWeight.bold),
                                       ),
                                       WidgetSpan(
                                         alignment: PlaceholderAlignment.middle,

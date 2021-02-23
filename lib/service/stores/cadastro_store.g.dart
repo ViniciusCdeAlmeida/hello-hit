@@ -80,7 +80,7 @@ mixin _$CadastroStore on _CadastroStore, Store {
       AsyncAction('_CadastroStore.cadastroUsuario');
 
   @override
-  Future<Cadastro> cadastroUsuario(Cadastro usuario) {
+  Future<void> cadastroUsuario(Cadastro usuario) {
     return _$cadastroUsuarioAsyncAction
         .run(() => super.cadastroUsuario(usuario));
   }

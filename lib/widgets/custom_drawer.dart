@@ -1,13 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
-import 'package:hellohit/screens/conversas/conversas_screen.dart';
-import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
-import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
-import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
-import 'package:hellohit/screens/usuario/times_oportunidades_screen.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
+import 'package:hellohit/utils/keys.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key key, this.usuario}) : super(key: key);
@@ -84,6 +78,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             GestureDetector(
+                              key: Key(Keys.drawer.closeDrawer),
                               onTap: () => Navigator.of(context).pop(),
                               child: Icon(Icons.clear),
                             )
@@ -94,11 +89,12 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                             CircleAvatar(
                               radius: 40.0,
                               backgroundImage: widget.usuario.avatar != null
-                                  ? NetworkImage(widget.usuario.avatar
-                                      // .toString()
-                                      // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                                      // .toString(),
-                                      )
+                                  ? NetworkImage(
+                                      widget.usuario.avatar
+                                          .toString()
+                                          .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                          .toString(),
+                                    )
                                   : AssetImage(
                                       'assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png',
                                     ),
@@ -106,7 +102,6 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                             Padding(
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Container(
-                                // width: 80,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -157,6 +152,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               ),
                               childrenDelegate: SliverChildListDelegate([
                                 GestureDetector(
+                                  key: Key(Keys.drawer.bookmarksDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -198,6 +194,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.turnProDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -243,6 +240,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.myTeamsDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -285,6 +283,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.notificationDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -326,6 +325,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.opportunitiesDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -368,6 +368,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.battleDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -418,6 +419,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.editProfileDrawer),
                                   onTap: () => widget.usuario.userType == 'TEAM'
                                       ? Navigator.of(context).pushNamed(
                                           ProfileTimeEdicaoScreen.routeName,
@@ -467,6 +469,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.helloHitPayDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -509,6 +512,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.statisticsDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -551,6 +555,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ),
                                 ),
                                 GestureDetector(
+                                  key: Key(Keys.drawer.talentsShowDrawer),
                                   onTap: () {},
                                   child: Container(
                                     height: 50,
@@ -633,7 +638,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  // key: Key('expandCardButton_${widget.levantamento.id}'),
+                                  key: Key(Keys.drawer.helpExpandDrawer),
                                   icon: Icon(
                                     (_expandedHelp ? Icons.expand_less : Icons.expand_more),
                                     color: Colors.black,
@@ -653,6 +658,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                 child: Column(
                                   children: [
                                     GestureDetector(
+                                      key: Key(Keys.drawer.helpCenterHelpDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -681,6 +687,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                       ),
                                     ),
                                     GestureDetector(
+                                      key: Key(Keys.drawer.helpSupportInbDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -704,6 +711,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                       ),
                                     ),
                                     GestureDetector(
+                                      key: Key(Keys.drawer.helpReportProbDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -727,6 +735,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                       ),
                                     ),
                                     GestureDetector(
+                                      key: Key(Keys.drawer.helpTermsDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -782,7 +791,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ],
                                 ),
                                 trailing: IconButton(
-                                  // key: Key('expandCardButton_${widget.levantamento.id}'),
+                                  key: Key(Keys.drawer.settingsExpandDrawer),
                                   icon: Icon(
                                     (_expandedSettings ? Icons.expand_less : Icons.expand_more),
                                     color: Colors.black,
@@ -802,6 +811,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                 child: Column(
                                   children: [
                                     GestureDetector(
+                                      key: Key(Keys.drawer.settingsDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -826,6 +836,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                       ),
                                     ),
                                     GestureDetector(
+                                      key: Key(Keys.drawer.settingsPrivateDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -854,6 +865,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                       ),
                                     ),
                                     GestureDetector(
+                                      key: Key(Keys.drawer.settingsLanguageDrawer),
                                       onTap: () {},
                                       child: Card(
                                         elevation: 2,
@@ -901,6 +913,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                       children: [
                         ImageIcon(
                           AssetImage('assets/images/icons/arrow.png'),
+                          key: Key(Keys.drawer.logoutDrawer),
                           // color: Colors.grey,
                           size: 37,
                         ),
@@ -917,33 +930,6 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  GestureDetector cardDrawer({String titulo, Future<Object> route}) {
-    return GestureDetector(
-      onTap: () {},
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        child: ListTile(
-          title: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.chat),
-              Text(
-                titulo,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ],
           ),
         ),
       ),

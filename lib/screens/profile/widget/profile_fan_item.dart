@@ -17,10 +17,8 @@ class ProfileFanItem extends StatelessWidget {
                 radius: 40.0,
                 onBackgroundImageError: (__, _) =>
                     AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
-                backgroundImage: NetworkImage(usuario.avatar['url'],
-                    // .toString()
-                    // .replaceAll(RegExp(r'localhost'), '192.168.15.4')
-                    // .toString(),
+                backgroundImage: NetworkImage(
+                    usuario.avatar['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.8').toString(),
                     scale: 0.3),
               ),
               // Padding(

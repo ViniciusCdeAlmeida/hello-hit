@@ -8,9 +8,7 @@ class CadastroController {
 
   Future<void> cadastroUsuario(Cadastro usuario) async {
     try {
-      usuario.userType == 'Team'
-          ? usuario.userType = 'TEAM'
-          : usuario.userType = 'FREE';
+      usuario.userType == 'Team' ? usuario.userType = 'TEAM' : usuario.userType = 'FREE';
       await Endpoint.postCadastroUsuario(usuario);
       // await Endpoint.postProfileUsuario(res.data);
     } on DioError catch (e) {

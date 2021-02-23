@@ -3,13 +3,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/service/stores/marketplace_store.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class MarketplaceViewallScreen extends StatefulWidget {
   static const routeName = '/marketplaceViewallScreen';
   @override
-  _MarketplaceViewallScreenState createState() =>
-      _MarketplaceViewallScreenState();
+  _MarketplaceViewallScreenState createState() => _MarketplaceViewallScreenState();
 }
 
 class _MarketplaceViewallScreenState extends State<MarketplaceViewallScreen> {
@@ -55,8 +54,7 @@ class _MarketplaceViewallScreenState extends State<MarketplaceViewallScreen> {
                           // scrollDirection: Axis.horizontal,
                           // physics: ClampingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount:
-                              (_maketplaceStore.carreirasOriginal.length),
+                          itemCount: (_maketplaceStore.carreirasOriginal.length),
                           itemBuilder: (_, idx) => Column(
                             children: [
                               MarketplaceOpportunitiesItem(

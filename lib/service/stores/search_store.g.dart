@@ -80,14 +80,14 @@ mixin _$SearchStore on _SearchStore, Store {
   final _$getTalentosAsyncAction = AsyncAction('_SearchStore.getTalentos');
 
   @override
-  Future<void> getTalentos(Search data) {
+  Future<void> getTalentos(Map<dynamic, dynamic> data) {
     return _$getTalentosAsyncAction.run(() => super.getTalentos(data));
   }
 
   final _$getTimesAsyncAction = AsyncAction('_SearchStore.getTimes');
 
   @override
-  Future<void> getTimes(Search data) {
+  Future<void> getTimes(Map<dynamic, dynamic> data) {
     return _$getTimesAsyncAction.run(() => super.getTimes(data));
   }
 

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/usuario_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
 import 'package:provider/provider.dart';
 
-import 'package:hellohit/service/stores/marketplace_store.dart';
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_banner.dart';
 import 'package:hellohit/screens/marketplace/widget/marketplace_opportunities_item.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class MarketPlaceScreen extends StatefulWidget {
   static const routeName = '/marketPlaceScreen';
@@ -105,9 +104,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: _maketplaceStore.carreiras.length,
-                              itemBuilder: (_, idx) =>
-                                  MarketplaceOpportunitiesItem(
-                                      _maketplaceStore.carreiras[idx])
+                              itemBuilder: (_, idx) => MarketplaceOpportunitiesItem(_maketplaceStore.carreiras[idx])
                               // Column(
                               //   children: [
                               //     MarketplaceOpportunitiesItem(

@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/slide_model.dart';
-import 'package:hellohit/screens/autenticacao/autenticacao_usuario_screen.dart';
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/index_screens.dart';
 import 'package:hellohit/screens/intro/widgets/slide_dots.dart';
 import 'package:hellohit/screens/intro/widgets/slide_item.dart';
+import 'package:hellohit/utils/keys.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -79,10 +80,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               for (int i = 0; i < slideList.length; i++)
-                                if (i == _currentPage)
-                                  SlideDots(true)
-                                else
-                                  SlideDots(false)
+                                if (i == _currentPage) SlideDots(true) else SlideDots(false)
                             ],
                           ),
                         ),
@@ -97,6 +95,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: RaisedButton(
+                  key: Key(Keys.introScreen),
                   child: const Text('Skip intro'),
                   textColor: Colors.white,
                   padding: EdgeInsets.fromLTRB(50, 15, 50, 15),

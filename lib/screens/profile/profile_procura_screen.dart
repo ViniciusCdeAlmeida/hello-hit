@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/models/search_model.dart';
-import 'package:hellohit/service/stores/search_store.dart';
+import 'package:material_tag_editor/tag_editor.dart';
+import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/screens/profile/widget/profile_talento_search_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_search_item.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_talento_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class ProfileProcuraScreen extends StatefulWidget {
   static const routeName = '/profileProcuraScreen';
@@ -16,6 +18,10 @@ class ProfileProcuraScreen extends StatefulWidget {
 class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
   bool checkboxValue = false;
   int _radioValue = 0;
+  List<String> valuesSkill = [];
+  List<String> valuesPlace = [];
+  final FocusNode _focusNodeSkill = FocusNode();
+  final FocusNode _focusNodePlace = FocusNode();
 
   SearchStore _searchStore;
 
@@ -25,6 +31,35 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
   void didChangeDependencies() {
     _searchStore = Provider.of<SearchStore>(context, listen: false);
     super.didChangeDependencies();
+  }
+
+  onDeleteSkill(index) {
+    setState(() {
+      valuesSkill.removeAt(index);
+    });
+  }
+
+  onDeletePlace(index) {
+    setState(() {
+      valuesPlace.removeAt(index);
+    });
+  }
+
+  Map<String, String> basicSearch = {
+    'team': '',
+    'location': '',
+    'skills': '',
+  };
+
+  void getBasicSearch() {
+    basicSearch['location'] = valuesPlace.join('+');
+    basicSearch['skills'] = valuesSkill.join('+');
+    if (_procura.teamOrUser == 'TEAM') {
+      basicSearch['team'] = 'TEAM';
+      _searchStore.getTimes(basicSearch);
+    } else {
+      _searchStore.getTalentos(basicSearch);
+    }
   }
 
   @override
@@ -73,26 +108,44 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       ),
                     ),
                     Container(
-                      height: 40,
-                      padding: const EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(15),
                         ),
                       ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                            top: 5,
-                            left: 5,
-                            bottom: 12,
-                          ),
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          focusedErrorBorder: InputBorder.none,
+                      child: TagEditor(
+                        length: valuesSkill.length,
+                        focusNode: _focusNodeSkill,
+                        delimiters: [',', ' '],
+                        hasAddButton: false,
+                        resetTextOnSubmitted: true,
+                        textStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        onChanged: (value) => _procura.skills = value,
+                        onSubmitted: (outstandingValue) {
+                          setState(() {
+                            if (outstandingValue != '') {
+                              valuesSkill.add(outstandingValue);
+                            }
+                            var t = valuesSkill.join('+');
+                            print(t);
+                          });
+                        },
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onTagChanged: (newValue) {
+                          setState(() {
+                            if (newValue != '') valuesSkill.add(newValue);
+                          });
+                        },
+                        tagBuilder: (context, index) => _Chip(
+                          index: index,
+                          label: valuesSkill[index],
+                          onDeleted: onDeleteSkill,
+                        ),
                       ),
                     ),
                     Padding(
@@ -109,26 +162,40 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       ),
                     ),
                     Container(
-                      height: 40,
-                      padding: const EdgeInsets.only(left: 5.0),
+                      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: const BorderRadius.all(
                           Radius.circular(15),
                         ),
                       ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(
-                            top: 5,
-                            left: 5,
-                            bottom: 12,
-                          ),
-                          enabledBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          focusedErrorBorder: InputBorder.none,
+                      child: TagEditor(
+                        length: valuesPlace.length,
+                        focusNode: _focusNodePlace,
+                        delimiters: [',', ' '],
+                        hasAddButton: false,
+                        resetTextOnSubmitted: true,
+                        textStyle: TextStyle(
+                          color: Colors.grey,
                         ),
-                        onChanged: (value) => _procura.location = value,
+                        onSubmitted: (outstandingValue) {
+                          setState(() {
+                            if (outstandingValue != '') valuesPlace.add(outstandingValue);
+                          });
+                        },
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        onTagChanged: (newValue) {
+                          setState(() {
+                            if (newValue != '') valuesPlace.add(newValue);
+                          });
+                        },
+                        tagBuilder: (context, index) => _Chip(
+                          index: index,
+                          label: valuesPlace[index],
+                          onDeleted: onDeletePlace,
+                        ),
                       ),
                     ),
                     Row(
@@ -182,12 +249,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       child: Row(
                         children: [
                           RaisedButton(
-                            onPressed: () {
-                              if (_procura.teamOrUser == 'TEAM')
-                                _searchStore.getTimes(_procura);
-                              else
-                                _searchStore.getTalentos(_procura);
-                            },
+                            onPressed: getBasicSearch,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0),
                             ),
@@ -203,7 +265,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: FlatButton(
-                              onPressed: () => {},
+                              onPressed: getBasicSearch,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
@@ -271,8 +333,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                       ],
                                     ),
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -358,8 +419,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                       ],
                                     ),
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -443,8 +503,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 40.0),
+                                          padding: const EdgeInsets.only(left: 40.0),
                                           child: Checkbox(
                                             value: checkboxValue,
                                             onChanged: (newValue) {
@@ -464,8 +523,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                       ],
                                     ),
                                     Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
@@ -537,8 +595,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 40.0),
+                                          padding: const EdgeInsets.only(left: 40.0),
                                           child: Checkbox(
                                             value: checkboxValue,
                                             onChanged: (newValue) {
@@ -575,11 +632,9 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                 Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -597,27 +652,23 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                           Container(
                                             height: 40,
                                             width: 300,
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
+                                            padding: const EdgeInsets.only(left: 5.0),
                                             decoration: BoxDecoration(
                                               color: Colors.grey[400],
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(7),
                                               ),
                                             ),
                                             child: TextField(
                                               decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.only(
+                                                contentPadding: const EdgeInsets.only(
                                                   top: 5,
                                                   left: 5,
                                                   bottom: 12,
                                                 ),
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                focusedErrorBorder:
-                                                    InputBorder.none,
+                                                focusedErrorBorder: InputBorder.none,
                                               ),
                                               controller: null,
                                               onEditingComplete: null,
@@ -628,11 +679,9 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -650,27 +699,23 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                           Container(
                                             height: 40,
                                             width: 300,
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
+                                            padding: const EdgeInsets.only(left: 5.0),
                                             decoration: BoxDecoration(
                                               color: Colors.grey[400],
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(7),
                                               ),
                                             ),
                                             child: TextField(
                                               decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.only(
+                                                contentPadding: const EdgeInsets.only(
                                                   top: 5,
                                                   left: 5,
                                                   bottom: 12,
                                                 ),
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                focusedErrorBorder:
-                                                    InputBorder.none,
+                                                focusedErrorBorder: InputBorder.none,
                                               ),
                                               controller: null,
                                               onEditingComplete: null,
@@ -681,11 +726,9 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                       ),
                                     ),
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
+                                      padding: const EdgeInsets.only(left: 10.0),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.symmetric(
@@ -703,27 +746,23 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                           Container(
                                             height: 40,
                                             width: 300,
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
+                                            padding: const EdgeInsets.only(left: 5.0),
                                             decoration: BoxDecoration(
                                               color: Colors.grey[400],
-                                              borderRadius:
-                                                  const BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(7),
                                               ),
                                             ),
                                             child: TextField(
                                               decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.only(
+                                                contentPadding: const EdgeInsets.only(
                                                   top: 5,
                                                   left: 5,
                                                   bottom: 12,
                                                 ),
                                                 enabledBorder: InputBorder.none,
                                                 border: InputBorder.none,
-                                                focusedErrorBorder:
-                                                    InputBorder.none,
+                                                focusedErrorBorder: InputBorder.none,
                                               ),
                                               controller: null,
                                               onEditingComplete: null,
@@ -736,8 +775,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 15.0),
                                   child: RaisedButton(
                                     onPressed: () {},
                                     shape: RoundedRectangleBorder(
@@ -842,8 +880,7 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
                       ),
                     );
                   case SearchState.carregado:
-                    if (_searchStore.talentos.length == 0 &&
-                        _searchStore.times.length == 0)
+                    if (_searchStore.talentos.length == 0 && _searchStore.times.length == 0)
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -894,6 +931,33 @@ class _ProfileProcuraScreenState extends State<ProfileProcuraScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Chip extends StatelessWidget {
+  const _Chip({
+    @required this.label,
+    @required this.onDeleted,
+    @required this.index,
+  });
+
+  final String label;
+  final ValueChanged<int> onDeleted;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      labelPadding: const EdgeInsets.only(left: 8.0),
+      label: Text(label),
+      deleteIcon: Icon(
+        Icons.close,
+        size: 18,
+      ),
+      onDeleted: () {
+        onDeleted(index);
+      },
     );
   }
 }

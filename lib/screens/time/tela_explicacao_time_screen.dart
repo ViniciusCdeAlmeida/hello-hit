@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
-import 'package:hellohit/models/produtos_pagamento_model.dart';
-import 'package:hellohit/service/stores/pagamento_store.dart';
-import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 
 class TelaExplicacaoTimeScreen extends StatefulWidget {
   static const routeName = '/telaExplicacaoTimeScreen';
   @override
-  _TelaExplicacaoTimeScreenState createState() =>
-      _TelaExplicacaoTimeScreenState();
+  _TelaExplicacaoTimeScreenState createState() => _TelaExplicacaoTimeScreenState();
 }
 
 class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
@@ -156,8 +155,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                     height: 50,
                     width: 80,
                     icon: Icons.search,
-                    texto:
-                        'Search for athletes or artists by location and skill',
+                    texto: 'Search for athletes or artists by location and skill',
                   ),
                 ],
               ),
@@ -378,8 +376,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                                               ),
                                             ),
                                             TextSpan(
-                                              text:
-                                                  '${oCcy.format(_produtos[0].prices[idx].amount)}',
+                                              text: '${oCcy.format(_produtos[0].prices[idx].amount)}',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.black,
@@ -394,8 +391,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'Per Month',
@@ -432,8 +428,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     IconButton(
                                       icon: Icon(Icons.remove),
@@ -458,8 +453,7 @@ class _TelaExplicacaoTimeScreenState extends State<TelaExplicacaoTimeScreen> {
                               padding: const EdgeInsets.all(8.0),
                               width: 300.0,
                               child: RaisedButton(
-                                onPressed: () =>
-                                    pagar(_produtos[0].prices[idx].id),
+                                onPressed: () => pagar(_produtos[0].prices[idx].id),
                                 color: Colors.blue[400],
                                 child: Text(
                                   'Create a Team',
