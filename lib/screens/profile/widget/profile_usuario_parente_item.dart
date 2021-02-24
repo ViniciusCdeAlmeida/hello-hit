@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/screens/comentario_post/comentario_post_screen.dart';
+import 'package:hellohit/utils/keys.dart';
 
 class UsuarioParente extends StatelessWidget {
   final Post post;
@@ -13,6 +14,7 @@ class UsuarioParente extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
+        key: Key('${Keys.profileTeam.myPostsProfileTeamScreen}_${post.id}'),
         onTap: () => Navigator.of(context).pushNamed(
           ComentarioPostScreen.routeName,
           arguments: post.id,

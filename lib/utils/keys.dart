@@ -1,6 +1,8 @@
 class Keys {
-  static ProfileTalentEditKey profileTalent = const ProfileTalentEditKey();
-  static ProfileTeamEditKey profileTeam = const ProfileTeamEditKey();
+  static ProfileTalentEditKey profileTalentEdit = const ProfileTalentEditKey();
+  static ProfileTeamEditKey profileTeamEdit = const ProfileTeamEditKey();
+  static ProfileTalentKey profileTalent = const ProfileTalentKey();
+  static ProfileTeamKey profileTeam = const ProfileTeamKey();
   static SearchKey searchScreen = const SearchKey();
   static LoginKey loginScreen = const LoginKey();
   static FeedKey feedScreen = const FeedKey();
@@ -9,6 +11,7 @@ class Keys {
   static PostCardKey postCard = const PostCardKey();
   static ErroMenssagesKey erroMenssages = const ErroMenssagesKey();
   static const String introScreen = 'introScreen';
+  static const String backPageChatScreen = 'backPageChatScreen';
 }
 
 class PostCardKey {
@@ -149,4 +152,28 @@ class ProfileTeamEditKey {
   String get workFreelanceEditProfileTeamScreen => 'workFreelanceEditProfileTeamScreen';
   String get workSponsEditProfileTeamScreen => 'workSponsEditProfileTeamScreen';
   String get saveEditProfileTeamScreen => 'saveEditProfileTeamScreen';
+}
+
+class ProfileTalentKey {
+  const ProfileTalentKey();
+  String get makeHitProfileTalentScreen => 'makeHitProfileTalentScreen';
+  String get inboxProfileTalentScreen => 'inboxProfileTalentScreen';
+  String get beFanProfileTalentScreen => 'beFanProfileTalentScreen';
+  String get editBtnProfileTalentScreen => 'editBtnProfileTalentScreen';
+  String get myPostsTabProfileTalentScreen => 'myPostsTabProfileTalentScreen';
+  String get myFansTabProfileTalentScreen => 'myFansTabProfileTalentScreen';
+  String get myPostsProfileTalentScreen => 'myPostsProfileTalentScreen';
+  String get myFansProfileTalentScreen => 'myFansProfileTalentScreen';
+}
+
+class ProfileTeamKey {
+  const ProfileTeamKey();
+  String get makeHitProfileTeamScreen => 'makeHitProfileTeamScreen';
+  String get inboxProfileTeamScreen => 'inboxProfileTeamScreen';
+  String get beFanProfileTeamScreen => 'beFanProfileTeamScreen';
+  String get editBtnProfileTeamScreen => 'editBtnProfileTeamScreen';
+  String get myPostsTabProfileTeamScreen => 'myPostTabProfileTeamScreen';
+  String get myFansTabProfileTeamScreen => 'myFansTabProfileTeamScreen';
+  String get myPostsProfileTeamScreen => 'myPostsProfileTeamScreen';
+  String get myFansProfileTeamScreen => 'myFansProfileTeamScreen';
 }

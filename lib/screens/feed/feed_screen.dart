@@ -96,6 +96,7 @@ class _FeedScreenState extends State<FeedScreen> {
           BottomNavigationBarItem(
             icon: ImageIcon(
               AssetImage('assets/images/perfil_assets/Barra_fixa_perfil.png'),
+              key: Key(Keys.feedScreen.profileFeedScreen),
               color: Color(0xffF26525),
               // size: 20,
             ),

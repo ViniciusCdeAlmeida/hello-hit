@@ -34,7 +34,7 @@ Future<void> drawerPage() async {
   final settingsPrivateDrawer = find.byValueKey(Keys.drawer.settingsPrivateDrawer);
   final settingsLanguageDrawer = find.byValueKey(Keys.drawer.settingsLanguageDrawer);
   final helloHitPayDrawer = find.byValueKey(Keys.drawer.helloHitPayDrawer);
-  final backButtonEditProfileTalent = find.byValueKey(Keys.profileTalent.backButtonEditProfileTalentScreen);
+  final backButtonEditProfileTalent = find.byValueKey(Keys.profileTalentEdit.backButtonEditProfileTalentScreen);
 
   final introScreen = find.byValueKey(Keys.introScreen);
   final emailField = find.byValueKey(Keys.loginScreen.emailFormScreen);

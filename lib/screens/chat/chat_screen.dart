@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -150,6 +151,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
+          key: Key(Keys.backPageChatScreen),
           icon: Icon(Icons.arrow_back),
           iconSize: 20,
           color: Colors.white,

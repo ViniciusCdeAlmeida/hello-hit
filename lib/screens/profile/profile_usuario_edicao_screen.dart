@@ -137,7 +137,7 @@ class _ProfileUsuarioEdicaoScreenState extends State<ProfileUsuarioEdicaoScreen>
                     backgroundColor: Colors.transparent,
                     automaticallyImplyLeading: false,
                     leading: IconButton(
-                      key: Key(Keys.profileTalent.backButtonEditProfileTalentScreen),
+                      key: Key(Keys.profileTalentEdit.backButtonEditProfileTalentScreen),
                       icon: Icon(Icons.arrow_back_ios),
                       onPressed: () {
                         _profileStore.freelance = false;

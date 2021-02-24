@@ -3,6 +3,7 @@ import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/profile_time_model.dart';
@@ -152,6 +153,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
+              key: Key(Keys.profileTeam.makeHitProfileTeamScreen),
               onTap: () {
                 setState(() {
                   if (widget.usuario.hits.contains(widget.usuario.user.id)) {
@@ -179,6 +181,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
               ),
             ),
             GestureDetector(
+              key: Key(Keys.profileTeam.inboxProfileTeamScreen),
               onTap: () {
                 Socket socket = io(
                     'http://developer.api.hellohit.co',
@@ -218,6 +221,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
               ),
             ),
             GestureDetector(
+              key: Key(Keys.profileTeam.beFanProfileTeamScreen),
               onTap: () {
                 setState(() {
                   if (widget.usuario.fans.contains(widget.usuario.user.id)) {
@@ -267,6 +271,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: FlatButton(
+                key: Key(Keys.profileTeam.editBtnProfileTeamScreen),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                     color: Colors.grey,
@@ -554,12 +559,14 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
             //   icon: const Icon(Icons.apps),
             // ),
             Tab(
+              key: Key(Keys.profileTeam.myPostsTabProfileTeamScreen),
               icon: const Icon(Icons.format_list_bulleted),
             ),
             Tab(
               icon: const Icon(Icons.place),
             ),
             Tab(
+              key: Key(Keys.profileTeam.myFansTabProfileTeamScreen),
               icon: const Icon(Icons.person_pin_circle_outlined),
             ),
           ],
