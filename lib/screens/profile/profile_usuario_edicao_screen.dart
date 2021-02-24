@@ -1238,7 +1238,8 @@ class _JobHistoryTextFieldTalentState extends State<JobHistoryTextFieldTalent> {
                     ),
                   ),
                   controller: _fromYearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromYear = value,
+                  onChanged: (value) =>
+                      _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].fromYear = int.parse(value),
                 ),
               ),
             ),
@@ -1337,7 +1338,8 @@ class _JobHistoryTextFieldTalentState extends State<JobHistoryTextFieldTalent> {
                     ),
                   ),
                   controller: _toYearsController,
-                  onChanged: (value) => _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toYear = value,
+                  onChanged: (value) =>
+                      _ProfileUsuarioEdicaoScreenState.jobHistoryList[widget.index].toYear = int.parse(value),
                 ),
               ),
             ),

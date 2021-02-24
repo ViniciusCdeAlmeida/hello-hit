@@ -134,12 +134,15 @@ class ProfileTalentEditKey {
 class ProfileTeamEditKey {
   const ProfileTeamEditKey();
   String get locationEditProfileTeamScreen => 'locationEditProfileTeamScreen';
+  String get nameEditProfileTeamScreen => 'nameEditProfileTeamScreen';
   String get bioEditProfileTeamScreen => 'bioEditProfileTeamScreen';
   String get siteEditProfileTeamScreen => 'siteEditProfileTeamScreen';
   String get jobRoleEditProfileTeamScreen => 'jobRoleEditProfileTeamScreen';
   String get jobCompEditProfileTeamScreen => 'jobCompEditProfileTeamScreen';
   String get jobMonthTEditProfileTeamScreen => 'jobMonthTEditProfileTeamScreen';
   String get jobYearTEditProfileTeamScreen => 'jobYearTEditProfileTeamScreen';
+  String get jobMonthFEditProfileTeamScreen => 'jobMonthFEditProfileTeamScreen';
+  String get jobYearFEditProfileTeamScreen => 'jobYearFEditProfileTeamScreen';
   String get jobAddButtonEditProfileTeamScreen => 'jobAddButtonEditProfileTeamScreen';
   String get jobRemoveButtonEditProfileTeamScreen => 'jobRemoveButtonEditProfileTeamScreen';
   String get awardNameEditProfileTeamScreen => 'awardNameEditProfileTeamScreen';

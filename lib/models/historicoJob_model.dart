@@ -5,9 +5,9 @@ part 'historicoJob_model.g.dart';
 @JsonSerializable()
 class HistoricoJob {
   String fromMonth;
-  String fromYear;
+  int fromYear;
   String toMonth;
-  String toYear;
+  int toYear;
   String degree;
   String role;
   String company;
@@ -21,8 +21,7 @@ class HistoricoJob {
     this.company,
   });
 
-  factory HistoricoJob.fromJson(Map<String, dynamic> json) =>
-      _$HistoricoJobFromJson(json);
+  factory HistoricoJob.fromJson(Map<String, dynamic> json) => _$HistoricoJobFromJson(json);
 
   Map<String, dynamic> toJson() => _$HistoricoJobToJson(this);
 }

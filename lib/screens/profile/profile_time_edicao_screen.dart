@@ -386,6 +386,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: TextField(
+                                        key: Key(Keys.profileTeamEdit.nameEditProfileTeamScreen),
                                         cursorColor: Color(0xFFE0651F),
                                         style: TextStyle(
                                           fontSize: 15,
@@ -409,7 +410,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                               'We\'re big on real names araound here, so people know who\'s who',
                                           helperMaxLines: 2,
                                           contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                                          labelText: "Team Name",
+                                          labelText: 'Team Name',
                                           labelStyle: TextStyle(color: Color(0xFFE0651F)),
                                           hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                           border: OutlineInputBorder(
@@ -423,6 +424,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: TextField(
+                                        key: Key(Keys.profileTeamEdit.locationEditProfileTeamScreen),
                                         cursorColor: Color(0xFFE0651F),
                                         style: TextStyle(
                                           fontSize: 15,
@@ -443,7 +445,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                             ),
                                           ),
                                           contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                                          labelText: "Location",
+                                          labelText: 'Location',
                                           labelStyle: TextStyle(color: Color(0xFFE0651F)),
                                           hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                           border: OutlineInputBorder(
@@ -457,6 +459,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: TextField(
+                                        key: Key(Keys.profileTeamEdit.siteEditProfileTeamScreen),
                                         cursorColor: Color(0xFFE0651F),
                                         style: TextStyle(
                                           fontSize: 15,
@@ -477,7 +480,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                             ),
                                           ),
                                           contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                                          labelText: "Personal website (optional)",
+                                          labelText: 'Personal website (optional)',
                                           labelStyle: TextStyle(color: Color(0xFFE0651F)),
                                           hintStyle: TextStyle(color: Color(0xFFE0651F)),
                                           border: OutlineInputBorder(
@@ -493,6 +496,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                         vertical: 8.0,
                                       ),
                                       child: TextField(
+                                        key: Key(Keys.profileTeamEdit.bioEditProfileTeamScreen),
                                         cursorColor: Color(0xFFE0651F),
                                         style: TextStyle(
                                           fontSize: 15,
@@ -554,7 +558,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(
                                         top: 20.0,
-                                        bottom: 10.0,
+                                        bottom: 00.0,
                                       ),
                                       child: Text(
                                         'Add awards that your team has won or participated in',
@@ -568,24 +572,6 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                   ],
                                 ),
                                 ..._getAwards(),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(
-                                //     top: 20.0,
-                                //     bottom: 10.0,
-                                //   ),
-                                //   child: Text(
-                                //     'Skills',
-                                //     style: TextStyle(
-                                //       fontWeight: FontWeight.bold,
-                                //       color: Colors.grey,
-                                //       fontSize: 22,
-                                //     ),
-                                //   ),
-                                // ),
-                                // Divider(
-                                //   color: Colors.grey,
-                                // ),
-                                // ..._getSkills(),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                     top: 20.0,
@@ -705,6 +691,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                       children: [
                                         Observer(
                                           builder: (_) => Checkbox(
+                                            key: Key(Keys.profileTeamEdit.workFulltimeEditProfileTeamScreen),
                                             value: _profileStore.fulltime,
                                             onChanged: (value) {
                                               _profileStore.fulltime = value;
@@ -724,6 +711,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                       children: [
                                         Observer(
                                           builder: (_) => Checkbox(
+                                            key: Key(Keys.profileTeamEdit.workFreelanceEditProfileTeamScreen),
                                             value: _profileStore.freelance,
                                             onChanged: (value) {
                                               _profileStore.freelance = value;
@@ -743,6 +731,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                       children: [
                                         Observer(
                                           builder: (_) => Checkbox(
+                                            key: Key(Keys.profileTeamEdit.workSponsEditProfileTeamScreen),
                                             value: _profileStore.beSponsored,
                                             onChanged: (value) {
                                               _profileStore.beSponsored = value;
@@ -764,6 +753,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
                                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                                   child: Center(
                                     child: FlatButton(
+                                      key: Key(Keys.profileTeamEdit.saveEditProfileTeamScreen),
                                       minWidth: 250,
                                       color: Color(0xFFE0651F),
                                       onPressed: _saveForm,
@@ -814,6 +804,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
   /// add / remove button
   Widget _addRemoveButtonAward(bool add, int index) {
     return InkWell(
+      key: Key(Keys.profileTeamEdit.awardAddButtonEditProfileTeamScreen),
       onTap: () {
         if (add) {
           awardList.insert(0, Premio());
@@ -858,6 +849,7 @@ class _ProfileTimeEdicaoScreenState extends State<ProfileTimeEdicaoScreen> {
   /// add / remove button
   Widget _addRemoveButtonJobHistory(bool add, int index) {
     return InkWell(
+      key: Key(Keys.profileTeamEdit.jobAddButtonEditProfileTeamScreen),
       onTap: () {
         if (add) {
           jobHistoryList.insert(0, HistoricoJob());
@@ -971,6 +963,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            key: Key('${Keys.profileTeamEdit.awardNameEditProfileTeamScreen}_${widget.index}'),
             cursorColor: Color(0xFFE0651F),
             style: TextStyle(
               fontSize: 15,
@@ -991,7 +984,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
                 ),
               ),
               contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              labelText: "Award Name",
+              labelText: 'Award Name',
               labelStyle: TextStyle(color: Color(0xFFE0651F)),
               hintStyle: TextStyle(color: Color(0xFFE0651F)),
               border: OutlineInputBorder(
@@ -1005,6 +998,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
         Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
           child: TextField(
+            key: Key('${Keys.profileTeamEdit.awardDescEditProfileTeamScreen}_${widget.index}'),
             cursorColor: Color(0xFFE0651F),
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
@@ -1026,7 +1020,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
                 ),
               ),
               contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              labelText: "Description",
+              labelText: 'Description',
               labelStyle: TextStyle(color: Color(0xFFE0651F)),
               hintStyle: TextStyle(color: Color(0xFFE0651F)),
               border: OutlineInputBorder(
@@ -1046,6 +1040,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: TextField(
+                    key: Key('${Keys.profileTeamEdit.awardMonthEditProfileTeamScreen}_${widget.index}'),
                     cursorColor: Color(0xFFE0651F),
                     keyboardType: TextInputType.numberWithOptions(
                       signed: false,
@@ -1073,7 +1068,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
                         ),
                       ),
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      labelText: "Month",
+                      labelText: 'Month',
                       labelStyle: TextStyle(color: Color(0xFFE0651F)),
                       hintStyle: TextStyle(color: Color(0xFFE0651F)),
                       border: OutlineInputBorder(
@@ -1081,7 +1076,8 @@ class _AwardTextFieldState extends State<AwardTextField> {
                       ),
                     ),
                     controller: _monthController,
-                    onChanged: (value) => _ProfileTimeEdicaoScreenState.awardList[widget.index].month = value,
+                    onChanged: (value) =>
+                        _ProfileTimeEdicaoScreenState.awardList[widget.index].month = value.toString(),
                   ),
                 ),
               ),
@@ -1091,6 +1087,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextField(
+                  key: Key('${Keys.profileTeamEdit.awardYearEditProfileTeamScreen}_${widget.index}'),
                   cursorColor: Color(0xFFE0651F),
                   keyboardType: TextInputType.numberWithOptions(
                     signed: false,
@@ -1118,7 +1115,7 @@ class _AwardTextFieldState extends State<AwardTextField> {
                       ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                    labelText: "Year",
+                    labelText: 'Year',
                     labelStyle: TextStyle(color: Color(0xFFE0651F)),
                     hintStyle: TextStyle(color: Color(0xFFE0651F)),
                     border: OutlineInputBorder(
@@ -1181,10 +1178,15 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _roleController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].role ?? '';
       _companyController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].company ?? '';
-      _toYearsController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toYear ?? '';
+      _toYearsController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toYear == null
+          ? ''
+          : _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toYear.toString();
       _toMonthController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toMonth ?? '';
       _fromMonthController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromMonth ?? '';
-      _fromYearsController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromYear ?? '';
+      _fromYearsController.text = _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromYear == null
+          ? ''
+          : _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromYear.toString();
+      ;
     });
 
     return Column(
@@ -1192,6 +1194,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: TextField(
+            key: Key('${Keys.profileTeamEdit.jobRoleEditProfileTeamScreen}_${widget.index}'),
             cursorColor: Color(0xFFE0651F),
             style: TextStyle(
               fontSize: 15,
@@ -1212,7 +1215,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                 ),
               ),
               contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              labelText: "Role",
+              labelText: 'Role',
               labelStyle: TextStyle(color: Color(0xFFE0651F)),
               hintStyle: TextStyle(color: Color(0xFFE0651F)),
               border: OutlineInputBorder(
@@ -1226,6 +1229,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
         Padding(
           padding: const EdgeInsets.only(bottom: 10.0),
           child: TextField(
+            key: Key('${Keys.profileTeamEdit.jobCompEditProfileTeamScreen}_${widget.index}'),
             cursorColor: Color(0xFFE0651F),
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
@@ -1247,7 +1251,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                 ),
               ),
               contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              labelText: "Company",
+              labelText: 'Company',
               labelStyle: TextStyle(color: Color(0xFFE0651F)),
               hintStyle: TextStyle(color: Color(0xFFE0651F)),
               border: OutlineInputBorder(
@@ -1271,6 +1275,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: TextField(
+                    key: Key('${Keys.profileTeamEdit.jobMonthTEditProfileTeamScreen}_${widget.index}'),
                     cursorColor: Color(0xFFE0651F),
                     keyboardType: TextInputType.numberWithOptions(
                       signed: false,
@@ -1298,7 +1303,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                         ),
                       ),
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      labelText: "Month",
+                      labelText: 'Month',
                       labelStyle: TextStyle(color: Color(0xFFE0651F)),
                       hintStyle: TextStyle(color: Color(0xFFE0651F)),
                       border: OutlineInputBorder(
@@ -1316,6 +1321,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextField(
+                  key: Key('${Keys.profileTeamEdit.jobYearTEditProfileTeamScreen}_${widget.index}'),
                   cursorColor: Color(0xFFE0651F),
                   keyboardType: TextInputType.numberWithOptions(
                     signed: false,
@@ -1343,7 +1349,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                       ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                    labelText: "Years",
+                    labelText: 'Years',
                     labelStyle: TextStyle(color: Color(0xFFE0651F)),
                     hintStyle: TextStyle(color: Color(0xFFE0651F)),
                     border: OutlineInputBorder(
@@ -1351,7 +1357,8 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                     ),
                   ),
                   controller: _fromYearsController,
-                  onChanged: (value) => _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromYear = value,
+                  onChanged: (value) =>
+                      _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].fromYear = int.parse(value),
                 ),
               ),
             ),
@@ -1370,6 +1377,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: TextField(
+                    key: Key('${Keys.profileTeamEdit.jobMonthFEditProfileTeamScreen}_${widget.index}'),
                     cursorColor: Color(0xFFE0651F),
                     keyboardType: TextInputType.numberWithOptions(
                       signed: false,
@@ -1397,7 +1405,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                         ),
                       ),
                       contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      labelText: "Month",
+                      labelText: 'Month',
                       labelStyle: TextStyle(color: Color(0xFFE0651F)),
                       hintStyle: TextStyle(color: Color(0xFFE0651F)),
                       border: OutlineInputBorder(
@@ -1415,6 +1423,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextField(
+                  key: Key('${Keys.profileTeamEdit.jobYearFEditProfileTeamScreen}_${widget.index}'),
                   cursorColor: Color(0xFFE0651F),
                   keyboardType: TextInputType.numberWithOptions(
                     signed: false,
@@ -1442,7 +1451,7 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                       ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                    labelText: "Years",
+                    labelText: 'Years',
                     labelStyle: TextStyle(color: Color(0xFFE0651F)),
                     hintStyle: TextStyle(color: Color(0xFFE0651F)),
                     border: OutlineInputBorder(
@@ -1450,7 +1459,8 @@ class _JobHistoryTextFieldState extends State<JobHistoryTextField> {
                     ),
                   ),
                   controller: _toYearsController,
-                  onChanged: (value) => _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toYear = value,
+                  onChanged: (value) =>
+                      _ProfileTimeEdicaoScreenState.jobHistoryList[widget.index].toYear = int.parse(value),
                 ),
               ),
             ),
@@ -1520,7 +1530,7 @@ class _SkillsTextFieldState extends State<SkillsTextField> {
                 ),
               ),
               contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-              labelText: "Skill",
+              labelText: 'Skill',
               labelStyle: TextStyle(color: Color(0xFFE0651F)),
               hintStyle: TextStyle(color: Color(0xFFE0651F)),
               border: OutlineInputBorder(
@@ -1565,7 +1575,7 @@ class _SkillsTextFieldState extends State<SkillsTextField> {
                       ),
                     ),
                     contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                    labelText: "Years",
+                    labelText: 'Years',
                     labelStyle: TextStyle(color: Color(0xFFE0651F)),
                     hintStyle: TextStyle(color: Color(0xFFE0651F)),
                     border: OutlineInputBorder(
