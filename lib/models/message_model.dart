@@ -6,20 +6,20 @@ part 'message_model.g.dart';
 
 @JsonSerializable()
 class Message {
+  @JsonKey(name: '_id')
   String id;
-  Usuario usuario;
-  Conversation conversation;
+  String author;
+  String conversation;
   String text;
 
   Message({
     this.id,
-    this.usuario,
+    this.author,
     this.conversation,
     this.text,
   });
 
-  factory Message.fromJson(Map<String, dynamic> json) =>
-      _$MessageFromJson(json);
+  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
 
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }

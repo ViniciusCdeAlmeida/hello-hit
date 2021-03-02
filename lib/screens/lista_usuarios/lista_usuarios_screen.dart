@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hellohit/service/controllers/chat_controller.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -63,12 +65,16 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                 backgroundImage: _usuarios[idx].avatar == null
                                     ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                     : NetworkImage(
-                                        _usuarios[idx].avatar['url'],
+                                        _usuarios[idx]
+                                            .avatar['url']
+                                            .toString()
+                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .toString(),
                                       ),
                               ),
                               onTap: () {
                                 Socket socket = io(
-                                    'http://developer.api.hellohit.co',
+                                    DotEnv.env['API_URL'],
                                     OptionBuilder()
                                         .setTransports(['websocket']) // for Flutter or Dart VM
                                         .disableAutoConnect() // disable auto-connection
@@ -86,7 +92,10 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                 /* Redirecionar para a tela de chat */
                                 Navigator.of(context).pushNamed(
                                   ChatScreen.routeName,
-                                  arguments: _usuarios[idx].username,
+                                  arguments: {
+                                    'username': _usuarios[idx].username,
+                                    'idReceiver': _autenticacaoStore.usuarioLogado.id,
+                                  },
                                 );
                                 // print(
                                 //   'Criador: ' +

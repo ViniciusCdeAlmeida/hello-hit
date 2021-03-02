@@ -41,7 +41,7 @@ class _ProfileUsuarioScreenState extends State<ProfileUsuarioScreen> {
             case ProfileState.carregado:
               return Center(
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 1.03,
+                  // width: MediaQuery.of(context).size.width / 1.03,
                   child: CustomScrollView(
                     shrinkWrap: true,
                     slivers: <Widget>[

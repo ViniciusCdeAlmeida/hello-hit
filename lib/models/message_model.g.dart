@@ -8,20 +8,16 @@ part of 'message_model.dart';
 
 Message _$MessageFromJson(Map<String, dynamic> json) {
   return Message(
-    id: json['id'] as String,
-    usuario: json['usuario'] == null
-        ? null
-        : Usuario.fromJson(json['usuario'] as Map<String, dynamic>),
-    conversation: json['conversation'] == null
-        ? null
-        : Conversation.fromJson(json['conversation'] as Map<String, dynamic>),
+    id: json['_id'] as String,
+    author: json['author'] as String,
+    conversation: json['conversation'] as String,
     text: json['text'] as String,
   );
 }
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'id': instance.id,
-      'usuario': instance.usuario,
+      '_id': instance.id,
+      'author': instance.author,
       'conversation': instance.conversation,
       'text': instance.text,
     };

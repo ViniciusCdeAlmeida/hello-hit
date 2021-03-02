@@ -1,3 +1,5 @@
+import 'package:hellohit/service/controllers/chat_controller.dart';
+import 'package:hellohit/service/stores/chat_store.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -33,10 +35,18 @@ List<SingleChildWidget> providers() => [
         create: (ctx) => PostagemController(),
       ),
       Provider(
+        create: (ctx) => ChatController(),
+      ),
+      Provider(
         create: (ctx) => TimeController(),
       ),
       Provider(
         create: (ctx) => EdicaoProfileStore(),
+      ),
+      Provider(
+        create: (ctx) => ChatStore(
+          ChatController(),
+        ),
       ),
       Provider(
         create: (ctx) => MarketplaceStore(

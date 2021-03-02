@@ -3,6 +3,8 @@ import 'package:hellohit/models/post_model.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/service/controllers/chat_controller.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +99,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                           : Image.network(
                               widget.usuario.user.avatarUrl
                                   .toString()
-                                  .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                  .replaceAll(RegExp(r'localhost'), '192.168.159.130')
                                   .toString(),
                               height: 120,
                               width: 130,
@@ -182,28 +184,13 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
             ),
             GestureDetector(
               key: Key(Keys.profileTeam.inboxProfileTeamScreen),
-              onTap: () {
-                Socket socket = io(
-                    'http://developer.api.hellohit.co',
-                    OptionBuilder()
-                        .setTransports(['websocket']) // for Flutter or Dart VM
-                        .disableAutoConnect() // disable auto-connection
-                        .setExtraHeaders({'foo': 'bar'}) // optional
-                        .build());
-                socket.connect();
-
-                var conversation = {
-                  "receiver": widget.usuario.user.id,
-                  "sender": _autenticacaoStore.usuarioLogado.id,
-                };
-
-                socket.emit('new_chat', conversation);
-
-                Navigator.of(context).pushNamed(
-                  ChatScreen.routeName,
-                  arguments: widget.usuario.user.username,
-                );
-              },
+              onTap: () => Navigator.of(context).pushNamed(
+                ChatScreen.routeName,
+                arguments: {
+                  'username': widget.usuario.user.username,
+                  'idReceiver': widget.usuario.user.id,
+                },
+              ),
               child: IconRow(
                 icon: Icons.question_answer,
                 width: 38,
@@ -434,7 +421,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                                     AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
                                 // backgroundImage: NetworkImage(memberProfile.avatar['url']
                                 //     .toString()
-                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                //     .replaceAll(RegExp(r'localhost'), '192.168.159.130')
                                 //     .toString()),
                               ),
                             if (award.awardName != null)
@@ -502,7 +489,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                         backgroundColor: Colors.transparent,
                         backgroundImage: NetworkImage(memberProfile.avatar['url']
                             .toString()
-                            .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
                             .toString()),
                       )),
                 )

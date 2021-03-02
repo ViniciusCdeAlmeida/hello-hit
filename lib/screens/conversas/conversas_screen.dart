@@ -101,17 +101,45 @@ class _ConversasScreenState extends State<ConversasScreen> {
                                 backgroundImage: _conversations[idx].receiver.avatar == null
                                     ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
                                     : NetworkImage(
-                                        _conversations[idx].receiver.avatar['url'],
+                                        _conversations[idx]
+                                            .receiver
+                                            .avatar['url']
+                                            .toString()
+                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .toString(),
                                       ),
                               ),
                               onTap: () {
-                                Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: {
-                                  _conversations[idx].receiver.username,
-                                  _conversations[idx].id,
-                                }
-                                    //_conversations[idx].receiver.username,
-                                    //_conversations[idx],
-                                    );
+                                Map args = {
+                                  'username': _conversations[idx].receiver.username,
+                                  'idReceiver': _conversations[idx].receiver.id,
+                                  'idConversation': _conversations[idx].id
+                                };
+                                Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: args);
+                              },
+                            )
+                          else
+                            ListTile(
+                              title: Text(_conversations[idx].sender.username),
+                              leading: CircleAvatar(
+                                backgroundImage: _conversations[idx].sender.avatar == null
+                                    ? AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png')
+                                    : NetworkImage(
+                                        _conversations[idx]
+                                            .sender
+                                            .avatar['url']
+                                            .toString()
+                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .toString(),
+                                      ),
+                              ),
+                              onTap: () {
+                                Map args = {
+                                  'username': _conversations[idx].sender.username,
+                                  'idReceiver': _conversations[idx].sender.id,
+                                  'idConversation': _conversations[idx].id
+                                };
+                                Navigator.of(context).pushNamed(ChatScreen.routeName, arguments: args);
                               },
                             ),
                         ],

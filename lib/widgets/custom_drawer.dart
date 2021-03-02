@@ -92,7 +92,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ? NetworkImage(
                                       widget.usuario.avatar
                                           .toString()
-                                          .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                          .replaceAll(RegExp(r'localhost'), '192.168.159.130')
                                           .toString(),
                                     )
                                   : AssetImage(
@@ -153,7 +153,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               childrenDelegate: SliverChildListDelegate([
                                 GestureDetector(
                                   key: Key(Keys.drawer.bookmarksDrawer),
-                                  onTap: () {},
+                                  onTap: () => Navigator.of(context).pushNamed(ConversasScreen.routeName),
                                   child: Container(
                                     height: 50,
                                     width: 100,

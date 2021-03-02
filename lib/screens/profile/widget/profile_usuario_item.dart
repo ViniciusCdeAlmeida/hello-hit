@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/profile_model.dart';
 import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
+import 'package:hellohit/service/controllers/chat_controller.dart';
 import 'package:hellohit/service/stores/autenticacao_store.dart';
+import 'package:hellohit/service/stores/chat_store.dart';
 import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
@@ -10,6 +12,7 @@ import 'package:hellohit/utils/keys.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 class ProfileUsuarioItem extends StatefulWidget {
   final Profile usuario;
@@ -23,11 +26,13 @@ class ProfileUsuarioItem extends StatefulWidget {
 class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTickerProviderStateMixin {
   ProfileStore _profileStore;
   AutenticacaoStore _autenticacaoStore;
+  ChatStore _chatStore;
   TabController _tabController;
   @override
   void didChangeDependencies() {
     _profileStore = Provider.of<ProfileStore>(context, listen: false);
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context, listen: false);
+    _chatStore = Provider.of<ChatStore>(context, listen: false);
 
     super.didChangeDependencies();
   }
@@ -138,28 +143,13 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
               ),
             ),
             GestureDetector(
-              onTap: () {
-                Socket socket = io(
-                    'http://developer.api.hellohit.co',
-                    OptionBuilder()
-                        .setTransports(['websocket']) // for Flutter or Dart VM
-                        .disableAutoConnect() // disable auto-connection
-                        .setExtraHeaders({'foo': 'bar'}) // optional
-                        .build());
-                socket.connect();
-
-                var conversation = {
-                  "receiver": widget.usuario.user.id,
-                  "sender": _autenticacaoStore.usuarioLogado.id,
-                };
-
-                socket.emit('new_chat', conversation);
-
-                return Navigator.of(context).popAndPushNamed(
-                  ChatScreen.routeName,
-                  arguments: userName,
-                );
-              },
+              onTap: () => Navigator.of(context).pushNamed(
+                ChatScreen.routeName,
+                arguments: {
+                  'username': widget.usuario.user.username,
+                  'idReceiver': _autenticacaoStore.usuarioLogado.id,
+                },
+              ),
               child: IconRow(
                 icon: Icons.question_answer,
                 width: 38,
@@ -353,7 +343,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
         //                           AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
         //                       // backgroundImage: NetworkImage(memberProfile.avatar['url']
         //                       //     .toString()
-        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.159.130')
         //                       //     .toString()),
         //                     ),
         //                     Text(

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 import 'package:hellohit/models/index_models.dart';
 
@@ -10,7 +11,7 @@ void getToken(String token) {
 
 Dio getConexaoPrefs() {
   Dio dio = Dio()
-    ..options.baseUrl = "http://192.168.15.8:3000/"
+    ..options.baseUrl = DotEnv.env['API_URL']
     // ..options.baseUrl = "http://api.rancher.hellohit.co/"
     ..options.headers['Authorization'] = 'Bearer $_token';
   return dio;
@@ -72,6 +73,10 @@ class Endpoint {
   static Future getPost(String id) async => await getConexaoPrefs().get('posts/$id');
 
   static Future getChatsUsers() async => await getConexaoPrefs().get('/chats/user');
+
+  static Future getMessagesByChat(String id) async => await getConexaoPrefs().get('/chats/messages/$id');
+
+  static Future postChatRoom(Map data) async => await getConexaoPrefs().post('/chats/conversation', data: data);
 
   static Future getTeams() async => await getConexaoPrefs().get('profilesTeam');
 

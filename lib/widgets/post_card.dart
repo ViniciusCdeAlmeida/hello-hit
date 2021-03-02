@@ -116,7 +116,7 @@ class _PostCardState extends State<PostCard> {
                             : NetworkImage(
                                 widget.post.user.avatar['url']
                                     .toString()
-                                    .replaceAll(RegExp(r'localhost'), '192.168.15.8')
+                                    .replaceAll(RegExp(r'localhost'), '192.168.159.130')
                                     .toString(),
                               ),
                       ),
@@ -230,7 +230,7 @@ class _PostCardState extends State<PostCard> {
             width: MediaQuery.of(context).size.width,
             child: ClipRRect(
               child: Image.network(
-                widget.post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.8').toString(),
+                widget.post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.159.130').toString(),
                 fit: BoxFit.fill,
                 cacheHeight: 1080,
                 cacheWidth: 1080,

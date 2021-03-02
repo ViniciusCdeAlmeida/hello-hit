@@ -1,0 +1,37 @@
+environment_config:
+  path: env_config.dart
+  fields:
+    API_URL:
+      env_var: API_URL
+      dotenv: true
+      config_field: false  
+    ENV:
+      env_var: APP_ENV
+      dotenv: true
+      config_field: false  
+  extensions:
+    local:
+      fields:
+        ENV:
+          env_var: APP_ENV
+          default: 'Local'
+        API_URL:
+          env_var: API_URL
+          default: ''
+    dev:
+      fields:
+        ENV:
+          env_var: APP_ENV
+          default: 'Development'
+        API_URL:
+          env_var: API_URL
+          default: ''
+    prod:
+      fields:
+        ENV:
+          env_var: APP_ENV
+          default: 'Production'
+        API_URL:
+          env_var: API_URL
+          default: ''
+

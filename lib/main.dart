@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:hellohit/screens/splash/base_screen.dart';
 import 'package:hellohit/utils/providers.dart';
 import 'package:hellohit/utils/rotas.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 // import 'package:path_provider/path_provider.dart' as syspath;
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
   // var path1 = syspath.StorageDirectory.pictures.toString();
   // var path2 = syspath.StorageDirectory.pictures;
   // var path3 = syspath.getApplicationDocumentsDirectory();
@@ -17,16 +17,8 @@ Future<void> main() async {
   // Directory dic;
   // final myImgDir = await Directory(myImagePath).create();
   // print('object');
-  // Socket socket = io(
-  //     'http://3.16.49.191:3000',
-  //     OptionBuilder()
-  //         .setTransports(['websocket']) // for Flutter or Dart VM
-  //         .disableAutoConnect() // disable auto-connection
-  //         .setExtraHeaders({'foo': 'bar'}) // optional
-  //         .build());
-  // socket.connect();
 
-// await DotEnv.load(fileName: '.env');
+  await DotEnv.load(fileName: '.env');
   // openBox();
   runApp(MyApp());
 }
