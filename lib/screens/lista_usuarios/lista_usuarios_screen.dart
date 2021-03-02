@@ -21,11 +21,6 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
   String idArgs;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     _autenticacaoStore = Provider.of<AutenticacaoStore>(context);
     _usuarios = _autenticacaoStore.usuarios;
@@ -37,6 +32,7 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
       body: ListView(
         children: [
           Observer(
+            // ignore: missing_return
             builder: (_) {
               switch (_autenticacaoStore.autenticacaoState) {
                 case AutenticacaoState.inicial:
@@ -72,39 +68,13 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                             .toString(),
                                       ),
                               ),
-                              onTap: () {
-                                Socket socket = io(
-                                    DotEnv.env['API_URL'],
-                                    OptionBuilder()
-                                        .setTransports(['websocket']) // for Flutter or Dart VM
-                                        .disableAutoConnect() // disable auto-connection
-                                        .setExtraHeaders({'foo': 'bar'}) // optional
-                                        .build());
-                                socket.connect();
-
-                                var conversation = {
-                                  "receiver": _usuarios[idx].id,
-                                  "sender": _autenticacaoStore.usuarioLogado.id,
-                                };
-
-                                socket.emit('new_chat', conversation);
-
-                                /* Redirecionar para a tela de chat */
-                                Navigator.of(context).pushNamed(
-                                  ChatScreen.routeName,
-                                  arguments: {
-                                    'username': _usuarios[idx].username,
-                                    'idReceiver': _autenticacaoStore.usuarioLogado.id,
-                                  },
-                                );
-                                // print(
-                                //   'Criador: ' +
-                                //       _autenticacaoStore.usuarioLogado.id +
-                                //       '\n' +
-                                //       'Outro Menmbro: ' +
-                                //       _usuarios[idx].id,
-                                // );
-                              },
+                              onTap: () => Navigator.of(context).pushNamed(
+                                ChatScreen.routeName,
+                                arguments: {
+                                  'username': _usuarios[idx].username,
+                                  'idReceiver': _usuarios[idx].id,
+                                },
+                              ),
                             ),
                         ],
                       ),

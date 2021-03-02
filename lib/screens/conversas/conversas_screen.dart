@@ -64,7 +64,6 @@ class _ConversasScreenState extends State<ConversasScreen> {
               color: Colors.white,
               onPressed: () {
                 Navigator.of(context).pushNamed(ListaUsuarios.routeName);
-                //newChat(); /* Chamada! */
               },
             ),
           ],
@@ -73,6 +72,7 @@ class _ConversasScreenState extends State<ConversasScreen> {
       body: ListView(
         children: [
           Observer(
+            // ignore: missing_return
             builder: (_) {
               switch (_autenticacaoStore.autenticacaoState) {
                 case AutenticacaoState.inicial:

@@ -85,7 +85,7 @@ abstract class _ChatStore with Store {
 
   void saiSala() {
     _chatController.disconnectRoom(socket: _socket);
-    _subscriber.cancel();
+    _subscriber?.cancel();
     _messageReceived.clear();
     _messageSend.clear();
   }
