@@ -31,8 +31,8 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
         ? null
         : Categoria.fromJson(json['categoria'] as Map<String, dynamic>),
     avatarUrl: json['avatarUrl'] as String,
-    bookmarkedPosts: json['bookmarkedPosts'] as List,
-    bookmarkedPostsCount: json['bookmarkedPostsCount'] as int,
+    bookmarkPosts: json['bookmarkPosts'] as List,
+    bookmarkedPostsCounts: json['bookmarkedPostsCounts'] as int,
   );
 }
 
@@ -54,6 +54,6 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'existeCategoria': instance.existeCategoria,
       'categoria': instance.categoria,
       'avatarUrl': instance.avatarUrl,
-      'bookmarkedPosts': instance.bookmarkedPosts,
-      'bookmarkedPostsCount': instance.bookmarkedPostsCount,
+      'bookmarkPosts': instance.bookmarkPosts,
+      'bookmarkedPostsCounts': instance.bookmarkedPostsCounts,
     };

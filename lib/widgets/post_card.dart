@@ -83,7 +83,11 @@ class _PostCardState extends State<PostCard> {
   }
 
   Future<void> makeBookmarkPost() async {
-    _postStore.makeBookmarkPost(widget.post.id);
+    _postStore.makeBookmarkPost(widget.post.id).catchError((erro) {
+      setState(() {
+        _autenticacaoStore.usuarioLogado.bookmarkedPostsCounts -= 1;
+      });
+    });
   }
 
   @override
@@ -324,24 +328,25 @@ class _PostCardState extends State<PostCard> {
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
                   child: IconButton(
-                    icon: Icon(Icons.bookmark_border),
+                    icon: _autenticacaoStore.usuarioLogado.bookmarkPosts.contains(widget.post.id)
+                        ? Icon(Icons.bookmark)
+                        : Icon(Icons.bookmark_border),
                     key: Key('${Keys.feedScreen.makeBookmarkFeedScreen}_${widget.post.id}'),
                     onPressed: () {
                       setState(() {
-                        if (widget.post.user.id != _autenticacaoStore.usuarioLogado.id) {
-                          // if (widget.post.hits.contains(_autenticacaoStore.usuarioLogado.id)) {
-                          //   widget.post.hitCount -= 1;
-                          //   widget.post.hits.removeWhere((element) => element == _autenticacaoStore.usuarioLogado.id);
-                          //   var snackBar = SnackBar(content: Text('You removed your hit.'));
-                          //   Scaffold.of(context).showSnackBar(snackBar);
-                          // } else {
-                          //   widget.post.hitCount += 1;
-                          //   widget.post.hits.insert(0, _autenticacaoStore.usuarioLogado.id);
-                          //   var snackBar = SnackBar(
-                          //       content: Text(
-                          //           'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.fullName : widget.post.user.username}'));
-                          //   Scaffold.of(context).showSnackBar(snackBar);
-                          // }
+                        if (widget.post.id != _autenticacaoStore.usuarioLogado.id) {
+                          if (_autenticacaoStore.usuarioLogado.bookmarkPosts.contains(widget.post.id)) {
+                            _autenticacaoStore.usuarioLogado.bookmarkedPostsCounts -= 1;
+                            _autenticacaoStore.usuarioLogado.bookmarkPosts
+                                .removeWhere((element) => element == widget.post.id);
+                            var snackBar = SnackBar(content: Text('You removed this post from your bookmark.'));
+                            Scaffold.of(context).showSnackBar(snackBar);
+                          } else {
+                            _autenticacaoStore.usuarioLogado.bookmarkedPostsCounts -= 1;
+                            _autenticacaoStore.usuarioLogado.bookmarkPosts.insert(0, widget.post.id);
+                            var snackBar = SnackBar(content: Text('You added this post to your bookmark.'));
+                            Scaffold.of(context).showSnackBar(snackBar);
+                          }
                           makeBookmarkPost();
                         } else {
                           var snackBar = SnackBar(

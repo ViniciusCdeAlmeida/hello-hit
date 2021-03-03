@@ -129,6 +129,15 @@ mixin _$PostagemStore on _PostagemStore, Store {
     return _$makeHitPostAsyncAction.run(() => super.makeHitPost(idPerfil));
   }
 
+  final _$makeBookmarkPostAsyncAction =
+      AsyncAction('_PostagemStore.makeBookmarkPost');
+
+  @override
+  Future<void> makeBookmarkPost(String idPerfil) {
+    return _$makeBookmarkPostAsyncAction
+        .run(() => super.makeBookmarkPost(idPerfil));
+  }
+
   final _$_PostagemStoreActionController =
       ActionController(name: '_PostagemStore');
 
