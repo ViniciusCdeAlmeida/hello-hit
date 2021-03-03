@@ -24,6 +24,8 @@ class Usuario {
   bool existeCategoria;
   Categoria categoria;
   String avatarUrl;
+  List bookmarkedPosts;
+  int bookmarkedPostsCount;
 
   Usuario({
     this.id,
@@ -43,6 +45,8 @@ class Usuario {
     this.existeCategoria,
     this.categoria,
     this.avatarUrl,
+    this.bookmarkedPosts,
+    this.bookmarkedPostsCount,
   });
 
   factory Usuario.fromJson(Map<String, dynamic> json) => _$UsuarioFromJson(json);

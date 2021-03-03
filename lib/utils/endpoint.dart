@@ -70,6 +70,9 @@ class Endpoint {
   // static Future getPosts() async => await getConexaoPrefs().get('posts');
   static Future getPosts(int page, int limit) async => await getConexaoPrefs().get('posts?page=$page&limit=$limit');
 
+  static Future getPostsBookmark(int page, int limit, String id) async =>
+      await getConexaoPrefs().get('users/$id/bookmark?page=$page&limit=$limit');
+
   static Future getPost(String id) async => await getConexaoPrefs().get('posts/$id');
 
   static Future getChatsUsers() async => await getConexaoPrefs().get('/chats/user');
@@ -111,6 +114,8 @@ class Endpoint {
       await getConexaoPrefs().patch('profiles/hit/$idUsuario');
 
   static Future patchHitPost(String idPerfil) async => await getConexaoPrefs().patch('posts/hit/$idPerfil');
+
+  static Future patchBookmarkPost(String idPerfil) async => await getConexaoPrefs().patch('posts/bookmark/$idPerfil');
 
   static Future getProfileUsuario(String id) async => await getConexaoPrefs().get('profiles/user/$id');
 

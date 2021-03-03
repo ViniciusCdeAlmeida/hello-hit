@@ -153,11 +153,11 @@ Future<void> registerPage() async {
     });
     test('Register Successful', () async {
       await driver.tap(nameField);
-      await driver.enterText('FF');
+      await driver.enterText('tester');
       await driver.tap(emailField);
-      await driver.enterText('FF@u.com');
+      await driver.enterText('tester@tester.com');
       await driver.tap(usernameField);
-      await driver.enterText('FF');
+      await driver.enterText('tester1');
       await driver.tap(usertypeField);
       await driver.tap(find.text('Talent or Fan'));
       await driver.tap(passwordField);

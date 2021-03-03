@@ -13,13 +13,13 @@ Future<void> loginPage() async {
   FlutterDriver driver;
 
   final introScreen = find.byValueKey(Keys.introScreen);
-  final forgotPassButton = find.byValueKey(Keys.loginScreen.forgotPasswordButtonLoginScreen);
-  final resendPassButton = find.byValueKey(Keys.loginScreen.resendEmailButtonLoginScreen);
+  // final forgotPassButton = find.byValueKey(Keys.loginScreen.forgotPasswordButtonLoginScreen);
+  // final resendPassButton = find.byValueKey(Keys.loginScreen.resendEmailButtonLoginScreen);
   final emailField = find.byValueKey(Keys.loginScreen.emailFormScreen);
   final passField = find.byValueKey(Keys.loginScreen.passwordFormScreen);
   final loginButton = find.byValueKey(Keys.loginScreen.loginButtonLoginScreen);
   final okFailButton = find.byValueKey(Keys.erroMenssages.erroUserLogin);
-  final registerButton = find.byValueKey(Keys.loginScreen.registerLoginButtonLoginScreen);
+  final openDrawer = find.byValueKey(Keys.drawer.openDrawer);
 
   setUpAll(() async {
     driver = await FlutterDriver.connect();
@@ -64,10 +64,11 @@ Future<void> loginPage() async {
     });
     test('Login Successful', () async {
       await driver.tap(emailField);
-      await driver.enterText('uu@u.com');
+      await driver.enterText('tester@tester.com');
       await driver.tap(passField);
       await driver.enterText('1234567a-');
       await driver.tap(loginButton);
+      await driver.waitFor(openDrawer);
     });
   });
 }

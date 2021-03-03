@@ -151,4 +151,13 @@ abstract class _PostagemStore with Store {
       throw e;
     }
   }
+
+  @action
+  Future<void> makeBookmarkPost(String idPerfil) async {
+    try {
+      await _postagemController.patchBookmarkPost(idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

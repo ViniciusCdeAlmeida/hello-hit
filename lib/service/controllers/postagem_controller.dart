@@ -40,4 +40,12 @@ class PostagemController {
       throw e;
     }
   }
+
+  Future<void> patchBookmarkPost(String idPerfil) async {
+    try {
+      await Endpoint.patchBookmarkPost(idPerfil);
+    } catch (e) {
+      throw e;
+    }
+  }
 }

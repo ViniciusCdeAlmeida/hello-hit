@@ -98,9 +98,9 @@ abstract class _ChatStore with Store {
       message: message,
       socket: _socket,
     );
-    _messageReceived.add(Message(
-      author: idSender,
-      text: message,
-    ));
+    // _messageReceived.add(Message(
+    //   author: idSender,
+    //   text: message,
+    // ));
   }
 }

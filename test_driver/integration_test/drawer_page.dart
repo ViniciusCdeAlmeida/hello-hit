@@ -56,7 +56,7 @@ Future<void> drawerPage() async {
       sleep(Duration(seconds: 5));
       await driver.tap(introScreen);
       await driver.tap(emailField);
-      await driver.enterText('uu@u.com');
+      await driver.enterText('tester@tester.com');
       await driver.tap(passField);
       await driver.enterText('1234567a-');
       await driver.tap(loginButton);

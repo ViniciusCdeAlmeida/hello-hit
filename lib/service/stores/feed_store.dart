@@ -24,11 +24,25 @@ abstract class _FeedStore with Store {
   ObservableList<Post> _feedObservable = ObservableList<Post>();
 
   @observable
+  ObservableFuture<List<Post>> _feedBookmarkFuture;
+
+  @observable
+  ObservableList<Post> _feedBookmarkObservable = ObservableList<Post>();
+
+  @observable
   List<Post> _feed;
+
+  @observable
+  List<Post> _feedBookmark;
 
   @computed
   List<Post> get feed {
     return _feedObservable;
+  }
+
+  @computed
+  List<Post> get feedBookmark {
+    return _feedBookmarkObservable;
   }
 
   @computed
@@ -43,6 +57,21 @@ abstract class _FeedStore with Store {
     }
 
     if (_feedFuture.status == FutureStatus.fulfilled || _feedFuture.status == FutureStatus.rejected)
+      return FeedState.carregado;
+  }
+
+  @computed
+  // ignore: missing_return
+  FeedState get feedBookmarkState {
+    if ((_feedBookmarkFuture == null)) {
+      return FeedState.inicial;
+    }
+
+    if (_feedBookmarkFuture.status == FutureStatus.pending) {
+      return FeedState.carregando;
+    }
+
+    if (_feedBookmarkFuture.status == FutureStatus.fulfilled || _feedBookmarkFuture.status == FutureStatus.rejected)
       return FeedState.carregado;
   }
 
@@ -74,5 +103,35 @@ abstract class _FeedStore with Store {
   void updateFeed(String id) {
     final idx = _feedObservable.indexWhere((e) => e.id == id);
     _feedObservable.removeAt(idx);
+  }
+
+  @action
+  Future feedBookmarkList(String id) async {
+    var temp;
+    if (_feedBookmarkObservable.length != 0) temp = [..._feedBookmarkObservable];
+    _feedBookmarkObservable.clear();
+    try {
+      _feedBookmarkFuture = ObservableFuture(_feedController.getFeedBookmark(newSearch: true, id: id));
+      _feedBookmarkObservable = (await _feedBookmarkFuture).asObservable();
+    } catch (e) {
+      _feedBookmarkObservable.addAll(temp);
+      throw e;
+    }
+  }
+
+  @action
+  Future feedBookmarkListPagination(String id) async {
+    try {
+      var _tempBookmarkFuture = await _feedController.getFeedBookmark(newSearch: false, id: id);
+      if (_tempBookmarkFuture != null) _feedBookmarkObservable.addAll(_tempBookmarkFuture);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @action
+  void updateFeedBookmark(String id) {
+    final idx = _feedBookmarkObservable.indexWhere((e) => e.id == id);
+    _feedBookmarkObservable.removeAt(idx);
   }
 }

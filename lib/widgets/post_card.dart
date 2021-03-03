@@ -82,6 +82,10 @@ class _PostCardState extends State<PostCard> {
     });
   }
 
+  Future<void> makeBookmarkPost() async {
+    _postStore.makeBookmarkPost(widget.post.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     _postStore = Provider.of<PostagemStore>(context);
@@ -317,13 +321,39 @@ class _PostCardState extends State<PostCard> {
                   ],
                 ),
                 Spacer(),
-                // Padding(
-                //   padding: const EdgeInsets.only(right: 15.0),
-                //   child: Icon(
-                //     Icons.bookmark_border,
-                //     color: Colors.orange,
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: IconButton(
+                    icon: Icon(Icons.bookmark_border),
+                    key: Key('${Keys.feedScreen.makeBookmarkFeedScreen}_${widget.post.id}'),
+                    onPressed: () {
+                      setState(() {
+                        if (widget.post.user.id != _autenticacaoStore.usuarioLogado.id) {
+                          // if (widget.post.hits.contains(_autenticacaoStore.usuarioLogado.id)) {
+                          //   widget.post.hitCount -= 1;
+                          //   widget.post.hits.removeWhere((element) => element == _autenticacaoStore.usuarioLogado.id);
+                          //   var snackBar = SnackBar(content: Text('You removed your hit.'));
+                          //   Scaffold.of(context).showSnackBar(snackBar);
+                          // } else {
+                          //   widget.post.hitCount += 1;
+                          //   widget.post.hits.insert(0, _autenticacaoStore.usuarioLogado.id);
+                          //   var snackBar = SnackBar(
+                          //       content: Text(
+                          //           'Yay! You Hitted ${widget.post.user.username == null ? widget.post.user.fullName : widget.post.user.username}'));
+                          //   Scaffold.of(context).showSnackBar(snackBar);
+                          // }
+                          makeBookmarkPost();
+                        } else {
+                          var snackBar = SnackBar(
+                            content: Text('A post owner cannot bookmark his own post.'),
+                          );
+                          Scaffold.of(context).showSnackBar(snackBar);
+                        }
+                      });
+                    },
+                    color: Colors.orange,
+                  ),
+                ),
               ],
             ),
           ),

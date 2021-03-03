@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hellohit/models/index_models.dart';
+import 'package:hellohit/screens/bookmark/bookmark_screen.dart';
 import 'package:hellohit/screens/index_screens.dart';
 import 'package:hellohit/utils/keys.dart';
 
@@ -153,7 +154,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                               childrenDelegate: SliverChildListDelegate([
                                 GestureDetector(
                                   key: Key(Keys.drawer.bookmarksDrawer),
-                                  onTap: () => Navigator.of(context).pushNamed(ConversasScreen.routeName),
+                                  onTap: () => Navigator.of(context).pushNamed(BookmarkScreen.routeName),
                                   child: Container(
                                     height: 50,
                                     width: 100,

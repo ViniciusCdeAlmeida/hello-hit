@@ -17,8 +17,8 @@ class ChatController {
             .setTransports(
               ['websocket'],
             )
-            .setQuery(query)
             .disableAutoConnect()
+            .setQuery(query)
             .build());
     socket.connect();
     return socket;

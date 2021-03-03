@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/bookmark/bookmark_screen.dart';
 import 'package:hellohit/screens/index_screens.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_pro_item.dart';
 import 'package:hellohit/screens/telas_estaticas/widget/tela_explicacao_talento_screen.dart';
@@ -38,5 +39,6 @@ Map<String, Widget Function(BuildContext)> rotas() {
     ConversasScreen.routeName: (ctx) => ConversasScreen(),
     EscolhaCategoriaScreen.routeName: (ctx) => EscolhaCategoriaScreen(),
     ListaUsuarios.routeName: (ctx) => ListaUsuarios(),
+    BookmarkScreen.routeName: (ctx) => BookmarkScreen(),
   };
 }

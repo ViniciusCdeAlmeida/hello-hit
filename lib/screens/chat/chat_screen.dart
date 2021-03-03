@@ -23,7 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
   String _textMessage;
   Socket socket;
   ChatStore _chatStore;
-  TextEditingController messageController;
+  TextEditingController messageController = TextEditingController();
   final _chatKey = GlobalKey();
   ScrollController _scrollController = ScrollController();
 
@@ -66,7 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
         message: _textMessage,
       );
       _textMessage = null;
-      messageController.clear();
+      messageController.text = '';
     }
   }
 

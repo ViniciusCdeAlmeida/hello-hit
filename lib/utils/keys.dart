@@ -45,6 +45,7 @@ class LoginKey {
 class FeedKey {
   const FeedKey();
   String get drawerFeedScreen => 'drawerFeedScreen';
+  String get makeBookmarkFeedScreen => 'makeBookmarkFeedScreen';
   String get actionsFeedScreen => 'actionsFeedScreen';
   String get editPostFeedScreen => 'editPostFeedScreen';
   String get deletePostFeedScreen => 'deletePostFeedScreen';
