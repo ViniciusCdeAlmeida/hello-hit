@@ -36,80 +36,73 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
     super.didChangeDependencies();
   }
 
-  Future<void> atualizarFeed() async {
-    await _feedStore.feedList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: CustomDrawer(usuario: _usuario),
-      body: RefreshIndicator(
-        onRefresh: atualizarFeed,
-        child: CustomScrollView(
-          // key: Key(Keys.feedScreen.drawerBookmarkScreen),
-          controller: scrollController,
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              backgroundColor: Colors.grey[100],
-              title: Text('Bookmarks'),
-              centerTitle: true,
-              automaticallyImplyLeading: false,
-              leading: IconButton(
-                icon: Icon(
-                  Icons.arrow_back,
-                ),
-                onPressed: () => Navigator.pop(context),
+      body: CustomScrollView(
+        // key: Key(Keys.feedScreen.drawerBookmarkScreen),
+        controller: scrollController,
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.grey[100],
+            title: Text('Bookmarks'),
+            centerTitle: true,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
               ),
-              elevation: 0,
+              onPressed: () => Navigator.pop(context),
             ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  Observer(
-                    // ignore: missing_return
-                    builder: (_) {
-                      switch (_feedStore.feedBookmarkState) {
-                        case FeedState.inicial:
-                          return Container();
-                        case FeedState.carregando:
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                              ),
+            elevation: 0,
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Observer(
+                  // ignore: missing_return
+                  builder: (_) {
+                    switch (_feedStore.feedBookmarkState) {
+                      case FeedState.inicial:
+                        return Container();
+                      case FeedState.carregando:
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.white,
                             ),
-                          );
-                        case FeedState.carregado:
-                          return Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: _feedStore.feedBookmark.length,
-                              itemBuilder: (_, idx) => Column(
-                                children: [
-                                  Observer(
-                                    builder: (_) => PostCard(
-                                      post: _feedStore.feedBookmark[idx],
-                                    ),
+                          ),
+                        );
+                      case FeedState.carregado:
+                        return Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: _feedStore.feedBookmark.length,
+                            itemBuilder: (_, idx) => Column(
+                              children: [
+                                Observer(
+                                  builder: (_) => PostCard(
+                                    post: _feedStore.feedBookmark[idx],
                                   ),
-                                  Divider(),
-                                ],
-                              ),
+                                ),
+                                Divider(),
+                              ],
                             ),
-                          );
-                      }
-                    },
-                  ),
-                ],
-              ),
+                          ),
+                        );
+                    }
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

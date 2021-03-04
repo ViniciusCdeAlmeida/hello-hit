@@ -22,9 +22,9 @@ class Endpoint {
 
   static Future postCadastroUsuario(Cadastro usuario) async => await getConexaoPrefs().post('signup', data: usuario);
 
-  static Future getPostId(String id) async {
-    await getConexaoPrefs().get('posts/$id');
-  }
+  static Future getExistsUsername(String usuario) async => await getConexaoPrefs().get('users/verifyUsername/$usuario');
+
+  static Future getPostId(String id) async => await getConexaoPrefs().get('posts/$id');
 
   static Future getMessages() async => await getConexaoPrefs().get('users');
 
@@ -53,17 +53,15 @@ class Endpoint {
 
   static Future getCategorias() async => await getConexaoPrefs().get('categories?page=1&limit=1000');
 
-  static Future patchCategoriaUsuario(String id) async {
-    await getConexaoPrefs().patch('profiles/categories/update', data: {
-      'categories': [id]
-    });
-  }
+  static Future patchCategoriaUsuario(String id) async =>
+      await getConexaoPrefs().patch('profiles/categories/update', data: {
+        'categories': [id]
+      });
 
-  static Future patchCategoriaTime(String id) async {
-    await getConexaoPrefs().patch('profilesTeam/categories/update', data: {
-      'categories': [id]
-    });
-  }
+  static Future patchCategoriaTime(String id) async =>
+      await getConexaoPrefs().patch('profilesTeam/categories/update', data: {
+        'categories': [id]
+      });
 
   static Future getFeed() async => await getConexaoPrefs().get('feed');
 
@@ -123,9 +121,8 @@ class Endpoint {
 
   static Future getOportunidade(String id) async => await getConexaoPrefs().get('opportunities/$id');
 
-  static Future patchHitOportunidade(String id, Map data) async {
-    await getConexaoPrefs().patch('opportunities/hit/$id', data: data);
-  }
+  static Future patchHitOportunidade(String id, Map data) async =>
+      await getConexaoPrefs().patch('opportunities/hit/$id', data: data);
 
   static Future putImagem(String image) async {
     FormData formData = FormData.fromMap({"file": await MultipartFile.fromFile(image)});
@@ -159,13 +156,9 @@ class Endpoint {
     return await getConexaoPrefs().post('posts', data: formData);
   }
 
-  static Future putHitPosts(String id) async {
-    return await getConexaoPrefs().post('posts/$id');
-  }
+  static Future putHitPosts(String id) async => await getConexaoPrefs().post('posts/$id');
 
-  static Future deletePost(String id) async {
-    return await getConexaoPrefs().delete('posts/$id');
-  }
+  static Future deletePost(String id) async => await getConexaoPrefs().delete('posts/$id');
 
   static Future makePayment(String pm, String priceId) async {
     var data = {"price": priceId, "paymentMethodId": pm};

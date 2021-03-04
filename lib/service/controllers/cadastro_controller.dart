@@ -20,4 +20,19 @@ class CadastroController {
       throw e;
     }
   }
+
+  Future<Map> verificaUsuario(String usuario) async {
+    try {
+      Response resp = await Endpoint.getExistsUsername(usuario);
+      print(resp);
+      return resp.data;
+    } on DioError catch (e) {
+      if (e.response != null)
+        throw e.response.data['message'];
+      else
+        throw 'Check your connection.';
+    } catch (e) {
+      throw e;
+    }
+  }
 }

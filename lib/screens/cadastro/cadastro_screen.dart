@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/utils/keys.dart';
@@ -21,9 +23,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final _userTypeFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _passwordConfirmedFocusNode = FocusNode();
+  final _usernameController = TextEditingController();
   CadastroStore _cadastroStore;
   String _currentSelectedGender;
   String _currentSelectedUserType;
+  bool _existsUsername = false;
+  Timer _debounce;
 
   var _userType = [
     'Talent or Fan',
@@ -55,7 +60,26 @@ class _CadastroScreenState extends State<CadastroScreen> {
     _userTypeFocusNode.dispose();
     _passwordFocusNode.dispose();
     _passwordConfirmedFocusNode.dispose();
+    _debounce?.cancel();
     super.dispose();
+  }
+
+  void _onSearchChanged(String value) {
+    if (_debounce?.isActive ?? false) _debounce.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      if (_usernameController.text != null || _usernameController.text.isNotEmpty)
+        checkUser(_usernameController.text).then((response) {
+          if (response['isUserExist']) {
+            setState(() {
+              _existsUsername = true;
+            });
+          } else {
+            setState(() {
+              _existsUsername = false;
+            });
+          }
+        });
+    });
   }
 
   Future<void> _saveForm() async {
@@ -84,6 +108,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
       },
     );
   }
+
+  Future<Map> checkUser(String username) async => await _cadastroStore.checkUser(username);
 
   @override
   Widget build(BuildContext context) {
@@ -243,11 +269,13 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         child: Container(
                           height: 60,
                           child: TextFormField(
+                            controller: _usernameController,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             key: Key(Keys.registerScreen.usernameFormRegister),
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Choose one';
-                              }
+                              } else if (_existsUsername) return 'This username is already exists.';
                               return null;
                             },
                             style: TextStyle(
@@ -296,6 +324,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             onFieldSubmitted: (_) {
                               FocusScope.of(context).requestFocus(_usernameFocusNode);
                             },
+                            onChanged: (value) => _onSearchChanged(value),
                             onSaved: (value) => _cadastroUsuario.username = value,
                           ),
                         ),

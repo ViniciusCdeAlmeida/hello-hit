@@ -64,4 +64,14 @@ abstract class _CadastroStore with Store {
       throw e;
     }
   }
+
+  Future<Map> checkUser(String usuario) async {
+    try {
+      return await _cadastroController.verificaUsuario(usuario).catchError((error) {
+        throw error;
+      });
+    } catch (e) {
+      throw e;
+    }
+  }
 }
