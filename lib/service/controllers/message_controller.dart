@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
@@ -6,11 +7,8 @@ import 'package:hellohit/utils/endpoint.dart';
 class MessageController {
   Future<List<Message>> getMessages() async {
     try {
-      Response res =
-          await Endpoint.getMessages().timeout(Duration(seconds: 40));
-      return res.data
-          .map<Message>((content) => Message.fromJson(content))
-          .toList() as List<Message>;
+      Response res = await Endpoint.getMessages().timeout(Duration(seconds: 40));
+      return res.data.map<Message>((content) => Message.fromJson(content)).toList() as List<Message>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];

@@ -4,7 +4,7 @@ import 'package:flutter_stripe_payment/flutter_stripe_payment.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/service/controllers/index_controllers.dart';
-import 'package:hellohit/utils/endpoint.dart';
+// import 'package:hellohit/utils/endpoint.dart';
 // import 'package:stripe_sdk/stripe_sdk.dart';
 // import 'package:stripe_sdk/stripe_sdk_ui.dart';
 
@@ -19,7 +19,6 @@ class TelaPagamentoTimeScreen extends StatefulWidget {
 
 class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
   final GlobalKey<FormState> _formKeyPagamentoTime = GlobalKey();
-  String _paymentMethodId;
   String cartao;
   String mes;
   String ano;
@@ -27,13 +26,11 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
   String postal;
   // Token _paymentToken;
   // PaymentMethod _paymentMethod;
-
-  PagamentoController _pagamentoController;
   final _stripePayment = FlutterStripePayment();
 
   @override
   void didChangeDependencies() {
-    _pagamentoController = Provider.of<PagamentoController>(context, listen: false);
+    // _pagamentoController = Provider.of<PagamentoController>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -283,7 +280,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                             //     child: Padding(
                             //       padding: const EdgeInsets.all(10.0),
                             //       child: TextFormField(
-                            //         maxLengthEnforced: true,
+                            //         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                             //         maxLength: 16,
                             //         maxLines: 1,
                             //         keyboardType: TextInputType.numberWithOptions(
@@ -311,7 +308,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                             //     child: Padding(
                             //       padding: const EdgeInsets.all(10.0),
                             //       child: TextFormField(
-                            //         maxLengthEnforced: true,
+                            //         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                             //         maxLength: 30,
                             //         maxLines: 1,
                             //         textAlignVertical: TextAlignVertical.center,
@@ -335,7 +332,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                             //     child: Padding(
                             //       padding: const EdgeInsets.all(10.0),
                             //       child: TextFormField(
-                            //         maxLengthEnforced: true,
+                            //         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                             //         maxLength: 30,
                             //         maxLines: 1,
                             //         textAlignVertical: TextAlignVertical.center,
@@ -359,7 +356,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                             //     child: Padding(
                             //       padding: const EdgeInsets.all(10.0),
                             //       child: TextFormField(
-                            //         maxLengthEnforced: true,
+                            //         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                             //         maxLength: 30,
                             //         maxLines: 1,
                             //         keyboardType: TextInputType.numberWithOptions(
@@ -387,7 +384,7 @@ class _TelaPagamentoTimeScreenState extends State<TelaPagamentoTimeScreen> {
                             //     child: Padding(
                             //       padding: const EdgeInsets.all(10.0),
                             //       child: TextFormField(
-                            //         maxLengthEnforced: true,
+                            //         maxLengthEnforcement: MaxLengthEnforcement.enforced,
                             //         maxLength: 4,
                             //         maxLines: 1,
                             //         keyboardType: TextInputType.numberWithOptions(

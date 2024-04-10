@@ -13,6 +13,7 @@ class TimeScreen extends StatefulWidget {
 
 class _TimeScreenState extends State<TimeScreen> {
   TimeStore _timeStore;
+  // ignore: unused_field
   AutenticacaoStore _autenticacaoStore;
   ScrollController scrollController = ScrollController();
 

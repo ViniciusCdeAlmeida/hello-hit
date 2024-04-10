@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:hellohit/models/profile_model.dart';
-import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
-import 'package:hellohit/service/controllers/chat_controller.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/chat_store.dart';
-import 'package:hellohit/service/stores/profile_store.dart';
 import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/profile_usuario_edicao_screen.dart';
+import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:hellohit/utils/keys.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
-import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 class ProfileUsuarioItem extends StatefulWidget {
   final Profile usuario;
@@ -343,7 +339,7 @@ class _ProfileUsuarioItemState extends State<ProfileUsuarioItem> with SingleTick
         //                           AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
         //                       // backgroundImage: NetworkImage(memberProfile.avatar['url']
         //                       //     .toString()
-        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+        //                       //     .replaceAll(RegExp(r'localhost'), '192.168.15.14')
         //                       //     .toString()),
         //                     ),
         //                     Text(

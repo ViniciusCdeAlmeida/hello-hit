@@ -16,11 +16,8 @@ class ComentarioPostController {
 
   Future<List<Comentario>> getAllComentariosPost(String id) async {
     try {
-      Response res =
-          await Endpoint.getComentariosPost(id).timeout(Duration(seconds: 40));
-      return res.data
-          .map<Comentario>((content) => Comentario.fromJson(content))
-          .toList() as List<Comentario>;
+      Response res = await Endpoint.getComentariosPost(id).timeout(Duration(seconds: 40));
+      return res.data.map<Comentario>((content) => Comentario.fromJson(content)).toList() as List<Comentario>;
     } on DioError catch (e) {
       if (e.response != null)
         throw e.response.data['message'];

@@ -13,8 +13,7 @@ class OportunidadeScreen extends StatefulWidget {
 }
 
 class _OportunidadeScreenState extends State<OportunidadeScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldMarketKey =
-      new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldMarketKey = new GlobalKey<ScaffoldState>();
   MarketplaceStore _marketplaceStore;
   AutenticacaoStore _autenticacaoStore;
   String id;
@@ -36,6 +35,7 @@ class _OportunidadeScreenState extends State<OportunidadeScreen> {
       key: _scaffoldMarketKey,
       // ignore: missing_return
       body: Observer(
+        // ignore: missing_return
         builder: (_) {
           switch (_marketplaceStore.marketplaceState) {
             case MarketplaceState.inicial:

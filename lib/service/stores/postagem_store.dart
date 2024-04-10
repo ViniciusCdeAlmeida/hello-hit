@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:hellohit/models/index_models.dart';
@@ -118,14 +117,15 @@ abstract class _PostagemStore with Store {
   Future<Post> buscaPostagem(String id) async {
     try {
       _postagemFuture = ObservableFuture(
-        // ignore: missing_return
-        _postagemController.getPost(id).then((value) async {
-          _postagemImageEdit = await DefaultCacheManager().getSingleFile(
-            value.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.159.130').toString(),
+          // ignore: missing_return
+          _postagemController.getPost(id)
+          // .then((value) async {
+          //   _postagemImageEdit = await DefaultCacheManager().getSingleFile(
+          //     value.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.14').toString(),
+          //   );
+          //   return value;
+          // }),
           );
-          return value;
-        }),
-      );
       _postagem = await _postagemFuture;
       _postagem.file = _postagemImageEdit.path;
     } catch (e) {

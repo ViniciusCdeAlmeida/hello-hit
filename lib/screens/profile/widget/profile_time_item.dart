@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hellohit/models/post_model.dart';
-import 'package:hellohit/screens/chat/chat_screen.dart';
-import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
-import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
-import 'package:hellohit/service/controllers/chat_controller.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
-import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/profile_time_model.dart';
-import 'package:hellohit/service/stores/autenticacao_store.dart';
-import 'package:hellohit/service/stores/profile_store.dart';
+import 'package:hellohit/screens/chat/chat_screen.dart';
 import 'package:hellohit/screens/profile/profile_time_edicao_screen.dart';
-import 'package:hellohit/screens/profile/widget/profile_skill_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_fan_item.dart';
 import 'package:hellohit/screens/profile/widget/profile_time_oportunidades_item.dart';
+import 'package:hellohit/screens/profile/widget/profile_usuario_parente_item.dart';
+import 'package:hellohit/service/stores/index_stores.dart';
+import 'package:hellohit/utils/keys.dart';
 import 'package:hellohit/widgets/lista_icones.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 class ProfileTimeItem extends StatefulWidget {
   ProfileTime usuario;
@@ -99,7 +93,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                           : Image.network(
                               widget.usuario.user.avatarUrl
                                   .toString()
-                                  .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                  .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                   .toString(),
                               height: 120,
                               width: 130,
@@ -421,7 +415,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                                     AssetImage('assets/images/procurar_talentos_assets/icone_padrao_oportunidade.png'),
                                 // backgroundImage: NetworkImage(memberProfile.avatar['url']
                                 //     .toString()
-                                //     .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                //     .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                 //     .toString()),
                               ),
                             if (award.awardName != null)
@@ -489,7 +483,7 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
                         backgroundColor: Colors.transparent,
                         backgroundImage: NetworkImage(memberProfile.avatar['url']
                             .toString()
-                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                            .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                             .toString()),
                       )),
                 )
@@ -542,9 +536,6 @@ class _ProfileTimeItemState extends State<ProfileTimeItem> with SingleTickerProv
         TabBar(
           controller: _tabController,
           tabs: [
-            // Tab(
-            //   icon: const Icon(Icons.apps),
-            // ),
             Tab(
               key: Key(Keys.profileTeam.myPostsTabProfileTeamScreen),
               icon: const Icon(Icons.format_list_bulleted),

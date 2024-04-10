@@ -18,7 +18,6 @@ Future<void> feedPage() async {
   final passField = find.byValueKey(Keys.loginScreen.passwordFormScreen);
   final loginButton = find.byValueKey(Keys.loginScreen.loginButtonLoginScreen);
   final actionButton = find.byValueKey(Keys.feedScreen.actionsFeedScreen);
-  final deleteOkPost = find.byValueKey(Keys.feedScreen.deleteOkPostFeedScreen);
   final deleteCancelPost = find.byValueKey(Keys.feedScreen.deleteCancelPostFeedScreen);
   final deletePost = find.byValueKey(Keys.feedScreen.deletePostFeedScreen);
 

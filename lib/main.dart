@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hellohit/screens/camera.dart';
 
 import 'package:provider/provider.dart';
 import 'package:hellohit/screens/splash/base_screen.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
           errorColor: const Color(0xFF7A1C02),
           fontFamily: 'Lato',
         ),
-        home: BaseScreen(),
+        home: CameraExampleHome(),
         routes: rotas(),
       ),
     );

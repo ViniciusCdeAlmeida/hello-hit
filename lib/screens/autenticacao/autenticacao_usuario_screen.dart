@@ -15,7 +15,6 @@ class AutenticacaoUsuarioScreen extends StatefulWidget {
 
 class _AutenticacaoUsuarioScreenState extends State<AutenticacaoUsuarioScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  final _passwordController = TextEditingController();
   AutenticacaoStore _autenticacaoStore;
 
   var _loginData = Autenticacao(

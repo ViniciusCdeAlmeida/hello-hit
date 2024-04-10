@@ -36,7 +36,7 @@ dependencies:
   provider:
   intl: 
   http: 
-  dio: 
+  dio: ^3.0.10
   google_place: 
   image_picker: 
   flutter_google_places:  
@@ -62,6 +62,9 @@ dependencies:
   material_tag_editor: ^0.0.6
   environment_config: ^2.2.5
   flutter_dotenv: ^3.1.0
+  shared_preferences: ^0.5.12
+  camera: ^0.7.0+2
+  video_player: ^1.0.1
 
 dev_dependencies:
   flutter_test:

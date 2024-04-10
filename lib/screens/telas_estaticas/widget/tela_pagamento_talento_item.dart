@@ -84,10 +84,7 @@ class _TelaPagamentoTalentoState extends State<TelaPagamentoTalento> {
                                       child: ClipRRect(
                                         child: Image.asset(
                                           'assets/images/procurar_talentos_intro_assets/icone1.png',
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              10,
+                                          width: MediaQuery.of(context).size.width / 10,
                                           fit: BoxFit.fitWidth,
                                         ),
                                       ),
@@ -102,30 +99,24 @@ class _TelaPagamentoTalentoState extends State<TelaPagamentoTalento> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('ARTS TALENTS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('SPORTS TALENTS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('EDUCATIONAL INSTITUTIONS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('SPORTS TEAMS'),
                                       ),
                                     ],
@@ -138,30 +129,24 @@ class _TelaPagamentoTalentoState extends State<TelaPagamentoTalento> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('BRANDS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('COMPANIES'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('EDUCATIONAL INSTITUTIONS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('SPORTS TEAMS'),
                                       ),
                                     ],
@@ -174,25 +159,20 @@ class _TelaPagamentoTalentoState extends State<TelaPagamentoTalento> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('JOBS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('SPONSORSHIPS'),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
+                                        padding: const EdgeInsets.only(bottom: 8.0),
                                         child: Text('SCHOLLARSHIPS'),
                                       ),
                                       Text('SPORTS TEAMS'),

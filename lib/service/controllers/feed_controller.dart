@@ -36,12 +36,12 @@ class FeedController {
     try {
       Response res;
       if (paginaBookmarkAtual == 0 || newSearch) {
-        res = await Endpoint.getPostsBookmark(paginaBookmarkInicial, 4, id).timeout(Duration(seconds: 40));
+        res = await Endpoint.getPostsBookmark(paginaBookmarkInicial, 1000, id).timeout(Duration(seconds: 40));
         paginaBookmarkAtual = res.data['currentPage'];
         paginaBookmarkTotal = res.data['totalPages'];
         paginaBookmarkAtual = paginaBookmarkAtual + 1;
       } else if (paginaBookmarkAtual <= paginaBookmarkTotal) {
-        res = await Endpoint.getPostsBookmark(paginaBookmarkInicial, 4, id);
+        res = await Endpoint.getPostsBookmark(paginaBookmarkInicial, 1000, id);
         paginaBookmarkTotal = res.data['totalPages'];
         paginaBookmarkAtual = paginaBookmarkAtual + 1;
       }

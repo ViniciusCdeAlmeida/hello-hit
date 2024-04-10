@@ -105,7 +105,7 @@ class _ConversasScreenState extends State<ConversasScreen> {
                                             .receiver
                                             .avatar['url']
                                             .toString()
-                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                             .toString(),
                                       ),
                               ),
@@ -129,7 +129,7 @@ class _ConversasScreenState extends State<ConversasScreen> {
                                             .sender
                                             .avatar['url']
                                             .toString()
-                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                             .toString(),
                                       ),
                               ),

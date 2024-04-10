@@ -1,5 +1,7 @@
-import 'package:dio/dio.dart';
 import 'dart:async';
+
+import 'package:dio/dio.dart';
+
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
 

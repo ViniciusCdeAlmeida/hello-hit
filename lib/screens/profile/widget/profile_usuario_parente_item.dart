@@ -24,7 +24,7 @@ class UsuarioParente extends StatelessWidget {
             const Radius.circular(3),
           ),
           child: Image.network(
-            post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.159.130').toString(),
+            post.file['url'].toString().replaceAll(RegExp(r'localhost'), '192.168.15.14').toString(),
             height: 10,
             cacheHeight: 500,
             cacheWidth: 500,

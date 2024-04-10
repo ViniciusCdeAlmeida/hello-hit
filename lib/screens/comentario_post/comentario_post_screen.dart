@@ -17,11 +17,9 @@ class ComentarioPostScreen extends StatefulWidget {
 class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
   ComentarioPostStore _comentarioStore;
   AutenticacaoStore _autenticacaoStore;
-  PostStore _postStore;
 
   String idArgs;
   List<Comentario> _comentarios;
-  Post _post;
 
   var _comentario = Comentario(
     text: '',
@@ -129,6 +127,7 @@ class _ComentarioPostScreenState extends State<ComentarioPostScreen> {
             child: ListView(
               children: [
                 Observer(
+                  // ignore: missing_return
                   builder: (_) {
                     switch (_autenticacaoStore.autenticacaoState) {
                       case AutenticacaoState.inicial:

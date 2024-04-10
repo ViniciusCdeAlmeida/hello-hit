@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/utils/keys.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/index_models.dart';
-import 'package:hellohit/screens/index_screens.dart';
 import 'package:hellohit/service/stores/index_stores.dart';
 import 'package:hellohit/widgets/custom_drawer.dart';
 import 'package:hellohit/widgets/post_card.dart';
@@ -91,7 +89,10 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                                     post: _feedStore.feedBookmark[idx],
                                   ),
                                 ),
-                                Divider(),
+                                if ((idx + 1) != _feedStore.feedBookmark.length)
+                                  Divider(
+                                    color: Colors.blue,
+                                  ),
                               ],
                             ),
                           ),

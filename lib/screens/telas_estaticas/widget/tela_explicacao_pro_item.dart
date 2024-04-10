@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hellohit/models/produtos_pagamento_model.dart';
 import 'package:hellohit/service/stores/pagamento_store.dart';
-import 'package:hellohit/screens/telas_estaticas/widget/tela_pagamento_pro_item.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -166,8 +165,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                           child: Column(
                             children: [
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                padding: const EdgeInsets.symmetric(vertical: 20.0),
                                 child: Text(
                                   'Player',
                                   textAlign: TextAlign.center,
@@ -179,8 +177,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 00.0),
+                                padding: const EdgeInsets.symmetric(vertical: 00.0),
                                 child: Text(
                                   'FREE',
                                   textAlign: TextAlign.center,
@@ -192,8 +189,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                padding: const EdgeInsets.symmetric(vertical: 20.0),
                                 child: Text(
                                   'Always free. Must be invited.',
                                   textAlign: TextAlign.center,
@@ -273,8 +269,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                               ),
                               FadeDivider(),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                padding: const EdgeInsets.symmetric(vertical: 20.0),
                                 child: Text(
                                   'You\'re a prospect waiting for an invitation.',
                                   textAlign: TextAlign.center,
@@ -308,17 +303,13 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         ClipRRect(
                                           child: Image.asset(
                                             'assets/images/logos/logo_hello.png',
                                             fit: BoxFit.cover,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
-                                                3,
+                                            width: MediaQuery.of(context).size.width / 3,
                                           ),
                                         ),
                                         // Container(
@@ -372,20 +363,16 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 20.0, horizontal: 10.0),
+                                      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text(
                                             'Billed Monthly',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: !isSwitched
-                                                  ? Colors.black
-                                                  : Colors.grey,
+                                              color: !isSwitched ? Colors.black : Colors.grey,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -394,16 +381,10 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                             onChanged: (value) {
                                               setState(() {
                                                 if (value) {
-                                                  _valor = oCcy.format(
-                                                      _produtos[0]
-                                                          .prices[0]
-                                                          .amount);
+                                                  _valor = oCcy.format(_produtos[0].prices[0].amount);
                                                   idx = 0;
                                                 } else {
-                                                  _valor = oCcy.format(
-                                                      _produtos[0]
-                                                          .prices[1]
-                                                          .amount);
+                                                  _valor = oCcy.format(_produtos[0].prices[1].amount);
                                                   idx = 1;
                                                 }
                                                 isSwitched = value;
@@ -415,9 +396,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 18,
-                                              color: isSwitched
-                                                  ? Colors.black
-                                                  : Colors.grey,
+                                              color: isSwitched ? Colors.black : Colors.grey,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -476,9 +455,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                       corIcon: Colors.black,
                                     ),
                                     SizedBox(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              20,
+                                      height: MediaQuery.of(context).size.height / 20,
                                     ),
                                     FadeDivider(),
                                     RichText(
@@ -486,9 +463,7 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                         children: [
                                           TextSpan(
                                             text: 'Don\'t have an invite? ',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16),
+                                            style: TextStyle(color: Colors.black, fontSize: 16),
                                           ),
                                           TextSpan(
                                             text: 'Skip the wait.',
@@ -503,44 +478,27 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                     Observer(
                                       builder: (_) => _pagamentoStore.pagando
                                           ? Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15.0),
+                                              padding: const EdgeInsets.symmetric(vertical: 15.0),
                                               child: Center(
-                                                child:
-                                                    CircularProgressIndicator(),
+                                                child: CircularProgressIndicator(),
                                               ),
                                             )
                                           : Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15.0),
+                                              padding: const EdgeInsets.symmetric(vertical: 15.0),
                                               child: RaisedButton(
-                                                onPressed: () => pagar(
-                                                    _produtos[0]
-                                                        .prices[idx]
-                                                        .id),
+                                                onPressed: () => pagar(_produtos[0].prices[idx].id),
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
+                                                  borderRadius: BorderRadius.circular(5.0),
                                                 ),
                                                 padding: EdgeInsets.all(0.0),
                                                 child: Ink(
                                                   decoration: BoxDecoration(
                                                     gradient: LinearGradient(
-                                                      colors: [
-                                                        Color(0xff374ABE),
-                                                        Color(0xff64B6FF)
-                                                      ],
-                                                      begin:
-                                                          Alignment.centerLeft,
-                                                      end:
-                                                          Alignment.centerRight,
+                                                      colors: [Color(0xff374ABE), Color(0xff64B6FF)],
+                                                      begin: Alignment.centerLeft,
+                                                      end: Alignment.centerRight,
                                                     ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
+                                                    borderRadius: BorderRadius.circular(5.0),
                                                   ),
                                                   child: Container(
                                                     constraints: BoxConstraints(
@@ -550,12 +508,10 @@ class _TelaExplicacaoProItemState extends State<TelaExplicacaoProItem> {
                                                     alignment: Alignment.center,
                                                     child: Text(
                                                       "Go Pro",
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
+                                                        fontWeight: FontWeight.bold,
                                                         fontSize: 20,
                                                       ),
                                                     ),

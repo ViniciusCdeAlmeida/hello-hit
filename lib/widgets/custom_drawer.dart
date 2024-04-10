@@ -93,7 +93,7 @@ class _CustomDrawerState extends State<CustomDrawer> with TickerProviderStateMix
                                   ? NetworkImage(
                                       widget.usuario.avatar
                                           .toString()
-                                          .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                          .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                           .toString(),
                                     )
                                   : AssetImage(

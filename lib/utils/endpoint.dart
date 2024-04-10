@@ -2,11 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 import 'package:hellohit/models/index_models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 String _token;
 
-void getToken(String token) {
-  _token = token;
+Future<void> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('token');
+}
+
+Future<void> setToken(String token) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', token);
+  _token = prefs.getString('token');
 }
 
 Dio getConexaoPrefs() {
@@ -35,11 +43,11 @@ class Endpoint {
   static Future getUsuariosById(String id) async => await getConexaoPrefs().get('users/$id');
 
   static Future postComentarioPost(String id, Comentario comentario) async {
-    FormData formData = FormData.fromMap(
-      {
-        "text": comentario.text,
-      },
-    );
+    // FormData formData = FormData.fromMap(
+    //   {
+    //     "text": comentario.text,
+    //   },
+    // );
     return await getConexaoPrefs().post('posts/$id/comments', data: comentario);
   }
 

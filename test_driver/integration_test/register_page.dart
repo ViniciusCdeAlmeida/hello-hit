@@ -22,9 +22,6 @@ Future<void> registerPage() async {
   final registerButton = find.byValueKey(Keys.loginScreen.registerLoginButtonLoginScreen);
 
   final introScreen = find.byValueKey(Keys.introScreen);
-  final emailLogin = find.byValueKey(Keys.loginScreen.emailFormScreen);
-  final passLogin = find.byValueKey(Keys.loginScreen.passwordFormScreen);
-  final loginButton = find.byValueKey(Keys.loginScreen.loginButtonLoginScreen);
 
   setUpAll(() async {
     driver = await FlutterDriver.connect();

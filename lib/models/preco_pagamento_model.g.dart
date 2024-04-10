@@ -13,7 +13,6 @@ PrecoPagamento _$PrecoPagamentoFromJson(Map<String, dynamic> json) {
     object: json['object'] as String,
     name: json['name'] as String,
     amount: json['amount'] as int,
-    amount_decimal: json['amount_decimal'] as String,
     product: json['product'] as String,
     quantidade: json['quantidade'] as String,
   );
@@ -26,7 +25,6 @@ Map<String, dynamic> _$PrecoPagamentoToJson(PrecoPagamento instance) =>
       'object': instance.object,
       'name': instance.name,
       'amount': instance.amount,
-      'amount_decimal': instance.amount_decimal,
       'product': instance.product,
       'quantidade': instance.quantidade,
     };

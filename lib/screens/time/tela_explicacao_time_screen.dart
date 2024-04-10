@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/models/index_models.dart';
-import 'package:hellohit/screens/time/tela_pagamento_time_screen.dart';
 import 'package:hellohit/service/stores/index_stores.dart';
 
 class TelaExplicacaoTimeScreen extends StatefulWidget {

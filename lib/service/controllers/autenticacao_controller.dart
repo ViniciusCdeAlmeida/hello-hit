@@ -1,10 +1,13 @@
 import 'dart:async';
+
 import 'package:dio/dio.dart';
 
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/utils/endpoint.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AutenticacaoController {
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   Future<Usuario> autenticacaoUsuario(Autenticacao usuario) async {
     try {
       Response res = await Endpoint.postAutenticacaoUsuario(usuario).timeout(Duration(seconds: 40));
@@ -19,7 +22,7 @@ class AutenticacaoController {
         var t = (res.data['profile']['categories'] as List).first;
         usuarioRecebido.categoria = await _getCategoria(t);
       }
-      getToken(usuarioRecebido.token);
+      await setToken(usuarioRecebido.token);
       return usuarioRecebido;
     } on DioError catch (e) {
       if (e.response != null)

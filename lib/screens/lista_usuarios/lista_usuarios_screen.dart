@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:hellohit/service/controllers/chat_controller.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 import 'package:hellohit/models/index_models.dart';
 import 'package:hellohit/screens/index_screens.dart';
@@ -64,7 +61,7 @@ class _ListaUsuariosState extends State<ListaUsuarios> {
                                         _usuarios[idx]
                                             .avatar['url']
                                             .toString()
-                                            .replaceAll(RegExp(r'localhost'), '192.168.159.130')
+                                            .replaceAll(RegExp(r'localhost'), '192.168.15.14')
                                             .toString(),
                                       ),
                               ),

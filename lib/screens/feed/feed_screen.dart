@@ -199,7 +199,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       post: _feedStore.feed[idx],
                                     ),
                                   ),
-                                  Divider(),
+                                  if ((idx + 1) != _feedStore.feed.length) Divider(),
                                 ],
                               ),
                             ),

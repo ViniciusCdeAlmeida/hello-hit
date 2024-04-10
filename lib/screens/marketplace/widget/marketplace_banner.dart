@@ -19,8 +19,7 @@ class MarketplaceBanner extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage(
-                'assets/images/oportunidades_assets/box_encontrar_oportunidades.png'),
+            image: AssetImage('assets/images/oportunidades_assets/box_encontrar_oportunidades.png'),
           ),
         ),
         width: deviceSize.width,

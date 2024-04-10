@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:hellohit/service/stores/postagem_store.dart';
@@ -7,8 +8,7 @@ import 'package:hellohit/screens/postagem/postagem_conclusao_screen.dart';
 class PostagemComentarioScreen extends StatefulWidget {
   static const routeName = '/postagemComentarioScreen';
   @override
-  _PostagemComentarioScreenState createState() =>
-      _PostagemComentarioScreenState();
+  _PostagemComentarioScreenState createState() => _PostagemComentarioScreenState();
 }
 
 class _PostagemComentarioScreenState extends State<PostagemComentarioScreen> {
